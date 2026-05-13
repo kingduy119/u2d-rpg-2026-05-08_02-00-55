@@ -7,9 +7,15 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public Rigidbody2D rb;
     public Animator anim;
+    public Joystick joystick;
 
     public bool isKnockedBack = false;
 
+    float moveX;
+    float moveY;
+
+    float joystickX = 0f;
+    float joystickY = 0f;
     // void Start()
     // {
     //     rb = GetComponent<Rigidbody2D>();
@@ -20,8 +26,18 @@ public class Player : MonoBehaviour
         if (isKnockedBack)
             return;
 
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        float keyboardX = Input.GetAxis("Horizontal");
+        float keyboardY = Input.GetAxis("Vertical");
+
+        if (joystick != null)
+        {
+            joystickX = joystick.Horizontal;
+            joystickY = joystick.Vertical;
+        }
+
+
+        moveX = Mathf.Abs(joystickX) > 0.1f ? joystickX : keyboardX;
+        moveY = Mathf.Abs(joystickY) > 0.1f ? joystickY : keyboardY;
 
         if (moveX > 0 && transform.localScale.x < 0 ||
             moveX < 0 && transform.localScale.x > 0)
