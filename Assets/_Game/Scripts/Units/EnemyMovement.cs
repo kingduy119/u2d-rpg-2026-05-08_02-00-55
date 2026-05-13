@@ -24,12 +24,17 @@ public class EnemyMovement : ObjectMovement
     void Update()
     {
         CheckForPlayer();
+        // Debug.Log($"State: {state}, Target: {(target != null ? target.name : "None")}, Attack Countdown: {attackCountdown}");
 
-        if (state == State.Chasing)
+        if (state == State.Chasing && target != null)
         {
             Chase();
         }
         else if (state == State.Attacking)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+        else
         {
             rb.linearVelocity = Vector2.zero;
         }
@@ -43,15 +48,15 @@ public class EnemyMovement : ObjectMovement
     void CheckForPlayer()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(detectionPoint.position, detectionRange, playerLayer);
+        Debug.Log($"Detected {hits.Length} player(s) within range.");
         if (hits.Length > 0)
         {
             target = hits[0].transform;
             if (Vector2.Distance(transform.position, target.position) <= attackRange && attackCountdown <= 0)
-                ChangeState(State.Attacking);
+                Attack();
             else if (Vector2.Distance(transform.position, target.position) > attackRange && state != State.Attacking)
             {
-                rb.linearVelocity = Vector2.zero;
-                ChangeState(State.Chasing);
+                Chase();
             }
             else
             {
@@ -59,6 +64,18 @@ public class EnemyMovement : ObjectMovement
                 ChangeState(State.Idle);
             }
         }
+        else
+        {
+            target = null;
+            ChangeState(State.Idle);
+        }
+    }
+
+    void Attack()
+    {
+        rb.linearVelocity = Vector2.zero;
+        attackCountdown = attackSpeed;
+        ChangeState(State.Attacking);
     }
 
     // private void OnTriggerEnter2D(Collider2D collision)
@@ -102,8 +119,7 @@ public class EnemyMovement : ObjectMovement
         {
             Flip();
         }
-
-
+        ChangeState(State.Chasing);
     }
 
     private void OnDrawGizmosSelected()
