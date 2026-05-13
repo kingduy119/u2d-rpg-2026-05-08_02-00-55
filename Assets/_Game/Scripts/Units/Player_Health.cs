@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerHealth : MonoBehaviour
+public class Player_Health : MonoBehaviour
 {
     public float currentHealth;
     public float maxHealth;

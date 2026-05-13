@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 5f;
+    // public float speed = 5f;
     public Rigidbody2D rb;
     public Animator anim;
     public Joystick joystick;
@@ -16,10 +16,16 @@ public class Player : MonoBehaviour
 
     float joystickX = 0f;
     float joystickY = 0f;
-    // void Start()
-    // {
-    //     rb = GetComponent<Rigidbody2D>();
-    // }
+
+    public Player_Combat player_Combat;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            player_Combat.Attack();
+        }
+    }
 
     void FixedUpdate()
     {
@@ -48,7 +54,7 @@ public class Player : MonoBehaviour
         anim.SetFloat("moveX", Mathf.Abs(moveX));
         anim.SetFloat("moveY", Mathf.Abs(moveY));
 
-        rb.linearVelocity = new Vector2(moveX, moveY) * speed;
+        rb.linearVelocity = new Vector2(moveX, moveY) * StateManager.Instance.speed;
     }
 
     void Flip()

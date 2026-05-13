@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyCombat : MonoBehaviour
+public class Enemy_Combat : MonoBehaviour
 {
     public float damage = 0.2f;
     public float weaponRange;
@@ -14,7 +14,7 @@ public class EnemyCombat : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-damage);
+            collision.gameObject.GetComponent<Player_Health>().ChangeHealth(-damage);
         }
     }
 
@@ -23,7 +23,7 @@ public class EnemyCombat : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
         foreach (Collider2D player in hits)
         {
-            player.GetComponent<PlayerHealth>().ChangeHealth(-damage);
+            player.GetComponent<Player_Health>().ChangeHealth(-damage);
             player.GetComponent<Player>().KnockBack(transform, knockForce, stunTime);
         }
     }

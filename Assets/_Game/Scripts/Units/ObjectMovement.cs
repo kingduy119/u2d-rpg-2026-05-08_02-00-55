@@ -1,12 +1,21 @@
 using UnityEngine;
 using System;
 
+public enum State
+{
+    Idle,
+    Moving,
+    Chasing,
+    Attacking,
+    KnockBack,
+    Dead
+}
+
 public class ObjectMovement : MonoBehaviour
 {
     protected State state = State.Idle;
+    public float maxSpeed = 2f;
     public float moveSpeed = 2f;
-    protected float moveX;
-    protected float moveY;
 
     protected Rigidbody2D rb;
     protected Animator anim;
@@ -17,15 +26,6 @@ public class ObjectMovement : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void HandleMovement()
-    {
-        if (moveX > 0 && transform.localScale.x < 0 ||
-            moveX < 0 && transform.localScale.x > 0)
-        {
-            Flip();
-        }
-    }
-
     public void Flip()
     {
         Vector3 scale = transform.localScale;
@@ -33,7 +33,7 @@ public class ObjectMovement : MonoBehaviour
         transform.localScale = scale;
     }
 
-    protected virtual void ChangeState(State newState)
+    public void ChangeState(State newState)
     {
         if (state == State.Moving || state == State.Chasing)
             anim.SetBool("isMoving", false);
@@ -46,11 +46,3 @@ public class ObjectMovement : MonoBehaviour
     }
 }
 
-public enum State
-{
-    Idle,
-    Moving,
-    Chasing,
-    Attacking,
-    Dead
-}
