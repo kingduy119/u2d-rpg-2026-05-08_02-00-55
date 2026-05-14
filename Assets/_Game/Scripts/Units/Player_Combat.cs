@@ -3,7 +3,6 @@ using UnityEngine;
 public class Player_Combat : MonoBehaviour
 {
     public Animator animator;
-    public float attackSpeed = 1.5f;
     private float attackCountDown = 0f;
 
     public Transform attackPoint;
@@ -23,7 +22,7 @@ public class Player_Combat : MonoBehaviour
         if (attackCountDown <= 0)
         {
             animator.SetBool("isAttacking1", true);
-            attackCountDown = attackSpeed;
+            attackCountDown = StateManager.Instance.attackSpeed;
         }
     }
 

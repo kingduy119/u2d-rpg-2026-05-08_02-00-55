@@ -9,6 +9,8 @@ public class StateManager : MonoBehaviour
 
     [Header("Combat State")]
     public int damage;
+    public float attackSpeed = 1.5f;
+
     public float weaponRange;
     public float knockbackForce;
     public float knockbackTime;
