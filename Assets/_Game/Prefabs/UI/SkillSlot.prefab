@@ -272,13 +272,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab45711b1919c487a8f87db47c0ae666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillSlot
-  prerequisitesSkillSlots: []
   skillSO: {fileID: 11400000, guid: 05d10627f0eca489a875265fb28d7d41, type: 2}
   skillIcon: {fileID: 6062885152572748150}
-  currentLevel: 1
+  currentLevel: 0
   isUnlocked: 0
   levelText: {fileID: 8361717136744798584}
   skillButton: {fileID: 6276204779568604043}
+  prerequisitesSkillSlots: []
 --- !u!1 &6625297805734637134
 GameObject:
   m_ObjectHideFlags: 0

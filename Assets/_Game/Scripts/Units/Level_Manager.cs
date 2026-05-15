@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
 
 public class Level_Manager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class Level_Manager : MonoBehaviour
     public int experienceToNextLevel = 100;
 
     public Slider expSlider;
+    public TMP_Text levelText;
+
+    public static event Action<int> OnLevelUp;
 
 
     void Awake()
@@ -55,5 +60,6 @@ public class Level_Manager : MonoBehaviour
         level++;
         experience = 0;
         experienceToNextLevel += 50;
+        OnLevelUp?.Invoke(1);
     }
 }

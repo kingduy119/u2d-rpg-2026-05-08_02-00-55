@@ -7,6 +7,21 @@ public class SkillTree : MonoBehaviour
     public int availablePoints;
     public SkillSlot[] skillSlots;
 
+
+    private void OnEnable()
+    {
+        SkillSlot.OnAbilityPointSpent += HandleAbilityPointSpent;
+        SkillSlot.OnSkillMaxed += HandleSkillMaxed;
+        Level_Manager.OnLevelUp += UpdateAbilityPoints;
+    }
+
+
+    private void OnDisable()
+    {
+        SkillSlot.OnAbilityPointSpent -= HandleAbilityPointSpent;
+        SkillSlot.OnSkillMaxed -= HandleSkillMaxed;
+    }
+
     private void Start()
     {
         foreach (SkillSlot slot in skillSlots)
@@ -15,18 +30,6 @@ public class SkillTree : MonoBehaviour
         }
 
         UpdatePointsUI();
-    }
-
-    private void OnEnable()
-    {
-        SkillSlot.OnAbilityPointSpent += HandleAbilityPointSpent;
-        SkillSlot.OnSkillMaxed += HandleSkillMaxed;
-    }
-
-    private void OnDisable()
-    {
-        SkillSlot.OnAbilityPointSpent -= HandleAbilityPointSpent;
-        SkillSlot.OnSkillMaxed -= HandleSkillMaxed;
     }
 
     private void HandleAbilityPointSpent(SkillSlot slot)
@@ -44,6 +47,12 @@ public class SkillTree : MonoBehaviour
                 slot.UnLock();
             }
         }
+    }
+
+    private void UpdateAbilityPoints(int amount)
+    {
+        availablePoints += amount;
+        pointsText.text = "Points: " + availablePoints.ToString();
     }
 
     private void UpdatePointsUI()

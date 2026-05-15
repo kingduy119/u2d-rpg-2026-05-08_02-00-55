@@ -4,30 +4,37 @@ using UnityEngine.InputSystem;
 
 public class StateUI : MonoBehaviour
 {
-    public GameObject panel;
+    public GameObject statePanel;
+    public GameObject skillTreePanel;
     public GameObject[] states;
 
     void Start()
     {
         UpdateDamage();
-        panel.SetActive(false);
+        statePanel.SetActive(false);
+        skillTreePanel.SetActive(false);
     }
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.B))
-        // {
-        //     Toggle();
-        // }
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
-            Toggle();
+            ToggleStatePanel();
+        }
+        else if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            ToggleSkillTreePanel();
         }
     }
 
-    void Toggle()
+    void ToggleStatePanel()
     {
-        panel.SetActive(!panel.activeSelf);
+        statePanel.SetActive(!statePanel.activeSelf);
+    }
+
+    void ToggleSkillTreePanel()
+    {
+        skillTreePanel.SetActive(!skillTreePanel.activeSelf);
     }
 
 

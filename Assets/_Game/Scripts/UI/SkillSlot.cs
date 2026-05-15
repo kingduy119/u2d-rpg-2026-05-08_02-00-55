@@ -40,7 +40,8 @@ public class SkillSlot : MonoBehaviour
             OnAbilityPointSpent?.Invoke(this);
             UpdateUI();
         }
-        else if (currentLevel >= skillSO.maxLevel)
+
+        if (currentLevel >= skillSO.maxLevel)
         {
             OnSkillMaxed?.Invoke(this);
         }

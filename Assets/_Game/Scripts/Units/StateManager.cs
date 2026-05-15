@@ -30,4 +30,9 @@ public class StateManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+
+    public void UpdateMaxHealth(int amount)
+    {
+        maxHealth += amount;
+    }
 }
