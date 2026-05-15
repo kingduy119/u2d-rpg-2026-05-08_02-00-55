@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class StateUI : MonoBehaviour
 {
@@ -14,7 +15,11 @@ public class StateUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        // if (Input.GetKeyDown(KeyCode.B))
+        // {
+        //     Toggle();
+        // }
+        if (Keyboard.current.bKey.wasPressedThisFrame)
         {
             Toggle();
         }
