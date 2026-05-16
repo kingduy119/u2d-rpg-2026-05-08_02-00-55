@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using UnityEngine.InputSystem;
+// using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -19,30 +19,10 @@ public class Player : MonoBehaviour
     float joystickY = 0f;
 
     public Player_Combat player_Combat;
-    private PlayerInputActions inputActions;
-
-    void Awake()
-    {
-        inputActions = new PlayerInputActions();
-    }
-    void OnEnable()
-    {
-        inputActions.Player.Enable();
-    }
-
-    void OnDisable()
-    {
-        inputActions.Player.Disable();
-    }
-
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.J))
-        // {
-        //     player_Combat.Attack();
-        // }
-        if (Keyboard.current.jKey.wasPressedThisFrame)
+        if (InputController.Instance.GetKeyboard().jKey.wasPressedThisFrame)
         {
             player_Combat.Attack();
         }
@@ -53,11 +33,9 @@ public class Player : MonoBehaviour
         if (isKnockedBack)
             return;
 
-        Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
+        Vector2 moveInput = InputController.Instance.GetDirection();
         float keyboardX = moveInput.x;
         float keyboardY = moveInput.y;
-        // float keyboardX = Input.GetAxis("Horizontal");
-        // float keyboardY = Input.GetAxis("Vertical");
 
         if (joystick != null)
         {
