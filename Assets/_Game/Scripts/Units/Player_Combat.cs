@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class Player_Combat : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
     private float attackCountDown = 0f;
+    public float weaponRange = 0.5f;
 
-    public Transform attackPoint;
     public LayerMask enemyLayer;
+    public Transform attackPoint;
+    public Transform shootPoint;
 
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -53,7 +59,10 @@ public class Player_Combat : MonoBehaviour
     {
         if (attackPoint == null)
             return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, StateManager.Instance.weaponRange);
+
+
+        Gizmos.color = Color.green;
+        // Gizmos.DrawWireSphere(attackPoint.position, StateManager.Instance.weaponRange);
+        Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
     }
 }

@@ -5,12 +5,13 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    // public float speed = 5f;
+
     public Rigidbody2D rb;
-    public Animator anim;
+    public Animator anim { get; private set; }
     public Joystick joystick;
 
     public bool isKnockedBack = false;
+    public bool isShooting = false;
 
     float moveX;
     float moveY;
@@ -18,7 +19,13 @@ public class Player : MonoBehaviour
     float joystickX = 0f;
     float joystickY = 0f;
 
-    public Player_Combat player_Combat;
+    private Player_Combat player_Combat;
+
+    void Awake()
+    {
+        player_Combat = GetComponent<Player_Combat>();
+        anim = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -30,6 +37,9 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isShooting)
+            rb.linearVelocity = Vector2.zero;
+
         if (isKnockedBack)
             return;
 

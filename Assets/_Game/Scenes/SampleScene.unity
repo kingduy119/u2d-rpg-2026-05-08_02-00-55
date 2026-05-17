@@ -2335,6 +2335,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254548706}
   m_CullTransparentMesh: 1
+--- !u!1 &268007681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 268007682}
+  m_Layer: 6
+  m_Name: attackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &268007682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268007681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.591, y: -0.184, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 441694531}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &269724262
 GameObject:
   m_ObjectHideFlags: 0
@@ -3614,7 +3645,7 @@ Tilemap:
       - {fileID: -4884028467403954897, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
       - {fileID: 303109158, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
       - {fileID: -787689309, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -10, y: -4, z: 0}
@@ -3629,7 +3660,7 @@ Tilemap:
       - {fileID: -300208038, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
       - {fileID: -693785354, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
       - {fileID: 2133506284, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -11, y: 1, z: 0}
@@ -3792,9 +3823,9 @@ GameObject:
   - component: {fileID: 441694535}
   - component: {fileID: 441694534}
   - component: {fileID: 441694536}
-  - component: {fileID: 441694537}
   - component: {fileID: 441694538}
   - component: {fileID: 441694539}
+  - component: {fileID: 441694540}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3874,8 +3905,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 655408145}
   - {fileID: 47389578}
+  - {fileID: 268007682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &441694532
@@ -3958,7 +3989,7 @@ MonoBehaviour:
   anim: {fileID: 441694535}
   joystick: {fileID: 1564263248}
   isKnockedBack: 0
-  player_Combat: {fileID: 441694537}
+  player_Combat: {fileID: 0}
 --- !u!95 &441694535
 Animator:
   serializedVersion: 7
@@ -3997,23 +4028,6 @@ MonoBehaviour:
   maxHealth: 10
   healthSlider: {fileID: 2020365663}
   healthText: {fileID: 1648304159}
---- !u!114 &441694537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 441694529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61daaa1bb11a0044991f99b3f80587e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player_Combat
-  animator: {fileID: 441694535}
-  attackPoint: {fileID: 655408145}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &441694538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4042,6 +4056,25 @@ MonoBehaviour:
   arrowPrefab: {fileID: 8877493440295795710, guid: b72ec19b485c99e4da8100e1e02b14c1, type: 3}
   shootCooldown: 0.5
   shootTimer: 0
+--- !u!114 &441694540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441694529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61daaa1bb11a0044991f99b3f80587e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Combat
+  animator: {fileID: 0}
+  weaponRange: 0.5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackPoint: {fileID: 268007682}
+  shootPoint: {fileID: 47389578}
 --- !u!1 &442771437
 GameObject:
   m_ObjectHideFlags: 0
@@ -4201,7 +4234,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 441694537}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player_Combat, Assembly-CSharp
         m_MethodName: Attack
         m_Mode: 1
@@ -5957,37 +5990,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653565730}
   m_CullTransparentMesh: 1
---- !u!1 &655408144
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 655408145}
-  m_Layer: 6
-  m_Name: attack_point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &655408145
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 655408144}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.547, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 441694531}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &674946058
 PrefabInstance:
   m_ObjectHideFlags: 0
