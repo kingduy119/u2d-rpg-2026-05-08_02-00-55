@@ -21,7 +21,6 @@ public class Player_Health : MonoBehaviour
     {
         currentHealth += amount;
         healthSlider.value = currentHealth;
-        // currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         if (currentHealth <= 0)
         {
             gameObject.SetActive(false);

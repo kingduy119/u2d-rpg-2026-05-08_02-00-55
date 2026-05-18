@@ -6,7 +6,10 @@ public class ItemSO : ScriptableObject
     public string itemName;
     [TextArea] public string itemDescription;
     public Sprite itemIcon;
-    public int goldValue;
+
+    public string type;
+    public int value;
+    public int maxValue;
 
     [Header("Stats")]
     public int health;

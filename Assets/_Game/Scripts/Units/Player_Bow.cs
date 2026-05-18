@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player_Bow : MonoBehaviour
 {
@@ -8,14 +9,14 @@ public class Player_Bow : MonoBehaviour
 
     public float shootCooldown = .5f;
     public float shootTimer = 0f;
-    private Player player;
+    public Player player;
 
     Vector2 _direction;
 
-    void Awake()
-    {
-        player = GetComponent<Player>();
-    }
+    // void Awake()
+    // {
+    //     player = GetComponent<Player>();
+    // }
 
     // Update is called once per frame
     void Update()
@@ -23,24 +24,24 @@ public class Player_Bow : MonoBehaviour
         shootTimer -= Time.deltaTime;
         HandleAiming();
 
-        if (InputController.Instance.GetKeyboard().kKey.wasPressedThisFrame && shootTimer <= 0)
+        if (Keyboard.current.kKey.wasPressedThisFrame && shootTimer <= 0)
         {
             player.anim.SetBool("isShooting", true);
             player.isShooting = true;
         }
     }
 
-    void OnEnable()
-    {
-        player.anim.SetLayerWeight(0, 0);
-        player.anim.SetLayerWeight(1, 1);
-    }
+    // void OnEnable()
+    // {
+    //     player.anim.SetLayerWeight(0, 0);
+    //     player.anim.SetLayerWeight(1, 1);
+    // }
 
-    void OnDisable()
-    {
-        player.anim.SetLayerWeight(0, 1);
-        player.anim.SetLayerWeight(1, 0);
-    }
+    // void OnDisable()
+    // {
+    //     player.anim.SetLayerWeight(0, 1);
+    //     player.anim.SetLayerWeight(1, 0);
+    // }
 
     private void HandleAiming()
     {

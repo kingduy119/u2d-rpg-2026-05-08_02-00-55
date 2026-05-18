@@ -5,7 +5,7 @@ public class StateManager : MonoBehaviour
     public static StateManager Instance;
 
     [Header("Movement State")]
-    public float speed;
+    public float speed { get; set; }
 
     [Header("Combat State")]
     public int damage;
@@ -35,4 +35,10 @@ public class StateManager : MonoBehaviour
     {
         maxHealth += amount;
     }
+
+    public void UpdateHealth(int amount)
+    {
+        currentHealth += amount;
+    }
+
 }

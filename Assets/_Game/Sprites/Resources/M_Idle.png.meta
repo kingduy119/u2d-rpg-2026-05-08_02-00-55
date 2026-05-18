@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8ce9d55f04aefdb41af448d317760744
+guid: f058e86e4293dc54ea85d452bf14fc27
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6613379649801886385
-    second: Button_Disable_0
+      213: 5558420398955925738
+    second: M_Idle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
-  spriteBorder: {x: 7, y: 8, z: 7, w: 4}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -109,40 +109,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button_Disable_0
+      name: M_Idle_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 7
-        width: 52
-        height: 54
+        x: 41
+        y: 27
+        width: 53
+        height: 43
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f45e2c86f3e8834a0800000000000000
-      internalID: -6613379649801886385
+      spriteID: ae09d0037e9732d40800000000000000
+      internalID: 5558420398955925738
       vertices: []
       indices: 
       edges: []
@@ -152,7 +139,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -161,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Button_Disable_0: -6613379649801886385
+      M_Idle_0: 5558420398955925738
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

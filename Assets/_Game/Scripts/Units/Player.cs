@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
-// using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (InputController.Instance.GetKeyboard().jKey.wasPressedThisFrame)
+        if (Keyboard.current.jKey.wasPressedThisFrame)
         {
             player_Combat.Attack();
         }

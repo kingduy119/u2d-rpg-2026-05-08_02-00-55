@@ -17,7 +17,7 @@ public class StateUI : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.bKey.wasPressedThisFrame)
+        if (Keyboard.current.oKey.wasPressedThisFrame)
         {
             ToggleStatePanel();
         }

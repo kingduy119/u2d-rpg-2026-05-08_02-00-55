@@ -31,9 +31,4 @@ public class InputController : MonoBehaviour
     {
         return inputActions.Player.Move.ReadValue<Vector2>();
     }
-
-    public Keyboard GetKeyboard()
-    {
-        return Keyboard.current;
-    }
 }
