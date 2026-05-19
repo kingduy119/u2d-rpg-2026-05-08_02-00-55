@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class StateManager : MonoBehaviour
 {
     public static StateManager Instance;
 
     [Header("Movement State")]
-    public float speed { get; set; }
+    public float speed;
 
     [Header("Combat State")]
     public int damage;
@@ -20,6 +22,9 @@ public class StateManager : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
 
+    public Slider healthSlider;
+    public TMP_Text healthText;
+
     void Awake()
     {
         if (Instance == null)
@@ -31,14 +36,28 @@ public class StateManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void UpdateMaxHealth(int amount)
+    void Start()
+    {
+        currentHealth = maxHealth;
+        UpdateHealthUI();
+    }
+
+    public void UpdateMaxHealth(float amount)
     {
         maxHealth += amount;
+        UpdateHealthUI();
     }
 
-    public void UpdateHealth(int amount)
+    public void UpdateHealth(float amount)
     {
         currentHealth += amount;
+        UpdateHealthUI();
     }
 
+    public void UpdateHealthUI()
+    {
+        healthSlider.value = currentHealth;
+        healthSlider.maxValue = maxHealth;
+        healthText.text = $"{currentHealth} / {maxHealth}";
+    }
 }

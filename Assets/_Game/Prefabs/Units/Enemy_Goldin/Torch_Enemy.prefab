@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1198e02abb6073d48bba75b27a9243c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
-  damage: 0.2
+  damage: 1
   weaponRange: 0.8
   knockForce: 5
   stunTime: 1
@@ -324,7 +324,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  attackRange: 2
+  attackRange: 1.6
   attackSpeed: 1
   attackCountDown: 0
   isKnockedBack: 0

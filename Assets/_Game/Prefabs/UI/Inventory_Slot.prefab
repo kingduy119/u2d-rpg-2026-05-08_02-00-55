@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.74509805, g: 0.63529414, b: 0.53333336, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -168,7 +168,6 @@ MonoBehaviour:
   itemSO: {fileID: 0}
   quantity: 0
   itemImg: {fileID: 7134154004741890417}
-  emptyImg: {fileID: 0}
   quantityText: {fileID: 901195813884381698}
 --- !u!1 &8305656266652238134
 GameObject:

@@ -8,35 +8,62 @@ public class Loot : MonoBehaviour
     public Animator anim;
 
     public int quantity = 0;
+    private bool isPicked = false;
+    private bool canPickUp = true;
 
     public static event Action<ItemSO, int> OnItemLooted;
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        // anim = GetComponent<Animator>();
     }
 
     private void OnValidate()
     {
         if (itemSO != null)
-        {
-            spriteRenderer.sprite = itemSO.itemIcon;
-            this.name = itemSO.itemName;
-        }
+            return;
+
+        UpdateAppearance();
+    }
+
+    private void UpdateAppearance()
+    {
+        spriteRenderer.sprite = itemSO.itemIcon;
+        this.name = itemSO.itemName;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (isPicked) return;
+
+        if (collision.CompareTag("Player") && canPickUp)
         {
-            Debug.Log("item_pickup");
             anim.Play("item_pickup");
             OnItemLooted?.Invoke(itemSO, quantity);
+            canPickUp = false;
+            isPicked = true;
+            Hidden();
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            canPickUp = true;
         }
     }
 
     public void Hidden()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, .3f);
+    }
+
+    public void Initialize(ItemSO itemSO, int quantity)
+    {
+        this.itemSO = itemSO;
+        this.quantity = quantity;
+        canPickUp = false;
+        UpdateAppearance();
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public ItemSO itemSO;
     public int quantity;
@@ -15,7 +15,7 @@ public class InventorySlot : MonoBehaviour
 
     void Start()
     {
-        inventoryManager = GetComponent<InventoryManager>();
+        inventoryManager = GetComponentInParent<InventoryManager>();
     }
 
     public void OnPointerClick(PointerEventData ev)
@@ -25,6 +25,10 @@ public class InventorySlot : MonoBehaviour
             if (ev.button == PointerEventData.InputButton.Left)
             {
                 inventoryManager.UseItem(this);
+            }
+            else if (ev.button == PointerEventData.InputButton.Right)
+            {
+                inventoryManager.DropItem(this);
             }
         }
     }

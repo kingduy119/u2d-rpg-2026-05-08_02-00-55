@@ -10,6 +10,7 @@ public class ItemSO : ScriptableObject
     public string type;
     public int value;
     public int maxValue;
+    public int stackSize;
 
     [Header("Stats")]
     public int health;
