@@ -12,6 +12,9 @@ public class ItemSO : ScriptableObject
     public int maxValue;
     public int stackSize;
 
+    [Header("Shop")]
+    public int price;
+
     [Header("Stats")]
     public int health;
     public int maxHealth;

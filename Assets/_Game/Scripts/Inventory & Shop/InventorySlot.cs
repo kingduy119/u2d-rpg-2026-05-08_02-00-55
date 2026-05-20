@@ -12,10 +12,28 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     public TMP_Text quantityText;
 
     private InventoryManager inventoryManager;
+    private ShopManager shopManager;
+    private static ShopManager activeShop;
+    private bool isOpen = false;
 
     void Start()
     {
         inventoryManager = GetComponentInParent<InventoryManager>();
+    }
+
+    void OnEnable()
+    {
+        // ShopManager.OnShopStateChanged += HandleShopStateChanged;
+    }
+
+    void OnDisable()
+    {
+        // ShopManager.OnShopStateChanged -= HandleShopStateChanged;
+    }
+
+    void HandleShopStateChanged()
+    {
+        activeShop = isOpen ? shopManager : null;
     }
 
     public void OnPointerClick(PointerEventData ev)

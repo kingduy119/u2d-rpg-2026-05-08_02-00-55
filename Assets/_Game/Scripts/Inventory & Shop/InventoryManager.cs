@@ -9,6 +9,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject lootPrefab;
     public Transform player;
 
+    public int gold = 0;
+
     void Start()
     {
         foreach (var slot in itemSlots)
