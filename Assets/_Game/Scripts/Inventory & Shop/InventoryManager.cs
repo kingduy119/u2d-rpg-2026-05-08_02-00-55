@@ -100,10 +100,6 @@ public class InventoryManager : MonoBehaviour
         {
             useItem.ApplyItemEffects(slot.itemSO);
             slot.quantity--;
-            if (slot.quantity <= 0)
-            {
-                slot.itemSO = null;
-            }
             slot.UpdateUI();
         }
     }

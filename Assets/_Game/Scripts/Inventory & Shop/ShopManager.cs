@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 [System.Serializable]
@@ -12,15 +13,19 @@ public class ShopItem
 
 public class ShopManager : MonoBehaviour
 {
+    public static event Action<ShopManager, bool> OnShopStateChanged;
+
     [SerializeField] private List<ShopItem> shopItems;
     [SerializeField] private ShopSlot[] shopSlots;
 
     [SerializeField] private InventoryManager inventoryManager;
 
+    public GameObject panel;
 
     private void Start()
     {
         UpdateShopItems();
+        OnShopStateChanged?.Invoke(this, true);
     }
 
     public void UpdateShopItems()
@@ -72,6 +77,14 @@ public class ShopManager : MonoBehaviour
                 inventoryManager.gold += slot.price;
                 return;
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current.vKey.wasPressedThisFrame)
+        {
+            panel.gameObject.SetActive(!panel.gameObject.activeSelf);
         }
     }
 }
