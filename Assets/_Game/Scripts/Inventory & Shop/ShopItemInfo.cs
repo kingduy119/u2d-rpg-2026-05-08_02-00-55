@@ -16,6 +16,9 @@ public class ShopItemInfo : MonoBehaviour
     void Awake()
     {
         infoPanelRect = GetComponent<RectTransform>();
+        infoPanel.alpha = 0;
+        infoPanel.interactable = false;
+        infoPanel.blocksRaycasts = false;
     }
 
     public void ShowItemInfo(ItemSO itemSO)
@@ -29,6 +32,7 @@ public class ShopItemInfo : MonoBehaviour
     {
         infoPanel.alpha = 0;
         nameText.text = "";
+        descriptionText.text = "";
     }
 
     public void FollowMouse()
@@ -37,7 +41,7 @@ public class ShopItemInfo : MonoBehaviour
 
         Vector2 mousePosition = Mouse.current.position.ReadValue();
 
-        Vector3 offset = new Vector3(90f, -10f, 0f);
+        Vector3 offset = new Vector3(170f, -10f, 0f);
 
         infoPanelRect.position = (Vector3)mousePosition + offset;
     }

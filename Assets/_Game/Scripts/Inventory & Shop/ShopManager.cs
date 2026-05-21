@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+// using UnityEngine.InputSystem;
 
 
 [System.Serializable]
@@ -13,22 +13,21 @@ public class ShopItem
 
 public class ShopManager : MonoBehaviour
 {
-    public static event Action<ShopManager, bool> OnShopStateChanged;
+    // public static event Action<ShopManager, bool> OnShopStateChanged;
 
-    [SerializeField] private List<ShopItem> shopItems;
+    // [SerializeField] private List<ShopItem> shopItems;
     [SerializeField] private ShopSlot[] shopSlots;
 
     [SerializeField] private InventoryManager inventoryManager;
 
-    public GameObject panel;
+    // public GameObject panel;
+    // private void Start()
+    // {
+    //     // UpdateShopItems();
+    //     // OnShopStateChanged?.Invoke(this, true);
+    // }
 
-    private void Start()
-    {
-        UpdateShopItems();
-        OnShopStateChanged?.Invoke(this, true);
-    }
-
-    public void UpdateShopItems()
+    public void PopulateShop(List<ShopItem> shopItems)
     {
         for (int i = 0; i < shopItems.Count && i < shopSlots.Length; i++)
         {
@@ -42,6 +41,21 @@ public class ShopManager : MonoBehaviour
             shopSlots[i].gameObject.SetActive(false);
         }
     }
+
+    // public void UpdateShopItems()
+    // {
+    //     for (int i = 0; i < shopItems.Count && i < shopSlots.Length; i++)
+    //     {
+    //         ShopItem shopItem = shopItems[i];
+    //         shopSlots[i].Initalize(shopItem.itemSO, shopItem.price);
+    //         shopSlots[i].gameObject.SetActive(true);
+    //     }
+
+    //     for (int i = shopItems.Count; i < shopSlots.Length; i++)
+    //     {
+    //         shopSlots[i].gameObject.SetActive(false);
+    //     }
+    // }
 
     public bool HasSpaceForItem(ItemSO itemSO)
     {
@@ -80,11 +94,11 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Keyboard.current.vKey.wasPressedThisFrame)
-        {
-            panel.gameObject.SetActive(!panel.gameObject.activeSelf);
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Keyboard.current.vKey.wasPressedThisFrame)
+    //     {
+    //         panel.gameObject.SetActive(!panel.gameObject.activeSelf);
+    //     }
+    // }
 }
