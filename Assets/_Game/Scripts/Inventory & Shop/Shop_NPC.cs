@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Shop_NPC : MonoBehaviour
 {
+    public static Shop_NPC Instance;
     public Animator anim;
     public CanvasGroup shopCanvasGroup;
     private bool playerInRange = false;
@@ -68,6 +69,7 @@ public class Shop_NPC : MonoBehaviour
 
     public void OpenShopPanel()
     {
+        Instance = this;
         Time.timeScale = 0f;
         shopCanvasGroup.alpha = 1f;
         shopCanvasGroup.interactable = true;
@@ -78,6 +80,7 @@ public class Shop_NPC : MonoBehaviour
 
     public void HideShopPanel()
     {
+        Instance = null;
         Time.timeScale = 1f;
         shopCanvasGroup.alpha = 0f;
         shopCanvasGroup.interactable = false;
