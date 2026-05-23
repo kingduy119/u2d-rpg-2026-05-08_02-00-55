@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2aaf52f0b39ee4989a07e3540a6958, type: 3}
+  m_Name: npc_actor_so
+  m_EditorClassIdentifier: Assembly-CSharp::ActorSO
+  actorName: Jery
+  portrait: {fileID: -5948806968594788206, guid: a5932d079f4a245b8a14c76743e2222b, type: 3}

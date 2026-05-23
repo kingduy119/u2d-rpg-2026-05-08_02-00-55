@@ -26,6 +26,7 @@ public class Arrow : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("Enemy");
             collision.gameObject.GetComponent<Enemy_Health>().ChangeHealth(-StateManager.Instance.damage);
             collision.gameObject.GetComponent<Enemy_Knockback>().KnockBack(
                 transform,
@@ -36,12 +37,14 @@ public class Arrow : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
+            Debug.Log("Obstacle");
             AttachToTarget(collision.gameObject.transform);
         }
     }
 
     private void AttachToTarget(Transform target)
     {
+        Debug.Log("AttachToTarget");
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         // rb.bodyType = RigidbodyType2D.Dynamic;

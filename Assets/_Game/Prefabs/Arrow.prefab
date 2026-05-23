@@ -184,4 +184,3 @@ MonoBehaviour:
   lifeSpawn: 2
   speed: 5
   spriteRenderer: {fileID: 2281533952352965642}
-  buriedSprite: {fileID: 0}

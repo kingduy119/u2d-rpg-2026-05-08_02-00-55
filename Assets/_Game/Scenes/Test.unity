@@ -911,6 +911,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7135227166006513632, guid: e18363257d19141dda5f89883c020e52, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135227166006513632, guid: e18363257d19141dda5f89883c020e52, type: 3}
       propertyPath: healthText
       value: 
       objectReference: {fileID: 470154717}
@@ -941,6 +945,7 @@ GameObject:
   - component: {fileID: 270024275}
   - component: {fileID: 270024274}
   - component: {fileID: 270024273}
+  - component: {fileID: 270024278}
   m_Layer: 5
   m_Name: Dialog_Canvas
   m_TagString: Untagged
@@ -1037,9 +1042,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 320913429}
-  - {fileID: 386102116}
   - {fileID: 627132872}
   - {fileID: 744359891}
+  - {fileID: 386102116}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1047,6 +1052,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &270024278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270024272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f730e2461f82cd54885fff697c5f095d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
+  dialogueCanvasGroup: {fileID: 270024273}
+  portrait: {fileID: 285251786}
+  actorName: {fileID: 203454297}
+  dialogueText: {fileID: 733774064}
+  isDialogueActive: 0
 --- !u!4 &270272212 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9162577967913847059, guid: 06df07a9c924cc94a88fd9b521d720c2, type: 3}
@@ -1399,7 +1421,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 139.47331, y: -432}
+  m_AnchoredPosition: {x: 144.10332, y: -237.67003}
   m_SizeDelta: {x: 1001.054, y: 235.0562}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &320913430
@@ -1980,7 +2002,7 @@ Tilemap:
       - {fileID: -4884028467403954897, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
       - {fileID: 303109158, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
       - {fileID: -787689309, guid: 01531a46192edc24fb4e2b532ba4b777, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -7, y: -6, z: 0}
@@ -2240,7 +2262,7 @@ GameObject:
   - component: {fileID: 461408358}
   - component: {fileID: 461408364}
   - component: {fileID: 461408365}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pawn_npc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2310,8 +2332,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 1980060719
-  m_SortingLayer: 3
+  m_SortingLayerID: -213311955
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5948806968594788206, guid: a5932d079f4a245b8a14c76743e2222b, type: 3}
@@ -2333,7 +2355,7 @@ Transform:
   m_GameObject: {fileID: 461408357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.075, y: -3.32, z: 0}
+  m_LocalPosition: {x: 4.198, y: -3.783, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2456,6 +2478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC_Talk
   interacAnim: {fileID: 298501317}
+  dialogueSO: {fileID: 11400000, guid: 6cba75132fff0914e9868b140903e7ce, type: 2}
 --- !u!114 &461408366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,7 +3433,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000001b17029effd8ec92f540576
+  m_ApplyToSortingLayers: 0000000001b17029effd8ec92f5405762d1e49f3
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -3492,7 +3515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100.63, y: -291.33}
+  m_AnchoredPosition: {x: -96, y: -97}
   m_SizeDelta: {x: 477.2314, y: 72.2406}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &627132873
@@ -3795,7 +3818,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 146, y: -513}
+  m_AnchoredPosition: {x: 150.63, y: -318.67004}
   m_SizeDelta: {x: 939.8811, y: 78.4339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &744359892
@@ -9192,13 +9215,13 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 108898441}
+  - {fileID: 20281933}
   - {fileID: 470154716}
   - {fileID: 1846312169}
   - {fileID: 610559359}
   - {fileID: 215196683}
   - {fileID: 920966235}
-  - {fileID: 20281933}
+  - {fileID: 108898441}
   - {fileID: 619394802}
   - {fileID: 1488741817}
   - {fileID: 678565226}

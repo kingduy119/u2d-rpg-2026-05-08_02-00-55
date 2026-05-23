@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Obstacle
   - Confiner
+  - Shoot
   layers:
   - Default
   - TransparentFX
@@ -52,6 +53,9 @@ TagManager:
     locked: 0
   - name: Object
     uniqueID: 1980060719
+    locked: 0
+  - name: NPC
+    uniqueID: 4081655341
     locked: 0
   m_RenderingLayers:
   - Default
