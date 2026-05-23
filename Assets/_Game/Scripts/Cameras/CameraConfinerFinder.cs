@@ -23,7 +23,6 @@ public class CameraConfinerFinder : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
         CinemachineConfiner2D confiner = GetComponent<CinemachineConfiner2D>();
         confiner.BoundingShape2D = GameObject.FindWithTag("Confiner").GetComponent<PolygonCollider2D>();
     }

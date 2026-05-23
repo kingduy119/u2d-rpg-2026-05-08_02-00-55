@@ -3,12 +3,12 @@ using System.Collections;
 
 public class NPC_Patrol : MonoBehaviour
 {
-    public Vector2[] patrolPoints;
     public Vector2 target;
     public float speed = 2f;
     private int currentPatrolIndex = 0;
     public float pauseDuration = 1.5f;
     private bool isPaused;
+    public Vector2[] patrolPoints;
 
     private Rigidbody2D rb;
 
