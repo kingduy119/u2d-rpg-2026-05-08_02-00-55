@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     public Image portrait;
     public TMP_Text actorName;
     public TMP_Text dialogueText;
+    public Button[] optionButtons;
 
     public bool isDialogueActive;
 
@@ -25,6 +26,7 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
 
         CloseCanvas();
+        ClearOptions();
     }
 
     void Start()
@@ -34,8 +36,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueSO dialogueSO)
     {
-        currentDialogue = dialogueSO;
         dialogueIndex = 0;
+        currentDialogue = dialogueSO;
         isDialogueActive = true;
         ShowDialogure();
     }
@@ -45,12 +47,13 @@ public class DialogueManager : MonoBehaviour
         if (dialogueIndex < currentDialogue.lines.Length)
             ShowDialogure();
         else
-            EndDialogue();
+            EndOrShowOptions();
     }
 
     private void ShowDialogure()
     {
         DialogueLine line = currentDialogue.lines[dialogueIndex];
+        DialogueHistoryTracker.Instance.RecordNPC(line.speaker);
 
         portrait.sprite = line.speaker.portrait;
         actorName.text = line.speaker.actorName;
@@ -59,6 +62,45 @@ public class DialogueManager : MonoBehaviour
         dialogueIndex++;
 
         OpenCanvas();
+    }
+
+    private void EndOrShowOptions()
+    {
+        if (currentDialogue.options.Length > 0)
+        {
+            for (int i = 0; i < currentDialogue.options.Length; i++)
+            {
+                var option = currentDialogue.options[i];
+                optionButtons[i].GetComponentInChildren<TMP_Text>().text = option.optionText;
+                optionButtons[i].gameObject.SetActive(true);
+
+                optionButtons[i].onClick.AddListener(() => ChoiceOption(option.nextDialogue));
+            }
+        }
+        else
+        {
+            EndDialogue();
+        }
+    }
+
+    private void ChoiceOption(DialogueSO dialogueSO)
+    {
+        if (dialogueSO == null)
+            EndDialogue();
+        else
+        {
+            StartDialogue(dialogueSO);
+            ClearOptions();
+        }
+    }
+
+    private void ClearOptions()
+    {
+        foreach (var option in optionButtons)
+        {
+            option.gameObject.SetActive(false);
+            option.onClick.RemoveAllListeners();
+        }
     }
 
     private void EndDialogue()

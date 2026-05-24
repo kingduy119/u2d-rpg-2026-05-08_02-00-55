@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed2aaf52f0b39ee4989a07e3540a6958, type: 3}
-  m_Name: npc_actor_so
+  m_Name: tom_actor_so
   m_EditorClassIdentifier: Assembly-CSharp::ActorSO
-  actorName: Jery
+  actorName: Tom
   portrait: {fileID: -5948806968594788206, guid: a5932d079f4a245b8a14c76743e2222b, type: 3}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c55e9eabdb0b6d48ae2e53e3fd3194c, type: 3}
+  m_Name: yes_option_dialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSO
+  lines:
+  - speaker: {fileID: 11400000, guid: 54b9b1efede0e624f9a08ccc24bc5516, type: 2}
+    text: It's really awesome. Be sure to check it out.
+  - speaker: {fileID: 11400000, guid: 5dca6dec312db6e479e6330f11fe2ed7, type: 2}
+    text: Thank you, Pawn. I'll do that.
+  options: []

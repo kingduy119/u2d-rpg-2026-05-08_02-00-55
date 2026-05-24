@@ -12,9 +12,9 @@ public class NPC_Controller : MonoBehaviour
 
     void Awake()
     {
-        patrol = GetComponent<NPC_Patrol>();
-        wander = GetComponent<NPC_Wander>();
-        talk = GetComponent<NPC_Talk>();
+        // patrol = GetComponent<NPC_Patrol>();
+        // wander = GetComponent<NPC_Wander>();
+        // talk = GetComponent<NPC_Talk>();
     }
 
     void Start()
@@ -23,7 +23,6 @@ public class NPC_Controller : MonoBehaviour
         SwitchState(currentState);
     }
 
-    // Update is called once per frame
     void Update()
     {
 
