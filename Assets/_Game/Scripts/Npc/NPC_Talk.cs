@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class NPC_Talk : MonoBehaviour
 {
@@ -9,14 +9,14 @@ public class NPC_Talk : MonoBehaviour
     public Animator interacAnim;
     // public DialogueSO dialogueSO;
 
-    public List<DialogueSO> conversations;
     public DialogueSO currentConversation;
+    public List<DialogueSO> conversations;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
+        Debug.Log($"conversations: {conversations.Count}");
     }
 
     void OnEnable()
@@ -42,7 +42,6 @@ public class NPC_Talk : MonoBehaviour
             else
             {
                 CheckForNewConversation();
-                Debug.Log("currentConversation");
                 DialogueManager.Instance.StartDialogue(currentConversation);
             }
         }
@@ -50,11 +49,14 @@ public class NPC_Talk : MonoBehaviour
 
     private void CheckForNewConversation()
     {
+        Debug.Log($"CheckForNewConversation {conversations.Count}");
         for (int i = 0; i < conversations.Count; i++)
         {
             var con = conversations[i];
+            Debug.Log($"con.IsConditionMet {con.IsConditionMet()}");
             if (con != null && con.IsConditionMet())
             {
+                Debug.Log("conversations.RemoveAt");
                 conversations.RemoveAt(i);
                 currentConversation = con;
             }

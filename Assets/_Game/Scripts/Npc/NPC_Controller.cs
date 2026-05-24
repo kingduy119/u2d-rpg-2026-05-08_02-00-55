@@ -10,22 +10,10 @@ public class NPC_Controller : MonoBehaviour
     public NPC_Wander wander;
     public NPC_Talk talk;
 
-    void Awake()
-    {
-        // patrol = GetComponent<NPC_Patrol>();
-        // wander = GetComponent<NPC_Wander>();
-        // talk = GetComponent<NPC_Talk>();
-    }
-
     void Start()
     {
         previousState = currentState;
         SwitchState(currentState);
-    }
-
-    void Update()
-    {
-
     }
 
     public void SwitchState(NPCState newState)
@@ -44,6 +32,7 @@ public class NPC_Controller : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("OnTriggerEnter2D");
             SwitchState(NPCState.Talk);
         }
     }

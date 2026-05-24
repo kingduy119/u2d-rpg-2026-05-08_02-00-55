@@ -25,13 +25,14 @@ public class DialogueManager : MonoBehaviour
         else
             Destroy(gameObject);
 
+        isDialogueActive = false;
         CloseCanvas();
         ClearOptions();
     }
 
     void Start()
     {
-        ShowDialogure();
+        // ShowDialogure();
     }
 
     public void StartDialogue(DialogueSO dialogueSO)
@@ -54,6 +55,8 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = currentDialogue.lines[dialogueIndex];
         DialogueHistoryTracker.Instance.RecordNPC(line.speaker);
+
+        Debug.Log($"line.speaker: {line.speaker}");
 
         portrait.sprite = line.speaker.portrait;
         actorName.text = line.speaker.actorName;
@@ -119,6 +122,7 @@ public class DialogueManager : MonoBehaviour
 
     private void OpenCanvas()
     {
+        Debug.Log("OpenCanvas");
         dialogueCanvasGroup.alpha = 1f;
         dialogueCanvasGroup.interactable = true;
         dialogueCanvasGroup.blocksRaycasts = true;
