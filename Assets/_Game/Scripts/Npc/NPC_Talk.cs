@@ -53,8 +53,19 @@ public class NPC_Talk : MonoBehaviour
             var con = conversations[i];
             if (con != null && con.IsConditionMet())
             {
-                conversations.RemoveAt(i);
                 currentConversation = con;
+                if (con.removeAfterPlay)
+                    conversations.RemoveAt(i);
+
+                if (con.removeTheseOnPlay != null && con.removeTheseOnPlay.Count > 0)
+                {
+                    foreach (var toRemove in con.removeTheseOnPlay)
+                    {
+                        conversations.Remove(toRemove);
+                    }
+                }
+                currentConversation = con;
+                break;
             }
         }
     }

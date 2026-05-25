@@ -17,6 +17,8 @@ public class DialogueManager : MonoBehaviour
 
     private DialogueSO currentDialogue;
     private int dialogueIndex = 0;
+    private float lastDialogueEndTime;
+    private float dialogueCooldown = .1f;
 
     void Awake()
     {
@@ -30,13 +32,12 @@ public class DialogueManager : MonoBehaviour
         ClearOptions();
     }
 
-    void Start()
-    {
-        // ShowDialogure();
-    }
 
     public void StartDialogue(DialogueSO dialogueSO)
     {
+        if (Time.unscaledTime - lastDialogueEndTime < dialogueCooldown)
+            return;
+
         dialogueIndex = 0;
         currentDialogue = dialogueSO;
         isDialogueActive = true;
@@ -55,8 +56,6 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = currentDialogue.lines[dialogueIndex];
         DialogueHistoryTracker.Instance.RecordNPC(line.speaker);
-
-        Debug.Log($"line.speaker: {line.speaker}");
 
         portrait.sprite = line.speaker.portrait;
         actorName.text = line.speaker.actorName;

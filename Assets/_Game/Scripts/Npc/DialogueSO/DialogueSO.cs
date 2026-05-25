@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DialogueSO", menuName = "Dialogue/DialogueNode")]
@@ -11,6 +13,10 @@ public class DialogueSO : ScriptableObject
     public ActorSO[] requritedNPCS;
     public LocationSO[] requiredLocations;
     public ItemSO[] requiredItems;
+
+    [UnitHeaderInspectable("Control Flags")]
+    public bool removeAfterPlay;
+    public List<DialogueSO> removeTheseOnPlay;
 
 
     public bool IsConditionMet()
