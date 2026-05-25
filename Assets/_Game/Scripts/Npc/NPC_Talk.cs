@@ -16,7 +16,6 @@ public class NPC_Talk : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        Debug.Log($"conversations: {conversations.Count}");
     }
 
     void OnEnable()
@@ -49,14 +48,11 @@ public class NPC_Talk : MonoBehaviour
 
     private void CheckForNewConversation()
     {
-        Debug.Log($"CheckForNewConversation {conversations.Count}");
         for (int i = 0; i < conversations.Count; i++)
         {
             var con = conversations[i];
-            Debug.Log($"con.IsConditionMet {con.IsConditionMet()}");
             if (con != null && con.IsConditionMet())
             {
-                Debug.Log("conversations.RemoveAt");
                 conversations.RemoveAt(i);
                 currentConversation = con;
             }

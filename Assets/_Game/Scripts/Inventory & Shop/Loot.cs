@@ -13,14 +13,9 @@ public class Loot : MonoBehaviour
 
     public static event Action<ItemSO, int> OnItemLooted;
 
-    void Awake()
-    {
-        // anim = GetComponent<Animator>();
-    }
-
     private void OnValidate()
     {
-        if (itemSO != null)
+        if (itemSO == null)
             return;
 
         UpdateAppearance();
@@ -29,7 +24,7 @@ public class Loot : MonoBehaviour
     private void UpdateAppearance()
     {
         spriteRenderer.sprite = itemSO.itemIcon;
-        this.name = itemSO.itemName;
+        // this.name = itemSO.itemName;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

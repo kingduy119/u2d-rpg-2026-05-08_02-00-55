@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+
 [CreateAssetMenu(fileName = "DialogueSO", menuName = "Dialogue/DialogueNode")]
 public class DialogueSO : ScriptableObject
 {
@@ -8,6 +9,8 @@ public class DialogueSO : ScriptableObject
 
     [Header("Conditional Requirements (Optional)")]
     public ActorSO[] requritedNPCS;
+    public LocationSO[] requiredLocations;
+    public ItemSO[] requiredItems;
 
 
     public bool IsConditionMet()
@@ -21,7 +24,23 @@ public class DialogueSO : ScriptableObject
             }
         }
 
-        // TODO:
+        if (requiredLocations.Length > 0)
+        {
+            foreach (var location in requiredLocations)
+            {
+                if (!LocationHistoryTracker.Instance.HasVisited(location))
+                    return false;
+            }
+        }
+
+        if (requiredItems.Length > 0)
+        {
+            foreach (var item in requiredItems)
+            {
+                if (!InventoryManager.Instance.HasItem(item))
+                    return false;
+            }
+        }
 
         return true;
     }

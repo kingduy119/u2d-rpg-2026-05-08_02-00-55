@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 232f29b445c894ffa8dbab42470d5348, type: 3}
-  m_Name: item_mushroom_so
+  m_Name: mushroom
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Mushroom
   itemDescription: Toxic Mushroom

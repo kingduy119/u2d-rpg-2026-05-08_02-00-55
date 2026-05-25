@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance;
+
     public GameObject panel;
     public InventorySlot[] itemSlots;
     private UseItem useItem;
@@ -10,6 +12,14 @@ public class InventoryManager : MonoBehaviour
     public Transform player;
 
     public int gold = 0;
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -102,6 +112,16 @@ public class InventoryManager : MonoBehaviour
             slot.quantity--;
             slot.UpdateUI();
         }
+    }
+
+    public bool HasItem(ItemSO itemSO)
+    {
+        foreach (var slot in itemSlots)
+        {
+            if (slot.itemSO == itemSO && slot.quantity > 0)
+                return true;
+        }
+        return false;
     }
 
 }

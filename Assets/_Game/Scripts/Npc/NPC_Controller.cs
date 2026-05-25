@@ -2,18 +2,24 @@ using UnityEngine;
 
 public class NPC_Controller : MonoBehaviour
 {
-    public enum NPCState { Default, Idle, Wander, Patrol, Talk };
-    public NPCState currentState = NPCState.Patrol;
+    public enum NPCState { Idle, Wander, Patrol, Talk };
+    public NPCState currentState = NPCState.Idle;
     private NPCState previousState;
 
-    public NPC_Patrol patrol;
-    public NPC_Wander wander;
-    public NPC_Talk talk;
+    private NPC_Patrol patrol;
+    private NPC_Wander wander;
+    private NPC_Talk talk;
+
+    void Awake()
+    {
+        patrol = GetComponent<NPC_Patrol>();
+        wander = GetComponent<NPC_Wander>();
+        talk = GetComponent<NPC_Talk>();
+    }
 
     void Start()
     {
-        previousState = currentState;
-        SwitchState(currentState);
+        SwitchState(NPCState.Patrol);
     }
 
     public void SwitchState(NPCState newState)
