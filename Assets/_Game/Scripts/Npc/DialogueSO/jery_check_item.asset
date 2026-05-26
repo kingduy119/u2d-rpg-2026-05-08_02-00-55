@@ -20,3 +20,5 @@ MonoBehaviour:
   requiredLocations: []
   requiredItems:
   - {fileID: 11400000, guid: 8f9af99c7620b47feb957913314c5195, type: 2}
+  removeAfterPlay: 1
+  removeTheseOnPlay: []

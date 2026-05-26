@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
@@ -35,13 +36,18 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueSO dialogueSO)
     {
-        if (Time.unscaledTime - lastDialogueEndTime < dialogueCooldown)
-            return;
+        // if (Time.unscaledTime - lastDialogueEndTime < dialogueCooldown)
+        //     return;
 
         dialogueIndex = 0;
         currentDialogue = dialogueSO;
         isDialogueActive = true;
         ShowDialogure();
+    }
+
+    public bool CanStartDialogue()
+    {
+        return Time.unscaledTime - lastDialogueEndTime >= dialogueCooldown;
     }
 
     public void AdvanceDialogue()
@@ -83,6 +89,8 @@ public class DialogueManager : MonoBehaviour
         {
             EndDialogue();
         }
+
+        EventSystem.current.SetSelectedGameObject(optionButtons[0].gameObject);
     }
 
     private void ChoiceOption(DialogueSO dialogueSO)
@@ -110,6 +118,8 @@ public class DialogueManager : MonoBehaviour
         dialogueIndex = 0;
         isDialogueActive = false;
         CloseCanvas();
+
+        lastDialogueEndTime = Time.unscaledTime;
     }
 
     private void CloseCanvas()

@@ -40,8 +40,11 @@ public class NPC_Talk : MonoBehaviour
                 DialogueManager.Instance.AdvanceDialogue();
             else
             {
-                CheckForNewConversation();
-                DialogueManager.Instance.StartDialogue(currentConversation);
+                if (DialogueManager.Instance.CanStartDialogue())
+                {
+                    CheckForNewConversation();
+                    DialogueManager.Instance.StartDialogue(currentConversation);
+                }
             }
         }
     }
