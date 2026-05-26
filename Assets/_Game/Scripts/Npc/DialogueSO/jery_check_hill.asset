@@ -19,3 +19,6 @@ MonoBehaviour:
   requritedNPCS: []
   requiredLocations:
   - {fileID: 11400000, guid: 1547368cb9ee64ca6bcd2e11942fefdd, type: 2}
+  requiredItems: []
+  removeAfterPlay: 1
+  removeTheseOnPlay: []
