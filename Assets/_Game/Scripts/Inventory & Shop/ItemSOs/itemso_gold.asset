@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 232f29b445c894ffa8dbab42470d5348, type: 3}
-  m_Name: mushroom
+  m_Name: itemso_gold
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemName: Mushroom
+  itemName: Gold
   itemDescription: Toxic Mushroom
-  itemIcon: {fileID: 8793915729297761979, guid: b217abc047fdd324190e22165d8d10b8, type: 3}
+  itemIcon: {fileID: 21300000, guid: c327a1bed7bfee848aaa8fcc8fc049fa, type: 3}
   type: item
   value: 1
   maxValue: 3
   stackSize: 3
   price: 0
-  health: 1
+  health: 0
   maxHealth: 0
   speed: 0
   damage: 0

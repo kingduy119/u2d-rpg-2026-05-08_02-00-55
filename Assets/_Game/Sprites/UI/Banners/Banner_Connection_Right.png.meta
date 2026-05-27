@@ -129,13 +129,13 @@ TextureImporter:
       name: Banner_Connection_Right_0
       rect:
         serializedVersion: 2
-        x: 46
-        y: 20
-        width: 145
-        height: 126
+        x: 47
+        y: 21
+        width: 144
+        height: 125
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 1, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ae667968324e348c6bf32ba60832188e
     internalID: 0
     vertices: []
     indices: 
