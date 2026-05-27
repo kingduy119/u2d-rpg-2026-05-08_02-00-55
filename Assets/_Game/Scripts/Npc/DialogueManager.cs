@@ -115,6 +115,13 @@ public class DialogueManager : MonoBehaviour
         lastDialogueEndTime = Time.unscaledTime;
     }
 
+
+    private void OpenCanvas()
+    {
+        dialogueCanvasGroup.alpha = 1f;
+        dialogueCanvasGroup.interactable = true;
+        dialogueCanvasGroup.blocksRaycasts = true;
+    }
     private void CloseCanvas()
     {
         dialogueCanvasGroup.alpha = 0f;
@@ -122,11 +129,5 @@ public class DialogueManager : MonoBehaviour
         dialogueCanvasGroup.blocksRaycasts = false;
     }
 
-    private void OpenCanvas()
-    {
-        Debug.Log("OpenCanvas");
-        dialogueCanvasGroup.alpha = 1f;
-        dialogueCanvasGroup.interactable = true;
-        dialogueCanvasGroup.blocksRaycasts = true;
-    }
+
 }

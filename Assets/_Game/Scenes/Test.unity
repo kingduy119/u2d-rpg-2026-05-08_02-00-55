@@ -9447,6 +9447,7 @@ GameObject:
   - component: {fileID: 1350632096}
   - component: {fileID: 1350632095}
   - component: {fileID: 1350632094}
+  - component: {fileID: 1350632099}
   - component: {fileID: 1350632098}
   m_Layer: 5
   m_Name: Quest_Canvas
@@ -9552,6 +9553,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005724b92d6604cecb4c51341eeea5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestManager
+--- !u!225 &1350632099
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350632093}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &1391330303 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2713033012333195254, guid: 1cbb68c0c9d2445069cd30afa5b65c97, type: 3}

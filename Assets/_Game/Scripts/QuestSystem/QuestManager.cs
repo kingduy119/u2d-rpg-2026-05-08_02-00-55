@@ -1,10 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance;
     private Dictionary<QuestSO, Dictionary<QuestObjective, int>> questProgress = new();
+    private CanvasGroup canvasGroup;
+    private bool isOpenCanvas = false;
 
 
     void Awake()
@@ -13,6 +16,23 @@ public class QuestManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+    }
+
+    void Start()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+        CloseCanvas();
+    }
+
+    void Update()
+    {
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            if (isOpenCanvas)
+                CloseCanvas();
+            else
+                OpenCanvas();
+        }
     }
 
     public void UpdateObjectiveProgress(QuestSO questSO, QuestObjective questObjective)
@@ -50,5 +70,20 @@ public class QuestManager : MonoBehaviour
             if (objectiveDictionary.TryGetValue(questObjective, out int amount))
                 return amount;
         return 0;
+    }
+
+    private void OpenCanvas()
+    {
+        canvasGroup.alpha = 1f;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+        isOpenCanvas = true;
+    }
+    private void CloseCanvas()
+    {
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+        isOpenCanvas = false;
     }
 }
