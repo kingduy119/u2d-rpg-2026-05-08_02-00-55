@@ -12,14 +12,14 @@ GameObject:
   - component: {fileID: 2746543831037124750}
   - component: {fileID: 8613027362647707272}
   - component: {fileID: 9051457368949961925}
-  - component: {fileID: 5014842228394739598}
+  - component: {fileID: 9186681346633415447}
   m_Layer: 5
   m_Name: QuestSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2619499742437615399
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 520, y: 120}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2746543831037124750
 CanvasRenderer:
@@ -93,9 +93,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestLogSlot
   questName: {fileID: 1338978829646423950}
   questLevel: {fileID: 6757240054449684238}
-  currentQuest: {fileID: 0}
+  currentQuest: {fileID: 11400000, guid: 06c6b874118a74657b981fbd58533742, type: 2}
   questLogUI: {fileID: 0}
---- !u!114 &5014842228394739598
+--- !u!114 &9186681346633415447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 01
+  m_text: Lv.99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bfea05c2d4f5d4e7f91b1364bdfe2081, type: 2}
   m_sharedMaterial: {fileID: 6137701353832296700, guid: bfea05c2d4f5d4e7f91b1364bdfe2081, type: 2}
@@ -243,8 +243,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.4
-  m_fontSizeBase: 51.4
+  m_fontSize: 38.7
+  m_fontSizeBase: 38.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quest Name
+  m_text: Test Quest
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bfea05c2d4f5d4e7f91b1364bdfe2081, type: 2}
   m_sharedMaterial: {fileID: 6137701353832296700, guid: bfea05c2d4f5d4e7f91b1364bdfe2081, type: 2}
@@ -380,8 +380,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.4
-  m_fontSizeBase: 51.4
+  m_fontSize: 38.7
+  m_fontSizeBase: 38.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
