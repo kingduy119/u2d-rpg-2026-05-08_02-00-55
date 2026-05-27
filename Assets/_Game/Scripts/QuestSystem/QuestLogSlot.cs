@@ -24,6 +24,12 @@ public class QuestLogSlot : MonoBehaviour
         questLevel.text = "Lv." + questSO.questLevel;
     }
 
+    public void ClearSlot()
+    {
+        currentQuest = null;
+        gameObject.SetActive(false);
+    }
+
     public void OnSlotClicked()
     {
         questLogUI.HandleQuestClicked(currentQuest);

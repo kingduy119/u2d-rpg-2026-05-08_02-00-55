@@ -35,6 +35,25 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public bool IsQuestAccepted(QuestSO questSO)
+    {
+        return questProgress.ContainsKey(questSO);
+    }
+
+    public List<QuestSO> GetActiveQuests()
+    {
+        return new List<QuestSO>(questProgress.Keys);
+    }
+
+    public void AcceptQuest(QuestSO questSO)
+    {
+        questProgress[questSO] = new Dictionary<QuestObjective, int>();
+        foreach (var objective in questSO.objectives)
+        {
+            UpdateObjectiveProgress(questSO, objective);
+        }
+    }
+
     public void UpdateObjectiveProgress(QuestSO questSO, QuestObjective questObjective)
     {
         if (!questProgress.ContainsKey(questSO))
@@ -72,14 +91,14 @@ public class QuestManager : MonoBehaviour
         return 0;
     }
 
-    private void OpenCanvas()
+    public void OpenCanvas()
     {
         canvasGroup.alpha = 1f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         isOpenCanvas = true;
     }
-    private void CloseCanvas()
+    public void CloseCanvas()
     {
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
