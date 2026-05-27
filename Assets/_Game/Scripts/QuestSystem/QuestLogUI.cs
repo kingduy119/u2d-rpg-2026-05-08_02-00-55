@@ -6,17 +6,18 @@ public class QuestLogUI : MonoBehaviour
     [SerializeField] private TMP_Text questName;
     [SerializeField] private TMP_Text questDescription;
     [SerializeField] private QuestObjectiveSlot[] objectiveSlots;
+    [SerializeField] private QuestRewardSlot[] rewardSlots;
 
     private QuestSO questSO;
 
     public void HandleQuestClicked(QuestSO questSO)
     {
-        // Debug.Log($"Clicked Quest: {questSO.questName}");
         this.questSO = questSO;
         questName.text = questSO.questName;
         questDescription.text = questSO.questDescription;
 
         DisplayObjectives();
+        DisplayReward();
 
         foreach (var objective in questSO.objectives)
         {
@@ -44,6 +45,23 @@ public class QuestLogUI : MonoBehaviour
             else
             {
                 objectiveSlots[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void DisplayReward()
+    {
+        for (int i = 0; i < rewardSlots.Length; i++)
+        {
+            if (i < questSO.rewards.Count)
+            {
+                var reward = questSO.rewards[i];
+                rewardSlots[i].DisplayReward(reward.itemSO.itemIcon, reward.quantity);
+                rewardSlots[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                rewardSlots[i].gameObject.SetActive(false);
             }
         }
     }

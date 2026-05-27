@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestSO
   questName: Visit Location
   questDescription: Visit locations
-  questLevel: 99
+  questLevel: 3
   objectives:
   - description: Visit the Hill
     target: {fileID: 11400000, guid: 1547368cb9ee64ca6bcd2e11942fefdd, type: 2}
@@ -24,3 +24,8 @@ MonoBehaviour:
     target: {fileID: 11400000, guid: 2400f7fe90adc497790b3e6f04ef35f9, type: 2}
     requiredAmount: 1
     currentAmount: 0
+  rewards:
+  - itemSO: {fileID: 11400000, guid: 2bfdc66d0c5a34bb49a55ed01ac19550, type: 2}
+    quantity: 1
+  - itemSO: {fileID: 11400000, guid: 8f9af99c7620b47feb957913314c5195, type: 2}
+    quantity: 1

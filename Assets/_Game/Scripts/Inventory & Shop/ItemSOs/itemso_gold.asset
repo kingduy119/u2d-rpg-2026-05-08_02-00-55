@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Gold
   itemDescription: Toxic Mushroom
-  itemIcon: {fileID: 21300000, guid: c327a1bed7bfee848aaa8fcc8fc049fa, type: 3}
+  itemIcon: {fileID: -4229310860450682457, guid: 94ddfe34f15b97e48b6ce296ba6b4e85, type: 3}
   type: item
   value: 1
   maxValue: 3
