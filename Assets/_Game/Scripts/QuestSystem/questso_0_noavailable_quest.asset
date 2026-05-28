@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05731e099b3f94fa4a8c86d1b1f049ea, type: 3}
+  m_Name: questso_0_noavailable_quest
+  m_EditorClassIdentifier: Assembly-CSharp::QuestSO
+  questName: No Available
+  questDescription: There is no quest available
+  questLevel: 0
+  objectives: []
+  rewards: []

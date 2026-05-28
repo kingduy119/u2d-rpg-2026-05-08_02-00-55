@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class QuestBoard : MonoBehaviour
 {
     [SerializeField] private QuestSO questToOffer;
+    // [SerializeField] private QuestSO questToTurnIn;
     private bool playerInRange;
 
     private void Update()
@@ -22,7 +23,7 @@ public class QuestBoard : MonoBehaviour
         }
     }
 
-    private void OnTriggerẼit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

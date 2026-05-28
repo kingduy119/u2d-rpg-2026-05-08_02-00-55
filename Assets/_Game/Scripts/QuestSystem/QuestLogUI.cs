@@ -17,6 +17,7 @@ public class QuestLogUI : MonoBehaviour
     public QuestLogSlot[] questSlots;
 
     private QuestSO questSO;
+    public QuestSO noAvailableQuest;
 
     private void OnEnable()
     {
@@ -28,11 +29,16 @@ public class QuestLogUI : MonoBehaviour
         QuestEvents.OnQuestOfferRequested -= ShowQuestOffer;
     }
 
+    private void Start()
+    {
+        RefreshQuestList();
+    }
+
     public void ShowQuestOffer(QuestSO incomingQuestSO)
     {
         if (QuestManager.Instance.IsQuestAccepted(incomingQuestSO))
         {
-            questSO = incomingQuestSO;
+            questSO = noAvailableQuest;
             SetCanvasState(cvgAccept, false);
             SetCanvasState(cvgDecline, true);
             SetCanvasState(cvgComplete, false);
@@ -48,11 +54,14 @@ public class QuestLogUI : MonoBehaviour
         HandleQuestClicked(questSO);
     }
 
+
     public void OnAcceptQuestClicked()
     {
         QuestManager.Instance.AcceptQuest(questSO);
+        QuestManager.Instance.CloseCanvas();
         SetCanvasState(cvgAccept, false);
         SetCanvasState(cvgComplete, false);
+        RefreshQuestList();
     }
 
     public void OnDeclineQuestClicked()
@@ -62,18 +71,22 @@ public class QuestLogUI : MonoBehaviour
 
     public void OnCompleteQuestClicked()
     {
-
+        QuestManager.Instance.CompleteQuest(questSO);
+        QuestManager.Instance.CloseCanvas();
+        RefreshQuestList();
     }
 
     public void RefreshQuestList()
     {
-        List<QuestSO> activeQuests = QuestManager.Instance.GetActiveQuest();
+        List<QuestSO> activeQuests = QuestManager.Instance.GetActiveQuests();
+        activeQuests.Sort((a, b) => a.questLevel.CompareTo(b.questLevel));
 
         for (int i = 0; i < questSlots.Length; i++)
         {
             if (i < activeQuests.Count)
             {
                 questSlots[i].SetQuest(activeQuests[i]);
+                questSlots[i].gameObject.SetActive(true);
             }
             else
             {
@@ -97,6 +110,15 @@ public class QuestLogUI : MonoBehaviour
 
         DisplayObjectives();
         DisplayReward();
+
+        bool isComplete = QuestManager.Instance.IsQuestComplete(questSO);
+        if (isComplete)
+        {
+            SetCanvasState(cvgAccept, false);
+            SetCanvasState(cvgDecline, false);
+            SetCanvasState(cvgComplete, true);
+        }
+
 
         foreach (var objective in questSO.objectives)
         {

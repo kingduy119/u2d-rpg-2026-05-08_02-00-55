@@ -835,6 +835,13 @@ MonoBehaviour:
   cvgAccept: {fileID: 526041355}
   cvgDecline: {fileID: 1282251998}
   cvgComplete: {fileID: 432719569}
+  questSlots:
+  - {fileID: 1190468882}
+  - {fileID: 1392097960}
+  - {fileID: 2054901674}
+  - {fileID: 1449152382}
+  - {fileID: 1899460734}
+  noAvailableQuest: {fileID: 11400000, guid: 86e68164f4ffa4cd0bc46807d7deb612, type: 2}
 --- !u!1 &128781664
 GameObject:
   m_ObjectHideFlags: 0
@@ -4292,7 +4299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 321721554979509118, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1338978829646423950, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_text
@@ -4312,7 +4319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchorMin.x
@@ -4320,15 +4327,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 461.13
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 64.87
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4360,11 +4367,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 235.5427
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -126.30501
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4389,7 +4396,7 @@ PrefabInstance:
     - target: {fileID: 9051457368949961925, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: currentQuest
       value: 
-      objectReference: {fileID: 11400000, guid: 29e7a08bde051478ca46fd5852f28ed0, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5018,7 +5025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &831495974
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8556,6 +8563,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 17819672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1190468882 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9051457368949961925, guid: c411349100ee24adba1497ae951023fc, type: 3}
+  m_PrefabInstance: {fileID: 6469585294436787642}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb58b6c0f9a664cfda9ba5c38a2a6a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestLogSlot
 --- !u!1 &1211580940
 GameObject:
   m_ObjectHideFlags: 0
@@ -10276,6 +10294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005724b92d6604cecb4c51341eeea5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestManager
+  currentQuests:
+  - {fileID: 11400000, guid: 06c6b874118a74657b981fbd58533742, type: 2}
+  - {fileID: 11400000, guid: 29e7a08bde051478ca46fd5852f28ed0, type: 2}
 --- !u!225 &1350632099
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10309,6 +10330,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
   m_PrefabInstance: {fileID: 643973676}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1392097960 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9051457368949961925, guid: c411349100ee24adba1497ae951023fc, type: 3}
+  m_PrefabInstance: {fileID: 643973676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb58b6c0f9a664cfda9ba5c38a2a6a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestLogSlot
 --- !u!1 &1419877642
 GameObject:
   m_ObjectHideFlags: 0
@@ -10672,6 +10704,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
   m_PrefabInstance: {fileID: 1789603557}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1449152382 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9051457368949961925, guid: c411349100ee24adba1497ae951023fc, type: 3}
+  m_PrefabInstance: {fileID: 1789603557}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb58b6c0f9a664cfda9ba5c38a2a6a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestLogSlot
 --- !u!1 &1488741814
 GameObject:
   m_ObjectHideFlags: 0
@@ -13187,6 +13230,17 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1899460734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9051457368949961925, guid: c411349100ee24adba1497ae951023fc, type: 3}
+  m_PrefabInstance: {fileID: 1582930622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb58b6c0f9a664cfda9ba5c38a2a6a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestLogSlot
 --- !u!1 &1940935932
 GameObject:
   m_ObjectHideFlags: 0
@@ -13636,6 +13690,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
   m_PrefabInstance: {fileID: 1440718934}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2054901674 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9051457368949961925, guid: c411349100ee24adba1497ae951023fc, type: 3}
+  m_PrefabInstance: {fileID: 1440718934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb58b6c0f9a664cfda9ba5c38a2a6a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestLogSlot
 --- !u!1 &2066587291
 GameObject:
   m_ObjectHideFlags: 0
@@ -14082,6 +14147,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 321721554979509118, guid: c411349100ee24adba1497ae951023fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1338978829646423950, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_text
       value: Collect item
@@ -14100,7 +14169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchorMin.x
@@ -14108,15 +14177,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 461.13
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 64.87
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14148,11 +14217,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 235.5427
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -55.435
       objectReference: {fileID: 0}
     - target: {fileID: 2619499742437615399, guid: c411349100ee24adba1497ae951023fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -14174,6 +14243,10 @@ PrefabInstance:
       propertyPath: questLogUI
       value: 
       objectReference: {fileID: 115235454}
+    - target: {fileID: 9051457368949961925, guid: c411349100ee24adba1497ae951023fc, type: 3}
+      propertyPath: currentQuest
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

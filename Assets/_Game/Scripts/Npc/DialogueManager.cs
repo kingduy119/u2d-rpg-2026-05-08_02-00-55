@@ -128,6 +128,4 @@ public class DialogueManager : MonoBehaviour
         dialogueCanvasGroup.interactable = false;
         dialogueCanvasGroup.blocksRaycasts = false;
     }
-
-
 }

@@ -9,6 +9,8 @@ public class QuestManager : MonoBehaviour
     private CanvasGroup canvasGroup;
     private bool isOpenCanvas = false;
 
+    public QuestSO[] currentQuests;
+
 
     void Awake()
     {
@@ -16,6 +18,20 @@ public class QuestManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        foreach (var questSO in currentQuests)
+        {
+            AcceptQuest(questSO);
+        }
+    }
+
+    private void OnEnable()
+    {
+        QuestEvents.IsQuestCompelete += IsQuestComplete;
+    }
+    private void OnDisable()
+    {
+        QuestEvents.IsQuestCompelete -= IsQuestComplete;
     }
 
     void Start()
@@ -40,6 +56,24 @@ public class QuestManager : MonoBehaviour
         return questProgress.ContainsKey(questSO);
     }
 
+    public bool IsQuestComplete(QuestSO questSO)
+    {
+        if (!questProgress.TryGetValue(questSO, out var progressDict))
+            return false;
+
+        foreach (var objective in questSO.objectives)
+        {
+            UpdateObjectiveProgress(questSO, objective);
+        }
+        foreach (var objective in questSO.objectives)
+        {
+            if (progressDict[objective] < objective.requiredAmount)
+                return false;
+        }
+
+        return true;
+    }
+
     public List<QuestSO> GetActiveQuests()
     {
         return new List<QuestSO>(questProgress.Keys);
@@ -52,12 +86,23 @@ public class QuestManager : MonoBehaviour
         {
             UpdateObjectiveProgress(questSO, objective);
         }
+        Debug.Log($"questProgress: {questProgress.Count}");
+    }
+
+    public void CompleteQuest(QuestSO questSO)
+    {
+        questProgress.Remove(questSO);
+        foreach (var reward in questSO.rewards)
+        {
+            InventoryManager.Instance.AddItem(reward.itemSO, reward.quantity);
+        }
     }
 
     public void UpdateObjectiveProgress(QuestSO questSO, QuestObjective questObjective)
     {
         if (!questProgress.ContainsKey(questSO))
-            questProgress[questSO] = new Dictionary<QuestObjective, int>();
+            return;
+        // questProgress[questSO] = new Dictionary<QuestObjective, int>();
 
         var progressDictionary = questProgress[questSO];
         int newAmount = 0;
