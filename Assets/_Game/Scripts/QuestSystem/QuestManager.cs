@@ -40,7 +40,6 @@ public class QuestManager : MonoBehaviour
     void Start()
     {
         CloseCanvas();
-        Debug.Log("CloseCanvas");
     }
 
     void Update()
