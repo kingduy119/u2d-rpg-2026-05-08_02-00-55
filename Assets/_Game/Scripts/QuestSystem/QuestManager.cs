@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance;
+
     private Dictionary<QuestSO, Dictionary<QuestObjective, int>> questProgress = new();
     private CanvasGroup canvasGroup;
     private bool isOpenCanvas = false;
@@ -23,6 +24,8 @@ public class QuestManager : MonoBehaviour
         {
             AcceptQuest(questSO);
         }
+
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void OnEnable()
@@ -36,8 +39,8 @@ public class QuestManager : MonoBehaviour
 
     void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
         CloseCanvas();
+        Debug.Log("CloseCanvas");
     }
 
     void Update()
@@ -86,7 +89,6 @@ public class QuestManager : MonoBehaviour
         {
             UpdateObjectiveProgress(questSO, objective);
         }
-        Debug.Log($"questProgress: {questProgress.Count}");
     }
 
     public void CompleteQuest(QuestSO questSO)

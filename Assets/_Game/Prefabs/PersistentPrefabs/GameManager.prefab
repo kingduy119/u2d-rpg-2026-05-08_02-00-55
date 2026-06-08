@@ -48,4 +48,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  dialogueManager: {fileID: 0}
+  dialogueHistoryTracker: {fileID: 0}
+  locationHistoryTracker: {fileID: 0}

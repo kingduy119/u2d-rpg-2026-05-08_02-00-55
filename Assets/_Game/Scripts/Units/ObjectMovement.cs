@@ -14,8 +14,9 @@ public enum State
 public class ObjectMovement : MonoBehaviour
 {
     protected State state = State.Idle;
-    public float maxSpeed = 2f;
     public float moveSpeed = 2f;
+    public float maxSpeed = 2f;
+
 
     protected Rigidbody2D rb;
     protected Animator anim;

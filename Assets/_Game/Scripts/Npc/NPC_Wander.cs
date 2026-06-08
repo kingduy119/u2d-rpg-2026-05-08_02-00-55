@@ -6,7 +6,7 @@ public class NPC_Wander : MonoBehaviour
     [Header("Wander Area")]
     public float width = 5f;
     public float height = 5f;
-    public Vector2 startPostion;
+    public Vector2 startPosition;
 
     public float speed = 2f;
     private Vector2 target;
@@ -69,14 +69,14 @@ public class NPC_Wander : MonoBehaviour
 
     private Vector2 GetRandomTarget()
     {
-        float randomX = Random.Range(startPostion.x - width / 2, startPostion.x + width / 2);
-        float randomY = Random.Range(startPostion.y - height / 2, startPostion.y + height / 2);
+        float randomX = Random.Range(startPosition.x - width / 2, startPosition.x + width / 2);
+        float randomY = Random.Range(startPosition.y - height / 2, startPosition.y + height / 2);
         return new Vector2(randomX, randomY);
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(startPostion, new Vector3(width, height, 0));
+        Gizmos.DrawWireCube(startPosition, new Vector3(width, height, 0));
     }
 }

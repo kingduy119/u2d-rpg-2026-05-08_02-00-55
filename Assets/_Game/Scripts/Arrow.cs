@@ -24,9 +24,9 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Arrow OnCollisionEnter2D");
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy");
             collision.gameObject.GetComponent<Enemy_Health>().ChangeHealth(-StateManager.Instance.damage);
             collision.gameObject.GetComponent<Enemy_Knockback>().KnockBack(
                 transform,

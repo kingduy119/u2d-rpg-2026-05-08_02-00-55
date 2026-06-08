@@ -13,10 +13,6 @@ public class Player_Bow : MonoBehaviour
 
     Vector2 _direction;
 
-    // void Awake()
-    // {
-    //     player = GetComponent<Player>();
-    // }
 
     // Update is called once per frame
     void Update()
@@ -30,18 +26,6 @@ public class Player_Bow : MonoBehaviour
             player.isShooting = true;
         }
     }
-
-    // void OnEnable()
-    // {
-    //     player.anim.SetLayerWeight(0, 0);
-    //     player.anim.SetLayerWeight(1, 1);
-    // }
-
-    // void OnDisable()
-    // {
-    //     player.anim.SetLayerWeight(0, 1);
-    //     player.anim.SetLayerWeight(1, 0);
-    // }
 
     private void HandleAiming()
     {
