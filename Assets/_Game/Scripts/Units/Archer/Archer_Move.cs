@@ -17,7 +17,6 @@ public class Archer_Move : MonoBehaviour
     void Start()
     {
         target = GetRandomTarget();
-        Debug.Log($"New Target Start: {target}");
     }
 
     // Update is called once per frame
