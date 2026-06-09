@@ -20,7 +20,7 @@ public class Enemy_Movement : ObjectMovement
         base.Start();
     }
 
-    void Update()
+    private void Update()
     {
         if (state == State.KnockBack)
             return;
@@ -42,8 +42,7 @@ public class Enemy_Movement : ObjectMovement
         }
         else
         {
-            target = null;
-            rb.linearVelocity = Vector2.zero;
+            Stop();
         }
 
         if (attackCountDown > 0)
@@ -52,7 +51,15 @@ public class Enemy_Movement : ObjectMovement
         }
     }
 
-    void CheckForPlayer()
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            ChangeState(State.Idle);
+        }
+    }
+
+    private void CheckForPlayer()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(detectionPoint.position, detectionRange, playerLayer);
         if (colliders.Length > 0)
@@ -77,21 +84,11 @@ public class Enemy_Movement : ObjectMovement
         }
     }
 
-
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void Chase()
     {
-        if (collision.CompareTag("Player"))
-        {
-            ChangeState(State.Idle);
-        }
-    }
-
-    void Chase()
-    {
-        moveSpeed = maxSpeed;
+        m_MoveSpeed = m_MaxSpeed;
         Vector2 direction = (target.position - transform.position).normalized;
-        rb.linearVelocity = direction * moveSpeed;
+        rb.linearVelocity = direction * m_MoveSpeed;
 
         if (direction.x > 0 && transform.localScale.x < 0 ||
            direction.x < 0 && transform.localScale.x > 0)
@@ -100,10 +97,16 @@ public class Enemy_Movement : ObjectMovement
         }
     }
 
-    void Attack()
+    private void Attack()
     {
-        moveSpeed = 0f;
+        m_MoveSpeed = 0f;
         attackCountDown = attackSpeed;
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    private void Stop()
+    {
+        target = null;
         rb.linearVelocity = Vector2.zero;
     }
 

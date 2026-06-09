@@ -1,5 +1,5 @@
 using UnityEngine;
-using System;
+using UnityEngine.InputSystem;
 
 public enum State
 {
@@ -14,9 +14,10 @@ public enum State
 public class ObjectMovement : MonoBehaviour
 {
     protected State state = State.Idle;
-    public float moveSpeed = 2f;
-    public float maxSpeed = 2f;
-
+    public float m_MoveSpeed = 2f;
+    public float m_MaxSpeed = 2f;
+    private Vector2 m_MoveDirection = Vector2.zero;
+    public InputAction m_MoveAction;
 
     protected Rigidbody2D rb;
     protected Animator anim;
@@ -25,6 +26,45 @@ public class ObjectMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        HandleInput();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    protected virtual void HandleInput()
+    {
+        m_MoveDirection = m_MoveAction.ReadValue<Vector2>();
+        if (!Mathf.Approximately(m_MoveDirection.x, 0.0f) || !Mathf.Approximately(m_MoveDirection.y, 0.0f))
+        {
+            m_MoveDirection.Set(m_MoveDirection.x, m_MoveDirection.y);
+            m_MoveDirection.Normalize();
+        }
+        else
+        {
+            m_MoveDirection.Set(0, 0);
+        }
+
+        anim.SetFloat("moveX", m_MoveDirection.x);
+        anim.SetFloat("moveY", m_MoveDirection.y);
+        anim.SetFloat("speed", m_MoveDirection.magnitude);
+
+        if (m_MoveDirection.x > 0 && transform.localScale.x < 0 ||
+            m_MoveDirection.x < 0 && transform.localScale.x > 0)
+        {
+            Flip();
+        }
+    }
+
+    protected virtual void Move()
+    {
+        rb.linearVelocity = m_MoveDirection * m_MoveSpeed;
     }
 
     public void Flip()
@@ -45,5 +85,6 @@ public class ObjectMovement : MonoBehaviour
         else if (state == State.Attacking)
             anim.SetTrigger("isAttack1");
     }
+
 }
 

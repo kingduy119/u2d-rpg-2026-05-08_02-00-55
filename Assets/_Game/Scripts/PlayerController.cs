@@ -31,14 +31,32 @@ public class PlayerController : MonoBehaviour
 
     void HandleInput()
     {
-        // Arrow keys or WASD input
         move = MoveAction.ReadValue<Vector2>();
         if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
         {
             moveDirection.Set(move.x, move.y);
             moveDirection.Normalize();
         }
+        else
+        {
+            moveDirection.Set(0, 0);
+        }
+
         animator.SetFloat("moveX", moveDirection.x);
         animator.SetFloat("moveY", moveDirection.y);
+        animator.SetFloat("speed", moveDirection.magnitude);
+
+        if (moveDirection.x > 0 && transform.localScale.x < 0 ||
+            moveDirection.x < 0 && transform.localScale.x > 0)
+        {
+            Flip();
+        }
+    }
+
+    void Flip()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }

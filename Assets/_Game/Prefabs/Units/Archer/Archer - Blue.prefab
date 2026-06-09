@@ -237,17 +237,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5418723139768304071}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a67654cb40c645ab93a58d097871554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Archer_Move
   moveSpeed: 2
   maxSpeed: 5
-  zoneSize: {x: 8.82, y: 2.21}
+  zoneSize: {x: 8.82, y: 5.18}
   rb: {fileID: 7752522714367031122}
   anim: {fileID: 5526060645088148339}
-  startPosition: {x: -4.57, y: -4.32}
+  startPosition: {x: -4.36, y: -4.32}
   pauseDuration: 3
 --- !u!1 &7196250848600434527
 GameObject:

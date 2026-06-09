@@ -10,6 +10,8 @@ public class Player_Combat : MonoBehaviour
     public Transform attackPoint;
     public Transform shootPoint;
 
+    public bool m_ShowDrawGizmo = false;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -57,12 +59,11 @@ public class Player_Combat : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (attackPoint == null)
+        if (attackPoint == null || !m_ShowDrawGizmo)
             return;
 
 
         Gizmos.color = Color.green;
-        // Gizmos.DrawWireSphere(attackPoint.position, StateManager.Instance.weaponRange);
         Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
     }
 }

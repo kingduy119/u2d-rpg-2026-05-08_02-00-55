@@ -14,7 +14,6 @@ public class Enemy_Combat : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // collision.gameObject.GetComponent<Player_Health>().ChangeHealth(-damage);
             StateManager.Instance.UpdateHealth(-damage);
         }
     }
@@ -24,7 +23,6 @@ public class Enemy_Combat : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
         foreach (Collider2D player in hits)
         {
-            // player.GetComponent<Player_Health>().ChangeHealth(-damage);
             StateManager.Instance.UpdateHealth(-damage);
             player.GetComponent<Player>().KnockBack(transform, knockForce, stunTime);
         }

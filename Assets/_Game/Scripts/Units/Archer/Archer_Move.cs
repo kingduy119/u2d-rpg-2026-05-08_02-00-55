@@ -17,13 +17,17 @@ public class Archer_Move : MonoBehaviour
     void Start()
     {
         target = GetRandomTarget();
-        Debug.Log($"Start Position: {startPosition} | Initial Target: {target}");
+        Debug.Log($"New Target Start: {target}");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isPaused) return;
+        if (isPaused)
+        {
+            Stop();
+            return;
+        }
 
         if (Vector2.Distance(transform.position, target) < .1f)
             StartCoroutine(PauseAndPickNewDestination());
@@ -35,8 +39,6 @@ public class Archer_Move : MonoBehaviour
     {
         isPaused = true;
         rb.linearVelocity = Vector2.zero;
-        anim.SetFloat("moveX", Mathf.Abs(rb.linearVelocity.x));
-        anim.SetFloat("moveY", Mathf.Abs(rb.linearVelocity.y));
 
         yield return new WaitForSeconds(pauseDuration);
 
@@ -48,6 +50,11 @@ public class Archer_Move : MonoBehaviour
     {
         Vector2 direction = ((Vector3)target - transform.position).normalized;
         rb.linearVelocity = direction * moveSpeed;
+
+        anim.SetFloat("moveX", Mathf.Abs(direction.x));
+        anim.SetFloat("moveY", Mathf.Abs(direction.y));
+        anim.SetFloat("speed", direction.magnitude);
+
         if (direction.x > 0 && transform.localScale.x < 0 ||
            direction.x < 0 && transform.localScale.x > 0)
         {
@@ -55,9 +62,12 @@ public class Archer_Move : MonoBehaviour
             scale.x *= -1;
             transform.localScale = scale;
         }
-        anim.SetFloat("moveX", Mathf.Abs(rb.linearVelocity.x));
-        anim.SetFloat("moveY", Mathf.Abs(rb.linearVelocity.y));
-        Debug.Log($"Current Velocity: {rb.linearVelocity}, Target: {target}");
+    }
+
+    void Stop()
+    {
+        rb.linearVelocity = Vector2.zero;
+        anim.SetFloat("speed", 0);
     }
 
     private Vector2 GetRandomTarget()
