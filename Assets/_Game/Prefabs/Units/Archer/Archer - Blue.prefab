@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 6078813110251958628}
   - component: {fileID: 5526060645088148339}
   - component: {fileID: 7752522714367031122}
+  - component: {fileID: 4769963443379952781}
   - component: {fileID: 5661379802571738477}
   - component: {fileID: 4530818266621351772}
   m_Layer: 0
@@ -210,6 +211,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4769963443379952781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5418723139768304071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c227f0e55a3924abc76d0e5d186236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaseMovement
+  m_MoveSpeed: 5
+  m_MaxSpeed: 8
+  isPlayerInput: 0
 --- !u!114 &5661379802571738477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,12 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a67654cb40c645ab93a58d097871554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Archer_Move
-  moveSpeed: 2
-  maxSpeed: 5
   zoneSize: {x: 8.82, y: 5.18}
-  rb: {fileID: 7752522714367031122}
-  anim: {fileID: 5526060645088148339}
-  startPosition: {x: -4.36, y: -4.32}
+  startPosition: {x: -4.36, y: -2.86}
   pauseDuration: 3
 --- !u!1 &7196250848600434527
 GameObject:

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,7 +34,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            m_BaseMovement.SetDirection(Vector2.zero);
             m_BaseMovement.SetState(State.Idle);
         }
 

@@ -3,19 +3,18 @@ using UnityEngine;
 
 public class Archer_Move : MonoBehaviour
 {
-    public float moveSpeed = 2f;
-    public float maxSpeed = 2f;
     public Vector2 zoneSize = new Vector2(5f, 5f);
-    public Rigidbody2D rb;
-    public Animator anim;
 
     private Vector2 target;
     public Vector2 startPosition;
     private bool isPaused;
     public float pauseDuration = 1.5f;
 
+    private BaseMovement m_BaseMovement;
+
     void Start()
     {
+        m_BaseMovement = GetComponent<BaseMovement>();
         target = GetRandomTarget();
     }
 
@@ -24,7 +23,7 @@ public class Archer_Move : MonoBehaviour
     {
         if (isPaused)
         {
-            Stop();
+            m_BaseMovement.SetState(State.Idle);
             return;
         }
 
@@ -37,7 +36,8 @@ public class Archer_Move : MonoBehaviour
     IEnumerator PauseAndPickNewDestination()
     {
         isPaused = true;
-        rb.linearVelocity = Vector2.zero;
+        m_BaseMovement.SetState(State.Idle);
+
 
         yield return new WaitForSeconds(pauseDuration);
 
@@ -47,26 +47,8 @@ public class Archer_Move : MonoBehaviour
 
     void Move()
     {
-        Vector2 direction = ((Vector3)target - transform.position).normalized;
-        rb.linearVelocity = direction * moveSpeed;
-
-        anim.SetFloat("moveX", Mathf.Abs(direction.x));
-        anim.SetFloat("moveY", Mathf.Abs(direction.y));
-        anim.SetFloat("speed", direction.magnitude);
-
-        if (direction.x > 0 && transform.localScale.x < 0 ||
-           direction.x < 0 && transform.localScale.x > 0)
-        {
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
-        }
-    }
-
-    void Stop()
-    {
-        rb.linearVelocity = Vector2.zero;
-        anim.SetFloat("speed", 0);
+        m_BaseMovement.SetDirection(target - (Vector2)transform.position);
+        m_BaseMovement.SetState(State.Moving);
     }
 
     private Vector2 GetRandomTarget()

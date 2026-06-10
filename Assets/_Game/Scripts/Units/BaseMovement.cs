@@ -3,18 +3,21 @@ using UnityEngine;
 
 public class BaseMovement : MonoBehaviour
 {
-    private State state = State.Idle;
+    public State state = State.Idle;
 
     public float m_MoveSpeed = 2f;
     public float m_MaxSpeed = 2f;
-    public Rigidbody2D rb;
-    public Animator anim;
+    private Rigidbody2D rb;
+    private Animator anim;
 
     private Vector2 m_Direction;
     public bool isPlayerInput = false;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
         if (isPlayerInput)
         {
             PlayerController playerController = GetComponent<PlayerController>();
@@ -66,8 +69,8 @@ public class BaseMovement : MonoBehaviour
         // Vector2 direction = ((Vector3)target - transform.position).normalized;
         rb.linearVelocity = m_Direction * m_MoveSpeed;
 
-        anim.SetFloat("moveX", Mathf.Abs(m_Direction.x));
-        anim.SetFloat("moveY", Mathf.Abs(m_Direction.y));
+        anim.SetFloat("aimX", Mathf.Abs(m_Direction.x));
+        anim.SetFloat("aimY", Mathf.Abs(m_Direction.y));
         anim.SetFloat("speed", m_Direction.magnitude);
 
         if (m_Direction.x > 0 && transform.localScale.x < 0 ||
