@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public InputAction MoveAction;
+    private PlayerInputActions inputActions;
     private BaseMovement m_BaseMovement;
 
     void Awake()
