@@ -4901,15 +4901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4342acca3d39964db56a3d7e4e5e9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  MoveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: Vector2
-    m_Id: aec22e92-c7c9-40b9-8aad-a3766b19b89c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1001 &2732892027325592987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5001,11 +4992,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2934956696897889145, guid: 141b34c0432d2479abbcb0ec96351fb1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.177396
+      value: 0.91478586
       objectReference: {fileID: 0}
     - target: {fileID: 2934956696897889145, guid: 141b34c0432d2479abbcb0ec96351fb1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.9318
+      value: -2.93852
       objectReference: {fileID: 0}
     - target: {fileID: 2960280531640774344, guid: 141b34c0432d2479abbcb0ec96351fb1, type: 3}
       propertyPath: orthographic size
@@ -5061,11 +5052,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9198755849097582262, guid: 141b34c0432d2479abbcb0ec96351fb1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.1826
+      value: 0.91
       objectReference: {fileID: 0}
     - target: {fileID: 9198755849097582262, guid: 141b34c0432d2479abbcb0ec96351fb1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.42383
+      value: -4.31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

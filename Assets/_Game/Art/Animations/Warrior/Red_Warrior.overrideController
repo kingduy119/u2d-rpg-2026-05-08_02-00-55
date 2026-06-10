@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Red_Warrior
+  m_Controller: {fileID: 9100000, guid: f01be6f3b1c5cdd4cbf181d2bed91284, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 23f2a4998d333374c9345c6271d32d75, type: 2}
+    m_OverrideClip: {fileID: 1624593205714598167, guid: 2177971237d2c4ecc9357254195a762f, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 30f1c09c092148849908d89d110a2b66, type: 2}
+    m_OverrideClip: {fileID: 6743807762460614381, guid: 2177971237d2c4ecc9357254195a762f, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 5b5fd4086850914468f2b6555421973b, type: 2}
+    m_OverrideClip: {fileID: 5522812681064789136, guid: 2177971237d2c4ecc9357254195a762f, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 80597a4860ad47a42a6bfe2298083c61, type: 2}
+    m_OverrideClip: {fileID: 8451551337587442842, guid: 2177971237d2c4ecc9357254195a762f, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 333c9caf12bd98440ba2a00257592e6c, type: 2}
+    m_OverrideClip: {fileID: -3100369314251171874, guid: 2177971237d2c4ecc9357254195a762f, type: 3}
