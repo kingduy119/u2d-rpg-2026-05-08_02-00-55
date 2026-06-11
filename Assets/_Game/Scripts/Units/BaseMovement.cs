@@ -21,10 +21,11 @@ public class BaseMovement : MonoBehaviour
         if (isPlayerInput)
         {
             PlayerController playerController = GetComponent<PlayerController>();
-            if (playerController != null)
+            if (playerController == null)
             {
-                playerController.enabled = true;
+                playerController = gameObject.AddComponent<PlayerController>();
             }
+            playerController.enabled = true;
         }
     }
 

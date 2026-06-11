@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lancer_Blue
+  m_Controller: {fileID: 9100000, guid: 9bc974741d7a9408080e7f2751b4eedc, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 8cc7b0d7c43f34242ab1ac54b2c32f72, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 15d1a633f8c7e4b37a85027cdfbcf37f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 64df7ec6b09984fd4ab0f78a943a260e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b73eb4190c7f643f0a9e7e5ebcf394b6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7d300c519e3d34b65a68811bc082b8b1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 838bece6c9f314b70bef38abc21e08f3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e3e762243efc7484f8839b62012c3395, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3732d760434284d35ac34741b9bd3b4b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 80b86e85bf35742a0a71892935e376dc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e7528389c3a874d458fd35334f059188, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0e964479515e44c53b686fb4d47787c0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0b6c87c4cea7243dab8125eed2c8fd62, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2926c1715b80c452ea818cc1d290d383, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d0f31f9e9e2104b709089114a16732f2, type: 2}
