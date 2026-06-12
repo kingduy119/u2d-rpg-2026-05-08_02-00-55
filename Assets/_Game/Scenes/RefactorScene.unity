@@ -3008,6 +3008,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lancer_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 5504679116257119743, guid: 0db7a48ffd576473d91381bae1ce550a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7014960086167090740, guid: 0db7a48ffd576473d91381bae1ce550a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -5101,6 +5105,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 7465810966058586314, guid: 5e24e7688b4cd436c8d64f85e473e26f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5157,6 +5165,10 @@ PrefabInstance:
     - target: {fileID: 5418723139768304071, guid: 74398d300546a40e0a15665f6dbd2037, type: 3}
       propertyPath: m_Name
       value: Archer - Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418723139768304071, guid: 74398d300546a40e0a15665f6dbd2037, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
