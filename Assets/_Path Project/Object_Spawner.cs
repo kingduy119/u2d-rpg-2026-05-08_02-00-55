@@ -33,6 +33,15 @@ public class Object_Spawner : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        Point.OnPointReachedEnd += HandlePointReachedEnd;
+    }
+    private void OnDisable()
+    {
+        Point.OnPointReachedEnd -= HandlePointReachedEnd;
+    }
+
     void Update()
     {
         _spawnTimer -= Time.deltaTime;
@@ -56,14 +65,7 @@ public class Object_Spawner : MonoBehaviour
         _spawnedCount++;
     }
 
-    private void OnEnable()
-    {
-        Point.OnPointReachedEnd += HandlePointReachedEnd;
-    }
-    private void OnDisable()
-    {
-        Point.OnPointReachedEnd -= HandlePointReachedEnd;
-    }
+
 
     private void HandlePointReachedEnd(PointData pointData)
     {
