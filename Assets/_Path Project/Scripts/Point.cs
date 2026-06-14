@@ -32,15 +32,17 @@ public class Point : MonoBehaviour
         float distance = (transform.position - _targetPosition).magnitude;
         if (distance < 0.1f)
         {
-            if (_pathIndex >= currentPath.wayPoints.Length - 1)
+            if (_pathIndex < currentPath.wayPoints.Length - 1)
             {
-                // Reached the end of the path
+                _pathIndex++;
+                _targetPosition = currentPath.GetPointPosition(_pathIndex);
+            }
+            else // Reached the end of the path
+            {
                 OnPointReachedEnd?.Invoke(pointData);
                 gameObject.SetActive(false);
-                return;
             }
-            _pathIndex++;
-            _targetPosition = currentPath.GetPointPosition(_pathIndex);
+
         }
     }
 }
