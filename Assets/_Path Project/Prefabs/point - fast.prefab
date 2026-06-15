@@ -53,6 +53,10 @@ PrefabInstance:
       value: point - fast
       objectReference: {fileID: 0}
     - target: {fileID: 2957721334579724115, guid: 0b317f833fd0341b58d01de2c57b2a05, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 16808a28885304d42a6d061912dfc897, type: 2}
+    - target: {fileID: 2957721334579724115, guid: 0b317f833fd0341b58d01de2c57b2a05, type: 3}
       propertyPath: pointData
       value: 
       objectReference: {fileID: 11400000, guid: 16808a28885304d42a6d061912dfc897, type: 2}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum PointType
+public enum TDEnemyType
 {
     Basic,
     Normal,

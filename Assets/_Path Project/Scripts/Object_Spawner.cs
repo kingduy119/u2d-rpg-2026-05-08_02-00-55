@@ -14,7 +14,7 @@ public class Object_Spawner : MonoBehaviour
 
     private int _currentWaveIndex = 0;
     private int _spawnedCount = 0;
-    private int _waveEndCount = 0;
+    private int _enemiesRemoved = 0;
     private WaveData CurrentWave => waves[_currentWaveIndex];
 
     // public GameObject _prefab;
@@ -22,26 +22,28 @@ public class Object_Spawner : MonoBehaviour
     [SerializeField] private Object_Pool basicPool;
     [SerializeField] private Object_Pool normalPool;
     [SerializeField] private Object_Pool fastPool;
-    private Dictionary<PointType, Object_Pool> poolDictionary;
+    private Dictionary<TDEnemyType, Object_Pool> poolDictionary;
 
     void Awake()
     {
-        poolDictionary = new Dictionary<PointType, Object_Pool>()
+        poolDictionary = new Dictionary<TDEnemyType, Object_Pool>()
         {
-            { PointType.Basic, basicPool },
-            { PointType.Normal, normalPool },
-            { PointType.Fast, fastPool }
+            { TDEnemyType.Basic, basicPool },
+            { TDEnemyType.Normal, normalPool },
+            { TDEnemyType.Fast, fastPool }
         };
 
     }
 
     private void OnEnable()
     {
-        Point.OnPointReachedEnd += HandlePointReachedEnd;
+        TDEnemy.OnEnemyReachedEnd += HandlePointReachedEnd;
+        TDEnemy.OnEnemyDestroyed += HandleEnemyDestroyed;
     }
     private void OnDisable()
     {
-        Point.OnPointReachedEnd -= HandlePointReachedEnd;
+        TDEnemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
+        TDEnemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
     }
 
     private void Start()
@@ -90,9 +92,13 @@ public class Object_Spawner : MonoBehaviour
 
 
 
-    private void HandlePointReachedEnd(PointData pointData)
+    private void HandlePointReachedEnd(TDEnemyData pointData)
     {
-        // Handle the event when a point reaches the end
-        _waveEndCount++;
+        _enemiesRemoved++;
+    }
+
+    private void HandleEnemyDestroyed(TDEnemy enemy)
+    {
+        _enemiesRemoved++;
     }
 }

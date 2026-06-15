@@ -9,12 +9,12 @@ public class TDGameManager : MonoBehaviour
 
     void OnEnable()
     {
-        Point.OnPointReachedEnd += HandlePointReachedEnd;
+        TDEnemy.OnEnemyReachedEnd += HandlePointReachedEnd;
     }
 
     void OnDisable()
     {
-        Point.OnPointReachedEnd -= HandlePointReachedEnd;
+        TDEnemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
     }
 
     void Start()
@@ -22,7 +22,7 @@ public class TDGameManager : MonoBehaviour
         OnLivesChanged?.Invoke(_lives);
     }
 
-    private void HandlePointReachedEnd(PointData pointData)
+    private void HandlePointReachedEnd(TDEnemyData pointData)
     {
         _lives -= pointData.damage;
         OnLivesChanged?.Invoke(_lives);

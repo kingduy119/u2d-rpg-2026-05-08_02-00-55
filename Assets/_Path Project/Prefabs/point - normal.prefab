@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2578888093613855212, guid: a9ea17c2cd9fd40abbfcb7652bbd8795, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 0c20b5b45d96849b4a3efe19b04595aa, type: 2}
+    - target: {fileID: 2578888093613855212, guid: a9ea17c2cd9fd40abbfcb7652bbd8795, type: 3}
       propertyPath: pointData
       value: 
       objectReference: {fileID: 11400000, guid: 0c20b5b45d96849b4a3efe19b04595aa, type: 2}
