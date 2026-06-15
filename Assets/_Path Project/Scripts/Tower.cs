@@ -6,7 +6,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private TowerData data;
     private CircleCollider2D _circleCollider;
     public List<Point> _enemiesInRange = new List<Point>();
-
+    public Object_Pool _projectilePool;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
