@@ -5,6 +5,8 @@ using UnityEngine;
 public class TDEnemy : MonoBehaviour
 {
     [SerializeField] private TDEnemyData _data;
+    public TDEnemyData Data => _data;
+
     [SerializeField] private Transform _healthBar;
 
     public static event Action<TDEnemyData> OnEnemyReachedEnd;

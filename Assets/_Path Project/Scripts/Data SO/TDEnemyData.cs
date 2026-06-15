@@ -6,4 +6,5 @@ public class TDEnemyData : ScriptableObject
     public float lives;
     public int damage;
     public float moveSpeed;
+    public int goldReward;
 }

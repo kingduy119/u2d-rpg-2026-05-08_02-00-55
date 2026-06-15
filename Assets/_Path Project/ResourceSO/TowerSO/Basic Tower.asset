@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cfdbd43872cedc45a90b8edec095ec5, type: 3}
   m_Name: Basic Tower
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  range: 2.27
-  shootInterval: 0.5
+  range: 2.42
+  shootInterval: 0.7
   projectileSpeed: 9
   projectileDuration: 3
   damage: 1

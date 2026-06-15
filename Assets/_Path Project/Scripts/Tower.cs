@@ -6,7 +6,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private TowerData _data;
     private CircleCollider2D _circleCollider;
     public List<TDEnemy> _enemiesInRange = new List<TDEnemy>();
-    public Object_Pool _projectilePool;
+    private Object_Pool _projectilePool;
 
     private float _shootTimer;
 
