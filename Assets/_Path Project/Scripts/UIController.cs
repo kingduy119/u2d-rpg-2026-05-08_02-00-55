@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private TMP_Text goldText;
+    [SerializeField] private TMP_Text alertText;
 
     [SerializeField] private GameObject towerPanel;
     [SerializeField] private GameObject towerCardPrefab;
@@ -15,13 +16,15 @@ public class UIController : MonoBehaviour
     [SerializeField] private TowerData[] towers;
     private List<GameObject> activeCards = new List<GameObject>();
 
+    private Platform _currentPlatform;
 
     void OnEnable()
     {
         Object_Spawner.OnWaveChanged += UpdateWaveText;
         TDGameManager.OnLivesChanged += UpdateLives;
         TDGameManager.OnGoldsChanged += UpdateGolds;
-        Platform.OnPlatformClicked += ToggleTowerPanel;
+        Platform.OnPlatformClicked += OpenTowerPanel;
+        TowerCard.OnTowerCardSelected += HandleTowerCardSelected;
     }
 
     void OnDisable()
@@ -29,7 +32,8 @@ public class UIController : MonoBehaviour
         Object_Spawner.OnWaveChanged -= UpdateWaveText;
         TDGameManager.OnLivesChanged -= UpdateLives;
         TDGameManager.OnGoldsChanged -= UpdateGolds;
-        Platform.OnPlatformClicked -= ToggleTowerPanel;
+        Platform.OnPlatformClicked -= OpenTowerPanel;
+        TowerCard.OnTowerCardSelected -= HandleTowerCardSelected;
     }
 
     private void UpdateWaveText(int waveIndex)
@@ -56,6 +60,26 @@ public class UIController : MonoBehaviour
         TDGameManager.Instance.SetTimeScale(towerPanel.activeSelf ? 0f : 1f);
     }
 
+    public void OpenTowerPanel(Platform platform)
+    {
+        _currentPlatform = platform;
+        towerPanel.SetActive(true);
+        PopulateTowerCards();
+        TDGameManager.Instance.SetTimeScale(0f);
+    }
+
+    public void ShowAlert(string message)
+    {
+        alertText.text = message;
+        alertText.gameObject.SetActive(true);
+        // Invoke(nameof(HideAlert), 2f);
+    }
+
+    private void HideAlert()
+    {
+        alertText.gameObject.SetActive(false);
+    }
+
     private void PopulateTowerCards()
     {
         foreach (var card in activeCards)
@@ -71,5 +95,27 @@ public class UIController : MonoBehaviour
             towerCard.Initialize(data);
             activeCards.Add(card);
         }
+    }
+
+    public void HandleTowerCardSelected(TowerData data)
+    {
+        if (TDGameManager.Instance.Golds < data.cost)
+        {
+            StartCoroutine(ShowAlertCoroutine("Not enough gold!"));
+            return;
+        }
+        if (_currentPlatform != null)
+        {
+            TDGameManager.Instance.SpendGold(data.cost);
+            _currentPlatform.PlaceTower(data);
+            ToggleTowerPanel();
+        }
+    }
+
+    private System.Collections.IEnumerator ShowAlertCoroutine(string message)
+    {
+        ShowAlert(message);
+        yield return new WaitForSeconds(2f);
+        HideAlert();
     }
 }

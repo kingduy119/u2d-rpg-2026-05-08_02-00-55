@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Normal Tower
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   sprite: {fileID: 21300000, guid: c6e2034a5402540bd9c9cc5807b9e6a7, type: 3}
+  towerPrefab: {fileID: 1661685818584876446, guid: 2e92f822acb1346439295e34931a5dc7, type: 3}
   towerName: Normal Tower
   cost: 15
   range: 2.42

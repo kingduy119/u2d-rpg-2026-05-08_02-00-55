@@ -10,6 +10,9 @@ public class TDGameManager : MonoBehaviour
     private int _lives = 20;
     private int _golds = 0;
 
+    public int Lives => _lives;
+    public int Golds => _golds;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -67,5 +70,18 @@ public class TDGameManager : MonoBehaviour
     public void SetTimeScale(float scale)
     {
         Time.timeScale = scale;
+    }
+
+    public void SpendGold(int amount)
+    {
+        if (_golds >= amount)
+        {
+            _golds -= amount;
+            OnGoldsChanged?.Invoke(_golds);
+        }
+        else
+        {
+            Debug.LogWarning("Not enough gold!");
+        }
     }
 }

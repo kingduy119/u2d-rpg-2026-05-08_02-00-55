@@ -14,12 +14,13 @@ public class TowerCard : MonoBehaviour
 
     public void Initialize(TowerData data)
     {
+        _data = data;
         towerImage.sprite = data.sprite;
         nameText.text = data.towerName;
         costText.text = data.cost.ToString();
     }
 
-    public void PlaceTower()
+    public void PlaceTowerClick()
     {
         OnTowerCardSelected?.Invoke(_data);
     }
