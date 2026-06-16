@@ -3,12 +3,24 @@ using System;
 
 public class TDGameManager : MonoBehaviour
 {
+    public static TDGameManager Instance { get; set; }
     public static event Action<int> OnLivesChanged;
     public static event Action<int> OnGoldsChanged;
 
     private int _lives = 20;
     private int _golds = 0;
 
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     void OnEnable()
     {
@@ -50,5 +62,10 @@ public class TDGameManager : MonoBehaviour
     {
         _golds += gold;
         OnGoldsChanged?.Invoke(_golds);
+    }
+
+    public void SetTimeScale(float scale)
+    {
+        Time.timeScale = scale;
     }
 }

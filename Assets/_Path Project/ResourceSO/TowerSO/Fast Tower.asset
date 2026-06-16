@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cfdbd43872cedc45a90b8edec095ec5, type: 3}
   m_Name: Fast Tower
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
+  sprite: {fileID: 21300000, guid: 83fb854c8a1ac4c75943527af747735a, type: 3}
+  towerName: Fire Tower
+  cost: 20
   range: 2.42
   shootInterval: 0.2
   projectileSpeed: 9

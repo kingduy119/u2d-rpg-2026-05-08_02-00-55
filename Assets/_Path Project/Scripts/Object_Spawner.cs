@@ -72,11 +72,13 @@ public class Object_Spawner : MonoBehaviour
                 _spawnTimer = _spawnInterval;
                 SpawnObject();
             }
-            else if (_spawnedCount >= CurrentWave.perway)
+            else if (_enemiesRemoved >= CurrentWave.perway)
             {
                 _currentWaveIndex = (_currentWaveIndex + 1) % waves.Length;
                 _spawnedCount = 0;
+                _enemiesRemoved = 0;
                 _isWaveActive = true;
+                OnWaveChanged?.Invoke(_currentWaveIndex);
             }
         }
     }
