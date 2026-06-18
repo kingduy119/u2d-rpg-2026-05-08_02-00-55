@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text goldText;
     [SerializeField] private TMP_Text alertText;
     [SerializeField] private Button gameSpeedButton;
+    [SerializeField] private Button startWaveButton;
 
     [SerializeField] private GameObject towerPanel;
     [SerializeField] private GameObject towerCardPrefab;
@@ -28,24 +29,24 @@ public class UIController : MonoBehaviour
 
     void OnEnable()
     {
-        Object_Spawner.OnWaveChanged += UpdateWaveText;
+        SpawnManager.OnWaveChanged += UpdateWaveText;
         TDGameManager.OnLivesChanged += UpdateLives;
         TDGameManager.OnGoldsChanged += UpdateGolds;
         Platform.OnPlatformClicked += OpenTowerPanel;
         TowerCard.OnTowerCardSelected += HandleTowerCardSelected;
 
-        // gameSpeedButton.onClick.AddListener(OnGameSpeedButtonClicked);
+
     }
 
     void OnDisable()
     {
-        Object_Spawner.OnWaveChanged -= UpdateWaveText;
+        SpawnManager.OnWaveChanged -= UpdateWaveText;
         TDGameManager.OnLivesChanged -= UpdateLives;
         TDGameManager.OnGoldsChanged -= UpdateGolds;
         Platform.OnPlatformClicked -= OpenTowerPanel;
         TowerCard.OnTowerCardSelected -= HandleTowerCardSelected;
 
-        // gameSpeedButton.onClick.RemoveListener(OnGameSpeedButtonClicked);
+
     }
 
     void Start()
@@ -54,11 +55,13 @@ public class UIController : MonoBehaviour
         HideAlert();
 
         gameSpeedButton.onClick.AddListener(OnGameSpeedButtonClicked);
+        startWaveButton.onClick.AddListener(OnStartNewWave);
     }
 
     private void UpdateWaveText(int waveIndex)
     {
         waveText.text = "Wave " + (waveIndex + 1);
+        UpdateStartWaveButton();
     }
 
     public void UpdateLives(int lives)
@@ -74,6 +77,11 @@ public class UIController : MonoBehaviour
     public void UpdateGameSpeedUI()
     {
         gameSpeedButton.GetComponentInChildren<TMP_Text>().text = "x " + _gameSpeed;
+    }
+
+    public void UpdateStartWaveButton()
+    {
+        startWaveButton.interactable = !SpawnManager.Instance.ActiveWave;
     }
 
     public void ToggleTowerPanel()
@@ -160,6 +168,12 @@ public class UIController : MonoBehaviour
     {
         _isPaused = !_isPaused;
         TDGameManager.Instance.SetTimeScale(_isPaused ? 0f : _gameSpeed);
+    }
+
+    public void OnStartNewWave()
+    {
+        SpawnManager.Instance.StartNewWave();
+        UpdateStartWaveButton();
     }
 
     public void RestartGame()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fae2cb60569e4fd897f83a9694414e1, type: 3}
   m_Name: Basic Wave
   m_EditorClassIdentifier: Assembly-CSharp::WayData
-  pointType: 0
+  enemyType: 1
   _spawnTimer: 0
   _spawnInterval: 1
   perway: 5

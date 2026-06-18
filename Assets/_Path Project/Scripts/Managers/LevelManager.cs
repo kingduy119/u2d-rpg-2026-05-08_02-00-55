@@ -5,7 +5,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
-    public LevelData currentLevel;
+    public LevelData CurrentLevel { get; set; }
     public LevelData[] allLevels;
 
     private void Awake()
@@ -17,16 +17,18 @@ public class LevelManager : MonoBehaviour
         else
         {
             Instance = this;
-            // DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
-        currentLevel = allLevels[0];
+    }
+
+    private void Start()
+    {
+        CurrentLevel = allLevels[0];
     }
 
     public void LoadLevel(LevelData levelData)
     {
-        // Load the scene associated with the level data
+        CurrentLevel = levelData;
         SceneManager.LoadScene(levelData.sceneName);
-
-
     }
 }

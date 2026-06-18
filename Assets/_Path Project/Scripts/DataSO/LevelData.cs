@@ -10,4 +10,5 @@ public class LevelData : ScriptableObject
     public int startingGold;
 
     // public AudioClip backgroundMusic;
+    public WaveData[] waves;
 }
