@@ -1,5 +1,6 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class UIController : MonoBehaviour
@@ -8,6 +9,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private TMP_Text goldText;
     [SerializeField] private TMP_Text alertText;
+    [SerializeField] private Button gameSpeedButton;
 
     [SerializeField] private GameObject towerPanel;
     [SerializeField] private GameObject towerCardPrefab;
@@ -18,6 +20,12 @@ public class UIController : MonoBehaviour
 
     private Platform _currentPlatform;
 
+    private bool _isPaused = false;
+    private float _gameSpeed = 1f;
+    private float _maxGameSpeed = 3f;
+    public float GameSpeed => _gameSpeed;
+
+
     void OnEnable()
     {
         Object_Spawner.OnWaveChanged += UpdateWaveText;
@@ -25,6 +33,8 @@ public class UIController : MonoBehaviour
         TDGameManager.OnGoldsChanged += UpdateGolds;
         Platform.OnPlatformClicked += OpenTowerPanel;
         TowerCard.OnTowerCardSelected += HandleTowerCardSelected;
+
+        // gameSpeedButton.onClick.AddListener(OnGameSpeedButtonClicked);
     }
 
     void OnDisable()
@@ -34,6 +44,16 @@ public class UIController : MonoBehaviour
         TDGameManager.OnGoldsChanged -= UpdateGolds;
         Platform.OnPlatformClicked -= OpenTowerPanel;
         TowerCard.OnTowerCardSelected -= HandleTowerCardSelected;
+
+        // gameSpeedButton.onClick.RemoveListener(OnGameSpeedButtonClicked);
+    }
+
+    void Start()
+    {
+        UpdateGameSpeedUI();
+        HideAlert();
+
+        gameSpeedButton.onClick.AddListener(OnGameSpeedButtonClicked);
     }
 
     private void UpdateWaveText(int waveIndex)
@@ -49,6 +69,11 @@ public class UIController : MonoBehaviour
     public void UpdateGolds(int gold)
     {
         goldText.text = "Gold: " + gold;
+    }
+
+    public void UpdateGameSpeedUI()
+    {
+        gameSpeedButton.GetComponentInChildren<TMP_Text>().text = "x " + _gameSpeed;
     }
 
     public void ToggleTowerPanel()
@@ -72,7 +97,6 @@ public class UIController : MonoBehaviour
     {
         alertText.text = message;
         alertText.gameObject.SetActive(true);
-        // Invoke(nameof(HideAlert), 2f);
     }
 
     private void HideAlert()
@@ -117,5 +141,38 @@ public class UIController : MonoBehaviour
         ShowAlert(message);
         yield return new WaitForSeconds(2f);
         HideAlert();
+    }
+
+    public void SetGameSpeed(float speed)
+    {
+        _gameSpeed = Mathf.Clamp(speed, 1f, _maxGameSpeed);
+        TDGameManager.Instance.SetTimeScale(_gameSpeed);
+        UpdateGameSpeedUI();
+    }
+
+    public void OnGameSpeedButtonClicked()
+    {
+        _gameSpeed = (_gameSpeed + 1) % (_maxGameSpeed + 1);
+        SetGameSpeed(_gameSpeed);
+    }
+
+    public void TogglePause()
+    {
+        _isPaused = !_isPaused;
+        TDGameManager.Instance.SetTimeScale(_isPaused ? 0f : _gameSpeed);
+    }
+
+    public void RestartGame()
+    {
+        // TDGameManager.Instance.RestartLevel();
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
