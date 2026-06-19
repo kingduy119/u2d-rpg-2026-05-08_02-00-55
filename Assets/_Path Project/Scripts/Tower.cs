@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Tower : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Tower : MonoBehaviour
     private Object_Pool _projectilePool;
 
     private float _shootTimer;
+
+    [SerializeField] private bool _displayDrawGimoz;
 
     private void OnEnable()
     {
@@ -87,7 +90,8 @@ public class Tower : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Draw the tower's range in the editor
+        if (!_displayDrawGimoz) return;
+
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, _data.range);
     }

@@ -16,7 +16,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject towerCardPrefab;
     [SerializeField] private Transform cardsContainer;
 
-    [SerializeField] private TowerData[] towers;
+    [SerializeField] private TowerData[] _towers;
     private List<GameObject> activeCards = new List<GameObject>();
 
     private Platform _currentPlatform;
@@ -120,7 +120,7 @@ public class UIController : MonoBehaviour
         }
         activeCards.Clear();
 
-        foreach (var data in towers)
+        foreach (var data in _towers)
         {
             GameObject card = Instantiate(towerCardPrefab, cardsContainer);
             TowerCard towerCard = card.GetComponent<TowerCard>();

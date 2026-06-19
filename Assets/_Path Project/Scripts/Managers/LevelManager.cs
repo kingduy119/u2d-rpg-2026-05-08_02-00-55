@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         CurrentLevel = allLevels[0];
+        TDGameManager.Instance.AddGold(CurrentLevel.startingGold);
     }
 
     public void LoadLevel(LevelData levelData)

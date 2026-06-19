@@ -8,9 +8,10 @@ public class TDGameManager : MonoBehaviour
     public static event Action<int> OnGoldsChanged;
 
     private int _lives = 20;
+    public int Lives => _lives;
+
     private int _golds = 0;
 
-    public int Lives => _lives;
     public int Golds => _golds;
 
     void Awake()
