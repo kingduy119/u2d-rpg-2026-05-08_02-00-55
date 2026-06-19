@@ -78,6 +78,7 @@ public class Tower : MonoBehaviour
             GameObject projectile = _projectilePool.GetObject();
             projectile.transform.position = transform.position;
             projectile.SetActive(true);
+
             Vector2 shootDirection = (_enemiesInRange[0].transform.position - transform.position).normalized;
             projectile.GetComponent<Projectile>().Shoot(_data, shootDirection);
         }

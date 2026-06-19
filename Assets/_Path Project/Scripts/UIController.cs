@@ -17,7 +17,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Transform cardsContainer;
 
     [SerializeField] private TowerData[] _towers;
-    private List<GameObject> activeCards = new List<GameObject>();
+    // private List<GameObject> activeCards = new List<GameObject>();
 
     private Platform _currentPlatform;
 
@@ -25,6 +25,15 @@ public class UIController : MonoBehaviour
     private float _gameSpeed = 1f;
     private float _maxGameSpeed = 3f;
     public float GameSpeed => _gameSpeed;
+
+    // private void OnValidate()
+    // {
+    //     if (_towers == null || _towers.Length == 0)
+    //     {
+    //         ResetTowerCards();
+    //         FillTowerCards();
+    //     }
+    // }
 
 
     void OnEnable()
@@ -45,8 +54,6 @@ public class UIController : MonoBehaviour
         TDGameManager.OnGoldsChanged -= UpdateGolds;
         Platform.OnPlatformClicked -= OpenTowerPanel;
         TowerCard.OnTowerCardSelected -= HandleTowerCardSelected;
-
-
     }
 
     void Start()
@@ -112,21 +119,33 @@ public class UIController : MonoBehaviour
         alertText.gameObject.SetActive(false);
     }
 
-    private void PopulateTowerCards()
+    private void ResetTowerCards()
     {
-        foreach (var card in activeCards)
+        // foreach (var card in activeCards)
+        // {
+        //     Destroy(card);
+        // }
+        // activeCards.Clear();
+        foreach (Transform child in cardsContainer)
         {
-            Destroy(card);
+            Destroy(child.gameObject);
         }
-        activeCards.Clear();
+    }
 
+    private void FillTowerCards()
+    {
         foreach (var data in _towers)
         {
             GameObject card = Instantiate(towerCardPrefab, cardsContainer);
             TowerCard towerCard = card.GetComponent<TowerCard>();
             towerCard.Initialize(data);
-            activeCards.Add(card);
+            // activeCards.Add(card);
         }
+    }
+    private void PopulateTowerCards()
+    {
+        ResetTowerCards();
+        FillTowerCards();
     }
 
     public void HandleTowerCardSelected(TowerData data)
