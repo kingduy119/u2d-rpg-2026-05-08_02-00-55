@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TDGameManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class TDGameManager : MonoBehaviour
         }
         else
         {
+            DontDestroyOnLoad(gameObject);
             Instance = this;
         }
     }
@@ -30,13 +32,14 @@ public class TDGameManager : MonoBehaviour
     {
         TDEnemy.OnEnemyReachedEnd += HandlePointReachedEnd;
         TDEnemy.OnEnemyDestroyed += HandleEnemyDestroyed;
-
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDisable()
     {
         TDEnemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
         TDEnemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void Start()
@@ -83,6 +86,19 @@ public class TDGameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Not enough gold!");
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "TD_MainMenu")
+        {
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.mainMenuMusic);
+        }
+        else if (LevelManager.Instance != null && LevelManager.Instance.CurrentLevel != null)
+        {
+            // ResetGameState();
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.gameplayMusic);
         }
     }
 }

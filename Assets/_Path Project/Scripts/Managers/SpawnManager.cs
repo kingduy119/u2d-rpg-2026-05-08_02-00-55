@@ -6,10 +6,10 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance { get; set; }
     public static event Action<int> OnWaveChanged;
+    public static event Action OnMissionComplete;
 
     public float _spawnTimer = 0f;
     public float _spawnInterval = 1f;
-    private float _timeBetweenWaves = 3f;
     private float _waveCooldown = 3f;
     private bool _isWaveActive = false;
 
@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
     private int _enemiesRemoved = 0;
     private int _currentWaveIndex = 0;
     // public WaveData[] waves;
-    private WaveData[] _waves;
+    private WaveData[] _waves => LevelManager.Instance.CurrentLevel.waves;
     private WaveData CurrentWave => _waves[_currentWaveIndex];
 
     [SerializeField] private Object_Pool basicPool;
@@ -62,8 +62,6 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        _spawnTimer = _spawnInterval;
-        _waves = LevelManager.Instance.CurrentLevel.waves;
         OnWaveChanged?.Invoke(_currentWaveIndex);
     }
 
@@ -71,17 +69,6 @@ public class SpawnManager : MonoBehaviour
     {
         if (!_isWaveActive) return;
 
-        // if (_isWaveActive)
-        // {
-        //     _waveCooldown -= Time.deltaTime;
-        //     if (_waveCooldown <= 0f)
-        //     {
-        //         _isWaveActive = false;
-        //         _waveCooldown = _timeBetweenWaves;
-        //     }
-        // }
-        // else
-        // {
         _spawnTimer -= Time.deltaTime;
         if (_spawnTimer <= 0f && _spawnedCount < CurrentWave.perway)
         {
@@ -90,16 +77,23 @@ public class SpawnManager : MonoBehaviour
         }
         else if (_enemiesRemoved >= CurrentWave.perway)
         {
-            _currentWaveIndex = (_currentWaveIndex + 1) % _waves.Length;
+            _currentWaveIndex += 1;
             _spawnedCount = 0;
             _enemiesRemoved = 0;
             _isWaveActive = false;
             OnWaveChanged?.Invoke(_currentWaveIndex);
+
+            if (_currentWaveIndex >= _waves.Length)
+                OnMissionComplete?.Invoke();
+            // 
         }
-        // }
     }
 
-    public void StartNewWave() => _isWaveActive = true;
+    public void StartNewWave()
+    {
+        if (_currentWaveIndex < _waves.Length)
+            _isWaveActive = true;
+    }
 
     private void SpawnObject()
     {

@@ -5,12 +5,8 @@ public class MainMenuController : MonoBehaviour
 {
     public void StartNewGame()
     {
-        SceneManager.LoadScene("TD_Gameplay");
-    }
-
-    public void RestartGame()
-    {
-        // TDGameManager.Instance.RestartLevel();
+        // SceneManager.LoadScene("TD_Gameplay");
+        LevelManager.Instance.LoadNewgame();
     }
 
     public void QuitGame()

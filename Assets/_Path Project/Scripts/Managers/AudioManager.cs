@@ -7,6 +7,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
 
+    public AudioClip mainMenuMusic;
+    public AudioClip gameplayMusic;
+
     public AudioClip pasueClip;
     public AudioClip resumeClip;
     public AudioClip buttonClickClip;
@@ -27,6 +30,14 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    public void PlayMusic(AudioClip clip)
+    {
+        if (musicSource.clip == clip && musicSource.isPlaying) return;
+        musicSource.clip = clip;
+        musicSource.loop = true;
+        musicSource.Play();
     }
 
     public void PlaySound(AudioClip clip)

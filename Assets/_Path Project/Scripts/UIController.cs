@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class UIController : MonoBehaviour
 {
+    public static UIController Instance { get; set; }
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private TMP_Text goldText;
@@ -26,30 +27,33 @@ public class UIController : MonoBehaviour
     private float _maxGameSpeed = 3f;
     public float GameSpeed => _gameSpeed;
 
-    // private void OnValidate()
-    // {
-    //     if (_towers == null || _towers.Length == 0)
-    //     {
-    //         ResetTowerCards();
-    //         FillTowerCards();
-    //     }
-    // }
-
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     void OnEnable()
     {
         SpawnManager.OnWaveChanged += UpdateWaveText;
+        SpawnManager.OnMissionComplete += HandleMissionComplete;
         TDGameManager.OnLivesChanged += UpdateLives;
         TDGameManager.OnGoldsChanged += UpdateGolds;
         Platform.OnPlatformClicked += OpenTowerPanel;
         TowerCard.OnTowerCardSelected += HandleTowerCardSelected;
-
-
     }
 
     void OnDisable()
     {
         SpawnManager.OnWaveChanged -= UpdateWaveText;
+        SpawnManager.OnMissionComplete -= HandleMissionComplete;
         TDGameManager.OnLivesChanged -= UpdateLives;
         TDGameManager.OnGoldsChanged -= UpdateGolds;
         Platform.OnPlatformClicked -= OpenTowerPanel;
@@ -58,11 +62,13 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
+        towerPanel.SetActive(false);
+
         UpdateGameSpeedUI();
         HideAlert();
 
         gameSpeedButton.onClick.AddListener(OnGameSpeedButtonClicked);
-        startWaveButton.onClick.AddListener(OnStartNewWave);
+        // startWaveButton.onClick.AddListener(OnStartNewWave);
     }
 
     private void UpdateWaveText(int waveIndex)
@@ -97,15 +103,26 @@ public class UIController : MonoBehaviour
         if (towerPanel.activeSelf)
             PopulateTowerCards();
 
-        TDGameManager.Instance.SetTimeScale(towerPanel.activeSelf ? 0f : 1f);
+        TogglePause();
     }
 
     public void OpenTowerPanel(Platform platform)
     {
-        _currentPlatform = platform;
+        if (towerPanel.activeSelf) return;
         towerPanel.SetActive(true);
+
+        _currentPlatform = platform;
         PopulateTowerCards();
-        TDGameManager.Instance.SetTimeScale(0f);
+        UpdateStartWaveButton();
+
+        Pause();
+    }
+
+    public void CloseTowerPanel()
+    {
+        towerPanel.SetActive(false);
+        UpdateStartWaveButton();
+        Resume();
     }
 
     public void ShowAlert(string message)
@@ -121,11 +138,6 @@ public class UIController : MonoBehaviour
 
     private void ResetTowerCards()
     {
-        // foreach (var card in activeCards)
-        // {
-        //     Destroy(card);
-        // }
-        // activeCards.Clear();
         foreach (Transform child in cardsContainer)
         {
             Destroy(child.gameObject);
@@ -139,7 +151,6 @@ public class UIController : MonoBehaviour
             GameObject card = Instantiate(towerCardPrefab, cardsContainer);
             TowerCard towerCard = card.GetComponent<TowerCard>();
             towerCard.Initialize(data);
-            // activeCards.Add(card);
         }
     }
     private void PopulateTowerCards()
@@ -187,6 +198,25 @@ public class UIController : MonoBehaviour
     {
         _isPaused = !_isPaused;
         TDGameManager.Instance.SetTimeScale(_isPaused ? 0f : _gameSpeed);
+        if (_isPaused)
+            AudioManager.Instance.PlayPauseSound();
+        else
+            AudioManager.Instance.PlayResumeSound();
+
+    }
+
+    public void Pause()
+    {
+        _isPaused = true;
+        TDGameManager.Instance.SetTimeScale(0f);
+        AudioManager.Instance.PlayPauseSound();
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
+        TDGameManager.Instance.SetTimeScale(_gameSpeed);
+        AudioManager.Instance.PlayResumeSound();
     }
 
     public void OnStartNewWave()
@@ -195,10 +225,15 @@ public class UIController : MonoBehaviour
         UpdateStartWaveButton();
     }
 
-    public void RestartGame()
+    private void HandleMissionComplete()
     {
-        // TDGameManager.Instance.RestartLevel();
+        Debug.Log("HandleMissionComplete");
     }
+
+    // public void RestartGame()
+    // {
+    //     // TDGameManager.Instance.RestartLevel();
+    // }
 
     public void QuitGame()
     {
