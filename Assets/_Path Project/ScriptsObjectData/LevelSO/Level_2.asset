@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d4b3e546fbacec418f3293522d3c660, type: 3}
-  m_Name: Level_1
+  m_Name: Level_2
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Spring Level
-  sceneName: TD_Level_1
+  sceneName: TD_Level_2
   startingLives: 5
   startingGold: 50
   waves:
+  - {fileID: 11400000, guid: 17477937bea504221afa33127c34c9cb, type: 2}
+  - {fileID: 11400000, guid: 17477937bea504221afa33127c34c9cb, type: 2}
   - {fileID: 11400000, guid: 17477937bea504221afa33127c34c9cb, type: 2}

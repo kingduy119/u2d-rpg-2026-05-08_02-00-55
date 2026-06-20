@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
 
     public LevelData[] allLevels;
     public LevelData CurrentLevel { get; private set; }
+    private int level = 0;
+    public LevelData Level => allLevels[level];
 
     private void Awake()
     {

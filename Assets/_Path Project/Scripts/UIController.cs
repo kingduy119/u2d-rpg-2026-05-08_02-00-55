@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class UIController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject towerPanel;
     [SerializeField] private GameObject towerCardPrefab;
     [SerializeField] private Transform cardsContainer;
+
+    [SerializeField] private GameObject missionCompletePanel;
 
     [SerializeField] private TowerData[] _towers;
     // private List<GameObject> activeCards = new List<GameObject>();
@@ -63,6 +66,7 @@ public class UIController : MonoBehaviour
     void Start()
     {
         towerPanel.SetActive(false);
+        missionCompletePanel.SetActive(false);
 
         UpdateGameSpeedUI();
         HideAlert();
@@ -227,13 +231,20 @@ public class UIController : MonoBehaviour
 
     private void HandleMissionComplete()
     {
-        Debug.Log("HandleMissionComplete");
+        missionCompletePanel.SetActive(true);
     }
 
-    // public void RestartGame()
-    // {
-    //     // TDGameManager.Instance.RestartLevel();
-    // }
+    public void OnNextLevelClick()
+    {
+        missionCompletePanel.SetActive(false);
+        var levelManager = LevelManager.Instance;
+        int currentIndex = Array.IndexOf(levelManager.allLevels, levelManager.CurrentLevel);
+        int nextIndex = currentIndex + 1;
+        if (nextIndex < levelManager.allLevels.Length)
+        {
+            levelManager.LoadLevel(levelManager.allLevels[nextIndex]);
+        }
+    }
 
     public void QuitGame()
     {

@@ -629,6 +629,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3713353007523567956, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+      propertyPath: allLevels.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3713353007523567956, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+      propertyPath: 'allLevels.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 255e34b464bbe4defb01b14b7de27d84, type: 2}
     - target: {fileID: 7467034772555456701, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
       propertyPath: m_Name
       value: === TD Managers ===
