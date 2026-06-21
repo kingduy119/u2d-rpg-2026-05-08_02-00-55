@@ -232,6 +232,8 @@ public class UIController : MonoBehaviour
     private void HandleMissionComplete()
     {
         missionCompletePanel.SetActive(true);
+
+        Pause();
     }
 
     public void OnNextLevelClick()
@@ -240,6 +242,7 @@ public class UIController : MonoBehaviour
         var levelManager = LevelManager.Instance;
         int currentIndex = Array.IndexOf(levelManager.allLevels, levelManager.CurrentLevel);
         int nextIndex = currentIndex + 1;
+        Debug.Log($"OnNextLevelClick-nextIndex: {nextIndex} - {levelManager.allLevels.Length}");
         if (nextIndex < levelManager.allLevels.Length)
         {
             levelManager.LoadLevel(levelManager.allLevels[nextIndex]);

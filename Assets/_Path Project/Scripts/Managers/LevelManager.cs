@@ -27,12 +27,14 @@ public class LevelManager : MonoBehaviour
     {
         CurrentLevel = allLevels[0];
         TDGameManager.Instance.AddGold(CurrentLevel.startingGold);
+        Debug.Log($"allLevels.Length: {allLevels.Length}");
     }
 
     public void LoadLevel(LevelData levelData)
     {
         CurrentLevel = levelData;
-        SceneManager.LoadScene(levelData.sceneName);
+        Debug.Log($"Loading level: {CurrentLevel.sceneName}");
+        SceneManager.LoadScene(CurrentLevel.sceneName);
     }
 
     public void LoadNewgame()
