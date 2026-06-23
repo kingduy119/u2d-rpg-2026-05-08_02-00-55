@@ -1,38 +1,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Object_Pool : MonoBehaviour
+namespace TDGame
 {
-    [SerializeField] private int _poolSize = 3;
-    [SerializeField] private GameObject _prefab;
-    private List<GameObject> _pool;
-
-    void Start()
+    public class Object_Pool : MonoBehaviour
     {
-        _pool = new List<GameObject>();
-        for (int i = 0; i < _poolSize; i++)
+        [SerializeField] private int _poolSize = 3;
+        [SerializeField] private GameObject _prefab;
+        private List<GameObject> _pool;
+
+        void Start()
         {
-            CreateNewObject();
-        }
-    }
-
-    private GameObject CreateNewObject()
-    {
-        GameObject obj = Instantiate(_prefab, transform);
-        obj.SetActive(false);
-        _pool.Add(obj);
-        return obj;
-    }
-
-    public GameObject GetObject()
-    {
-        foreach (GameObject obj in _pool)
-        {
-            if (!obj.activeSelf)
+            _pool = new List<GameObject>();
+            for (int i = 0; i < _poolSize; i++)
             {
-                return obj;
+                CreateNewObject();
             }
         }
-        return CreateNewObject();
+
+        private GameObject CreateNewObject()
+        {
+            GameObject obj = Instantiate(_prefab, transform);
+            obj.SetActive(false);
+            _pool.Add(obj);
+            return obj;
+        }
+
+        public GameObject GetObject()
+        {
+            foreach (GameObject obj in _pool)
+            {
+                if (!obj.activeSelf)
+                {
+                    return obj;
+                }
+            }
+            return CreateNewObject();
+        }
     }
+
 }

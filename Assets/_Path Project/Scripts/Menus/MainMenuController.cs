@@ -1,20 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour
+namespace TDGame
 {
-    public void StartNewGame()
+    public class MainMenuController : MonoBehaviour
     {
-        // SceneManager.LoadScene("TD_Gameplay");
-        LevelManager.Instance.LoadNewgame();
-    }
+        public void StartNewGame()
+        {
+            // SceneManager.LoadScene("TD_Gameplay");
+            LevelManager.Instance.LoadNewgame();
+        }
 
-    public void QuitGame()
-    {
+        public void QuitGame()
+        {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
+        }
     }
+
 }

@@ -2,115 +2,115 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class SpawnManager : MonoBehaviour
+namespace TDGame
 {
-    public static SpawnManager Instance { get; set; }
-    public static event Action<int> OnWaveChanged;
-    public static event Action OnMissionComplete;
-
-    public float _spawnTimer = 0f;
-    public float _spawnInterval = 1f;
-    private float _waveCooldown = 3f;
-    private bool _isWaveActive = false;
-
-    private int _spawnedCount = 0;
-    private int _enemiesRemoved = 0;
-    private int _currentWaveIndex = 0;
-    // public WaveData[] waves;
-    private WaveData[] _waves => LevelManager.Instance.CurrentLevel.waves;
-    private WaveData CurrentWave => _waves[_currentWaveIndex];
-
-    [SerializeField] private Object_Pool basicPool;
-    [SerializeField] private Object_Pool normalPool;
-    [SerializeField] private Object_Pool fastPool;
-    [SerializeField] private Object_Pool mumyOrcPool;
-    private Dictionary<TDEnemyType, Object_Pool> poolDictionary;
-
-    public bool ActiveWave => _isWaveActive;
-
-    void Awake()
+    public class SpawnManager : PersistentSingleton<SpawnManager>
     {
-        poolDictionary = new Dictionary<TDEnemyType, Object_Pool>()
+        // public static SpawnManager Instance { get; set; }
+        public static event Action<int> OnWaveChanged;
+        public static event Action OnMissionComplete;
+
+        public float _spawnTimer = 0f;
+        public float _spawnInterval = 1f;
+        // private float _waveCooldown = 3f;
+        private bool _isWaveActive = false;
+
+        private int _spawnedCount = 0;
+        private int _enemiesRemoved = 0;
+        private int _currentWaveIndex = 0;
+        // public WaveData[] waves;
+        private WaveData[] _waves => LevelManager.Instance.CurrentLevel.waves;
+        private WaveData CurrentWave => _waves[_currentWaveIndex];
+
+        [SerializeField] private Object_Pool basicPool;
+        [SerializeField] private Object_Pool normalPool;
+        [SerializeField] private Object_Pool fastPool;
+        [SerializeField] private Object_Pool mumyOrcPool;
+        private Dictionary<EnemyType, Object_Pool> poolDictionary;
+
+        public bool ActiveWave => _isWaveActive;
+
+        protected override void Awake()
         {
-            { TDEnemyType.MummyOrc, mumyOrcPool },
-            { TDEnemyType.Basic, basicPool },
-            { TDEnemyType.Normal, normalPool },
-            { TDEnemyType.Fast, fastPool }
+            base.Awake();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            poolDictionary = new Dictionary<EnemyType, Object_Pool>()
+        {
+            { EnemyType.MummyOrc, mumyOrcPool },
+            { EnemyType.Basic, basicPool },
+            { EnemyType.Normal, normalPool },
+            { EnemyType.Fast, fastPool }
         };
-
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
         }
-        else
+
+        private void OnEnable()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
+            Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
         }
-    }
-
-    private void OnEnable()
-    {
-        TDEnemy.OnEnemyReachedEnd += HandlePointReachedEnd;
-        TDEnemy.OnEnemyDestroyed += HandleEnemyDestroyed;
-    }
-    private void OnDisable()
-    {
-        TDEnemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
-        TDEnemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
-    }
-
-    private void Start()
-    {
-        OnWaveChanged?.Invoke(_currentWaveIndex);
-    }
-
-    void Update()
-    {
-        if (!_isWaveActive) return;
-
-        _spawnTimer -= Time.deltaTime;
-        if (_spawnTimer <= 0f && _spawnedCount < CurrentWave.perway)
+        private void OnDisable()
         {
-            _spawnTimer = _spawnInterval;
-            SpawnObject();
+            Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
+            Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
         }
-        else if (_enemiesRemoved >= CurrentWave.perway)
+
+        private void Start()
         {
-            _currentWaveIndex += 1;
-            _spawnedCount = 0;
-            _enemiesRemoved = 0;
-            _isWaveActive = false;
             OnWaveChanged?.Invoke(_currentWaveIndex);
+        }
 
-            if (_currentWaveIndex >= _waves.Length)
-                OnMissionComplete?.Invoke();
-            // 
+        void Update()
+        {
+            if (!_isWaveActive) return;
+
+            _spawnTimer -= Time.deltaTime;
+            if (_spawnTimer <= 0f && _spawnedCount < CurrentWave.perway)
+            {
+                _spawnTimer = _spawnInterval;
+                SpawnObject();
+            }
+            else if (_enemiesRemoved >= CurrentWave.perway)
+            {
+                _currentWaveIndex += 1;
+                _spawnedCount = 0;
+                _enemiesRemoved = 0;
+                _isWaveActive = false;
+                OnWaveChanged?.Invoke(_currentWaveIndex);
+
+                if (_currentWaveIndex >= _waves.Length)
+                    OnMissionComplete?.Invoke();
+                // 
+            }
+        }
+
+        public void StartNewWave()
+        {
+            if (_currentWaveIndex < _waves.Length)
+                _isWaveActive = true;
+        }
+
+        private void SpawnObject()
+        {
+            GameObject obj = poolDictionary[CurrentWave.enemyType].GetObject();
+            obj.transform.position = transform.position;
+            obj.SetActive(true);
+            _spawnedCount++;
+        }
+
+
+        private void HandlePointReachedEnd(EnemyData pointData)
+        {
+            _enemiesRemoved++;
+        }
+
+        private void HandleEnemyDestroyed(Enemy enemy)
+        {
+            _enemiesRemoved++;
         }
     }
 
-    public void StartNewWave()
-    {
-        if (_currentWaveIndex < _waves.Length)
-            _isWaveActive = true;
-    }
-
-    private void SpawnObject()
-    {
-        GameObject obj = poolDictionary[CurrentWave.enemyType].GetObject();
-        obj.transform.position = transform.position;
-        obj.SetActive(true);
-        _spawnedCount++;
-    }
-
-
-    private void HandlePointReachedEnd(TDEnemyData pointData)
-    {
-        _enemiesRemoved++;
-    }
-
-    private void HandleEnemyDestroyed(TDEnemy enemy)
-    {
-        _enemiesRemoved++;
-    }
 }

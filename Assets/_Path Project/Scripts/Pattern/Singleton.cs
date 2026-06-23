@@ -1,0 +1,42 @@
+using UnityEngine;
+
+public class Singleton<T> : MonoBehaviour where T : Component
+{
+    private static T s_Instance;
+    public static T Instance
+    {
+        get
+        {
+            // If the singleton instance does not exist, try to find it in the scene
+            if (s_Instance == null)
+            {
+                s_Instance = FindAnyObjectByType<T>();
+
+                // Create a new GameObject with the Type T if it does not exist
+                if (s_Instance == null)
+                {
+                    GameObject singletonObject = new GameObject();
+                    s_Instance = singletonObject.AddComponent<T>();
+
+                    // Name the singleton instance for the Type
+                    singletonObject.name = typeof(T).ToString();
+
+                    DontDestroyOnLoad(singletonObject);
+                }
+            }
+            return s_Instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (s_Instance == null)
+        {
+            s_Instance = this as T;
+        }
+        else if (s_Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+}

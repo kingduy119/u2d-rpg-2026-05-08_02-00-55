@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1055334545769767902}
   - component: {fileID: 29593663531937565}
   - component: {fileID: 2199042326828581253}
-  - component: {fileID: 327796476668971982}
   - component: {fileID: 2729734957645061342}
   - component: {fileID: 2203843531384761684}
+  - component: {fileID: 327796476668971982}
+  - component: {fileID: 451860075186101210}
   m_Layer: 0
   m_Name: mummy_orc
   m_TagString: Enemy
@@ -118,20 +119,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &327796476668971982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775246570579743652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3e0cc8979470429d9e5bf4316af7316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TDEnemy
-  _data: {fileID: 11400000, guid: 8d9c14b98d97c40a28b7468693fcff7b, type: 2}
-  _healthBar: {fileID: 5587830760002416646}
 --- !u!50 &2729734957645061342
 Rigidbody2D:
   serializedVersion: 5
@@ -196,6 +183,33 @@ CapsuleCollider2D:
   m_Offset: {x: -0.010425091, y: 0.7289604}
   m_Size: {x: 0.6448021, y: 1.4579208}
   m_Direction: 0
+--- !u!114 &327796476668971982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775246570579743652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e0cc8979470429d9e5bf4316af7316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDEnemy
+  _data: {fileID: 11400000, guid: 8d9c14b98d97c40a28b7468693fcff7b, type: 2}
+  _healthBar: {fileID: 5587830760002416646}
+--- !u!114 &451860075186101210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775246570579743652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87db52419285d4249aeff4ea1ffd7e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.Enemy_Health
+  _healthBar: {fileID: 5587830760002416646}
 --- !u!1 &6836995328492389616
 GameObject:
   m_ObjectHideFlags: 0

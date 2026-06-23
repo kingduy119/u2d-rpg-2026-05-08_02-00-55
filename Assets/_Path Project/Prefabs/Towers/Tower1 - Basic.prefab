@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3935972184523369920}
   - component: {fileID: 2781334514077160883}
-  - component: {fileID: 788257053616470675}
   - component: {fileID: 975663537872711550}
+  - component: {fileID: 788257053616470675}
+  - component: {fileID: 6159968174980097421}
   m_Layer: 8
   m_Name: Tower1 - Basic
   m_TagString: Untagged
@@ -49,21 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Object_Pool
   _poolSize: 3
   _prefab: {fileID: 7395881598276135404, guid: 84a4fd2c8a7844d02bcf076f950840db, type: 3}
---- !u!114 &788257053616470675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85164629013926071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef24c726d2afb541a2fe811ba5cc9f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tower
-  _data: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
-  _enemiesInRange: []
-  _displayDrawGimoz: 1
 --- !u!58 &975663537872711550
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -100,6 +86,37 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &788257053616470675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85164629013926071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef24c726d2afb541a2fe811ba5cc9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower
+  _data: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
+--- !u!114 &6159968174980097421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85164629013926071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ccbf341c214b4361b3ccf1a48e21001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower_Combat
+  _data: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
+  projectilePrefab: {fileID: 2882488391642940485, guid: 84a4fd2c8a7844d02bcf076f950840db, type: 3}
+  collectionCheck: 1
+  capacity: 20
+  maxSize: 200
+  _enemiesInRange: []
 --- !u!1 &6907313596374074367
 GameObject:
   m_ObjectHideFlags: 0

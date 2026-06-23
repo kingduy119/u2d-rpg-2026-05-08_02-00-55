@@ -1,10 +1,16 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Pool;
+
 
 public class Projectile : MonoBehaviour
 {
     private TowerData _data;
     private Vector3 _shotDirection;
     private float _projectileDuration;
+
+    private IObjectPool<Projectile> _objectPool;
+    public IObjectPool<Projectile> ObjectPool { set => _objectPool = value; }
 
 
     // Update is called once per frame
@@ -25,7 +31,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            TDEnemy enemy = collision.GetComponent<TDEnemy>();
+            TDGame.Enemy_Health enemy = collision.GetComponent<TDGame.Enemy_Health>();
             enemy.TakeDamge(_data);
             gameObject.SetActive(false);
         }
@@ -36,5 +42,18 @@ public class Projectile : MonoBehaviour
         _data = data;
         _shotDirection = shotDirection;
         _projectileDuration = data.projectileDuration;
+    }
+
+    public void Deactivate()
+    {
+        StartCoroutine(DeactivateRoutine(_projectileDuration));
+    }
+
+    IEnumerator DeactivateRoutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+
+        _objectPool.Release(this);
     }
 }

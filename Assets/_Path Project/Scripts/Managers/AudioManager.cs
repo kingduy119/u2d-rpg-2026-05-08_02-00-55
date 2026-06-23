@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : PersistentSingleton<AudioManager>
 {
-    public static AudioManager Instance { get; private set; }
+    // public static AudioManager Instance { get; private set; }
 
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
@@ -19,18 +19,18 @@ public class AudioManager : MonoBehaviour
     public AudioClip missionCompleteClip;
     public AudioClip gameOverClip;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
+    // private void Awake()
+    // {
+    //     if (Instance != null && Instance != this)
+    //     {
+    //         Destroy(gameObject);
+    //     }
+    //     else
+    //     {
+    //         Instance = this;
+    //         DontDestroyOnLoad(gameObject);
+    //     }
+    // }
 
     public void PlayMusic(AudioClip clip)
     {
