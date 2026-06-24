@@ -635,6 +635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 283996845282399283}
   - component: {fileID: 2464618991634938537}
+  - component: {fileID: 6363500083764267137}
   m_Layer: 0
   m_Name: SpawnerManager
   m_TagString: Untagged
@@ -675,7 +676,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Object_Spawner
   _spawnTimer: 1
   _spawnInterval: 1
-  basicPool: {fileID: 6375694051939387874}
-  normalPool: {fileID: 3623540637074502752}
-  fastPool: {fileID: 2684162531608115837}
-  mumyOrcPool: {fileID: 3765006778461691428}
+--- !u!114 &6363500083764267137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8868209854378921555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb724ec6afbc44b3a695fac5085082a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.EnemyFactory
+  collectionCheck: 1
+  capacity: 20
+  maxSize: 200
+  enemyDatas:
+  - {fileID: 11400000, guid: 1d4e9301adb7f43939fb69315a99f997, type: 2}
+  - {fileID: 11400000, guid: 16808a28885304d42a6d061912dfc897, type: 2}
+  - {fileID: 11400000, guid: 0c20b5b45d96849b4a3efe19b04595aa, type: 2}
+  - {fileID: 11400000, guid: 8d9c14b98d97c40a28b7468693fcff7b, type: 2}

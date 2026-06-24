@@ -6,7 +6,6 @@ namespace TDGame
 {
     public class TDGameManager : PersistentSingleton<TDGameManager>
     {
-        // public static TDGameManager Instance { get; set; }
         public static event Action<int> OnLivesChanged;
         public static event Action<int> OnGoldsChanged;
 
@@ -16,19 +15,6 @@ namespace TDGame
         private int _golds = 0;
 
         public int Golds => _golds;
-
-        // void Awake()
-        // {
-        //     if (Instance != null && Instance != this)
-        //     {
-        //         Destroy(gameObject);
-        //     }
-        //     else
-        //     {
-        //         DontDestroyOnLoad(gameObject);
-        //         Instance = this;
-        //     }
-        // }
 
         void OnEnable()
         {
@@ -58,7 +44,6 @@ namespace TDGame
             if (_lives <= 0)
             {
                 Debug.Log("Game Over!");
-                // Implement game over logic here (e.g., show game over screen, restart level, etc.)
             }
         }
 
@@ -99,7 +84,6 @@ namespace TDGame
             }
             else if (LevelManager.Instance != null && LevelManager.Instance.CurrentLevel != null)
             {
-                // ResetGameState();
                 AudioManager.Instance.PlayMusic(AudioManager.Instance.gameplayMusic);
             }
         }

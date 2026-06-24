@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections.Generic;
 
 namespace TDGame
 {
@@ -16,45 +16,46 @@ namespace TDGame
 
         private void Awake()
         {
+            pools = new Dictionary<EnemyType, ObjectPool<Enemy>>();
+
             foreach (var data in enemyDatas)
             {
-                var pool = new ObjectPool<Enemy>(
-                    () => CreateEnemy(data.prefab),
-                    OnGet,
-            OnRelease,
-            OnDestroyPoolObject,
-            collectionCheck, capacity, maxSize
-                );
+                var pool = InitPool(data.prefab);
+                pools.Add(data.type, pool);
             }
         }
 
-        private Enemy CreateEnemy(Enemy prefab)
+        private ObjectPool<Enemy> InitPool(Enemy prefab)
         {
-            return Instantiate(prefab);
+            ObjectPool<Enemy> pool = null;
+            pool = new ObjectPool<Enemy>(
+                () =>
+                {
+                    Enemy enemy = Instantiate(prefab);
+                    enemy.Pool = pool;
+                    return enemy;
+                },
+                go => go.gameObject.SetActive(true),
+                go => go.gameObject.SetActive(false),
+                go => Destroy(go.gameObject),
+                collectionCheck,
+                capacity,
+                maxSize
+            );
+            return pool;
         }
 
-        private void OnGet(Enemy enemy)
+
+        public Enemy GetEnemy(EnemyType type)
         {
-            enemy.gameObject.SetActive(true);
+            if (!pools.TryGetValue(type, out var pool))
+            {
+                Debug.LogError($"No pool found for {type}");
+                return null;
+            }
+
+            return pool.Get();
         }
 
-        private void OnRelease(Enemy enemy)
-        {
-            enemy.gameObject.SetActive(false);
-        }
-
-        private void OnDestroyPoolObject(Enemy enemy)
-        {
-            Destroy(enemy.gameObject);
-        }
-
-        public Enemy Create(EnemyData data)
-        {
-            Enemy enemy = pools[data.type].Get();
-
-            // enemy.Initialize(data);
-
-            return enemy;
-        }
     }
 }

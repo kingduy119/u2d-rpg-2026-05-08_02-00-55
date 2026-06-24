@@ -24,7 +24,10 @@ namespace TDGame
         private void Awake()
         {
             _objectPool = new ObjectPool<Projectile>(
-                CreateProjectile, OnGetFromPool, OnRealeaseToPool, OnDestroyPooledObject,
+                CreateProjectile,
+                po => po.gameObject.SetActive(true),// OnGetFromPool, 
+                po => po.gameObject.SetActive(false),// OnRealeaseToPool, 
+                po => Destroy(po.gameObject),// OnDestroyPooledObject,
                 collectionCheck, capacity, maxSize
             );
         }
@@ -64,28 +67,12 @@ namespace TDGame
             return projectile;
         }
 
-        private void OnRealeaseToPool(Projectile poolObject)
-        {
-            poolObject.gameObject.SetActive(false);
-        }
-
-        private void OnGetFromPool(Projectile poolObject)
-        {
-            poolObject.gameObject.SetActive(true);
-        }
-
-        private void OnDestroyPooledObject(Projectile pooledObject)
-        {
-            Destroy(pooledObject.gameObject);
-        }
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
 
             if (collision.CompareTag("Enemy"))
             {
-                Enemy enemy = collision.GetComponent<Enemy>();
-                if (enemy != null)
+                if (collision.TryGetComponent<Enemy>(out var enemy))
                 {
                     _enemiesInRange.Add(enemy);
                 }
@@ -96,8 +83,7 @@ namespace TDGame
         {
             if (collision.CompareTag("Enemy"))
             {
-                Enemy enemy = collision.GetComponent<Enemy>();
-                if (enemy != null)
+                if (collision.TryGetComponent<Enemy>(out var enemy))
                 {
                     _enemiesInRange.Remove(enemy);
                 }

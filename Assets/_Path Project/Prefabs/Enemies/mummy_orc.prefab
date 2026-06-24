@@ -196,7 +196,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDEnemy
   _data: {fileID: 11400000, guid: 8d9c14b98d97c40a28b7468693fcff7b, type: 2}
-  _healthBar: {fileID: 5587830760002416646}
 --- !u!114 &451860075186101210
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3797,12 +3797,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1471510704181010821, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156274704501410904, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885638900208882887, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7467034772555456701, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
       propertyPath: m_Name
       value: === TD Managers ===
       objectReference: {fileID: 0}
+    - target: {fileID: 8674086201185721115, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1471510704181010821, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+    - {fileID: 6885638900208882887, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+    - {fileID: 8674086201185721115, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
+    - {fileID: 3156274704501410904, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 979f1802bdf9b4c60b102753cb3dc227, type: 3}

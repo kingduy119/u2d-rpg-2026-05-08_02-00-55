@@ -6,26 +6,17 @@ namespace TDGame
     [CreateAssetMenu(fileName = "EnemyData", menuName = "Game TD/EnemyData")]
     public class EnemyData : ScriptableObject
     {
-        public event Action HealthChanged;
-
         public EnemyType type;
         public Enemy prefab;
 
 
-        [Header("Detail")]
-        public float lives;
-        public float minLives;
-        public float maxLives;
-        public int damage;
-        public float moveSpeed;
-        public int goldReward;
+        [Header("Health")]
+        public float health = 1;
+        public float maxHealth = 10;
 
-        public void TakeDamge(float amount)
-        {
-            lives -= amount;
-            lives = Mathf.Clamp(lives, minLives, maxLives);
-
-            HealthChanged?.Invoke();
-        }
+        [Header("Combat")]
+        public int damage = 1;
+        public float moveSpeed = 1;
+        public int goldReward = 0;
     }
 }

@@ -4,11 +4,17 @@ using System.Collections.Generic;
 
 namespace TDGame
 {
+    [RequireComponent(typeof(EnemyFactory))]
     public class SpawnManager : PersistentSingleton<SpawnManager>
     {
         // public static SpawnManager Instance { get; set; }
         public static event Action<int> OnWaveChanged;
         public static event Action OnMissionComplete;
+        // [SerializeField] private Object_Pool basicPool;
+        // [SerializeField] private Object_Pool normalPool;
+        // [SerializeField] private Object_Pool fastPool;
+        // [SerializeField] private Object_Pool mumyOrcPool;
+        // private Dictionary<EnemyType, Object_Pool> poolDictionary;
 
         public float _spawnTimer = 0f;
         public float _spawnInterval = 1f;
@@ -17,16 +23,13 @@ namespace TDGame
 
         private int _spawnedCount = 0;
         private int _enemiesRemoved = 0;
-        private int _currentWaveIndex = 0;
+        private int _waveIndex = 0;
         // public WaveData[] waves;
-        private WaveData[] _waves => LevelManager.Instance.CurrentLevel.waves;
-        private WaveData CurrentWave => _waves[_currentWaveIndex];
+        // private WaveData[] _waves => LevelManager.Instance.CurrentLevel.waves;
+        private WaveData[] _waves => LevelManager.Instance.Level.waves;
+        private WaveData CurrentWave => _waves[_waveIndex];
 
-        [SerializeField] private Object_Pool basicPool;
-        [SerializeField] private Object_Pool normalPool;
-        [SerializeField] private Object_Pool fastPool;
-        [SerializeField] private Object_Pool mumyOrcPool;
-        private Dictionary<EnemyType, Object_Pool> poolDictionary;
+        EnemyFactory m_enemyFactor;
 
         public bool ActiveWave => _isWaveActive;
 
@@ -38,13 +41,14 @@ namespace TDGame
 
         private void Initialize()
         {
-            poolDictionary = new Dictionary<EnemyType, Object_Pool>()
-        {
-            { EnemyType.MummyOrc, mumyOrcPool },
-            { EnemyType.Basic, basicPool },
-            { EnemyType.Normal, normalPool },
-            { EnemyType.Fast, fastPool }
-        };
+            //     poolDictionary = new Dictionary<EnemyType, Object_Pool>()
+            // {
+            //     { EnemyType.MummyOrc, mumyOrcPool },
+            //     { EnemyType.Basic, basicPool },
+            //     { EnemyType.Normal, normalPool },
+            //     { EnemyType.Fast, fastPool }
+            // };
+            m_enemyFactor = GetComponent<EnemyFactory>();
         }
 
         private void OnEnable()
@@ -60,7 +64,7 @@ namespace TDGame
 
         private void Start()
         {
-            OnWaveChanged?.Invoke(_currentWaveIndex);
+            OnWaveChanged?.Invoke(_waveIndex);
         }
 
         void Update()
@@ -75,13 +79,13 @@ namespace TDGame
             }
             else if (_enemiesRemoved >= CurrentWave.perway)
             {
-                _currentWaveIndex += 1;
+                _waveIndex += 1;
                 _spawnedCount = 0;
                 _enemiesRemoved = 0;
                 _isWaveActive = false;
-                OnWaveChanged?.Invoke(_currentWaveIndex);
+                OnWaveChanged?.Invoke(_waveIndex);
 
-                if (_currentWaveIndex >= _waves.Length)
+                if (_waveIndex >= _waves.Length)
                     OnMissionComplete?.Invoke();
                 // 
             }
@@ -89,15 +93,18 @@ namespace TDGame
 
         public void StartNewWave()
         {
-            if (_currentWaveIndex < _waves.Length)
+            if (_waveIndex < _waves.Length)
                 _isWaveActive = true;
         }
 
         private void SpawnObject()
         {
-            GameObject obj = poolDictionary[CurrentWave.enemyType].GetObject();
+            // GameObject obj = poolDictionary[CurrentWave.enemyType].GetObject();
+            Enemy obj = m_enemyFactor.GetEnemy(CurrentWave.enemyType);
+            if (obj == null) return;
+
             obj.transform.position = transform.position;
-            obj.SetActive(true);
+            obj.gameObject.SetActive(true);
             _spawnedCount++;
         }
 

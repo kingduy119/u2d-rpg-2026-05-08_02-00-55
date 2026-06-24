@@ -15,7 +15,7 @@ public class Path : MonoBehaviour
         Gizmos.color = Color.red;
         for (int i = 0; i < wayPoints.Length - 1; i++)
         {
-            GUIStyle style = new GUIStyle();
+            GUIStyle style = new();
             style.normal.textColor = Color.white;
             style.alignment = TextAnchor.MiddleCenter;
             Handles.Label(wayPoints[i].transform.position, wayPoints[i].name, style);

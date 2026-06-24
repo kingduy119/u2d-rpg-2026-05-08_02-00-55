@@ -1,42 +1,55 @@
 using System;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace TDGame
 {
+    [RequireComponent(typeof(Enemy_Health))]
     public class Enemy : MonoBehaviour
     {
+
         [SerializeField] private EnemyData _data;
         public EnemyData Data => _data;
 
-        // [SerializeField] private Transform _healthBar;
+        public IObjectPool<Enemy> Pool
+        {
+            get => _pool;
+            set => _pool = value;
+        }
 
-        public static event Action<EnemyData> OnEnemyReachedEnd;
-        public static event Action<Enemy> OnEnemyDestroyed;
 
-        Enemy_Health m_health;
+        Enemy_Health _health;
 
         private Path currentPath;
         private Vector3 _targetPosition;
         private int _pathIndex = 0;
-        private float _lives;
-        // private Vector3 _healthBarOriginalScale;
+        private IObjectPool<Enemy> _pool;
+
+
+        public static event Action<EnemyData> OnEnemyReachedEnd;
+        public static event Action<Enemy> OnEnemyDestroyed;
 
         void Awake()
         {
             currentPath = GameObject.Find("Path1").GetComponent<Path>();
-            // _healthBarOriginalScale = _healthBar.localScale;
-            m_health = GetComponent<Enemy_Health>();
-
-            m_health.Initialize(_data);
+            _health = GetComponent<Enemy_Health>();
         }
 
-        void OnEnable()
+        private void OnEnable()
+        {
+            _health.OnEnemyDestroy += Deactive;
+
+        }
+        private void OnDisable()
+        {
+            _health.OnEnemyDestroy -= Deactive;
+        }
+
+        private void Start()
         {
             _pathIndex = 0;
             _targetPosition = currentPath.GetPointPosition(_pathIndex);
-
-            // _lives = _data.lives;
-            // UpdateHealthBar();
+            _health.Initialize(_data);
         }
 
         void Update()
@@ -57,30 +70,13 @@ namespace TDGame
                 else // Reached the end of the path
                 {
                     OnEnemyReachedEnd?.Invoke(_data);
-                    gameObject.SetActive(false);
+                    Deactive();
                 }
 
             }
         }
 
-        public void TakeDamge(TowerData data)
-        {
-            // _lives -= data.damage;
-            // if (_lives <= 0)
-            // {
-            //     OnEnemyDestroyed?.Invoke(this);
-            //     gameObject.SetActive(false);
-            // }
-            // UpdateHealthBar();
-        }
-
-        // private void UpdateHealthBar()
-        // {
-        //     float percent = _lives / _data.lives;
-        //     Vector3 scale = _healthBarOriginalScale;
-        //     scale.x = _healthBarOriginalScale.x * percent;
-        //     _healthBar.localScale = scale;
-        // }
+        public void Deactive() => _pool.Release(this);
     }
 
 }
