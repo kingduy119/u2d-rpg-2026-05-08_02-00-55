@@ -34,12 +34,13 @@ namespace TDGame
 
         private void OnEnable()
         {
-            Enemy.OnEnemyDestroyed += HandleEnemeyDestroyed;
+            // Enemy.OnEnemyDestroyed += HandleEnemeyDestroyed;
+            GameEvent.OnEnemyDie += HandleEnemeyDestroyed;
         }
 
         private void OnDisable()
         {
-            Enemy.OnEnemyDestroyed -= HandleEnemeyDestroyed;
+            GameEvent.OnEnemyDie -= HandleEnemeyDestroyed;
         }
 
         private void Start()

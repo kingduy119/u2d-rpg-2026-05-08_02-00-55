@@ -14,19 +14,27 @@ namespace TDGame
 
         private int _golds = 0;
 
-        public int Golds => _golds;
+        public int Golds
+        {
+            get => _golds;
+            set
+            {
+                _golds = value;
+                OnGoldsChanged?.Invoke(_golds);
+            }
+        }
 
         void OnEnable()
         {
             Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
-            Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+            Enemy.OnGetEnemyReward += HandleGetEnemyReward;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void OnDisable()
         {
             Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
-            Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+            Enemy.OnGetEnemyReward -= HandleGetEnemyReward;
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
@@ -36,9 +44,9 @@ namespace TDGame
             OnGoldsChanged?.Invoke(_golds);
         }
 
-        private void HandlePointReachedEnd(EnemyData pointData)
+        private void HandlePointReachedEnd(EnemyData enemy)
         {
-            _lives -= pointData.damage;
+            _lives -= enemy.damage;
             OnLivesChanged?.Invoke(_lives);
 
             if (_lives <= 0)
@@ -47,16 +55,11 @@ namespace TDGame
             }
         }
 
-        private void HandleEnemyDestroyed(Enemy enemy)
+        private void HandleGetEnemyReward(EnemyData enemy)
         {
-            AddGold(enemy.Data.goldReward);
+            Golds += enemy.goldReward;
         }
 
-        public void AddGold(int gold)
-        {
-            _golds += gold;
-            OnGoldsChanged?.Invoke(_golds);
-        }
 
         public void SetTimeScale(float scale)
         {

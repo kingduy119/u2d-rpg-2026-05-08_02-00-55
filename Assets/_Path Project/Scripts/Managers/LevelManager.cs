@@ -14,7 +14,7 @@ namespace TDGame
         private void Start()
         {
             CurrentLevel = allLevels[0];
-            TDGameManager.Instance.AddGold(CurrentLevel.startingGold);
+            TDGameManager.Instance.Golds += CurrentLevel.startingGold;
         }
 
         public void LoadLevel(LevelData levelData)

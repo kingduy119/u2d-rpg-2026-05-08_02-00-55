@@ -7,14 +7,8 @@ namespace TDGame
     [RequireComponent(typeof(EnemyFactory))]
     public class SpawnManager : PersistentSingleton<SpawnManager>
     {
-        // public static SpawnManager Instance { get; set; }
         public static event Action<int> OnWaveChanged;
         public static event Action OnMissionComplete;
-        // [SerializeField] private Object_Pool basicPool;
-        // [SerializeField] private Object_Pool normalPool;
-        // [SerializeField] private Object_Pool fastPool;
-        // [SerializeField] private Object_Pool mumyOrcPool;
-        // private Dictionary<EnemyType, Object_Pool> poolDictionary;
 
         public float _spawnTimer = 0f;
         public float _spawnInterval = 1f;
@@ -41,25 +35,18 @@ namespace TDGame
 
         private void Initialize()
         {
-            //     poolDictionary = new Dictionary<EnemyType, Object_Pool>()
-            // {
-            //     { EnemyType.MummyOrc, mumyOrcPool },
-            //     { EnemyType.Basic, basicPool },
-            //     { EnemyType.Normal, normalPool },
-            //     { EnemyType.Fast, fastPool }
-            // };
             m_enemyFactor = GetComponent<EnemyFactory>();
         }
 
         private void OnEnable()
         {
             Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
-            Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+            GameEvent.OnEnemyDie += HandleEnemyDie;
         }
         private void OnDisable()
         {
             Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
-            Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+            GameEvent.OnEnemyDie -= HandleEnemyDie;
         }
 
         private void Start()
@@ -87,7 +74,6 @@ namespace TDGame
 
                 if (_waveIndex >= _waves.Length)
                     OnMissionComplete?.Invoke();
-                // 
             }
         }
 
@@ -114,7 +100,7 @@ namespace TDGame
             _enemiesRemoved++;
         }
 
-        private void HandleEnemyDestroyed(Enemy enemy)
+        private void HandleEnemyDie(Enemy enemy)
         {
             _enemiesRemoved++;
         }

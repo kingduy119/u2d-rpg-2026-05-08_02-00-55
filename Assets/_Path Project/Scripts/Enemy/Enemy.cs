@@ -7,6 +7,8 @@ namespace TDGame
     [RequireComponent(typeof(Enemy_Health))]
     public class Enemy : MonoBehaviour
     {
+        public static event Action<EnemyData> OnEnemyReachedEnd;
+        public static event Action<EnemyData> OnGetEnemyReward;
 
         [SerializeField] private EnemyData _data;
         public EnemyData Data => _data;
@@ -26,9 +28,6 @@ namespace TDGame
         private IObjectPool<Enemy> _pool;
 
 
-        public static event Action<EnemyData> OnEnemyReachedEnd;
-        public static event Action<Enemy> OnEnemyDestroyed;
-
         void Awake()
         {
             currentPath = GameObject.Find("Path1").GetComponent<Path>();
@@ -37,12 +36,12 @@ namespace TDGame
 
         private void OnEnable()
         {
-            _health.OnEnemyDestroy += Deactive;
+            _health.OnEnemyDie += HandleEnemyDie;
 
         }
         private void OnDisable()
         {
-            _health.OnEnemyDestroy -= Deactive;
+            _health.OnEnemyDie -= HandleEnemyDie;
         }
 
         private void Start()
@@ -76,6 +75,13 @@ namespace TDGame
             }
         }
 
+        private void HandleEnemyDie()
+        {
+            OnGetEnemyReward?.Invoke(_data);
+            GameEvent.HandleEnemyDie(this);
+
+            Deactive();
+        }
         public void Deactive() => _pool.Release(this);
     }
 

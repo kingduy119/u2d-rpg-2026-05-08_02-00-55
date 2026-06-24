@@ -6,6 +6,8 @@ namespace TDGame
 {
     public class Enemy_Health : MonoBehaviour
     {
+        public event Action OnEnemyDie;
+
         [SerializeField] private Transform _healthBar;
 
 
@@ -13,7 +15,6 @@ namespace TDGame
         private float _maxHealth;
         private Vector3 _healthBarOriginalScale;
 
-        public event Action OnEnemyDestroy;
 
         private void Awake()
         {
@@ -38,7 +39,7 @@ namespace TDGame
             _health = Mathf.Clamp(_health, 0, _maxHealth);
             if (_health <= 0)
             {
-                OnEnemyDestroy?.Invoke();
+                OnEnemyDie?.Invoke();
                 return;
             }
 
