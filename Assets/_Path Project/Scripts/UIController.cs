@@ -77,9 +77,9 @@ namespace TDGame
             // startWaveButton.onClick.AddListener(OnStartNewWave);
         }
 
-        private void UpdateWaveText(int waveIndex)
+        private void UpdateWaveText(int waveIndex, int total)
         {
-            waveText.text = "Wave " + (waveIndex + 1);
+            waveText.text = $"Wave: {waveIndex + 1}/{total}";
             UpdateStartWaveButton();
         }
 
@@ -241,14 +241,15 @@ namespace TDGame
         public void OnNextLevelClick()
         {
             missionCompletePanel.SetActive(false);
-            var levelManager = LevelManager.Instance;
-            int currentIndex = Array.IndexOf(levelManager.allLevels, levelManager.CurrentLevel);
-            int nextIndex = currentIndex + 1;
+            LevelManager.Instance.PlayContinue();
+            // var levelManager = LevelManager.Instance;
+            // int currentIndex = Array.IndexOf(levelManager.allLevels, levelManager.Level);
+            // int nextIndex = currentIndex + 1;
 
-            if (nextIndex < levelManager.allLevels.Length)
-            {
-                levelManager.LoadLevel(levelManager.allLevels[nextIndex]);
-            }
+            // if (nextIndex < levelManager.allLevels.Length)
+            // {
+            //     levelManager.LoadLevel(nextIndex);
+            // }
         }
 
         public void QuitGame()
@@ -260,5 +261,4 @@ namespace TDGame
 #endif
         }
     }
-
 }

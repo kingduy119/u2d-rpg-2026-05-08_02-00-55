@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PointData
   type: 1
   prefab: {fileID: 327796476668971982, guid: 3fd90b07682074ccb943f8459a307326, type: 3}
-  lives: 5
-  minLives: 0
-  maxLives: 0
+  health: 10
+  maxHealth: 10
   damage: 3
   moveSpeed: 2
   goldReward: 1

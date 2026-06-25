@@ -7,30 +7,19 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
 
-    public AudioClip mainMenuMusic;
-    public AudioClip gameplayMusic;
+    [Header("Music")]
+    [SerializeField] private AudioClip mainMenuMusic;
+    [SerializeField] private AudioClip gameplayMusic;
 
-    public AudioClip pasueClip;
-    public AudioClip resumeClip;
-    public AudioClip buttonClickClip;
+    [Header("SFX")]
+    [SerializeField] private AudioClip pasueClip;
+    [SerializeField] private AudioClip resumeClip;
+    [SerializeField] private AudioClip buttonClickClip;
 
-    public AudioClip towerPlacedClip;
-    public AudioClip enemyDestroyedClip;
-    public AudioClip missionCompleteClip;
-    public AudioClip gameOverClip;
-
-    // private void Awake()
-    // {
-    //     if (Instance != null && Instance != this)
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    //     else
-    //     {
-    //         Instance = this;
-    //         DontDestroyOnLoad(gameObject);
-    //     }
-    // }
+    [SerializeField] private AudioClip towerPlacedClip;
+    [SerializeField] private AudioClip enemyDestroyedClip;
+    [SerializeField] private AudioClip missionCompleteClip;
+    [SerializeField] private AudioClip gameOverClip;
 
     public void PlayMusic(AudioClip clip)
     {
@@ -44,6 +33,9 @@ public class AudioManager : PersistentSingleton<AudioManager>
     {
         sfxSource.PlayOneShot(clip);
     }
+
+    public void PlayMainMenuMusic() => PlayMusic(mainMenuMusic);
+    public void PlayGameplayMusic() => PlayMusic(gameplayMusic);
 
     public void PlayPauseSound() => PlaySound(pasueClip);
     public void PlayResumeSound() => PlaySound(resumeClip);

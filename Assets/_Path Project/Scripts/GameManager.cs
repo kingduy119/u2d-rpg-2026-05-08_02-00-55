@@ -83,11 +83,11 @@ namespace TDGame
         {
             if (scene.name == "TD_MainMenu")
             {
-                AudioManager.Instance.PlayMusic(AudioManager.Instance.mainMenuMusic);
+                AudioManager.Instance.PlayMainMenuMusic();
             }
-            else if (LevelManager.Instance != null && LevelManager.Instance.CurrentLevel != null)
+            else if (LevelManager.Instance != null && LevelManager.Instance.Level != null)
             {
-                AudioManager.Instance.PlayMusic(AudioManager.Instance.gameplayMusic);
+                AudioManager.Instance.PlayGameplayMusic();
             }
         }
     }
