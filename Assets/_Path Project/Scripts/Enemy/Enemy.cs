@@ -11,6 +11,7 @@ namespace TDGame
         public static event Action<EnemyData> OnGetEnemyReward;
 
         [SerializeField] private EnemyData _data;
+
         public EnemyData Data => _data;
 
         public IObjectPool<Enemy> Pool
@@ -20,12 +21,11 @@ namespace TDGame
         }
 
 
-        Enemy_Health _health;
-
+        private int _pathIndex = 0;
         private Path currentPath;
         private Vector3 _targetPosition;
-        private int _pathIndex = 0;
         private IObjectPool<Enemy> _pool;
+        private Enemy_Health _health;
 
 
         void Awake()
@@ -38,17 +38,11 @@ namespace TDGame
         {
             _health.OnEnemyDie += HandleEnemyDie;
 
+            Init();
         }
         private void OnDisable()
         {
             _health.OnEnemyDie -= HandleEnemyDie;
-        }
-
-        private void Start()
-        {
-            _pathIndex = 0;
-            _targetPosition = currentPath.GetPointPosition(_pathIndex);
-            _health.Initialize(_data);
         }
 
         void Update()
@@ -75,6 +69,15 @@ namespace TDGame
             }
         }
 
+        public void Deactive() => _pool.Release(this);
+
+        private void Init()
+        {
+            _pathIndex = 0;
+            _targetPosition = currentPath.GetPointPosition(_pathIndex);
+
+            _health.Initialize(_data);
+        }
         private void HandleEnemyDie()
         {
             OnGetEnemyReward?.Invoke(_data);
@@ -82,7 +85,7 @@ namespace TDGame
 
             Deactive();
         }
-        public void Deactive() => _pool.Release(this);
+
     }
 
 }

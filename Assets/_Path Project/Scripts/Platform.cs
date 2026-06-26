@@ -40,5 +40,7 @@ public class Platform : MonoBehaviour
             Destroy(_currentTower);
         }
         _currentTower = Instantiate(data.towerPrefab, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
     }
 }

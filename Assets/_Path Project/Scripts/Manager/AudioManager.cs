@@ -11,11 +11,12 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [SerializeField] private AudioClip mainMenuMusic;
     [SerializeField] private AudioClip gameplayMusic;
 
-    [Header("SFX")]
+    [Header("Button SFX")]
     [SerializeField] private AudioClip pasueClip;
     [SerializeField] private AudioClip resumeClip;
     [SerializeField] private AudioClip buttonClickClip;
 
+    [Header("Object SFX")]
     [SerializeField] private AudioClip towerPlacedClip;
     [SerializeField] private AudioClip enemyDestroyedClip;
     [SerializeField] private AudioClip missionCompleteClip;

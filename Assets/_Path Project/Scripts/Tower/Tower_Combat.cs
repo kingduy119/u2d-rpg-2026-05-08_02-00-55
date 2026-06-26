@@ -6,13 +6,14 @@ namespace TDGame
 {
     public class Tower_Combat : MonoBehaviour
     {
-        [SerializeField] private TowerData _data;
         [SerializeField] private Projectile projectilePrefab;
-        [SerializeField] private bool collectionCheck = true;
+
         [SerializeField] private int capacity = 20;
         [SerializeField] private int maxSize = 200;
 
-        private float _shootTimer;
+        private float _shootTimer = 0f;
+        private bool collectionCheck = true;
+        private TowerData _data;
 
 
         private IObjectPool<Projectile> _objectPool;
@@ -30,11 +31,12 @@ namespace TDGame
                 po => Destroy(po.gameObject),// OnDestroyPooledObject,
                 collectionCheck, capacity, maxSize
             );
+
+            _circleCollider = GetComponent<CircleCollider2D>();
         }
 
         private void OnEnable()
         {
-            // Enemy.OnEnemyDestroyed += HandleEnemeyDestroyed;
             GameEvent.OnEnemyDie += HandleEnemeyDestroyed;
         }
 
@@ -43,12 +45,12 @@ namespace TDGame
             GameEvent.OnEnemyDie -= HandleEnemeyDestroyed;
         }
 
-        private void Start()
+
+        public void Init(TowerData data)
         {
-            _circleCollider = GetComponent<CircleCollider2D>();
-            _circleCollider.radius = _data.range;
+            _data = data;
+            _circleCollider.radius = data.range;
             _enemiesInRange = new List<Enemy>();
-            _shootTimer = _data.shootInterval;
         }
 
         private void Update()
@@ -70,9 +72,10 @@ namespace TDGame
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-
+            Debug.Log("Tower-OnTriggerEnter2D");
             if (collision.CompareTag("Enemy"))
             {
+                Debug.Log("_enemiesInRange");
                 if (collision.TryGetComponent<Enemy>(out var enemy))
                 {
                     _enemiesInRange.Add(enemy);

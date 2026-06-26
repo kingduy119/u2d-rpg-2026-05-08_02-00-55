@@ -1,5 +1,6 @@
 
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TDGame
@@ -15,6 +16,15 @@ namespace TDGame
         private float _maxHealth;
         private Vector3 _healthBarOriginalScale;
 
+        public float Health
+        {
+            get => _health;
+            set
+            {
+                _health = value;
+                UpdateHealthUI();
+            }
+        }
 
         private void Awake()
         {
@@ -30,20 +40,18 @@ namespace TDGame
         {
             _health = data.health;
             _maxHealth = data.maxHealth;
+            UpdateHealthUI();
         }
-
 
         public void TakeDamge(TowerData data)
         {
-            _health -= data.damage;
-            _health = Mathf.Clamp(_health, 0, _maxHealth);
-            if (_health <= 0)
+            Health -= data.damage;
+            Health = Mathf.Clamp(Health, 0, _maxHealth);
+            if (Health <= 0)
             {
                 OnEnemyDie?.Invoke();
                 return;
             }
-
-            UpdateHealthUI();
         }
 
         private void UpdateHealthUI()

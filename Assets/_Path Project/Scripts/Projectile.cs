@@ -32,7 +32,7 @@ namespace TDGame
         {
             if (collision.CompareTag("Enemy"))
             {
-                Enemy_Health enemy = collision.GetComponent<TDGame.Enemy_Health>();
+                Enemy_Health enemy = collision.GetComponent<Enemy_Health>();
                 enemy.TakeDamge(_data);
 
                 Deactivate();

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
 
 namespace TDGame
 {
@@ -14,6 +13,7 @@ namespace TDGame
         public float _spawnTimer = 0f;
         public float _spawnInterval = 1f;
 
+        // Private
         private bool _isWaveActive = false;
         private int _spawnedCount = 0;
         private int _enemiesRemoved = 0;
@@ -65,17 +65,16 @@ namespace TDGame
             }
             else if (_enemiesRemoved >= Wave.perway)
             {
+                _isWaveActive = false;
+                _enemiesRemoved = 0;
+                _spawnedCount = 0;
+                _waveIndex += 1;
+                OnWaveChanged?.Invoke(_waveIndex, Waves.Length);
+
                 if (_waveIndex >= Waves.Length)
                 {
                     OnMissionComplete?.Invoke();
-                    return;
                 }
-
-                _waveIndex += 1;
-                _spawnedCount = 0;
-                _enemiesRemoved = 0;
-                _isWaveActive = false;
-                OnWaveChanged?.Invoke(_waveIndex, Waves.Length);
             }
         }
 

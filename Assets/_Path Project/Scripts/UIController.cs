@@ -9,28 +9,36 @@ namespace TDGame
     public class UIController : MonoBehaviour
     {
         public static UIController Instance { get; set; }
+
+        [Header("UI Text")]
+        [SerializeField] private TMP_Text goldText;
+        [SerializeField] private TMP_Text rockText;
+        [SerializeField] private TMP_Text woodText;
+        [SerializeField] private TMP_Text alertText;
         [SerializeField] private TMP_Text waveText;
         [SerializeField] private TMP_Text livesText;
-        [SerializeField] private TMP_Text goldText;
-        [SerializeField] private TMP_Text alertText;
+        [SerializeField] private TMP_Text enemiesText;
+
+        [Header("UI Buttons")]
         [SerializeField] private Button gameSpeedButton;
         [SerializeField] private Button startWaveButton;
+        private TMP_Text gameSpeedText;
 
+        [Header("UI Pannels")]
         [SerializeField] private GameObject towerPanel;
-        [SerializeField] private GameObject towerCardPrefab;
-        [SerializeField] private Transform cardsContainer;
-
         [SerializeField] private GameObject missionCompletePanel;
 
+        [Header("Others")]
+        [SerializeField] private GameObject towerCardPrefab;
+        [SerializeField] private Transform cardsContainer;
         [SerializeField] private TowerData[] _towers;
-        // private List<GameObject> activeCards = new List<GameObject>();
 
-        private Platform _currentPlatform;
 
         private bool _isPaused = false;
         private float _gameSpeed = 1f;
         private float _maxGameSpeed = 3f;
         public float GameSpeed => _gameSpeed;
+        private Platform _currentPlatform;
 
         private void Awake()
         {
@@ -43,6 +51,8 @@ namespace TDGame
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
+
+            gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
         }
 
         void OnEnable()
@@ -72,36 +82,35 @@ namespace TDGame
 
             UpdateGameSpeedUI();
             HideAlert();
+            ResetUI();
 
             gameSpeedButton.onClick.AddListener(OnGameSpeedButtonClicked);
-            // startWaveButton.onClick.AddListener(OnStartNewWave);
         }
 
+        private void ResetUI()
+        {
+            UpdateGolds(0);
+            UpdateRocks(0);
+            UpdateWoods(0);
+            UpdateLives(0);
+            UpdateEnemies(0);
+        }
+
+        public void UpdateGolds(int number) => goldText.SetText("{0}", number);
+        public void UpdateRocks(int number) => rockText.SetText("{0}", number);
+        public void UpdateWoods(int number) => woodText.SetText("{0}", number);
+        public void UpdateLives(int number) => livesText.SetText("{0}", number);
+        public void UpdateEnemies(int number) => enemiesText.SetText("{0}", number);
         private void UpdateWaveText(int waveIndex, int total)
         {
-            waveText.text = $"Wave: {waveIndex + 1}/{total}";
+            waveText.text = $"{waveIndex + 1}/{total}";
             UpdateStartWaveButton();
         }
 
-        public void UpdateLives(int lives)
-        {
-            livesText.text = "Lives: " + lives;
-        }
+        public void UpdateGameSpeedUI() => gameSpeedText.text = $"x{_gameSpeed}";
+        public void UpdateStartWaveButton() => startWaveButton.interactable = !SpawnManager.Instance.ActiveWave;
+        private void HideAlert() => alertText.gameObject.SetActive(false);
 
-        public void UpdateGolds(int gold)
-        {
-            goldText.text = "Gold: " + gold;
-        }
-
-        public void UpdateGameSpeedUI()
-        {
-            gameSpeedButton.GetComponentInChildren<TMP_Text>().text = "x " + _gameSpeed;
-        }
-
-        public void UpdateStartWaveButton()
-        {
-            startWaveButton.interactable = !SpawnManager.Instance.ActiveWave;
-        }
 
         public void ToggleTowerPanel()
         {
@@ -135,11 +144,6 @@ namespace TDGame
         {
             alertText.text = message;
             alertText.gameObject.SetActive(true);
-        }
-
-        private void HideAlert()
-        {
-            alertText.gameObject.SetActive(false);
         }
 
         private void ResetTowerCards()
@@ -233,8 +237,8 @@ namespace TDGame
 
         private void HandleMissionComplete()
         {
+            Debug.Log($"missionCompletePanel: {missionCompletePanel.activeSelf}");
             missionCompletePanel.SetActive(true);
-
             Pause();
         }
 
@@ -242,14 +246,6 @@ namespace TDGame
         {
             missionCompletePanel.SetActive(false);
             LevelManager.Instance.PlayContinue();
-            // var levelManager = LevelManager.Instance;
-            // int currentIndex = Array.IndexOf(levelManager.allLevels, levelManager.Level);
-            // int nextIndex = currentIndex + 1;
-
-            // if (nextIndex < levelManager.allLevels.Length)
-            // {
-            //     levelManager.LoadLevel(nextIndex);
-            // }
         }
 
         public void QuitGame()

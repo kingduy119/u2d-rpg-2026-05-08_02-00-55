@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3935972184523369920}
-  - component: {fileID: 2781334514077160883}
   - component: {fileID: 975663537872711550}
+  - component: {fileID: 2781334514077160883}
   - component: {fileID: 788257053616470675}
   - component: {fileID: 6159968174980097421}
   m_Layer: 8
@@ -36,20 +36,6 @@ Transform:
   - {fileID: 8597302084327721853}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2781334514077160883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85164629013926071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 453d229ceaba64783acc5b3f917aba79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Object_Pool
-  _poolSize: 3
-  _prefab: {fileID: 7395881598276135404, guid: 84a4fd2c8a7844d02bcf076f950840db, type: 3}
 --- !u!58 &975663537872711550
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -84,8 +70,22 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -0.07}
+  m_Radius: 0.22
+--- !u!114 &2781334514077160883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85164629013926071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453d229ceaba64783acc5b3f917aba79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Object_Pool
+  _poolSize: 3
+  _prefab: {fileID: 7395881598276135404, guid: 84a4fd2c8a7844d02bcf076f950840db, type: 3}
 --- !u!114 &788257053616470675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   _data: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
+  _showDraw: 0
 --- !u!114 &6159968174980097421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +199,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 3cbd575d4968745d3a7f79a654fae04a, type: 3}
+  m_Sprite: {fileID: -4866884309602757033, guid: f867b0757004443ffa9b96f883f284cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
