@@ -70,7 +70,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.07}
+  m_Offset: {x: 0, y: 0}
   m_Radius: 0.22
 --- !u!114 &2781334514077160883
 MonoBehaviour:
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   _data: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
-  _showDraw: 0
+  _showDraw: 1
 --- !u!114 &6159968174980097421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,9 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ccbf341c214b4361b3ccf1a48e21001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower_Combat
-  _data: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
   projectilePrefab: {fileID: 2882488391642940485, guid: 84a4fd2c8a7844d02bcf076f950840db, type: 3}
-  collectionCheck: 1
   capacity: 20
   maxSize: 200
   _enemiesInRange: []

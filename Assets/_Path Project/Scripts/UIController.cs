@@ -6,10 +6,8 @@ using System;
 
 namespace TDGame
 {
-    public class UIController : MonoBehaviour
+    public class UIController : PersistentSingleton<UIController>
     {
-        public static UIController Instance { get; set; }
-
         [Header("UI Text")]
         [SerializeField] private TMP_Text goldText;
         [SerializeField] private TMP_Text rockText;
@@ -40,37 +38,30 @@ namespace TDGame
         public float GameSpeed => _gameSpeed;
         private Platform _currentPlatform;
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-
+            base.Awake();
             gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
         }
 
         void OnEnable()
         {
-            SpawnManager.OnWaveChanged += UpdateWaveText;
-            SpawnManager.OnMissionComplete += HandleMissionComplete;
             TDGameManager.OnLivesChanged += UpdateLives;
             TDGameManager.OnGoldsChanged += UpdateGolds;
+            SpawnManager.OnWaveChanged += UpdateWaveText;
+            SpawnManager.OnMissionComplete += HandleMissionComplete;
+
             Platform.OnPlatformClicked += OpenTowerPanel;
             TowerCard.OnTowerCardSelected += HandleTowerCardSelected;
         }
 
         void OnDisable()
         {
-            SpawnManager.OnWaveChanged -= UpdateWaveText;
-            SpawnManager.OnMissionComplete -= HandleMissionComplete;
             TDGameManager.OnLivesChanged -= UpdateLives;
             TDGameManager.OnGoldsChanged -= UpdateGolds;
+            SpawnManager.OnWaveChanged -= UpdateWaveText;
+            SpawnManager.OnMissionComplete -= HandleMissionComplete;
+
             Platform.OnPlatformClicked -= OpenTowerPanel;
             TowerCard.OnTowerCardSelected -= HandleTowerCardSelected;
         }

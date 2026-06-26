@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,6 +6,7 @@ namespace TDGame
 {
     public class LevelManager : PersistentSingleton<LevelManager>
     {
+        public static event Action<LevelSO> OnLoadLevel;
         private int _level = 0;
 
         public LevelSO[] allLevels;
@@ -24,7 +26,6 @@ namespace TDGame
         private void Start()
         {
             LoadLevelData();
-
             TDGameManager.Instance.Golds += Level.startingGold;
         }
 
@@ -32,6 +33,8 @@ namespace TDGame
         {
             _level = level;
             SceneManager.LoadScene(Level.sceneName);
+
+            OnLoadLevel?.Invoke(Level);
         }
 
         public void PlayContinue()

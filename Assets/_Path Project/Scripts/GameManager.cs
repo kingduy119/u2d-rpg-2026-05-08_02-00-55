@@ -10,10 +10,17 @@ namespace TDGame
         public static event Action<int> OnGoldsChanged;
 
         private int _lives = 20;
-        public int Lives => _lives;
+        public int Lives
+        {
+            get => _lives;
+            set
+            {
+                _lives = value;
+                OnLivesChanged?.Invoke(_lives);
+            }
+        }
 
         private int _golds = 0;
-
         public int Golds
         {
             get => _golds;
@@ -24,11 +31,29 @@ namespace TDGame
             }
         }
 
+        private int _rocks = 0;
+        public int Rocks
+        {
+            get => _rocks;
+            set
+            {
+                _rocks = value;
+                OnGoldsChanged?.Invoke(_rocks);
+            }
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            AudioManager.Instance.PlayMainMenuMusic();
+        }
+
         void OnEnable()
         {
             Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
             Enemy.OnGetEnemyReward += HandleGetEnemyReward;
             SceneManager.sceneLoaded += OnSceneLoaded;
+            LevelManager.OnLoadLevel += HandleLoadLevel;
         }
 
         void OnDisable()
@@ -36,6 +61,7 @@ namespace TDGame
             Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
             Enemy.OnGetEnemyReward -= HandleGetEnemyReward;
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            LevelManager.OnLoadLevel -= HandleLoadLevel;
         }
 
         void Start()
@@ -46,10 +72,8 @@ namespace TDGame
 
         private void HandlePointReachedEnd(EnemyData enemy)
         {
-            _lives -= enemy.damage;
-            OnLivesChanged?.Invoke(_lives);
-
-            if (_lives <= 0)
+            Lives -= enemy.damage;
+            if (Lives <= 0)
             {
                 Debug.Log("Game Over!");
             }
@@ -68,11 +92,8 @@ namespace TDGame
 
         public void SpendGold(int amount)
         {
-            if (_golds >= amount)
-            {
-                _golds -= amount;
-                OnGoldsChanged?.Invoke(_golds);
-            }
+            if (Golds >= amount)
+                Golds -= amount;
             else
             {
                 Debug.LogWarning("Not enough gold!");
@@ -82,13 +103,16 @@ namespace TDGame
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name == "TD_MainMenu")
-            {
                 AudioManager.Instance.PlayMainMenuMusic();
-            }
-            else if (LevelManager.Instance != null && LevelManager.Instance.Level != null)
-            {
+            else
                 AudioManager.Instance.PlayGameplayMusic();
-            }
+        }
+
+        private void HandleLoadLevel(LevelSO data)
+        {
+            Golds = data.startingGold;
+            Lives = data.startingLives;
+
         }
     }
 

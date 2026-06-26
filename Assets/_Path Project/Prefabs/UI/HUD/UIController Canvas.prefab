@@ -982,7 +982,7 @@ GameObject:
   - component: {fileID: 7931143510870408043}
   - component: {fileID: 3995767835848882569}
   m_Layer: 5
-  m_Name: grid
+  m_Name: game_button_grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2564,9 +2564,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '11/11
-
-'
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2788,6 +2786,7 @@ GameObject:
   - component: {fileID: 3306397546808560234}
   - component: {fileID: 5618238076883257840}
   - component: {fileID: 2058436080741969239}
+  - component: {fileID: 8614676081147109791}
   m_Layer: 5
   m_Name: UIController Canvas
   m_TagString: Untagged
@@ -2893,12 +2892,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 311c55a4698afe6449318f136acdc346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
-  waveText: {fileID: 5746007879981826075}
-  livesText: {fileID: 323435953415690429}
   goldText: {fileID: 2380296377944236289}
   rockText: {fileID: 6429751662250271962}
   woodText: {fileID: 159062500719335520}
   alertText: {fileID: 6312510332591434916}
+  waveText: {fileID: 5746007879981826075}
+  livesText: {fileID: 323435953415690429}
+  enemiesText: {fileID: 2706585252678267297}
   gameSpeedButton: {fileID: 8197225426161825668}
   startWaveButton: {fileID: 273748604982936634}
   towerPanel: {fileID: 8596389075483647323}
@@ -2909,6 +2909,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
   - {fileID: 11400000, guid: 7b0fd9569ac6e4186b59b3ef0da1a3d6, type: 2}
   - {fileID: 11400000, guid: 046a0429a111248599d75b467269bbf6, type: 2}
+--- !u!225 &8614676081147109791
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6416304065245925452}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &6815724916283216224
 GameObject:
   m_ObjectHideFlags: 0
