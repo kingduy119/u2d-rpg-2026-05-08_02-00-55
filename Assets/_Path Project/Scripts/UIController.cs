@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
@@ -23,6 +24,7 @@ namespace TDGame
         private TMP_Text gameSpeedText;
 
         [Header("UI Pannels")]
+        [SerializeField] private GameObject mainHUDPanel;
         [SerializeField] private GameObject towerPanel;
         [SerializeField] private GameObject missionCompletePanel;
 
@@ -66,6 +68,7 @@ namespace TDGame
             TowerCard.OnTowerCardSelected -= HandleTowerCardSelected;
         }
 
+
         void Start()
         {
             towerPanel.SetActive(false);
@@ -101,6 +104,7 @@ namespace TDGame
         public void UpdateGameSpeedUI() => gameSpeedText.text = $"x{_gameSpeed}";
         public void UpdateStartWaveButton() => startWaveButton.interactable = !SpawnManager.Instance.ActiveWave;
         private void HideAlert() => alertText.gameObject.SetActive(false);
+        public void SetMainHuD(bool active) => mainHUDPanel.SetActive(active);
 
 
         public void ToggleTowerPanel()
@@ -228,7 +232,6 @@ namespace TDGame
 
         private void HandleMissionComplete()
         {
-            Debug.Log($"missionCompletePanel: {missionCompletePanel.activeSelf}");
             missionCompletePanel.SetActive(true);
             Pause();
         }

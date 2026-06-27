@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class AudioManager : PersistentSingleton<AudioManager>
 {
-    // public static AudioManager Instance { get; private set; }
 
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;

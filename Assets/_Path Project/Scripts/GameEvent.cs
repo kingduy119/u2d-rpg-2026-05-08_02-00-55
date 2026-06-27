@@ -12,6 +12,20 @@ namespace TDGame
         {
             OnEnemyDie(enemy);
         }
+
+        public static void LoadScene(string name)
+        {
+            if (name == "TD_MainMenu")
+            {
+                UIController.Instance.SetMainHuD(false);
+                AudioManager.Instance.PlayMainMenuMusic();
+            }
+            else
+            {
+                UIController.Instance.SetMainHuD(true);
+                AudioManager.Instance.PlayGameplayMusic();
+            }
+        }
     }
 
 }

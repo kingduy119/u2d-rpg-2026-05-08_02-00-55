@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Destroy(gameObject);
             CleanUpAndDestroy();
         }
     }

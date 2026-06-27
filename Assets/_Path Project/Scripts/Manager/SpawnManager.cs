@@ -14,16 +14,38 @@ namespace TDGame
         public float _spawnInterval = 1f;
 
         // Private
-        private bool _isWaveActive = false;
-        private int _spawnedCount = 0;
-        private int _enemiesRemoved = 0;
-        private int _waveIndex = 0;
-
-        public bool ActiveWave => _isWaveActive;
-
         private EnemyFactory m_enemyFactor;
         private WaveData[] Waves => LevelManager.Instance.Waves;
         private WaveData Wave => LevelManager.Instance.Waves[_waveIndex];
+
+
+        private bool _isWaveActive = false;
+        private int _spawnedCount = 0;
+        private int _removedEnemies = 0;
+        public int RemovedEnemies
+        {
+            get => _removedEnemies;
+            set
+            {
+                _removedEnemies = value;
+                UIController.Instance.UpdateEnemies(Wave.perway - _removedEnemies);
+            }
+        }
+
+        private int _waveIndex = 0;
+        public int WaveIndex
+        {
+            get => _waveIndex;
+            set
+            {
+                _waveIndex = value;
+                OnWaveChanged?.Invoke(_waveIndex, Waves.Length);
+            }
+        }
+
+        public bool ActiveWave => _isWaveActive;
+        public int AliveEnemies => Wave.perway - _removedEnemies;
+
 
 
         protected override void Awake()
@@ -51,6 +73,7 @@ namespace TDGame
         private void Start()
         {
             OnWaveChanged?.Invoke(_waveIndex, Waves.Length);
+            RemovedEnemies = 0;
         }
 
         void Update()
@@ -63,13 +86,12 @@ namespace TDGame
                 _spawnTimer = _spawnInterval;
                 SpawnObject();
             }
-            else if (_enemiesRemoved >= Wave.perway)
+            else if (RemovedEnemies >= Wave.perway)
             {
                 _isWaveActive = false;
-                _enemiesRemoved = 0;
+                RemovedEnemies = 0;
                 _spawnedCount = 0;
-                _waveIndex += 1;
-                OnWaveChanged?.Invoke(_waveIndex, Waves.Length);
+                WaveIndex++;
 
                 if (_waveIndex >= Waves.Length)
                 {
@@ -97,12 +119,12 @@ namespace TDGame
 
         private void HandlePointReachedEnd(EnemyData pointData)
         {
-            _enemiesRemoved++;
+            RemovedEnemies++;
         }
 
         private void HandleEnemyDie(Enemy enemy)
         {
-            _enemiesRemoved++;
+            RemovedEnemies++;
         }
     }
 

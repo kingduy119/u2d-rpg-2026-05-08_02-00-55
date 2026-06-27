@@ -68,6 +68,8 @@ namespace TDGame
         {
             OnLivesChanged?.Invoke(_lives);
             OnGoldsChanged?.Invoke(_golds);
+
+            LoadScece();
         }
 
         private void HandlePointReachedEnd(EnemyData enemy)
@@ -79,16 +81,8 @@ namespace TDGame
             }
         }
 
-        private void HandleGetEnemyReward(EnemyData enemy)
-        {
-            Golds += enemy.goldReward;
-        }
-
-
-        public void SetTimeScale(float scale)
-        {
-            Time.timeScale = scale;
-        }
+        private void HandleGetEnemyReward(EnemyData enemy) => Golds += enemy.goldReward;
+        public void SetTimeScale(float scale) => Time.timeScale = scale;
 
         public void SpendGold(int amount)
         {
@@ -100,13 +94,8 @@ namespace TDGame
             }
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            if (scene.name == "TD_MainMenu")
-                AudioManager.Instance.PlayMainMenuMusic();
-            else
-                AudioManager.Instance.PlayGameplayMusic();
-        }
+        private void LoadScece() => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
 
         private void HandleLoadLevel(LevelSO data)
         {
