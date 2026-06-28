@@ -8,6 +8,7 @@ namespace TDGame
     {
         public static event Action<int> OnLivesChanged;
         public static event Action<int> OnGoldsChanged;
+        public static event Action UpdateUI;
 
         private int _lives = 20;
         public int Lives
@@ -16,7 +17,7 @@ namespace TDGame
             set
             {
                 _lives = value;
-                OnLivesChanged?.Invoke(_lives);
+                UpdateUI?.Invoke();
             }
         }
 
@@ -27,7 +28,7 @@ namespace TDGame
             set
             {
                 _golds = value;
-                OnGoldsChanged?.Invoke(_golds);
+                UpdateUI?.Invoke();
             }
         }
 
@@ -38,7 +39,18 @@ namespace TDGame
             set
             {
                 _rocks = value;
-                OnGoldsChanged?.Invoke(_rocks);
+                UpdateUI?.Invoke();
+            }
+        }
+
+        private int _wood = 0;
+        public int Woods
+        {
+            get => _wood;
+            set
+            {
+                _wood = value;
+                UpdateUI?.Invoke();
             }
         }
 
@@ -53,7 +65,7 @@ namespace TDGame
             Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
             Enemy.OnGetEnemyReward += HandleGetEnemyReward;
             SceneManager.sceneLoaded += OnSceneLoaded;
-            LevelManager.OnLoadLevel += HandleLoadLevel;
+            // LevelManager.OnLoadLevel += HandleLoadLevel;
         }
 
         void OnDisable()
@@ -61,14 +73,13 @@ namespace TDGame
             Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
             Enemy.OnGetEnemyReward -= HandleGetEnemyReward;
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            LevelManager.OnLoadLevel -= HandleLoadLevel;
+            // LevelManager.OnLoadLevel -= HandleLoadLevel;
         }
 
         void Start()
         {
-            OnLivesChanged?.Invoke(_lives);
-            OnGoldsChanged?.Invoke(_golds);
-
+            // OnLivesChanged?.Invoke(_lives);
+            // OnGoldsChanged?.Invoke(_golds);
             LoadScece();
         }
 
@@ -97,12 +108,7 @@ namespace TDGame
         private void LoadScece() => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
 
-        private void HandleLoadLevel(LevelSO data)
-        {
-            Golds = data.startingGold;
-            Lives = data.startingLives;
 
-        }
     }
 
 }

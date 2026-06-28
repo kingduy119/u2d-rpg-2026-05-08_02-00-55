@@ -44,10 +44,13 @@ namespace TDGame
         {
             base.Awake();
             gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
+
+            Init();
         }
 
         void OnEnable()
         {
+            TDGameManager.UpdateUI += UpdateUI;
             TDGameManager.OnLivesChanged += UpdateLives;
             TDGameManager.OnGoldsChanged += UpdateGolds;
             SpawnManager.OnWaveChanged += UpdateWaveText;
@@ -59,6 +62,7 @@ namespace TDGame
 
         void OnDisable()
         {
+            TDGameManager.UpdateUI -= UpdateUI;
             TDGameManager.OnLivesChanged -= UpdateLives;
             TDGameManager.OnGoldsChanged -= UpdateGolds;
             SpawnManager.OnWaveChanged -= UpdateWaveText;
@@ -68,11 +72,10 @@ namespace TDGame
             TowerCard.OnTowerCardSelected -= HandleTowerCardSelected;
         }
 
-
-        void Start()
+        private void Init()
         {
-            towerPanel.SetActive(false);
-            missionCompletePanel.SetActive(false);
+            if (towerPanel != null) towerPanel.SetActive(false);
+            if (missionCompletePanel != null) missionCompletePanel.SetActive(false);
 
             UpdateGameSpeedUI();
             HideAlert();
@@ -88,6 +91,15 @@ namespace TDGame
             UpdateWoods(0);
             UpdateLives(0);
             UpdateEnemies(0);
+        }
+        private void UpdateUI()
+        {
+            Debug.Log($"UIController:UpdateUI");
+            TDGameManager game = TDGameManager.Instance;
+            goldText.SetText("{0}", game.Golds);
+            rockText.SetText("{0}", game.Rocks);
+            woodText.SetText("{0}", game.Woods);
+            livesText.SetText("{0}", game.Lives);
         }
 
         public void UpdateGolds(int number) => goldText.SetText("{0}", number);
@@ -226,7 +238,7 @@ namespace TDGame
 
         public void OnStartNewWave()
         {
-            SpawnManager.Instance.StartNewWave();
+            SpawnManager.Instance.StartWave();
             UpdateStartWaveButton();
         }
 

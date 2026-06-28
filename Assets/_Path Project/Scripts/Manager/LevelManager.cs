@@ -7,11 +7,20 @@ namespace TDGame
     public class LevelManager : PersistentSingleton<LevelManager>
     {
         public static event Action<LevelSO> OnLoadLevel;
+
         private int _level = 0;
 
         public LevelSO[] allLevels;
-        public LevelSO Level => allLevels[_level];
-        public WaveData[] Waves => allLevels[_level].waves;
+        public LevelSO LevelSO => allLevels[_level];
+
+        public int Level
+        {
+            get => _level;
+            set
+            {
+                _level = Mathf.Clamp(value, 0, allLevels.Length - 1);
+            }
+        }
 
         private void OnEnable()
         {
@@ -26,25 +35,30 @@ namespace TDGame
         private void Start()
         {
             LoadLevelData();
-            TDGameManager.Instance.Golds += Level.startingGold;
+            GameEvent.UpdateUI();
+        }
+
+        public void UpdateLevelResource()
+        {
+            TDGameManager game = TDGameManager.Instance;
+            game.Golds = LevelSO.startingGold;
+            game.Lives = LevelSO.startingLives;
         }
 
         public void LoadLevel(int level)
         {
             _level = level;
-            SceneManager.LoadScene(Level.sceneName);
-
-            OnLoadLevel?.Invoke(Level);
+            SceneManager.LoadScene(LevelSO.sceneName);
         }
 
         public void PlayContinue()
         {
-            LoadLevel(_level);
+            LoadLevel(Level);
         }
 
         public void HandleMissionComplete()
         {
-            _level++;
+            Level++;
             SaveLevelData();
         }
 
@@ -62,7 +76,8 @@ namespace TDGame
 
             string json = PlayerPrefs.GetString("Level");
             LevelData data = JsonUtility.FromJson<LevelData>(json);
-            _level = data.level;
+            Level = data.level;
+
         }
     }
 }

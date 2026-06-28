@@ -15,9 +15,8 @@ namespace TDGame
 
         // Private
         private EnemyFactory m_enemyFactor;
-        private WaveData[] Waves => LevelManager.Instance.Waves;
-        private WaveData Wave => LevelManager.Instance.Waves[_waveIndex];
-
+        private WaveData[] Waves => LevelManager.Instance.LevelSO.waves;
+        private WaveData Wave => LevelManager.Instance.LevelSO.waves[_waveIndex];
 
         private bool _isWaveActive = false;
         private int _spawnedCount = 0;
@@ -28,7 +27,7 @@ namespace TDGame
             set
             {
                 _removedEnemies = value;
-                UIController.Instance.UpdateEnemies(Wave.perway - _removedEnemies);
+                UIController.Instance.UpdateEnemies(AliveEnemies);
             }
         }
 
@@ -39,14 +38,12 @@ namespace TDGame
             set
             {
                 _waveIndex = value;
-                OnWaveChanged?.Invoke(_waveIndex, Waves.Length);
+                OnWaveChanged?.Invoke(Mathf.Clamp(_waveIndex, 0, Waves.Length), Waves.Length);
             }
         }
 
         public bool ActiveWave => _isWaveActive;
-        public int AliveEnemies => Wave.perway - _removedEnemies;
-
-
+        public int AliveEnemies => Mathf.Clamp(Wave.perway - _removedEnemies, 0, Wave.perway);
 
         protected override void Awake()
         {
@@ -68,12 +65,6 @@ namespace TDGame
         {
             Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
             GameEvent.OnEnemyDie -= HandleEnemyDie;
-        }
-
-        private void Start()
-        {
-            OnWaveChanged?.Invoke(_waveIndex, Waves.Length);
-            RemovedEnemies = 0;
         }
 
         void Update()
@@ -100,7 +91,7 @@ namespace TDGame
             }
         }
 
-        public void StartNewWave()
+        public void StartWave()
         {
             if (_waveIndex < Waves.Length)
                 _isWaveActive = true;

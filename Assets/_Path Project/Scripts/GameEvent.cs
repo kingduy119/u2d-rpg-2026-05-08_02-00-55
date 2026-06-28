@@ -1,16 +1,20 @@
 using System;
-using TDGame;
-using UnityEngine;
 
 namespace TDGame
 {
     public static class GameEvent
     {
+        public static event Action OnUpdateUI;
         public static event Action<Enemy> OnEnemyDie;
+
+        public static void UpdateUI()
+        {
+            OnUpdateUI?.Invoke();
+        }
 
         public static void HandleEnemyDie(Enemy enemy)
         {
-            OnEnemyDie(enemy);
+            OnEnemyDie?.Invoke(enemy);
         }
 
         public static void LoadScene(string name)
@@ -24,6 +28,7 @@ namespace TDGame
             {
                 UIController.Instance.SetMainHuD(true);
                 AudioManager.Instance.PlayGameplayMusic();
+                LevelManager.Instance.UpdateLevelResource();
             }
         }
     }

@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
@@ -8,14 +7,19 @@ namespace TDGame
     {
         [SerializeField] private TMP_Text txtLevel;
 
-        private void Start()
+        private void OnEnable()
         {
-            UpdateUI();
+            GameEvent.OnUpdateUI += UpdateUI;
+        }
+
+        private void OnDisable()
+        {
+            GameEvent.OnUpdateUI -= UpdateUI;
         }
 
         private void UpdateUI()
         {
-            txtLevel.text = LevelManager.Instance.Level.levelName;
+            txtLevel.text = LevelManager.Instance.LevelSO.levelName;
         }
 
         public void StartNewGame()
