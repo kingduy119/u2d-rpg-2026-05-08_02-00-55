@@ -6,78 +6,52 @@ namespace TDGame
 {
     public class Tower_Combat : MonoBehaviour
     {
-        [SerializeField] private Projectile projectilePrefab;
-
-        [SerializeField] private int capacity = 20;
-        [SerializeField] private int maxSize = 200;
-
-        private float _shootTimer = 0f;
-        private bool collectionCheck = true;
-        private TowerData _data;
-
-
-        private IObjectPool<Projectile> _objectPool;
-        private CircleCollider2D _circleCollider;
-
-        public List<Enemy> _enemiesInRange = new();
-
+        private TowerData m_data;
+        private CircleCollider2D m_circleCollider;
+        private List<Enemy> m_enemiesInRange = new();
+        private float m_shootTimer = 0f;
 
         private void Awake()
         {
-            _objectPool = new ObjectPool<Projectile>(
-                CreateProjectile,
-                po => po.gameObject.SetActive(true),// OnGetFromPool, 
-                po => po.gameObject.SetActive(false),// OnRealeaseToPool, 
-                po => Destroy(po.gameObject),// OnDestroyPooledObject,
-                collectionCheck, capacity, maxSize
-            );
-
-            _circleCollider = GetComponent<CircleCollider2D>();
+            m_circleCollider = GetComponent<CircleCollider2D>();
         }
 
         private void OnEnable()
         {
-            GameEvent.OnEnemyDie += HandleEnemeyDestroyed;
+            GameEvent.OnEnemyDie += HandleEnemyDestroyed;
         }
 
         private void OnDisable()
         {
-            GameEvent.OnEnemyDie -= HandleEnemeyDestroyed;
+            GameEvent.OnEnemyDie -= HandleEnemyDestroyed;
         }
 
 
         public void Init(TowerData data)
         {
-            _data = data;
-            _circleCollider.radius = data.range;
-            _enemiesInRange = new List<Enemy>();
+            m_data = data;
+            m_circleCollider.radius = data.range;
+            m_enemiesInRange = new List<Enemy>();
         }
 
         private void Update()
         {
-            _shootTimer -= Time.deltaTime;
-            if (_shootTimer <= 0)
+            m_shootTimer -= Time.deltaTime;
+            if (m_shootTimer <= 0)
             {
-                _shootTimer = _data.shootInterval;
+                m_shootTimer = m_data.shootInterval;
                 Shoot();
             }
         }
 
-        private Projectile CreateProjectile()
-        {
-            Projectile projectile = Instantiate(projectilePrefab);
-            projectile.ObjectPool = _objectPool;
-            return projectile;
-        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Enemy"))
             {
-                Debug.Log("_enemiesInRange");
                 if (collision.TryGetComponent<Enemy>(out var enemy))
                 {
-                    _enemiesInRange.Add(enemy);
+                    m_enemiesInRange.Add(enemy);
                 }
             }
         }
@@ -88,29 +62,26 @@ namespace TDGame
             {
                 if (collision.TryGetComponent<Enemy>(out var enemy))
                 {
-                    _enemiesInRange.Remove(enemy);
+                    m_enemiesInRange.Remove(enemy);
                 }
             }
         }
 
         private void Shoot()
         {
-            if (_enemiesInRange.Count > 0)
+            if (m_enemiesInRange.Count > 0)
             {
-                ProjectileBase projectile = ProjectileFactory.Instance.GetObject(_data.projectType);
+                Projectile projectile = ProjectileFactory.Instance.GetObject(m_data.projectType);
                 if (projectile == null) return;
 
-                Vector2 shootDirection = (_enemiesInRange[0].transform.position - transform.position).normalized;
+                Vector2 shootDirection = (m_enemiesInRange[0].transform.position - transform.position).normalized;
 
                 projectile.transform.position = transform.position;
-                projectile.Shoot(_data, shootDirection);
+                projectile.Shoot(m_data, shootDirection);
             }
         }
 
-        private void HandleEnemeyDestroyed(Enemy enemy)
-        {
-            _enemiesInRange.Remove(enemy);
-        }
+        private void HandleEnemyDestroyed(Enemy enemy) => m_enemiesInRange.Remove(enemy);
     }
 
 }

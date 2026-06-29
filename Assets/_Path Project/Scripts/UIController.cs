@@ -94,7 +94,6 @@ namespace TDGame
         }
         private void UpdateUI()
         {
-            Debug.Log($"UIController:UpdateUI");
             TDGameManager game = TDGameManager.Instance;
             goldText.SetText("{0}", game.Golds);
             rockText.SetText("{0}", game.Rocks);
@@ -254,12 +253,14 @@ namespace TDGame
             LevelManager.Instance.PlayContinue();
         }
 
+        public void LoadMainMenu() => SceneManager.LoadScene("TD_MainMenu");
+
         public void QuitGame()
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit();
+            Application.Quit();
 #endif
         }
     }

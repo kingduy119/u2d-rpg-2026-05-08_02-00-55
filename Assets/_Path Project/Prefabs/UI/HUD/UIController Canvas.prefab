@@ -213,7 +213,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 247.20135, y: -31.4156}
+  m_AnchoredPosition: {x: 247.20142, y: -31.41565}
   m_SizeDelta: {x: 494.4027, y: 62.8312}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5473868093391090985
@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 3745442348117935149}
   - component: {fileID: 1589242943096429515}
   m_Layer: 5
-  m_Name: mission_complete_panel
+  m_Name: mission_complete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.72
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -801,7 +801,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8143567787725588252}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2058436080741969239}
+        m_TargetAssemblyTypeName: TDGame.UIController, Assembly-CSharp
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1291550537352479509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,7 +1186,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.72
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1803,7 +1815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 63.833435, y: 30.5}
+  m_AnchoredPosition: {x: 63.833496, y: 30.5}
   m_SizeDelta: {x: 127.6669, y: 61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3995767835848882569
@@ -1842,7 +1854,7 @@ GameObject:
   - component: {fileID: 7812851554401563037}
   - component: {fileID: 4590408642818799225}
   m_Layer: 5
-  m_Name: settings_panel
+  m_Name: settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1939,7 +1951,7 @@ RectTransform:
   m_Father: {fileID: 2922887031156982024}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.719972, y: 1}
+  m_AnchorMax: {x: 0.49995, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: -0.000061035156}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2935,8 +2947,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6182277657769505992}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.49995, y: 0}
+  m_AnchorMax: {x: 0.49995, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: -0.000061035156}
   m_SizeDelta: {x: 25, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3844,7 +3856,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -27.2987, y: -18.2683}
+  m_AnchoredPosition: {x: -27.298584, y: -18.26831}
   m_SizeDelta: {x: 54.5976, y: 36.5366}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4501071306253967081
@@ -4261,7 +4273,7 @@ RectTransform:
   m_Father: {fileID: 8104276529391785358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.49995, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: -0.000061035156}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4336,7 +4348,7 @@ RectTransform:
   m_Father: {fileID: 8814815414070898511}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.719972, y: 1}
+  m_AnchorMax: {x: 0.49995, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: -0.000061035156}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4746,7 +4758,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4903,8 +4915,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8259578667039287630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.719972, y: 0}
-  m_AnchorMax: {x: 0.719972, y: 1}
+  m_AnchorMin: {x: 0.49995, y: 0}
+  m_AnchorMax: {x: 0.49995, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: -0.000061035156}
   m_SizeDelta: {x: 25, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5340,7 +5352,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 800}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -7206,8 +7218,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2789044025814996017}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.719972, y: 0}
-  m_AnchorMax: {x: 0.719972, y: 1}
+  m_AnchorMin: {x: 0.49995, y: 0}
+  m_AnchorMax: {x: 0.49995, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: -0.000061035156}
   m_SizeDelta: {x: 25, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7339,7 +7351,7 @@ GameObject:
   - component: {fileID: 4063212721254979235}
   - component: {fileID: 4600731278698320091}
   m_Layer: 5
-  m_Name: tower_panel
+  m_Name: tower_selection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7364,7 +7376,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -14.846436}
+  m_AnchoredPosition: {x: -0.00024414062, y: -14.846436}
   m_SizeDelta: {x: -153.7007, y: -179.8994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4063212721254979235

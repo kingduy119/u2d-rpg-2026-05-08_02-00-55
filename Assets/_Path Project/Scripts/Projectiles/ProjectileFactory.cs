@@ -18,7 +18,7 @@ namespace TDGame
 
         [SerializeField] private List<ProjectileConfig> projectileConfigs;
 
-        private Dictionary<ProjectileType, IObjectPool<ProjectileBase>> m_pool = new();
+        private Dictionary<ProjectileType, IObjectPool<Projectile>> m_pool = new();
 
         private Dictionary<ProjectileType, ProjectileConfig> configDictionary = new();
 
@@ -30,26 +30,17 @@ namespace TDGame
             {
                 configDictionary.Add(config.type, config);
 
-                // IObjectPool<ProjectileBase> pool = new ObjectPool<ProjectileBase>(
-                //     createFunc: () => CreateProjectile(config.type),
-                //     actionOnGet: (proj) => proj.gameObject.SetActive(true),
-                //     actionOnRelease: (proj) => proj.gameObject.SetActive(false),
-                //     actionOnDestroy: (proj) => Destroy(proj.gameObject),
-                //     collectionCheck: true,
-                //     defaultCapacity: config.defaultCapacity,
-                //     maxSize: config.maxPoolSize
-                // );
-                IObjectPool<ProjectileBase> pool = InitPool(config);
+                IObjectPool<Projectile> pool = InitPool(config);
                 m_pool.Add(config.type, pool);
             }
         }
 
-        private ObjectPool<ProjectileBase> InitPool(ProjectileConfig config)
+        private ObjectPool<Projectile> InitPool(ProjectileConfig config)
         {
             GameObject prefab = configDictionary[config.type].prefab;
 
-            ObjectPool<ProjectileBase> pool = null;
-            pool = new ObjectPool<ProjectileBase>(
+            ObjectPool<Projectile> pool = null;
+            pool = new ObjectPool<Projectile>(
                 () => CreateProjectile(config.type),
                 go => go.gameObject.SetActive(true),
                 go => go.gameObject.SetActive(false),
@@ -61,29 +52,22 @@ namespace TDGame
             return pool;
         }
 
-        private ProjectileBase CreateProjectile(ProjectileType type)
+        private Projectile CreateProjectile(ProjectileType type)
         {
             GameObject prefab = configDictionary[type].prefab;
             GameObject instanceGo = Instantiate(prefab, this.transform);
 
-            ProjectileBase projectile = instanceGo.GetComponent<ProjectileBase>();
+            Projectile projectile = instanceGo.GetComponent<Projectile>();
 
             if (projectile == null)
-            {
-                Debug.LogError($"Prefab của {type} chưa gắn script implement IProjectile!");
                 return null;
-            }
 
-            if (projectile is Arrow arrow)
-            {
-                arrow.Pool = m_pool[type];
-            }
-            // else if (projectile is MissileProjectile missile) { missile.SetPool(...); }
+            projectile.Pool = m_pool[type];
 
             return projectile;
         }
 
-        public ProjectileBase GetObject(ProjectileType type)
+        public Projectile GetObject(ProjectileType type)
         {
             if (!m_pool.TryGetValue(type, out var pool))
             {

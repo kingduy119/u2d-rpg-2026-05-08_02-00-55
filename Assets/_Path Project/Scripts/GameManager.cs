@@ -6,8 +6,6 @@ namespace TDGame
 {
     public class TDGameManager : PersistentSingleton<TDGameManager>
     {
-        // public static event Action<int> OnLivesChanged;
-        // public static event Action<int> OnGoldsChanged;
         public static event Action UpdateUI;
 
         private int _lives = 20;
@@ -76,7 +74,7 @@ namespace TDGame
 
         void Start()
         {
-            LoadScece();
+            LoadScene();
         }
 
         private void HandlePointReachedEnd(EnemyData enemy)
@@ -101,9 +99,8 @@ namespace TDGame
             }
         }
 
-        private void LoadScece() => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
+        private void LoadScene() => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
-
 
     }
 
