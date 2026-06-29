@@ -2,6 +2,13 @@ using UnityEngine;
 
 namespace TDGame
 {
+    public enum ProjectileType
+    {
+        Default,
+        Arrow,
+    }
+
+
     public enum EnemyType
     {
         MummyOrc,

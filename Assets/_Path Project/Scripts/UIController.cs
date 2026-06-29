@@ -51,8 +51,8 @@ namespace TDGame
         void OnEnable()
         {
             TDGameManager.UpdateUI += UpdateUI;
-            TDGameManager.OnLivesChanged += UpdateLives;
-            TDGameManager.OnGoldsChanged += UpdateGolds;
+            // TDGameManager.OnLivesChanged += UpdateLives;
+            // TDGameManager.OnGoldsChanged += UpdateGolds;
             SpawnManager.OnWaveChanged += UpdateWaveText;
             SpawnManager.OnMissionComplete += HandleMissionComplete;
 
@@ -63,8 +63,8 @@ namespace TDGame
         void OnDisable()
         {
             TDGameManager.UpdateUI -= UpdateUI;
-            TDGameManager.OnLivesChanged -= UpdateLives;
-            TDGameManager.OnGoldsChanged -= UpdateGolds;
+            // TDGameManager.OnLivesChanged -= UpdateLives;
+            // TDGameManager.OnGoldsChanged -= UpdateGolds;
             SpawnManager.OnWaveChanged -= UpdateWaveText;
             SpawnManager.OnMissionComplete -= HandleMissionComplete;
 

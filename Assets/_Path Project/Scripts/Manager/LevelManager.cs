@@ -6,8 +6,6 @@ namespace TDGame
 {
     public class LevelManager : PersistentSingleton<LevelManager>
     {
-        public static event Action<LevelSO> OnLoadLevel;
-
         private int _level = 0;
 
         public LevelSO[] allLevels;

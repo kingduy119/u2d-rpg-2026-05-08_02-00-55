@@ -6,8 +6,8 @@ namespace TDGame
 {
     public class TDGameManager : PersistentSingleton<TDGameManager>
     {
-        public static event Action<int> OnLivesChanged;
-        public static event Action<int> OnGoldsChanged;
+        // public static event Action<int> OnLivesChanged;
+        // public static event Action<int> OnGoldsChanged;
         public static event Action UpdateUI;
 
         private int _lives = 20;
@@ -65,7 +65,6 @@ namespace TDGame
             Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
             Enemy.OnGetEnemyReward += HandleGetEnemyReward;
             SceneManager.sceneLoaded += OnSceneLoaded;
-            // LevelManager.OnLoadLevel += HandleLoadLevel;
         }
 
         void OnDisable()
@@ -73,13 +72,10 @@ namespace TDGame
             Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
             Enemy.OnGetEnemyReward -= HandleGetEnemyReward;
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            // LevelManager.OnLoadLevel -= HandleLoadLevel;
         }
 
         void Start()
         {
-            // OnLivesChanged?.Invoke(_lives);
-            // OnGoldsChanged?.Invoke(_golds);
             LoadScece();
         }
 

@@ -72,7 +72,6 @@ namespace TDGame
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log("Tower-OnTriggerEnter2D");
             if (collision.CompareTag("Enemy"))
             {
                 Debug.Log("_enemiesInRange");
@@ -98,7 +97,7 @@ namespace TDGame
         {
             if (_enemiesInRange.Count > 0)
             {
-                Projectile projectile = _objectPool.Get();
+                ProjectileBase projectile = ProjectileFactory.Instance.GetObject(_data.projectType);
                 if (projectile == null) return;
 
                 Vector2 shootDirection = (_enemiesInRange[0].transform.position - transform.position).normalized;

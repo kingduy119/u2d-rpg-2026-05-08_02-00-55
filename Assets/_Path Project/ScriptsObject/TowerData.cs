@@ -1,18 +1,24 @@
+using TDGame;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TowerData", menuName = "Game TD/TowerData")]
-public class TowerData : ScriptableObject
+
+namespace TDGame
 {
-    public Sprite sprite;
-    public GameObject towerPrefab;
+    [CreateAssetMenu(fileName = "TowerSO", menuName = "Game TD/TowerSO")]
+    public class TowerData : ScriptableObject
+    {
+        public ProjectileType projectType;
+        public Sprite sprite;
+        public GameObject towerPrefab;
 
-    public string towerName;
-    public int cost;
+        public string towerName;
+        public int cost;
 
-    public float range;
-    public float shootInterval;
-    public float projectileSpeed;
-    public float projectileDuration;
-    public float damage;
+        public float range;
+        public float shootInterval;
+        public float projectileSpeed;
+        public float projectileDuration;
+        public float damage;
 
+    }
 }

@@ -3,35 +3,39 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerCard : MonoBehaviour
+namespace TDGame
 {
-    [SerializeField] private Image towerImage;
-    [SerializeField] private TMP_Text nameText;
-    [SerializeField] private TMP_Text costText;
-
-    [SerializeField] private TowerData _data;
-    public static event Action<TowerData> OnTowerCardSelected;
-
-    private void OnValidate()
+    public class TowerCard : MonoBehaviour
     {
-        if (_data != null)
+        [SerializeField] private Image towerImage;
+        [SerializeField] private TMP_Text nameText;
+        [SerializeField] private TMP_Text costText;
+
+        [SerializeField] private TowerData _data;
+        public static event Action<TowerData> OnTowerCardSelected;
+
+        private void OnValidate()
         {
-            towerImage.sprite = _data.sprite;
-            nameText.text = _data.towerName;
-            costText.text = _data.cost.ToString();
+            if (_data != null)
+            {
+                towerImage.sprite = _data.sprite;
+                nameText.text = _data.towerName;
+                costText.text = _data.cost.ToString();
+            }
+        }
+
+        public void Initialize(TowerData data)
+        {
+            _data = data;
+            towerImage.sprite = data.sprite;
+            nameText.text = data.towerName;
+            costText.text = data.cost.ToString();
+        }
+
+        public void PlaceTowerClick()
+        {
+            OnTowerCardSelected?.Invoke(_data);
         }
     }
 
-    public void Initialize(TowerData data)
-    {
-        _data = data;
-        towerImage.sprite = data.sprite;
-        nameText.text = data.towerName;
-        costText.text = data.cost.ToString();
-    }
-
-    public void PlaceTowerClick()
-    {
-        OnTowerCardSelected?.Invoke(_data);
-    }
 }

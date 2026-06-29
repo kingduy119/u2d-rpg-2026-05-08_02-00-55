@@ -2,45 +2,49 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Platform : MonoBehaviour
+
+namespace TDGame
 {
-    public static event Action<Platform> OnPlatformClicked;
-    [SerializeField] private LayerMask layerMask;
-
-    private GameObject _currentTower;
-
-    void Update()
+    public class Platform : MonoBehaviour
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        public static event Action<Platform> OnPlatformClicked;
+        [SerializeField] private LayerMask layerMask;
+
+        private GameObject _currentTower;
+
+        void Update()
         {
-
-            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            RaycastHit2D raycastHit = Physics2D.Raycast(
-                worldPoint,
-                Vector2.zero,
-                Mathf.Infinity,
-                layerMask
-                );
-
-            if (raycastHit.collider != null)
+            if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                Platform platform = raycastHit.collider.GetComponent<Platform>();
-                if (platform != null)
+
+                Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                RaycastHit2D raycastHit = Physics2D.Raycast(
+                    worldPoint,
+                    Vector2.zero,
+                    Mathf.Infinity,
+                    layerMask
+                    );
+
+                if (raycastHit.collider != null)
                 {
-                    OnPlatformClicked?.Invoke(platform);
+                    Platform platform = raycastHit.collider.GetComponent<Platform>();
+                    if (platform != null)
+                    {
+                        OnPlatformClicked?.Invoke(platform);
+                    }
                 }
             }
         }
-    }
 
-    public void PlaceTower(TowerData data)
-    {
-        if (_currentTower != null)
+        public void PlaceTower(TowerData data)
         {
-            Destroy(_currentTower);
-        }
-        _currentTower = Instantiate(data.towerPrefab, transform.position, Quaternion.identity);
+            if (_currentTower != null)
+            {
+                Destroy(_currentTower);
+            }
+            _currentTower = Instantiate(data.towerPrefab, transform.position, Quaternion.identity);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }
