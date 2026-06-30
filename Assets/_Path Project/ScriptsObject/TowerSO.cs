@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TDGame
 {
     [CreateAssetMenu(fileName = "TowerSO", menuName = "Game TD/TowerSO")]
-    public class TowerData : ScriptableObject
+    public class TowerSO : ScriptableObject
     {
         public ProjectileType projectType;
         public Sprite sprite;

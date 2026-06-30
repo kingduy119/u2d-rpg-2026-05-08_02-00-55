@@ -27,11 +27,12 @@ namespace TDGame
         [SerializeField] private GameObject mainHUDPanel;
         [SerializeField] private GameObject towerPanel;
         [SerializeField] private GameObject missionCompletePanel;
+        [SerializeField] private GameObject settingsPanel;
 
         [Header("Others")]
         [SerializeField] private GameObject towerCardPrefab;
         [SerializeField] private Transform cardsContainer;
-        [SerializeField] private TowerData[] _towers;
+        [SerializeField] private TowerSO[] _towers;
 
 
         private bool _isPaused = false;
@@ -175,7 +176,7 @@ namespace TDGame
             FillTowerCards();
         }
 
-        public void HandleTowerCardSelected(TowerData data)
+        public void HandleTowerCardSelected(TowerSO data)
         {
             if (TDGameManager.Instance.Golds < data.cost)
             {
@@ -253,7 +254,11 @@ namespace TDGame
             LevelManager.Instance.PlayContinue();
         }
 
-        public void LoadMainMenu() => SceneManager.LoadScene("TD_MainMenu");
+        public void LoadMainMenu()
+        {
+            settingsPanel.SetActive(false);
+            SceneManager.LoadScene("TD_MainMenu");
+        }
 
         public void QuitGame()
         {

@@ -43,7 +43,7 @@ namespace TDGame
             UpdateHealthUI();
         }
 
-        public void TakeDamage(TowerData data)
+        public void TakeDamage(TowerSO data)
         {
             Health -= data.damage;
             Health = Mathf.Clamp(Health, 0, _maxHealth);

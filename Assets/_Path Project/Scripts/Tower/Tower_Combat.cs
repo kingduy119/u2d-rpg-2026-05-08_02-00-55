@@ -6,7 +6,7 @@ namespace TDGame
 {
     public class Tower_Combat : MonoBehaviour
     {
-        private TowerData m_data;
+        private TowerSO m_data;
         private CircleCollider2D m_circleCollider;
         private List<Enemy> m_enemiesInRange = new();
         private float m_shootTimer = 0f;
@@ -27,7 +27,7 @@ namespace TDGame
         }
 
 
-        public void Init(TowerData data)
+        public void Init(TowerSO data)
         {
             m_data = data;
             m_circleCollider.radius = data.range;

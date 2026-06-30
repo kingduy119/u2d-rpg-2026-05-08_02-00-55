@@ -11,8 +11,8 @@ namespace TDGame
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text costText;
 
-        [SerializeField] private TowerData _data;
-        public static event Action<TowerData> OnTowerCardSelected;
+        [SerializeField] private TowerSO _data;
+        public static event Action<TowerSO> OnTowerCardSelected;
 
         private void OnValidate()
         {
@@ -24,7 +24,7 @@ namespace TDGame
             }
         }
 
-        public void Initialize(TowerData data)
+        public void Initialize(TowerSO data)
         {
             _data = data;
             towerImage.sprite = data.sprite;

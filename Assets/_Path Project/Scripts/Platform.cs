@@ -36,7 +36,7 @@ namespace TDGame
             }
         }
 
-        public void PlaceTower(TowerData data)
+        public void PlaceTower(TowerSO data)
         {
             if (_currentTower != null)
             {

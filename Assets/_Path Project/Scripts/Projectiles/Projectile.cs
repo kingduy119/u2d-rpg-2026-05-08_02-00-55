@@ -15,7 +15,7 @@ namespace TDGame
         }
         // ###########
 
-        private TowerData m_data;
+        private TowerSO m_data;
         private Vector3 m_shotDirection;
         private float m_projectileDuration;
 
@@ -55,7 +55,7 @@ namespace TDGame
 
         protected virtual void Deactivate() => m_pool.Release(this);
 
-        public void Shoot(TowerData data, Vector3 shotDirection)
+        public void Shoot(TowerSO data, Vector3 shotDirection)
         {
             m_data = data;
             m_shotDirection = shotDirection;
@@ -64,7 +64,7 @@ namespace TDGame
     }
     // public class Projectile : MonoBehaviour
     // {
-    //     private TowerData _data;
+    //     private TowerSO _data;
     //     private Vector3 _shotDirection;
     //     private float _projectileDuration;
 
@@ -98,7 +98,7 @@ namespace TDGame
     //     }
     // }
 
-    //     public void Shoot(TowerData data, Vector3 shotDirection)
+    //     public void Shoot(TowerSO data, Vector3 shotDirection)
     //     {
     //         _data = data;
     //         _shotDirection = shotDirection;

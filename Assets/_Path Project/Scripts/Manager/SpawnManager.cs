@@ -27,7 +27,8 @@ namespace TDGame
             set
             {
                 _removedEnemies = value;
-                UIController.Instance.UpdateEnemies(AliveEnemies);
+                int alives = Mathf.Clamp(Wave.perway - _removedEnemies, 0, Wave.perway);
+                UIController.Instance.UpdateEnemies(alives);
             }
         }
 
@@ -43,7 +44,6 @@ namespace TDGame
         }
 
         public bool ActiveWave => _isWaveActive;
-        public int AliveEnemies => Mathf.Clamp(Wave.perway - _removedEnemies, 0, Wave.perway);
 
         protected override void Awake()
         {
@@ -80,11 +80,11 @@ namespace TDGame
             else if (RemovedEnemies >= Wave.perway)
             {
                 _isWaveActive = false;
-                RemovedEnemies = 0;
+                // RemovedEnemies = 0;
                 _spawnedCount = 0;
                 WaveIndex++;
 
-                if (_waveIndex >= Waves.Length)
+                if (WaveIndex >= Waves.Length)
                 {
                     OnMissionComplete?.Invoke();
                 }
@@ -95,6 +95,7 @@ namespace TDGame
         {
             if (_waveIndex < Waves.Length)
                 _isWaveActive = true;
+            RemovedEnemies = 0;
         }
 
         private void SpawnObject()

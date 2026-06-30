@@ -7,7 +7,7 @@ namespace TDGame
     [RequireComponent(typeof(Tower_Combat))]
     public class Tower : MonoBehaviour
     {
-        [SerializeField] private TowerData _data;
+        [SerializeField] private TowerSO _data;
         [SerializeField] private bool _showDraw;
 
         Tower_Combat m_combat;
