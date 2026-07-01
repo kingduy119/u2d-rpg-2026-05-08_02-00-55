@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace TDGame
 {
@@ -30,6 +31,11 @@ namespace TDGame
                 AudioManager.Instance.PlayGameplayMusic();
                 LevelManager.Instance.UpdateLevelResource();
             }
+        }
+
+        public static void TowerSelect(TowerSO data)
+        {
+            Debug.Log("TowerSelect");
         }
     }
 

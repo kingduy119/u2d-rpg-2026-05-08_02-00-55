@@ -11,9 +11,11 @@ namespace TDGame
         public Sprite sprite;
         public GameObject towerPrefab;
 
+        [Header("Detail")]
         public string towerName;
         public int cost;
 
+        [Header("Combat")]
         public float range;
         public float shootInterval;
         public float projectileSpeed;

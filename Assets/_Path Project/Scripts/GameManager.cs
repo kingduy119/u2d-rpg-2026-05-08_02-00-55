@@ -1,12 +1,18 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+// using UnityEngine.InputSystem;
 
 namespace TDGame
 {
     public class TDGameManager : PersistentSingleton<TDGameManager>
     {
         public static event Action UpdateUI;
+
+        // ###### tower select ######
+        [SerializeField] private TowerSO[] m_towers;
+        public TowerSO[] Towers => m_towers;
+        // ###### end ######
 
         private int _lives = 20;
         public int Lives
@@ -76,6 +82,36 @@ namespace TDGame
         {
             LoadScene();
         }
+
+        // private void Update()
+        // {
+        //     if (Mouse.current.leftButton.wasPressedThisFrame)
+        //     {
+        //         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        //         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+        //         if (hit.collider == null) return;
+
+        //         Debug.Log(hit.collider.gameObject.name);
+        //         Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
+
+        //         switch (LayerMask.LayerToName(hit.collider.gameObject.layer))
+        //         {
+        //             case "Tile":
+        //                 Debug.Log("Click Tile");
+        //                 break;
+
+        //             case "Tower":
+        //                 Debug.Log("Click Tower");
+        //                 break;
+
+        //             case "Enemy":
+        //                 Debug.Log("Click Enemy");
+        //                 break;
+        //         }
+        //     }
+        // }
 
         private void HandlePointReachedEnd(EnemyData enemy)
         {

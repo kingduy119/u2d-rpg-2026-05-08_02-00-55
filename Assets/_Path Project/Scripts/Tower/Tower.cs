@@ -8,7 +8,7 @@ namespace TDGame
     public class Tower : MonoBehaviour
     {
         [SerializeField] private TowerSO _data;
-        [SerializeField] private bool _showDraw;
+        [SerializeField] private bool m_showDraw;
 
         Tower_Combat m_combat;
 
@@ -25,7 +25,7 @@ namespace TDGame
 
         private void OnDrawGizmos()
         {
-            if (_showDraw)
+            if (m_showDraw)
             {
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(transform.position, _data.range);

@@ -44,3 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d33ec0429eb3164fa05030f94c3b24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGameManager
+  m_towers:
+  - {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
+  - {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}
+  - {fileID: 11400000, guid: 0acda361f59cd462099fa423368767a6, type: 2}
+  - {fileID: 11400000, guid: 7b0fd9569ac6e4186b59b3ef0da1a3d6, type: 2}
+  - {fileID: 11400000, guid: ba61442d6a14944029b12e8ef411afed, type: 2}
+  - {fileID: 11400000, guid: 046a0429a111248599d75b467269bbf6, type: 2}

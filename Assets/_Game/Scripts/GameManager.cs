@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     private void MarkPersistentObjects()
     {
         foreach (GameObject obj in persistentObjects)
