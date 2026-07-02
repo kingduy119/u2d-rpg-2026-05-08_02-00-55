@@ -1,30 +1,30 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-
+using Unity.Cinemachine;
 
 namespace TDGame
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private Camera mainCamera;
+        [SerializeField] private Camera m_renderCamera;
+        [SerializeField] private CinemachineCamera m_cinemachineCamera;
         [SerializeField] private float dragSpeed = 1f;
+        [SerializeField] private float zoomSpeed = 1f;
+        [SerializeField] private float minZoom = 3;
+        [SerializeField] private float maxZoom = 10;
 
         private Vector3 m_lastWorldPosition;
         private bool m_isDragging;
 
-        private void Awake()
-        {
-            if (mainCamera == null)
-                mainCamera = Camera.main;
-        }
-
         private void Update()
         {
+            HandleMouseZoom();
+
 #if UNITY_EDITOR || UNITY_STANDALONE
             HandleMouse();
 #else
-        HandleTouch();
+            HandleTouch();
 #endif
         }
 
@@ -63,6 +63,20 @@ namespace TDGame
             }
         }
 
+        private void HandleMouseZoom()
+        {
+            if (Mouse.current == null)
+                return;
+
+
+            float scroll = Mouse.current.scroll.ReadValue().y;
+
+            m_cinemachineCamera.Lens.OrthographicSize -= scroll * zoomSpeed;
+
+            m_cinemachineCamera.Lens.OrthographicSize =
+                Mathf.Clamp(m_cinemachineCamera.Lens.OrthographicSize, minZoom, maxZoom);
+        }
+
         private void HandleTouch()
         {
             if (Touchscreen.current == null)
@@ -97,8 +111,8 @@ namespace TDGame
         {
             Vector2 mousePos = Mouse.current.position.ReadValue();
 
-            Vector3 world = mainCamera.ScreenToWorldPoint(
-                new Vector3(mousePos.x, mousePos.y, -mainCamera.transform.position.z));
+            Vector3 world = m_renderCamera.ScreenToWorldPoint(
+                new Vector3(mousePos.x, mousePos.y, -m_renderCamera.transform.position.z));
 
             world.z = transform.position.z;
 
@@ -109,8 +123,8 @@ namespace TDGame
         {
             Vector2 touchPos = Touchscreen.current.primaryTouch.position.ReadValue();
 
-            Vector3 world = mainCamera.ScreenToWorldPoint(
-                new Vector3(touchPos.x, touchPos.y, -mainCamera.transform.position.z));
+            Vector3 world = m_renderCamera.ScreenToWorldPoint(
+                new Vector3(touchPos.x, touchPos.y, -m_renderCamera.transform.position.z));
 
             world.z = transform.position.z;
 

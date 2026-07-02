@@ -8,6 +8,9 @@ namespace TDGame
         public static event Action OnUpdateUI;
         public static event Action<Enemy> OnEnemyDie;
 
+        public static event Action OnPauseInGame;
+        public static event Action OnResumeInGame;
+
         public static void UpdateUI()
         {
             OnUpdateUI?.Invoke();
@@ -22,12 +25,12 @@ namespace TDGame
         {
             if (name == "TD_MainMenu")
             {
-                UIController.Instance.SetMainHuD(false);
+                UIManager.Instance.SetupUIMainMenu();
                 AudioManager.Instance.PlayMainMenuMusic();
             }
             else
             {
-                UIController.Instance.SetMainHuD(true);
+                UIManager.Instance.SetupUIInGame();
                 AudioManager.Instance.PlayGameplayMusic();
                 LevelManager.Instance.UpdateLevelResource();
             }

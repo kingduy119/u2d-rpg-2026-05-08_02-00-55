@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 3745442348117935149}
   - component: {fileID: 1589242943096429515}
   m_Layer: 5
-  m_Name: mission_complete
+  m_Name: Mission_Complete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3479,7 +3479,7 @@ GameObject:
   - component: {fileID: 7812851554401563037}
   - component: {fileID: 4590408642818799225}
   m_Layer: 5
-  m_Name: settings
+  m_Name: Settings_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6701,7 +6701,7 @@ GameObject:
   - component: {fileID: 7085096953102922156}
   - component: {fileID: 5677905758173800295}
   m_Layer: 5
-  m_Name: tower_select
+  m_Name: Tower_Select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6714,7 +6714,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5263286690312911282}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6727,7 +6727,7 @@ RectTransform:
   - {fileID: 6582060029834145771}
   - {fileID: 1596108714844350150}
   - {fileID: 7862452396440946207}
-  m_Father: {fileID: 8069358834318231477}
+  m_Father: {fileID: 4724773789913422730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -7289,7 +7289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1204353963621156089}
   m_Layer: 5
-  m_Name: shop
+  m_Name: Shop_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8849,10 +8849,11 @@ GameObject:
   - component: {fileID: 5183276536100907149}
   - component: {fileID: 3306397546808560234}
   - component: {fileID: 5618238076883257840}
-  - component: {fileID: 2058436080741969239}
   - component: {fileID: 8012016952863979250}
+  - component: {fileID: 2058436080741969239}
+  - component: {fileID: 6241498684763119794}
   m_Layer: 5
-  m_Name: UIController Canvas
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8872,10 +8873,9 @@ RectTransform:
   m_Children:
   - {fileID: 4724773789913422730}
   - {fileID: 7821718325350514527}
-  - {fileID: 4845708192393847776}
   - {fileID: 7759525798301395746}
-  - {fileID: 271031652843096481}
   - {fileID: 1204353963621156089}
+  - {fileID: 4845708192393847776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8947,7 +8947,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2058436080741969239
+--- !u!114 &8012016952863979250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8955,6 +8955,22 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6416304065245925452}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f25254fb53714f59b4f9db632573a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSettings
+  mixer: {fileID: 24100000, guid: 85370b6f9dfcf4a29a9f2cd3539b75b2, type: 2}
+  masterSlider: {fileID: 2677662736327706822}
+  musicSlider: {fileID: 5219521959544385856}
+  sfxSlider: {fileID: 3873876790262835990}
+--- !u!114 &2058436080741969239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6416304065245925452}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 311c55a4698afe6449318f136acdc346, type: 3}
   m_Name: 
@@ -8972,13 +8988,14 @@ MonoBehaviour:
   towerPanel: {fileID: 8596389075483647323}
   missionCompletePanel: {fileID: 836434155178068146}
   settingsPanel: {fileID: 3380646469280550847}
+  towerSelectPanel: {fileID: 0}
   towerCardPrefab: {fileID: 2524188842928860215, guid: 87af53849cc734ca6820905e4f161e03, type: 3}
   cardsContainer: {fileID: 7499518339003856612}
   _towers:
   - {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
   - {fileID: 11400000, guid: 7b0fd9569ac6e4186b59b3ef0da1a3d6, type: 2}
   - {fileID: 11400000, guid: 046a0429a111248599d75b467269bbf6, type: 2}
---- !u!114 &8012016952863979250
+--- !u!114 &6241498684763119794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8987,13 +9004,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6416304065245925452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f25254fb53714f59b4f9db632573a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c0e7ad9727c1520478b6745dad81f238, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioSettings
-  mixer: {fileID: 24100000, guid: 85370b6f9dfcf4a29a9f2cd3539b75b2, type: 2}
-  masterSlider: {fileID: 2677662736327706822}
-  musicSlider: {fileID: 5219521959544385856}
-  sfxSlider: {fileID: 3873876790262835990}
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.UIManager
+  m_InGameController: {fileID: 3872791374998375854}
+  m_TowerSelectUI: {fileID: 5677905758173800295}
 --- !u!1 &6580278767934828972
 GameObject:
   m_ObjectHideFlags: 0
@@ -10471,8 +10486,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4724773789913422730}
+  - component: {fileID: 3872791374998375854}
   m_Layer: 5
-  m_Name: hud_gamplay
+  m_Name: InGame_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10494,6 +10510,7 @@ RectTransform:
   - {fileID: 6548085366257540817}
   - {fileID: 7931143510870408043}
   - {fileID: 3415374626471837440}
+  - {fileID: 271031652843096481}
   m_Father: {fileID: 8069358834318231477}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10501,6 +10518,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3872791374998375854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7715513192944871941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc37177912f0e7549a34e362d7e0c970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InGameController
+  goldText: {fileID: 2380296377944236289}
+  rockText: {fileID: 6429751662250271962}
+  woodText: {fileID: 159062500719335520}
+  alertText: {fileID: 6312510332591434916}
+  waveText: {fileID: 5746007879981826075}
+  livesText: {fileID: 323435953415690429}
+  enemiesText: {fileID: 2706585252678267297}
+  gameSpeedButton: {fileID: 8197225426161825668}
+  startWaveButton: {fileID: 273748604982936634}
 --- !u!1 &7730797805797666474
 GameObject:
   m_ObjectHideFlags: 0
@@ -11951,7 +11989,7 @@ GameObject:
   - component: {fileID: 4063212721254979235}
   - component: {fileID: 4600731278698320091}
   m_Layer: 5
-  m_Name: tower_selection
+  m_Name: Tower_Select_Old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

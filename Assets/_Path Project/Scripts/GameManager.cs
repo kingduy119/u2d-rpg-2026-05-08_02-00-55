@@ -7,80 +7,91 @@ namespace TDGame
 {
     public class TDGameManager : PersistentSingleton<TDGameManager>
     {
-        public static event Action UpdateUI;
+        // public static event Action UpdateUI;
 
         // ###### tower select ######
         [SerializeField] private TowerSO[] m_towers;
         public TowerSO[] Towers => m_towers;
         // ###### end ######
 
-        private int _lives = 20;
-        public int Lives
-        {
-            get => _lives;
-            set
-            {
-                _lives = value;
-                UpdateUI?.Invoke();
-            }
-        }
+        public InGameController InGame { get; private set; }
 
-        private int _golds = 0;
-        public int Golds
-        {
-            get => _golds;
-            set
-            {
-                _golds = value;
-                UpdateUI?.Invoke();
-            }
-        }
+        // private int _lives = 20;
+        // public int Lives
+        // {
+        //     get => _lives;
+        //     set
+        //     {
+        //         _lives = value;
+        //         UpdateUI?.Invoke();
+        //     }
+        // }
 
-        private int _rocks = 0;
-        public int Rocks
-        {
-            get => _rocks;
-            set
-            {
-                _rocks = value;
-                UpdateUI?.Invoke();
-            }
-        }
+        // private int _golds = 0;
+        // public int Golds
+        // {
+        //     get => _golds;
+        //     set
+        //     {
+        //         _golds = value;
+        //         UpdateUI?.Invoke();
+        //     }
+        // }
 
-        private int _wood = 0;
-        public int Woods
-        {
-            get => _wood;
-            set
-            {
-                _wood = value;
-                UpdateUI?.Invoke();
-            }
-        }
+        // private int _rocks = 0;
+        // public int Rocks
+        // {
+        //     get => _rocks;
+        //     set
+        //     {
+        //         _rocks = value;
+        //         UpdateUI?.Invoke();
+        //     }
+        // }
+
+        // private int _wood = 0;
+        // public int Woods
+        // {
+        //     get => _wood;
+        //     set
+        //     {
+        //         _wood = value;
+        //         UpdateUI?.Invoke();
+        //     }
+        // }
 
         protected override void Awake()
         {
             base.Awake();
+            InGame = new InGameController();
             AudioManager.Instance.PlayMainMenuMusic();
         }
 
         void OnEnable()
         {
-            Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
-            Enemy.OnGetEnemyReward += HandleGetEnemyReward;
+            // Enemy.OnEnemyReachedEnd += InGame.HandlePointReachedEnd;
+            // Enemy.OnGetEnemyReward += InGame.HandleGetEnemyReward;
+
+            InGame.RegisterEvent();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void OnDisable()
         {
-            Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
-            Enemy.OnGetEnemyReward -= HandleGetEnemyReward;
+            // Enemy.OnEnemyReachedEnd -= InGame.HandlePointReachedEnd;
+            // Enemy.OnGetEnemyReward -= InGame.HandleGetEnemyReward;
+            InGame.UnregisterEvent();
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         void Start()
         {
             LoadScene();
+        }
+
+        private void Update()
+        {
+            InGame.Update();
         }
 
         // private void Update()
@@ -113,17 +124,17 @@ namespace TDGame
         //     }
         // }
 
-        private void HandlePointReachedEnd(EnemyData enemy)
-        {
-            Lives -= enemy.damage;
-            if (Lives <= 0)
-            {
-                Debug.Log("Game Over!");
-            }
-        }
+        // private void HandlePointReachedEnd(EnemyData enemy)
+        // {
+        //     Lives -= enemy.damage;
+        //     if (Lives <= 0)
+        //     {
+        //         Debug.Log("Game Over!");
+        //     }
+        // }
 
-        private void HandleGetEnemyReward(EnemyData enemy) => Golds += enemy.goldReward;
-        public void SetTimeScale(float scale) => Time.timeScale = scale;
+        // private void HandleGetEnemyReward(EnemyData enemy) => Golds += enemy.goldReward;
+        // public void SetTimeScale(float scale) => Time.timeScale = scale;
 
         public void SpendGold(int amount)
         {
