@@ -5,7 +5,7 @@ using Unity.Cinemachine;
 
 namespace TDGame
 {
-    public class CameraController : MonoBehaviour
+    public class CameraController : PersistentSingleton<MonoBehaviour>
     {
         [SerializeField] private Camera m_renderCamera;
         [SerializeField] private CinemachineCamera m_cinemachineCamera;
@@ -16,6 +16,11 @@ namespace TDGame
 
         private Vector3 m_lastWorldPosition;
         private bool m_isDragging;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
         private void Update()
         {

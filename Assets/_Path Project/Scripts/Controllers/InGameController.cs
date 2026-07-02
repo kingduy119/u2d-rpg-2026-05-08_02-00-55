@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace TDGame
 {
@@ -7,9 +8,17 @@ namespace TDGame
         public static event Action OnUpdateInGameUI;
 
         private bool m_isDirty = false;
-        private bool m_isPaused = false;
-        private float m_gameSpeed = 1f;
         private float m_maxGameSpeed = 3f;
+        private float m_gameSpeed = 1f;
+        public float GameSpeed
+        {
+            get => m_gameSpeed;
+            set
+            {
+                m_gameSpeed = value >= m_maxGameSpeed ? 1 : value;
+                m_isDirty = true;
+            }
+        }
 
         private int m_lives = 0;
         public int Lives
@@ -67,8 +76,8 @@ namespace TDGame
 
         public void RegisterEvent()
         {
-            GameEvent.OnPauseInGame += HandlePauseInGame;
-            GameEvent.OnResumeInGame += HandleResumeInGame;
+            // GameEvent.OnPauseInGame += HandlePauseInGame;
+            // GameEvent.OnResumeInGame += HandleResumeInGame;
             Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
             Enemy.OnGetEnemyReward += HandleGetEnemyReward;
 
@@ -76,8 +85,8 @@ namespace TDGame
 
         public void UnregisterEvent()
         {
-            GameEvent.OnPauseInGame -= HandlePauseInGame;
-            GameEvent.OnResumeInGame -= HandleResumeInGame;
+            // GameEvent.OnPauseInGame -= HandlePauseInGame;
+            // GameEvent.OnResumeInGame -= HandleResumeInGame;
             Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
             Enemy.OnGetEnemyReward -= HandleGetEnemyReward;
         }
@@ -93,18 +102,18 @@ namespace TDGame
 
         private void HandleGetEnemyReward(EnemyData enemy) => Golds += enemy.goldReward;
 
-        public void HandlePauseInGame()
-        {
-            _isPaused = true;
-            Time.timeScale = 0f;
-            AudioManager.Instance.PlayPauseSound();
-        }
+        // public void HandlePauseInGame()
+        // {
+        //     m_isPaused = true;
+        //     Time.timeScale = 0f;
+        //     AudioManager.Instance.PlayPauseSound();
+        // }
 
-        public void HandleResumeInGame()
-        {
-            _isPaused = false;
-            Time.timeScale = _gameSpeed;
-            AudioManager.Instance.PlayResumeSound();
-        }
+        // public void HandleResumeInGame()
+        // {
+        //     m_isPaused = false;
+        //     Time.timeScale = m_gameSpeed;
+        //     AudioManager.Instance.PlayResumeSound();
+        // }
     }
 }

@@ -40,6 +40,17 @@ namespace TDGame
         {
             Debug.Log("TowerSelect");
         }
+
+        public static void PauseGame()
+        {
+            Time.timeScale = 0f;
+            AudioManager.Instance.PlayPauseSound();
+        }
+        public static void ResumeGame()
+        {
+            Time.timeScale = GameManager.Instance.InGame.GameSpeed;
+            AudioManager.Instance.PlayResumeSound();
+        }
     }
 
 }

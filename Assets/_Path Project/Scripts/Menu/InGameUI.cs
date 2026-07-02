@@ -19,27 +19,68 @@ namespace TDGame
         [SerializeField] private TMP_Text enemiesText;
 
         [Header("UI Buttons")]
-        [SerializeField] private Button gameSpeedButton;
+        [SerializeField] private Button settingsButton;
         [SerializeField] private Button startWaveButton;
+        [SerializeField] private Button gameSpeedButton;
         private TMP_Text gameSpeedText;
+
+        [Header("UI Pannels")]
+        [SerializeField] private GameObject settingsPanel;
+        [SerializeField] private GameObject missionCompletePanel;
+
+
+        private void Awake()
+        {
+            settingsPanel.SetActive(false);
+            missionCompletePanel.SetActive(false);
+        }
 
         private void OnEnable()
         {
             InGameController.OnUpdateInGameUI += UpdateInGameUI;
+
+            settingsButton.onClick.AddListener(HandleSettingsClick);
+            startWaveButton.onClick.AddListener(HandleStartWaveClick);
+            gameSpeedButton.onClick.AddListener(HandleGameSpeedClick);
         }
 
         private void OnDisable()
         {
             InGameController.OnUpdateInGameUI -= UpdateInGameUI;
+
+            settingsButton.onClick.RemoveListener(HandleSettingsClick);
+            startWaveButton.onClick.RemoveListener(HandleStartWaveClick);
+            gameSpeedButton.onClick.RemoveListener(HandleGameSpeedClick);
         }
 
         private void UpdateInGameUI()
         {
-            InGameController inGame = TDGameManager.Instance.InGame;
+            InGameController inGame = GameManager.Instance.InGame;
             goldText.SetText("{0}", inGame.Golds);
             rockText.SetText("{0}", inGame.Rocks);
             woodText.SetText("{0}", inGame.Woods);
             livesText.SetText("{0}", inGame.Lives);
+            gameSpeedButton.GetComponentInChildren<TMP_Text>().SetText($"x{inGame.GameSpeed}");
+        }
+
+        private void HandleSettingsClick()
+        {
+            PauseGame();
+        }
+
+        public void OnCloseSettingsClick()
+        {
+            ResumeGame();
+        }
+
+        private void HandleStartWaveClick()
+        {
+
+        }
+
+        private void HandleGameSpeedClick()
+        {
+            GameManager.Instance.InGame.GameSpeed++;
         }
 
         public void UpdateGolds(int number) => goldText.SetText("{0}", number);
@@ -54,11 +95,11 @@ namespace TDGame
             UpdateStartWaveButton();
         }
 
-        public void UpdateGameSpeedUI() => gameSpeedText.text = $"x{_gameSpeed}";
+        // public void UpdateGameSpeedUI() => gameSpeedText.text = $"x{_gameSpeed}";
         public void UpdateStartWaveButton() => startWaveButton.interactable = !SpawnManager.Instance.ActiveWave;
         private void HideAlert() => alertText.gameObject.SetActive(false);
 
-        public void OnPause() => GameEvent.OnPauseInGame?.Invoke();
-        public void OnResume() => GameEvent.OnResumeInGame?.Invoke();
+        public void PauseGame() => GameEvent.PauseGame();
+        public void ResumeGame() => GameEvent.ResumeGame();
     }
 }

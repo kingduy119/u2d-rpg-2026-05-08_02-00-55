@@ -20,7 +20,7 @@ namespace TDGame
                 Destroy(child.gameObject);
             }
 
-            foreach (var data in TDGameManager.Instance.Towers)
+            foreach (var data in GameManager.Instance.Towers)
             {
                 GameObject go = Instantiate(m_prefab, transform);
                 TowerSelectCard card = go.GetComponent<TowerSelectCard>();

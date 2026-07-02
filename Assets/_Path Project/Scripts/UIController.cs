@@ -45,15 +45,15 @@ namespace TDGame
         protected override void Awake()
         {
             base.Awake();
-            gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
+            // gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
 
             Init();
         }
 
         void OnEnable()
         {
-            // TDGameManager.UpdateUI += UpdateUI;
-            SpawnManager.OnWaveChanged += UpdateWaveText;
+            // GameManager.UpdateUI += UpdateUI;
+            // SpawnManager.OnWaveChanged += UpdateWaveText;
             SpawnManager.OnMissionComplete += HandleMissionComplete;
 
             Platform.OnPlatformClicked += OpenTowerPanel;
@@ -62,8 +62,8 @@ namespace TDGame
 
         void OnDisable()
         {
-            // // TDGameManager.UpdateUI -= UpdateUI;
-            SpawnManager.OnWaveChanged -= UpdateWaveText;
+            // // GameManager.UpdateUI -= UpdateUI;
+            // SpawnManager.OnWaveChanged -= UpdateWaveText;
             SpawnManager.OnMissionComplete -= HandleMissionComplete;
 
             Platform.OnPlatformClicked -= OpenTowerPanel;
@@ -72,14 +72,14 @@ namespace TDGame
 
         private void Init()
         {
-            if (towerPanel != null) towerPanel.SetActive(false);
-            if (missionCompletePanel != null) missionCompletePanel.SetActive(false);
+            // if (towerPanel != null) towerPanel.SetActive(false);
+            // if (missionCompletePanel != null) missionCompletePanel.SetActive(false);
 
-            UpdateGameSpeedUI();
-            HideAlert();
-            ResetUI();
+            // UpdateGameSpeedUI();
+            // HideAlert();
+            // ResetUI();
 
-            gameSpeedButton.onClick.AddListener(OnGameSpeedButtonClicked);
+            // gameSpeedButton.onClick.AddListener(OnGameSpeedButtonClicked);
         }
 
         // private void ResetUI()
@@ -92,7 +92,7 @@ namespace TDGame
         // }
         // private void UpdateUI()
         // {
-        //     TDGameManager game = TDGameManager.Instance;
+        //     GameManager game = GameManager.Instance;
         //     goldText.SetText("{0}", game.Golds);
         //     rockText.SetText("{0}", game.Rocks);
         //     woodText.SetText("{0}", game.Woods);
@@ -142,22 +142,22 @@ namespace TDGame
 
             _currentPlatform = platform;
             PopulateTowerCards();
-            UpdateStartWaveButton();
+            // UpdateStartWaveButton();
 
-            Pause();
+            // Pause();
         }
 
         public void CloseTowerPanel()
         {
             towerPanel.SetActive(false);
-            UpdateStartWaveButton();
-            Resume();
+            // UpdateStartWaveButton();
+            // Resume();
         }
 
         public void ShowAlert(string message)
         {
-            alertText.text = message;
-            alertText.gameObject.SetActive(true);
+            // alertText.text = message;
+            // alertText.gameObject.SetActive(true);
         }
 
         private void ResetTowerCards()
@@ -185,14 +185,14 @@ namespace TDGame
 
         public void HandleTowerCardSelected(TowerSO data)
         {
-            if (TDGameManager.Instance.Golds < data.cost)
+            if (GameManager.Instance.InGame.Golds < data.cost)
             {
                 StartCoroutine(ShowAlertCoroutine("Not enough gold!"));
                 return;
             }
             if (_currentPlatform != null)
             {
-                TDGameManager.Instance.SpendGold(data.cost);
+                GameManager.Instance.SpendGold(data.cost);
                 _currentPlatform.PlaceTower(data);
                 ToggleTowerPanel();
             }
@@ -202,57 +202,57 @@ namespace TDGame
         {
             ShowAlert(message);
             yield return new WaitForSeconds(2f);
-            HideAlert();
+            // HideAlert();
         }
 
         public void SetGameSpeed(float speed)
         {
-            _gameSpeed = Mathf.Clamp(speed, 1f, _maxGameSpeed);
-            TDGameManager.Instance.SetTimeScale(_gameSpeed);
-            UpdateGameSpeedUI();
+            // _gameSpeed = Mathf.Clamp(speed, 1f, _maxGameSpeed);
+            // GameManager.Instance.SetTimeScale(_gameSpeed);
+            // UpdateGameSpeedUI();
         }
 
         public void OnGameSpeedButtonClicked()
         {
-            _gameSpeed = (_gameSpeed + 1) % (_maxGameSpeed + 1);
-            SetGameSpeed(_gameSpeed);
+            // _gameSpeed = (_gameSpeed + 1) % (_maxGameSpeed + 1);
+            // SetGameSpeed(_gameSpeed);
         }
 
         public void TogglePause()
         {
-            _isPaused = !_isPaused;
-            TDGameManager.Instance.SetTimeScale(_isPaused ? 0f : _gameSpeed);
-            if (_isPaused)
-                AudioManager.Instance.PlayPauseSound();
-            else
-                AudioManager.Instance.PlayResumeSound();
+            // _isPaused = !_isPaused;
+            // GameManager.Instance.SetTimeScale(_isPaused ? 0f : _gameSpeed);
+            // if (_isPaused)
+            //     AudioManager.Instance.PlayPauseSound();
+            // else
+            //     AudioManager.Instance.PlayResumeSound();
 
         }
 
         // public void Pause()
         // {
         //     _isPaused = true;
-        //     TDGameManager.Instance.SetTimeScale(0f);
+        //     GameManager.Instance.SetTimeScale(0f);
         //     AudioManager.Instance.PlayPauseSound();
         // }
 
         // public void Resume()
         // {
         //     _isPaused = false;
-        //     TDGameManager.Instance.SetTimeScale(_gameSpeed);
+        //     GameManager.Instance.SetTimeScale(_gameSpeed);
         //     AudioManager.Instance.PlayResumeSound();
         // }
 
         public void OnStartNewWave()
         {
             SpawnManager.Instance.StartWave();
-            UpdateStartWaveButton();
+            // UpdateStartWaveButton();
         }
 
         private void HandleMissionComplete()
         {
             missionCompletePanel.SetActive(true);
-            Pause();
+            // Pause();
         }
 
         public void OnNextLevelClick()

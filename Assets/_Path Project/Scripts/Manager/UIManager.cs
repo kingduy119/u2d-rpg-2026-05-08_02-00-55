@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
@@ -11,6 +12,14 @@ namespace TDGame
         {
             base.Awake();
         }
+
+        // private void OnValidate()
+        // {
+        //     if (SceneManager.GetActiveScene().name != "TD_MainMenu")
+        //     {
+        //         SetupUIInGame();
+        //     }
+        // }
 
         public void SetupUIMainMenu()
         {

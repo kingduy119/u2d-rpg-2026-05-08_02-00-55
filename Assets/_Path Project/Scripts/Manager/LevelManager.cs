@@ -38,7 +38,7 @@ namespace TDGame
 
         public void UpdateLevelResource()
         {
-            TDGameManager game = TDGameManager.Instance;
+            InGameController game = GameManager.Instance.InGame;
             game.Golds = LevelSO.startingGold;
             game.Lives = LevelSO.startingLives;
         }

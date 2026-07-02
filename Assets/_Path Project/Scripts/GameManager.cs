@@ -5,60 +5,13 @@ using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
-    public class TDGameManager : PersistentSingleton<TDGameManager>
+    public class GameManager : PersistentSingleton<GameManager>
     {
-        // public static event Action UpdateUI;
 
-        // ###### tower select ######
         [SerializeField] private TowerSO[] m_towers;
         public TowerSO[] Towers => m_towers;
-        // ###### end ######
 
         public InGameController InGame { get; private set; }
-
-        // private int _lives = 20;
-        // public int Lives
-        // {
-        //     get => _lives;
-        //     set
-        //     {
-        //         _lives = value;
-        //         UpdateUI?.Invoke();
-        //     }
-        // }
-
-        // private int _golds = 0;
-        // public int Golds
-        // {
-        //     get => _golds;
-        //     set
-        //     {
-        //         _golds = value;
-        //         UpdateUI?.Invoke();
-        //     }
-        // }
-
-        // private int _rocks = 0;
-        // public int Rocks
-        // {
-        //     get => _rocks;
-        //     set
-        //     {
-        //         _rocks = value;
-        //         UpdateUI?.Invoke();
-        //     }
-        // }
-
-        // private int _wood = 0;
-        // public int Woods
-        // {
-        //     get => _wood;
-        //     set
-        //     {
-        //         _wood = value;
-        //         UpdateUI?.Invoke();
-        //     }
-        // }
 
         protected override void Awake()
         {
@@ -138,12 +91,12 @@ namespace TDGame
 
         public void SpendGold(int amount)
         {
-            if (Golds >= amount)
-                Golds -= amount;
-            else
-            {
-                Debug.LogWarning("Not enough gold!");
-            }
+            // if (Golds >= amount)
+            //     Golds -= amount;
+            // else
+            // {
+            //     Debug.LogWarning("Not enough gold!");
+            // }
         }
 
         private void LoadScene() => GameEvent.LoadScene(SceneManager.GetActiveScene().name);

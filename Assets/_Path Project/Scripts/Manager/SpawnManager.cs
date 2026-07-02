@@ -28,7 +28,7 @@ namespace TDGame
             {
                 _removedEnemies = value;
                 int alives = Mathf.Clamp(Wave.perway - _removedEnemies, 0, Wave.perway);
-                UIController.Instance.UpdateEnemies(alives);
+                // UIController.Instance.UpdateEnemies(alives);
             }
         }
 
