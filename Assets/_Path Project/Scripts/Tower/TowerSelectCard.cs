@@ -12,8 +12,6 @@ namespace TDGame
 
         private TowerSO m_data;
 
-
-
         private void OnEnable()
         {
             UpdateUI();

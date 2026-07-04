@@ -5,35 +5,34 @@ using UnityEngine.InputSystem;
 namespace TDGame
 {
     public class TilePlatform : MonoBehaviour
-    // IPointerDownHandler,
-    // IDragHandler,
-    // IPointerUpHandler
     {
         [SerializeField] private Color activeColor;
         [SerializeField] private Color unActiveColor;
         [SerializeField] private Collider2D collier;
         [SerializeField] private SpriteRenderer spriteRenderer;
 
+        private bool canPlacePlatform = true;
+        Vector3 prevPosition;
+
         private bool isDragging;
         private Vector3 offset;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log("OnTriggerEnter2D with: " + collision.tag);
-
+            canPlacePlatform = false;
             spriteRenderer.color = unActiveColor;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            Debug.Log("OnTriggerExit2D with: " + collision.tag);
-
+            canPlacePlatform = true;
             spriteRenderer.color = activeColor;
         }
 
         private void OnMouseDown()
         {
             isDragging = true;
+            prevPosition = transform.position;
 
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             mousePos.z = transform.position.z;
@@ -53,6 +52,7 @@ namespace TDGame
 
         private void OnMouseUp()
         {
+            if (!canPlacePlatform) transform.position = prevPosition;
             isDragging = false;
         }
     }
