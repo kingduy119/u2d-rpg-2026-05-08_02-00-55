@@ -1,9 +1,6 @@
 using TMPro;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
@@ -26,78 +23,81 @@ namespace TDGame
 
         [Header("UI Pannels")]
         [SerializeField] private GameObject settingsPanel;
-        [SerializeField] private GameObject missionCompletePanel;
 
+
+        private InGameController m_controller;
 
         private void Awake()
         {
             settingsPanel.SetActive(false);
-            missionCompletePanel.SetActive(false);
+            m_controller = new();
         }
 
         private void OnEnable()
         {
-            InGameController.OnUpdateInGameUI += UpdateInGameUI;
+            Enemy.OnEnemyReachedEnd += m_controller.HandlePointReachedEnd;
+            Enemy.OnGetEnemyReward += m_controller.HandleGetEnemyReward;
+            SpawnManager.OnWaveChanged += m_controller.HandleWaveChanged;
 
             settingsButton.onClick.AddListener(HandleSettingsClick);
             startWaveButton.onClick.AddListener(HandleStartWaveClick);
             gameSpeedButton.onClick.AddListener(HandleGameSpeedClick);
+
+            GameEvent.OnLoadLevel += LoadLevelResource;
         }
 
         private void OnDisable()
         {
-            InGameController.OnUpdateInGameUI -= UpdateInGameUI;
+            Enemy.OnEnemyReachedEnd -= m_controller.HandlePointReachedEnd;
+            Enemy.OnGetEnemyReward -= m_controller.HandleGetEnemyReward;
+            SpawnManager.OnWaveChanged -= m_controller.HandleWaveChanged;
 
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
             startWaveButton.onClick.RemoveListener(HandleStartWaveClick);
             gameSpeedButton.onClick.RemoveListener(HandleGameSpeedClick);
+
+            GameEvent.OnLoadLevel -= LoadLevelResource;
+        }
+
+        private void Update()
+        {
+            if (m_controller.IsDirty)
+            {
+                UpdateInGameUI();
+                m_controller.MarkDirty();
+            }
+
+        }
+
+        private void LoadLevelResource()
+        {
+            LevelSO level = LevelManager.Instance.LevelSO;
+            m_controller.Golds = level.startingGold;
+            m_controller.Lives = level.startingLives;
         }
 
         private void UpdateInGameUI()
         {
-            InGameController inGame = GameManager.Instance.InGame;
-            goldText.SetText("{0}", inGame.Golds);
-            rockText.SetText("{0}", inGame.Rocks);
-            woodText.SetText("{0}", inGame.Woods);
-            livesText.SetText("{0}", inGame.Lives);
-            gameSpeedButton.GetComponentInChildren<TMP_Text>().SetText($"x{inGame.GameSpeed}");
+            goldText.SetText("{0}", m_controller.Golds);
+            rockText.SetText("{0}", m_controller.Rocks);
+            woodText.SetText("{0}", m_controller.Woods);
+            livesText.SetText("{0}", m_controller.Lives);
+            waveText.SetText("{0}", m_controller.WaveCount);
+            gameSpeedButton.GetComponentInChildren<TMP_Text>().SetText($"x{m_controller.GameSpeed}");
         }
 
-        private void HandleSettingsClick()
-        {
-            PauseGame();
-        }
-
-        public void OnCloseSettingsClick()
-        {
-            ResumeGame();
-        }
+        private void HandleSettingsClick() => PauseGame();
+        public void OnCloseSettingsClick() => ResumeGame();
 
         private void HandleStartWaveClick()
         {
-
+            SpawnManager.Instance.StartWave();
         }
 
         private void HandleGameSpeedClick()
         {
-            GameManager.Instance.InGame.GameSpeed++;
+            m_controller.GameSpeed++;
         }
-
-        public void UpdateGolds(int number) => goldText.SetText("{0}", number);
-        public void UpdateRocks(int number) => rockText.SetText("{0}", number);
-        public void UpdateWoods(int number) => woodText.SetText("{0}", number);
-        public void UpdateLives(int number) => livesText.SetText("{0}", number);
-        public void UpdateEnemies(int number) => enemiesText.SetText("{0}", number);
-
-        private void UpdateWaveText(int waveIndex, int total)
-        {
-            waveText.text = $"{waveIndex + 1}/{total}";
-            UpdateStartWaveButton();
-        }
-
-        // public void UpdateGameSpeedUI() => gameSpeedText.text = $"x{_gameSpeed}";
-        public void UpdateStartWaveButton() => startWaveButton.interactable = !SpawnManager.Instance.ActiveWave;
-        private void HideAlert() => alertText.gameObject.SetActive(false);
 
         public void PauseGame() => GameEvent.PauseGame();
         public void ResumeGame() => GameEvent.ResumeGame();

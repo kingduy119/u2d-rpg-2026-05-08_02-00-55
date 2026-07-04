@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2203843531384761684}
   - component: {fileID: 327796476668971982}
   - component: {fileID: 451860075186101210}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: mummy_orc
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -7,7 +7,9 @@ namespace TDGame
     {
         public static event Action OnUpdateInGameUI;
 
-        private bool m_isDirty = false;
+        // private bool IsDirty = false;
+        public bool IsDirty { get; private set; }
+
         private float m_maxGameSpeed = 3f;
         private float m_gameSpeed = 1f;
         public float GameSpeed
@@ -16,7 +18,7 @@ namespace TDGame
             set
             {
                 m_gameSpeed = value >= m_maxGameSpeed ? 1 : value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
@@ -27,7 +29,7 @@ namespace TDGame
             set
             {
                 m_lives = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
@@ -38,7 +40,7 @@ namespace TDGame
             set
             {
                 m_golds = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
@@ -49,7 +51,7 @@ namespace TDGame
             set
             {
                 m_rocks = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
@@ -60,38 +62,33 @@ namespace TDGame
             set
             {
                 m_wood = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
-        public InGameController() { }
-        public void Update()
+        private int m_wave = 1;
+        public int WaveCount
         {
-            if (m_isDirty)
+            get => m_wave;
+            set
             {
-                OnUpdateInGameUI?.Invoke();
-                m_isDirty = false;
+                m_wave = value;
+                IsDirty = true;
             }
         }
 
-        public void RegisterEvent()
+        private int m_enemies = 0;
+        public int Enemies
         {
-            // GameEvent.OnPauseInGame += HandlePauseInGame;
-            // GameEvent.OnResumeInGame += HandleResumeInGame;
-            Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
-            Enemy.OnGetEnemyReward += HandleGetEnemyReward;
-
+            get => m_enemies;
+            set
+            {
+                m_enemies = value;
+                IsDirty = true;
+            }
         }
-
-        public void UnregisterEvent()
-        {
-            // GameEvent.OnPauseInGame -= HandlePauseInGame;
-            // GameEvent.OnResumeInGame -= HandleResumeInGame;
-            Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
-            Enemy.OnGetEnemyReward -= HandleGetEnemyReward;
-        }
-
-        private void HandlePointReachedEnd(EnemyData enemy)
+        public InGameController() { }
+        public void HandlePointReachedEnd(EnemyData enemy)
         {
             Lives -= enemy.damage;
             if (Lives <= 0)
@@ -100,20 +97,15 @@ namespace TDGame
             }
         }
 
-        private void HandleGetEnemyReward(EnemyData enemy) => Golds += enemy.goldReward;
+        public void HandleWaveChanged(int enemies, int wave)
+        {
+            Enemies = enemies;
+            WaveCount = wave;
+        }
 
-        // public void HandlePauseInGame()
-        // {
-        //     m_isPaused = true;
-        //     Time.timeScale = 0f;
-        //     AudioManager.Instance.PlayPauseSound();
-        // }
 
-        // public void HandleResumeInGame()
-        // {
-        //     m_isPaused = false;
-        //     Time.timeScale = m_gameSpeed;
-        //     AudioManager.Instance.PlayResumeSound();
-        // }
+        public void HandleGetEnemyReward(EnemyData enemy) => Golds += enemy.goldReward;
+        public void MarkDirty() => IsDirty = true;
+        public void Clearn() => IsDirty = false;
     }
 }

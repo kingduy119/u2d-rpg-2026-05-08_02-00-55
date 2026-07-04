@@ -36,13 +36,6 @@ namespace TDGame
             GameEvent.UpdateUI();
         }
 
-        public void UpdateLevelResource()
-        {
-            InGameController game = GameManager.Instance.InGame;
-            game.Golds = LevelSO.startingGold;
-            game.Lives = LevelSO.startingLives;
-        }
-
         public void LoadLevel(int level)
         {
             _level = level;

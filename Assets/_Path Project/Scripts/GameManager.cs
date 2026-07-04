@@ -11,29 +11,24 @@ namespace TDGame
         [SerializeField] private TowerSO[] m_towers;
         public TowerSO[] Towers => m_towers;
 
-        public InGameController InGame { get; private set; }
+        // public InGameController InGame { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
-            InGame = new InGameController();
+            // InGame = new InGameController();
             AudioManager.Instance.PlayMainMenuMusic();
         }
 
         void OnEnable()
         {
-            // Enemy.OnEnemyReachedEnd += InGame.HandlePointReachedEnd;
-            // Enemy.OnGetEnemyReward += InGame.HandleGetEnemyReward;
-
-            InGame.RegisterEvent();
+            // InGame.RegisterEvent();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void OnDisable()
         {
-            // Enemy.OnEnemyReachedEnd -= InGame.HandlePointReachedEnd;
-            // Enemy.OnGetEnemyReward -= InGame.HandleGetEnemyReward;
-            InGame.UnregisterEvent();
+            // InGame.UnregisterEvent();
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
@@ -42,52 +37,10 @@ namespace TDGame
             LoadScene();
         }
 
-        private void Update()
-        {
-            InGame.Update();
-        }
-
         // private void Update()
         // {
-        //     if (Mouse.current.leftButton.wasPressedThisFrame)
-        //     {
-        //         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-        //         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-
-        //         if (hit.collider == null) return;
-
-        //         Debug.Log(hit.collider.gameObject.name);
-        //         Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
-
-        //         switch (LayerMask.LayerToName(hit.collider.gameObject.layer))
-        //         {
-        //             case "Tile":
-        //                 Debug.Log("Click Tile");
-        //                 break;
-
-        //             case "Tower":
-        //                 Debug.Log("Click Tower");
-        //                 break;
-
-        //             case "Enemy":
-        //                 Debug.Log("Click Enemy");
-        //                 break;
-        //         }
-        //     }
+        //     InGame.Update();
         // }
-
-        // private void HandlePointReachedEnd(EnemyData enemy)
-        // {
-        //     Lives -= enemy.damage;
-        //     if (Lives <= 0)
-        //     {
-        //         Debug.Log("Game Over!");
-        //     }
-        // }
-
-        // private void HandleGetEnemyReward(EnemyData enemy) => Golds += enemy.goldReward;
-        // public void SetTimeScale(float scale) => Time.timeScale = scale;
 
         public void SpendGold(int amount)
         {
@@ -105,3 +58,33 @@ namespace TDGame
     }
 
 }
+
+// private void Update()
+// {
+//     if (Mouse.current.leftButton.wasPressedThisFrame)
+//     {
+//         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+//         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+//         if (hit.collider == null) return;
+
+//         Debug.Log(hit.collider.gameObject.name);
+//         Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
+
+//         switch (LayerMask.LayerToName(hit.collider.gameObject.layer))
+//         {
+//             case "Tile":
+//                 Debug.Log("Click Tile");
+//                 break;
+
+//             case "Tower":
+//                 Debug.Log("Click Tower");
+//                 break;
+
+//             case "Enemy":
+//                 Debug.Log("Click Enemy");
+//                 break;
+//         }
+//     }
+// }

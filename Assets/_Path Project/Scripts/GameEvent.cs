@@ -8,17 +8,13 @@ namespace TDGame
         public static event Action OnUpdateUI;
         public static event Action<Enemy> OnEnemyDie;
 
-        public static event Action OnPauseInGame;
-        public static event Action OnResumeInGame;
+        // InGame
+        public static event Action OnLoadLevel;
+        public static event Action OnMissionComplete;
 
         public static void UpdateUI()
         {
             OnUpdateUI?.Invoke();
-        }
-
-        public static void HandleEnemyDie(Enemy enemy)
-        {
-            OnEnemyDie?.Invoke(enemy);
         }
 
         public static void LoadScene(string name)
@@ -32,8 +28,13 @@ namespace TDGame
             {
                 UIManager.Instance.SetupUIInGame();
                 AudioManager.Instance.PlayGameplayMusic();
-                LevelManager.Instance.UpdateLevelResource();
+                OnLoadLevel?.Invoke();
             }
+        }
+
+        public static void HandleEnemyDie(Enemy enemy)
+        {
+            OnEnemyDie?.Invoke(enemy);
         }
 
         public static void TowerSelect(TowerSO data)
@@ -48,7 +49,7 @@ namespace TDGame
         }
         public static void ResumeGame()
         {
-            Time.timeScale = GameManager.Instance.InGame.GameSpeed;
+            Time.timeScale = 1f;
             AudioManager.Instance.PlayResumeSound();
         }
     }
