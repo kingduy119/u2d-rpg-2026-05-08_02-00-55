@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public class InGameController
+    public class InGameState
     {
         public static event Action OnUpdateInGameUI;
 
-        // private bool IsDirty = false;
-        public bool IsDirty { get; private set; }
+        public bool IsDirty { get; private set; } = false;
 
         private float m_maxGameSpeed = 3f;
         private float m_gameSpeed = 1f;
@@ -87,7 +86,7 @@ namespace TDGame
                 IsDirty = true;
             }
         }
-        public InGameController() { }
+        public InGameState() { }
         public void HandlePointReachedEnd(EnemyData enemy)
         {
             Lives -= enemy.damage;

@@ -24,20 +24,19 @@ namespace TDGame
         [Header("UI Pannels")]
         [SerializeField] private GameObject settingsPanel;
 
-
-        private InGameController m_controller;
+        private InGameState InGame => GameManager.Instance.InGame;
 
         private void Awake()
         {
             settingsPanel.SetActive(false);
-            m_controller = new();
+            gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
         }
 
         private void OnEnable()
         {
-            Enemy.OnEnemyReachedEnd += m_controller.HandlePointReachedEnd;
-            Enemy.OnGetEnemyReward += m_controller.HandleGetEnemyReward;
-            SpawnManager.OnWaveChanged += m_controller.HandleWaveChanged;
+            Enemy.OnEnemyReachedEnd += InGame.HandlePointReachedEnd;
+            Enemy.OnGetEnemyReward += InGame.HandleGetEnemyReward;
+            SpawnManager.OnWaveChanged += InGame.HandleWaveChanged;
 
             settingsButton.onClick.AddListener(HandleSettingsClick);
             startWaveButton.onClick.AddListener(HandleStartWaveClick);
@@ -48,9 +47,9 @@ namespace TDGame
 
         private void OnDisable()
         {
-            Enemy.OnEnemyReachedEnd -= m_controller.HandlePointReachedEnd;
-            Enemy.OnGetEnemyReward -= m_controller.HandleGetEnemyReward;
-            SpawnManager.OnWaveChanged -= m_controller.HandleWaveChanged;
+            Enemy.OnEnemyReachedEnd -= InGame.HandlePointReachedEnd;
+            Enemy.OnGetEnemyReward -= InGame.HandleGetEnemyReward;
+            SpawnManager.OnWaveChanged -= InGame.HandleWaveChanged;
 
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
             startWaveButton.onClick.RemoveListener(HandleStartWaveClick);
@@ -61,10 +60,10 @@ namespace TDGame
 
         private void Update()
         {
-            if (m_controller.IsDirty)
+            if (InGame.IsDirty)
             {
                 UpdateInGameUI();
-                m_controller.MarkDirty();
+                InGame.MarkDirty();
             }
 
         }
@@ -72,18 +71,18 @@ namespace TDGame
         private void LoadLevelResource()
         {
             LevelSO level = LevelManager.Instance.LevelSO;
-            m_controller.Golds = level.startingGold;
-            m_controller.Lives = level.startingLives;
+            InGame.Golds = level.startingGold;
+            InGame.Lives = level.startingLives;
         }
 
         private void UpdateInGameUI()
         {
-            goldText.SetText("{0}", m_controller.Golds);
-            rockText.SetText("{0}", m_controller.Rocks);
-            woodText.SetText("{0}", m_controller.Woods);
-            livesText.SetText("{0}", m_controller.Lives);
-            waveText.SetText("{0}", m_controller.WaveCount);
-            gameSpeedButton.GetComponentInChildren<TMP_Text>().SetText($"x{m_controller.GameSpeed}");
+            goldText.SetText("{0}", InGame.Golds);
+            rockText.SetText("{0}", InGame.Rocks);
+            woodText.SetText("{0}", InGame.Woods);
+            livesText.SetText("{0}", InGame.Lives);
+            waveText.SetText("{0}", InGame.WaveCount);
+            gameSpeedText.SetText($"x{InGame.GameSpeed}");
         }
 
         private void HandleSettingsClick() => PauseGame();
@@ -96,7 +95,7 @@ namespace TDGame
 
         private void HandleGameSpeedClick()
         {
-            m_controller.GameSpeed++;
+            InGame.GameSpeed++;
         }
 
         public void PauseGame() => GameEvent.PauseGame();

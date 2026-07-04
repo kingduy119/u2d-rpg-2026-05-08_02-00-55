@@ -2913,7 +2913,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3935972184523369920, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
   m_PrefabInstance: {fileID: 217107719}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1180649144
+--- !u!1001 &1133393987
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2921,17 +2921,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 212997809248664659, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
+      propertyPath: 'allLevels.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 2b4bb712a8fe19043a997ac98d18be39, type: 2}
+    - target: {fileID: 212997809248664659, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
+      propertyPath: 'allLevels.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 52840071c687c45adb9222a1bbc2b08e, type: 2}
     - target: {fileID: 2329058639456026888, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 2518435981126274394, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 310.91074
       objectReference: {fileID: 0}
     - target: {fileID: 2518435981126274394, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7548
+      value: 188.46721
       objectReference: {fileID: 0}
     - target: {fileID: 2518435981126274394, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3639,6 +3647,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4999936715382932408, guid: 2f3ca21cac40b4eaca61d5f368e461a6, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5231906926097842922, guid: 2f3ca21cac40b4eaca61d5f368e461a6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4025,5 +4037,5 @@ SceneRoots:
   - {fileID: 1242275203}
   - {fileID: 949452755}
   - {fileID: 2117982637}
-  - {fileID: 1180649144}
   - {fileID: 2050449689}
+  - {fileID: 1133393987}

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5691979277555232256}
   - component: {fileID: 7872873106832656336}
   - component: {fileID: 1225939086595230834}
-  - component: {fileID: 7535047830331938018}
   - component: {fileID: 1383287430483094180}
+  - component: {fileID: 7535047830331938018}
   m_Layer: 5
   m_Name: TowerSelectItem
   m_TagString: Untagged
@@ -79,20 +79,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 20.8
---- !u!114 &7535047830331938018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129237343827826408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c0e738ac180d42118cd61e5eab13048, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerSelectCard
-  m_image: {fileID: 3074961491920882477}
-  m_priceText: {fileID: 1740530212691902700}
 --- !u!114 &1383287430483094180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +135,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7535047830331938018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129237343827826408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c0e738ac180d42118cd61e5eab13048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerSelectCard
+  m_image: {fileID: 3074961491920882477}
+  m_priceText: {fileID: 1740530212691902700}
+  m_button: {fileID: 1383287430483094180}
 --- !u!1 &4668394707561557762
 GameObject:
   m_ObjectHideFlags: 0

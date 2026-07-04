@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4b3e546fbacec418f3293522d3c660, type: 3}
+  m_Name: LevelSO 1 - Test Golds
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.LevelSO
+  levelName: Green 1 - 1
+  sceneName: TD_Level_1
+  startingLives: 10
+  startingGold: 5
+  waves:
+  - {fileID: 11400000, guid: 139fb018392d141f9bf15c09211f6c6a, type: 2}
+  - {fileID: 11400000, guid: 26fd00660e6064435a0369fc97b5b690, type: 2}
+  - {fileID: 11400000, guid: 17477937bea504221afa33127c34c9cb, type: 2}
