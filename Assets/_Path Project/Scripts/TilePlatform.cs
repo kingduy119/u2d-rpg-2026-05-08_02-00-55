@@ -11,7 +11,8 @@ namespace TDGame
         [SerializeField] private Collider2D collier;
         [SerializeField] private SpriteRenderer spriteRenderer;
 
-        private bool canPlacePlatform = true;
+        public bool CanBuild { get; private set; } = true;
+        public bool Builded { get; private set; } = false;
         Vector3 prevPosition;
 
         private bool isDragging;
@@ -19,43 +20,48 @@ namespace TDGame
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            canPlacePlatform = false;
+            if (Builded) return;
+
+            CanBuild = false;
             spriteRenderer.color = unActiveColor;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            canPlacePlatform = true;
+            if (Builded) return;
+
+            CanBuild = true;
             spriteRenderer.color = activeColor;
         }
 
-        private void OnMouseDown()
-        {
-            Debug.Log("OnMouseDown");
-            isDragging = true;
-            prevPosition = transform.position;
+        public void MarkBuilded() => Builded = true;
 
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            mousePos.z = transform.position.z;
+        // private void OnMouseDown()
+        // {
+        //     isDragging = true;
+        //     prevPosition = transform.position;
 
-            offset = transform.position - mousePos;
-        }
+        //     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        //     mousePos.z = transform.position.z;
 
-        private void OnMouseDrag()
-        {
-            if (!isDragging) return;
+        //     offset = transform.position - mousePos;
+        // }
 
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = transform.position.z;
+        // private void OnMouseDrag()
+        // {
+        //     if (!isDragging) return;
 
-            transform.position = mousePos + offset;
-        }
+        //     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //     mousePos.z = transform.position.z;
 
-        private void OnMouseUp()
-        {
-            Debug.Log("OnMouseUp");
-            if (!canPlacePlatform) transform.position = prevPosition;
-            isDragging = false;
-        }
+        //     transform.position = mousePos + offset;
+        // }
+
+        // private void OnMouseUp()
+        // {
+        //     Debug.Log("OnMouseUp");
+        //     if (!canPlacePlatform) transform.position = prevPosition;
+        //     isDragging = false;
+        // }
     }
 }

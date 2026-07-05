@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 namespace TDGame
@@ -19,15 +20,15 @@ namespace TDGame
     }
     public class TowerSelectUI : MonoBehaviour
     {
-
-
         [SerializeField] private GameObject m_prefab;
 
         [SerializeField] private GameObject m_testPrefab;
+        [SerializeField] private GameObject m_actionButtons;
+
         private GameObject m_test;
 
         public Vector3 WorldPosition { get; private set; }
-        private TowerSelectState m_state = new TowerSelectState();
+        private TowerSelectState m_state = new();
 
         private void Awake()
         {
@@ -45,11 +46,11 @@ namespace TDGame
 
         private void HandleTowerCardSelect(TowerSO data)
         {
-            Debug.Log($"Tower Selected: {data.name}");
             if (m_test != null) return;
 
             m_state.SelectTower();
             m_test = Instantiate(m_testPrefab);
+            m_actionButtons.SetActive(true);
         }
 
         private void Update()
@@ -58,8 +59,8 @@ namespace TDGame
             mousePos.z = 0;
             WorldPosition = mousePos;
 
-            Debug.DrawLine(WorldPosition, WorldPosition + Vector3.up * 0.5f, Color.red);
-
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
             if (!m_state.IsTowerSelected) return;
 
             if (Input.GetMouseButtonDown(0))
@@ -89,6 +90,30 @@ namespace TDGame
                 GameObject go = Instantiate(m_prefab, transform);
                 TowerSelectCard card = go.GetComponent<TowerSelectCard>();
                 card.Initialize(data);
+            }
+
+            m_actionButtons.SetActive(false);
+        }
+
+        public void HandleCancelBuildTower()
+        {
+            Destroy(m_test);
+            m_actionButtons.SetActive(false);
+            m_state.DeselectTower();
+        }
+        public void HandleAcceptBuildTower()
+        {
+            TilePlatform platform = m_test.GetComponent<TilePlatform>();
+            if (platform.CanBuild)
+            {
+                m_test = null;
+                platform.MarkBuilded();
+                m_actionButtons.SetActive(false);
+                m_state.DeselectTower();
+            }
+            else
+            {
+                Debug.Log("Cant Build");
             }
         }
     }
