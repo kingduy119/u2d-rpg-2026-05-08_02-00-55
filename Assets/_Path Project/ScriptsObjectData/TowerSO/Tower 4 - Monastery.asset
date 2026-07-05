@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cfdbd43872cedc45a90b8edec095ec5, type: 3}
   m_Name: Tower 4 - Monastery
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  sprite: {fileID: 21300000, guid: d8438425f07ba4e019d15b79cb6ce389, type: 3}
+  projectType: 0
+  sprite: {fileID: 21300000, guid: a1251424c565649b583fec61e0da204c, type: 3}
   towerPrefab: {fileID: 574471250621376872, guid: 693ad3468a4c88b4a88378f748a88217, type: 3}
   towerName: Fire Tower
   cost: 20
