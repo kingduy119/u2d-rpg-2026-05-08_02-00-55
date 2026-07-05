@@ -31,7 +31,7 @@ namespace TDGame
 
         public void OnCardClick()
         {
-            GameEvent.TowerSelect(m_data);
+            GameEvent.HandleTowerSelect(m_data);
         }
 
         private void Update()

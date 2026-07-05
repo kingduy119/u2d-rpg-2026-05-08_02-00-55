@@ -8,9 +8,12 @@ namespace TDGame
         public static event Action OnUpdateUI;
         public static event Action<Enemy> OnEnemyDie;
 
+
         // InGame
         public static event Action OnLoadLevel;
         public static event Action OnMissionComplete;
+
+        public static event Action<TowerSO> OnTowerSelected;
 
         public static void UpdateUI()
         {
@@ -37,9 +40,9 @@ namespace TDGame
             OnEnemyDie?.Invoke(enemy);
         }
 
-        public static void TowerSelect(TowerSO data)
+        public static void HandleTowerSelect(TowerSO data)
         {
-            Debug.Log("TowerSelect");
+            OnTowerSelected?.Invoke(data);
         }
 
         public static void PauseGame()

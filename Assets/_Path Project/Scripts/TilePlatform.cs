@@ -31,6 +31,7 @@ namespace TDGame
 
         private void OnMouseDown()
         {
+            Debug.Log("OnMouseDown");
             isDragging = true;
             prevPosition = transform.position;
 
@@ -52,6 +53,7 @@ namespace TDGame
 
         private void OnMouseUp()
         {
+            Debug.Log("OnMouseUp");
             if (!canPlacePlatform) transform.position = prevPosition;
             isDragging = false;
         }

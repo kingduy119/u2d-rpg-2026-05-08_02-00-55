@@ -37,6 +37,10 @@ namespace TDGame
             LoadScene();
         }
 
+        void Update()
+        {
+        }
+
         public void SpendGold(int amount)
         {
 
