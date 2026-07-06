@@ -18,6 +18,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 574471250621376872, guid: 693ad3468a4c88b4a88378f748a88217, type: 3}
   towerName: Fire Tower
   cost: 20
+  size: {x: 2, y: 2}
   range: 2
   shootInterval: 0.2
   projectileSpeed: 14

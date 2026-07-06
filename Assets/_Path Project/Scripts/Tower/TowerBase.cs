@@ -11,6 +11,8 @@ namespace TDGame
         [SerializeField] private TowerSO m_data;
         [SerializeField] private bool m_showDraw;
 
+        // private TilePlatform m_platform;
+
         // ###########
         public TowerType Type = TowerType.Tower;
         public IObjectPool<TowerBase> Pool { get; set; }
@@ -19,6 +21,10 @@ namespace TDGame
         private Tower_Combat m_combat;
         // protected IObjectPool<TowerBase> m_pool;
 
+        public bool CanBuild { get; private set; } = true;
+        public bool Builded { get; private set; } = false;
+        public Vector2Int Size => m_data.size;
+
         private void OnValidate()
         {
             if (!m_data) return;
@@ -26,7 +32,9 @@ namespace TDGame
         }
         protected void Awake()
         {
+            // m_platform = GetComponentInChildren<TilePlatform>();
             m_combat = GetComponent<Tower_Combat>();
+
             if (m_data != null)
             {
                 Type = m_data.towerType;
@@ -48,6 +56,12 @@ namespace TDGame
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(transform.position, m_data.range);
             }
+        }
+
+        public void MarkBuilded()
+        {
+            Builded = true;
+            // m_platform?.gameObject.SetActive(false);
         }
     }
 }

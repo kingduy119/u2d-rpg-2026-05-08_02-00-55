@@ -36,7 +36,6 @@ namespace TDGame
         {
             if (InGame != null)
             {
-                Debug.Log($"InGameUI OnEnable: {InGame != null}");
                 Enemy.OnEnemyReachedEnd += InGame.HandlePointReachedEnd;
                 Enemy.OnGetEnemyReward += InGame.HandleGetEnemyReward;
                 SpawnManager.OnWaveChanged += InGame.HandleWaveChanged;
@@ -52,9 +51,13 @@ namespace TDGame
 
         private void OnDisable()
         {
-            Enemy.OnEnemyReachedEnd -= InGame.HandlePointReachedEnd;
-            Enemy.OnGetEnemyReward -= InGame.HandleGetEnemyReward;
-            SpawnManager.OnWaveChanged -= InGame.HandleWaveChanged;
+            if (InGame != null)
+            {
+                Enemy.OnEnemyReachedEnd -= InGame.HandlePointReachedEnd;
+                Enemy.OnGetEnemyReward -= InGame.HandleGetEnemyReward;
+                SpawnManager.OnWaveChanged -= InGame.HandleWaveChanged;
+            }
+
 
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
             startWaveButton.onClick.RemoveListener(HandleStartWaveClick);

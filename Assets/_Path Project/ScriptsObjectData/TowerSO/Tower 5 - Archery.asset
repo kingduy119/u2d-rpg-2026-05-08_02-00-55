@@ -18,6 +18,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 1661685818584876446, guid: 2e92f822acb1346439295e34931a5dc7, type: 3}
   towerName: Normal Tower
   cost: 15
+  size: {x: 2, y: 2}
   range: 2.5
   shootInterval: 0.5
   projectileSpeed: 16

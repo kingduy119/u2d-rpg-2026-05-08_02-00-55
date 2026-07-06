@@ -15,6 +15,7 @@ namespace TDGame
         [Header("Detail")]
         public string towerName;
         public int cost;
+        public Vector2Int size = new(1, 1);
 
         [Header("Combat")]
         public float range;

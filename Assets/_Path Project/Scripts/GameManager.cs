@@ -12,6 +12,8 @@ namespace TDGame
         public TowerSO[] Towers => m_towers;
 
         public InGameState InGame { get; private set; }
+        [SerializeField] private Grid m_grid;
+        public Grid WorldMap => m_grid;
 
         protected override void Awake()
         {

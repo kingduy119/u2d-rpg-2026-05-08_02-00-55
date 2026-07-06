@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -29,6 +30,11 @@ namespace TDGame
         private TowerSelectState m_state = new();
         public Vector3 WorldPosition { get; private set; }
 
+
+        private Grid m_grid => GameManager.Instance.WorldMap;
+
+
+        public static event Action<Vector3Int, Vector2Int> OnTowerSelecting;
 
         private void Awake()
         {
@@ -64,20 +70,39 @@ namespace TDGame
 
             if (!m_state.IsTowerSelected) return;
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
             {
-                m_selectedTower.transform.position = WorldPosition;
-            }
-
-            if (Input.GetMouseButton(0))
-            {
-                m_selectedTower.transform.position = WorldPosition;
+                TestCellPoint();
             }
 
             if (Input.GetMouseButtonUp(0))
             {
             }
         }
+
+        private void TestCellPoint()
+        {
+
+            // Vector3Int origin = m_grid.WorldToCell(WorldPosition);
+            // Vector2Int size = m_selectedTower.Size;
+            // Vector3 center = m_grid.GetCellCenterWorld(origin);
+            // m_selectedTower.transform.position = center;
+
+            Vector3Int origin = m_grid.WorldToCell(WorldPosition);
+            Vector2Int size = m_selectedTower.Size;
+
+            Vector3 pos = m_grid.CellToWorld(origin);
+
+            pos += new Vector3(
+                size.x * m_grid.cellSize.x * 0.5f,
+                size.y * m_grid.cellSize.y * 0.5f,
+                0);
+
+            m_selectedTower.transform.position = pos;
+
+            OnTowerSelecting?.Invoke(origin, size);
+        }
+
 
         private void Refresh()
         {
@@ -98,18 +123,19 @@ namespace TDGame
 
         public void HandleCancelBuildTower()
         {
-            Destroy(m_selectedTower);
+            m_selectedTower.Deactivate();
+            m_selectedTower = null;
             m_actionButtons.SetActive(false);
             m_state.DeselectTower();
         }
 
         public void HandleAcceptBuildTower()
         {
-            TilePlatform platform = m_selectedTower.GetComponentInChildren<TilePlatform>();
-            if (platform.CanBuild)
+            TowerBase tower = m_selectedTower.GetComponent<TowerBase>();
+            if (tower.CanBuild)
             {
                 m_selectedTower = null;
-                platform.MarkBuilded();
+                tower.MarkBuilded();
                 m_actionButtons.SetActive(false);
                 m_state.DeselectTower();
             }
