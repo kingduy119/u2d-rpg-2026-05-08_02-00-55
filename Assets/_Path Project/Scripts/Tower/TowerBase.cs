@@ -11,8 +11,13 @@ namespace TDGame
         [SerializeField] private TowerSO m_data;
         [SerializeField] private bool m_showDraw;
 
+        // ###########
+        public TowerType Type = TowerType.Tower;
+        public IObjectPool<TowerBase> Pool { get; set; }
+        // ###########
+
         private Tower_Combat m_combat;
-        protected IObjectPool<TowerBase> m_pool;
+        // protected IObjectPool<TowerBase> m_pool;
 
         private void OnValidate()
         {
@@ -22,12 +27,19 @@ namespace TDGame
         protected void Awake()
         {
             m_combat = GetComponent<Tower_Combat>();
+            if (m_data != null)
+            {
+                Type = m_data.towerType;
+                m_render.sprite = m_data.sprite;
+            }
         }
 
         private void Start()
         {
             m_combat.Init(m_data);
         }
+
+        public void Deactivate() => Pool.Release(this);
 
         private void OnDrawGizmos()
         {

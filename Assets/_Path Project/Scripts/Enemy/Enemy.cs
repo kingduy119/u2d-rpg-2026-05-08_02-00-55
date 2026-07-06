@@ -10,9 +10,9 @@ namespace TDGame
         public static event Action<EnemyData> OnEnemyReachedEnd;
         public static event Action<EnemyData> OnGetEnemyReward;
 
-        [SerializeField] private EnemyData _data;
+        [SerializeField] private EnemyData m_data;
 
-        public EnemyData Data => _data;
+        public EnemyData Data => m_data;
 
         public IObjectPool<Enemy> Pool
         {
@@ -50,7 +50,7 @@ namespace TDGame
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 _targetPosition,
-                _data.moveSpeed * Time.deltaTime);
+                m_data.moveSpeed * Time.deltaTime);
 
             float distance = (transform.position - _targetPosition).magnitude;
             if (distance < 0.1f)
@@ -62,7 +62,7 @@ namespace TDGame
                 }
                 else // Reached the end of the path
                 {
-                    OnEnemyReachedEnd?.Invoke(_data);
+                    OnEnemyReachedEnd?.Invoke(m_data);
                     Deactive();
                 }
 
@@ -76,11 +76,11 @@ namespace TDGame
             _pathIndex = 0;
             _targetPosition = currentPath.GetPointPosition(_pathIndex);
 
-            _health.Initialize(_data);
+            _health.Initialize(m_data);
         }
         private void HandleEnemyDie()
         {
-            OnGetEnemyReward?.Invoke(_data);
+            OnGetEnemyReward?.Invoke(m_data);
             GameEvent.HandleEnemyDie(this);
 
             Deactive();

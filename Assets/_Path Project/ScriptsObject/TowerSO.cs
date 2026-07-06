@@ -7,6 +7,7 @@ namespace TDGame
     [CreateAssetMenu(fileName = "TowerSO", menuName = "Game TD/TowerSO")]
     public class TowerSO : ScriptableObject
     {
+        public TowerType towerType;
         public ProjectileType projectType;
         public Sprite sprite;
         public GameObject towerPrefab;

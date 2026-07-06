@@ -8,7 +8,6 @@ namespace TDGame
         public static event Action OnUpdateUI;
         public static event Action<Enemy> OnEnemyDie;
 
-
         // InGame
         public static event Action OnLoadLevel;
         public static event Action OnMissionComplete;

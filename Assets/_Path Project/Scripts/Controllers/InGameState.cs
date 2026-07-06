@@ -86,6 +86,7 @@ namespace TDGame
                 IsDirty = true;
             }
         }
+
         public InGameState() { }
         public void HandlePointReachedEnd(EnemyData enemy)
         {

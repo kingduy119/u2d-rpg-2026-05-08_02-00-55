@@ -12864,7 +12864,7 @@ PrefabInstance:
     - target: {fileID: 1981753268522629728, guid: 87af53849cc734ca6820905e4f161e03, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d8438425f07ba4e019d15b79cb6ce389, type: 3}
+      objectReference: {fileID: 21300000, guid: a1251424c565649b583fec61e0da204c, type: 3}
     - target: {fileID: 2524188842928860215, guid: 87af53849cc734ca6820905e4f161e03, type: 3}
       propertyPath: m_Name
       value: TowerCard (1)

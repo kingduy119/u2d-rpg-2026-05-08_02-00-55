@@ -34,9 +34,14 @@ namespace TDGame
 
         private void OnEnable()
         {
-            Enemy.OnEnemyReachedEnd += InGame.HandlePointReachedEnd;
-            Enemy.OnGetEnemyReward += InGame.HandleGetEnemyReward;
-            SpawnManager.OnWaveChanged += InGame.HandleWaveChanged;
+            if (InGame != null)
+            {
+                Debug.Log($"InGameUI OnEnable: {InGame != null}");
+                Enemy.OnEnemyReachedEnd += InGame.HandlePointReachedEnd;
+                Enemy.OnGetEnemyReward += InGame.HandleGetEnemyReward;
+                SpawnManager.OnWaveChanged += InGame.HandleWaveChanged;
+            }
+
 
             settingsButton.onClick.AddListener(HandleSettingsClick);
             startWaveButton.onClick.AddListener(HandleStartWaveClick);
@@ -86,6 +91,7 @@ namespace TDGame
         }
 
         private void HandleSettingsClick() => PauseGame();
+
         public void OnCloseSettingsClick() => ResumeGame();
 
         private void HandleStartWaveClick()

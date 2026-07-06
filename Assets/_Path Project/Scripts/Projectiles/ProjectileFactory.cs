@@ -12,10 +12,12 @@ namespace TDGame
         {
             public ProjectileType type;
             public GameObject prefab;
-            public int defaultCapacity;
-            public int maxPoolSize;
+            // public int defaultCapacity;
+            // public int maxPoolSize;
         }
 
+        [SerializeField] private int defaultCapacity = 3;
+        [SerializeField] private int maxPoolSize = 100;
         [SerializeField] private List<ProjectileConfig> projectileConfigs;
 
         private Dictionary<ProjectileType, IObjectPool<Projectile>> m_pool = new();
@@ -46,8 +48,8 @@ namespace TDGame
                 go => go.gameObject.SetActive(false),
                 go => Destroy(go.gameObject),
                 collectionCheck: true,
-                    defaultCapacity: config.defaultCapacity,
-                    maxSize: config.maxPoolSize
+                    defaultCapacity: defaultCapacity,
+                    maxSize: maxPoolSize
             );
             return pool;
         }

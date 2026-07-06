@@ -25,10 +25,10 @@ namespace TDGame
         [SerializeField] private GameObject m_testPrefab;
         [SerializeField] private GameObject m_actionButtons;
 
-        private GameObject m_test;
-
-        public Vector3 WorldPosition { get; private set; }
+        private TowerBase m_selectedTower;
         private TowerSelectState m_state = new();
+        public Vector3 WorldPosition { get; private set; }
+
 
         private void Awake()
         {
@@ -46,11 +46,11 @@ namespace TDGame
 
         private void HandleTowerCardSelect(TowerSO data)
         {
-            if (m_test != null) return;
+            if (m_selectedTower != null) return;
 
-            m_state.SelectTower();
-            m_test = Instantiate(m_testPrefab);
+            m_selectedTower = FactoryManager.Instance.TowerFactory.GetObject(data.towerType);
             m_actionButtons.SetActive(true);
+            m_state.SelectTower();
         }
 
         private void Update()
@@ -61,16 +61,17 @@ namespace TDGame
 
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
+
             if (!m_state.IsTowerSelected) return;
 
             if (Input.GetMouseButtonDown(0))
             {
-                m_test.transform.position = WorldPosition;
+                m_selectedTower.transform.position = WorldPosition;
             }
 
             if (Input.GetMouseButton(0))
             {
-                m_test.transform.position = WorldPosition;
+                m_selectedTower.transform.position = WorldPosition;
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -97,16 +98,17 @@ namespace TDGame
 
         public void HandleCancelBuildTower()
         {
-            Destroy(m_test);
+            Destroy(m_selectedTower);
             m_actionButtons.SetActive(false);
             m_state.DeselectTower();
         }
+
         public void HandleAcceptBuildTower()
         {
-            TilePlatform platform = m_test.GetComponent<TilePlatform>();
+            TilePlatform platform = m_selectedTower.GetComponentInChildren<TilePlatform>();
             if (platform.CanBuild)
             {
-                m_test = null;
+                m_selectedTower = null;
                 platform.MarkBuilded();
                 m_actionButtons.SetActive(false);
                 m_state.DeselectTower();

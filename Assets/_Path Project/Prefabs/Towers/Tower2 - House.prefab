@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 85164629013926071, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
       propertyPath: m_Name
-      value: Tower2 - Monatery
+      value: Tower2 - House
       objectReference: {fileID: 0}
     - target: {fileID: 788257053616470675, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
       propertyPath: _data
@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3550209037226374788, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
+      propertyPath: m_data
+      value: 
+      objectReference: {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}
     - target: {fileID: 3935972184523369920, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.45
