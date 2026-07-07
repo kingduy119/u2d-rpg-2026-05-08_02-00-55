@@ -30,11 +30,10 @@ namespace TDGame
         private TowerSelectState m_state = new();
         public Vector3 WorldPosition { get; private set; }
 
-
         private Grid m_grid => GameManager.Instance.WorldMap;
-
-
         public static event Action<Vector3Int, Vector2Int> OnTowerSelecting;
+        public static event Action OnTowerSelectAccepted;
+        public static event Action OnTowerDeselected;
 
         private void Awake()
         {
@@ -50,14 +49,7 @@ namespace TDGame
             GameEvent.OnTowerSelected -= HandleTowerCardSelect;
         }
 
-        private void HandleTowerCardSelect(TowerSO data)
-        {
-            if (m_selectedTower != null) return;
 
-            m_selectedTower = FactoryManager.Instance.TowerFactory.GetObject(data.towerType);
-            m_actionButtons.SetActive(true);
-            m_state.SelectTower();
-        }
 
         private void Update()
         {
@@ -72,7 +64,7 @@ namespace TDGame
 
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
             {
-                TestCellPoint();
+                ShowTowerAndCellPreview();
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -80,14 +72,8 @@ namespace TDGame
             }
         }
 
-        private void TestCellPoint()
+        private void ShowTowerAndCellPreview()
         {
-
-            // Vector3Int origin = m_grid.WorldToCell(WorldPosition);
-            // Vector2Int size = m_selectedTower.Size;
-            // Vector3 center = m_grid.GetCellCenterWorld(origin);
-            // m_selectedTower.transform.position = center;
-
             Vector3Int origin = m_grid.WorldToCell(WorldPosition);
             Vector2Int size = m_selectedTower.Size;
 
@@ -121,12 +107,28 @@ namespace TDGame
             m_actionButtons.SetActive(false);
         }
 
+        private void HandleTowerCardSelect(TowerSO data)
+        {
+            if (m_selectedTower != null)
+            {
+                m_selectedTower.Deactivate();
+            }
+
+            m_selectedTower = FactoryManager.Instance.TowerFactory.GetObject(data.towerType);
+            m_actionButtons.SetActive(true);
+            m_state.SelectTower();
+
+            ShowTowerAndCellPreview();
+        }
+
         public void HandleCancelBuildTower()
         {
             m_selectedTower.Deactivate();
-            m_selectedTower = null;
-            m_actionButtons.SetActive(false);
             m_state.DeselectTower();
+            m_actionButtons.SetActive(false);
+            m_selectedTower = null;
+
+            OnTowerSelectAccepted?.Invoke();
         }
 
         public void HandleAcceptBuildTower()
@@ -134,15 +136,17 @@ namespace TDGame
             TowerBase tower = m_selectedTower.GetComponent<TowerBase>();
             if (tower.CanBuild)
             {
-                m_selectedTower = null;
                 tower.MarkBuilded();
-                m_actionButtons.SetActive(false);
                 m_state.DeselectTower();
+                m_actionButtons.SetActive(false);
+                m_selectedTower = null;
             }
             else
             {
                 Debug.Log("Cant Build");
             }
+
+            OnTowerDeselected?.Invoke();
         }
     }
 

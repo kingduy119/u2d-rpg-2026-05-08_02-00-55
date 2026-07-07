@@ -22,6 +22,14 @@ namespace TDGame
             UpdateUI();
         }
 
+        private void Update()
+        {
+            if (m_data != null)
+            {
+                m_button.interactable = GameManager.Instance.InGame.Golds >= m_data.cost;
+            }
+        }
+
         public void Initialize(TowerSO data)
         {
             m_data = data;
@@ -31,14 +39,6 @@ namespace TDGame
         public void OnCardClick()
         {
             GameEvent.HandleTowerSelect(m_data);
-        }
-
-        private void Update()
-        {
-            if (m_data != null)
-            {
-                m_button.interactable = GameManager.Instance.InGame.Golds >= m_data.cost;
-            }
         }
 
         private void UpdateUI()

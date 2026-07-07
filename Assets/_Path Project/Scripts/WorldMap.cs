@@ -10,48 +10,49 @@ namespace TDGame
     {
 
         [SerializeField] private Grid grid;
+        [SerializeField] private Tilemap obstacleTilemap;
         [SerializeField] private Tilemap buildTilemap;
         [SerializeField] private Tilemap previewTilemap;
-        [SerializeField] private Tilemap obstacleTilemap;
 
         [SerializeField] private TileBase greenTile;
         [SerializeField] private TileBase redTile;
 
-        // private Vector3Int lastCell;
-        // private readonly HashSet<Vector3Int> occupiedCells = new();
-        // private readonly HashSet<Vector3Int> obstacleCells = new();
-
         private readonly HashSet<Vector3Int> blockedCells = new();
-
+        private HashSet<Vector3Int> m_previewCells = new();
+        private bool m_canBuild = false;
 
         private void Awake()
         {
-            CacheObstacleCells();
+            Initialize();
         }
 
         private void OnEnable()
         {
-            TowerSelectUI.OnTowerSelecting += ShowPreview;
+            TowerSelectUI.OnTowerSelecting += HandleTowerSelecting;
+            TowerSelectUI.OnTowerSelectAccepted += HandleTowerSelectAccepted;
+            TowerSelectUI.OnTowerDeselected += HandleTowerDeselected;
         }
 
         private void OnDisable()
         {
-            TowerSelectUI.OnTowerSelecting -= ShowPreview;
+            TowerSelectUI.OnTowerSelecting -= HandleTowerSelecting;
+            TowerSelectUI.OnTowerSelectAccepted -= HandleTowerSelectAccepted;
+            TowerSelectUI.OnTowerDeselected -= HandleTowerDeselected;
         }
 
-        private void CacheObstacleCells()
+        private void Initialize()
         {
             blockedCells.Clear();
-
             BoundsInt bounds = obstacleTilemap.cellBounds;
-
             foreach (Vector3Int cell in bounds.allPositionsWithin)
             {
                 if (obstacleTilemap.HasTile(cell))
                 {
                     blockedCells.Add(cell);
+                    buildTilemap.SetTile(cell, redTile);
                 }
             }
+            buildTilemap.gameObject.SetActive(false);
         }
 
         public void RegisterTower(Vector3Int origin, Vector2Int size)
@@ -74,13 +75,43 @@ namespace TDGame
                 previewTilemap.SetTile(cell, redTile);
             }
 
+            bool canBuild = true;
+            HashSet<Vector3Int> previewCells = new();
             for (int x = 0; x < size.x; x++)
             {
                 for (int y = 0; y < size.y; y++)
                 {
                     Vector3Int cell = origin + new Vector3Int(x, y, 0);
 
-                    // bool hasObstacle = obstacleTilemap.HasTile(cell);
+                    bool hasObstacle = blockedCells.Contains(cell);
+
+                    previewTilemap.SetTile(cell,
+                    hasObstacle ? redTile : greenTile
+                    );
+
+                    if (hasObstacle && canBuild)
+                        canBuild = false;
+                }
+            }
+
+            if (canBuild)
+            {
+                m_previewCells = previewCells;
+                m_canBuild = true;
+            }
+        }
+
+        private void HandleTowerSelecting(Vector3Int origin, Vector2Int size)
+        {
+            buildTilemap.gameObject.SetActive(true);
+            previewTilemap.gameObject.SetActive(true);
+            previewTilemap.ClearAllTiles();
+
+            for (int x = 0; x < size.x; x++)
+            {
+                for (int y = 0; y < size.y; y++)
+                {
+                    Vector3Int cell = origin + new Vector3Int(x, y, 0);
                     bool hasObstacle = blockedCells.Contains(cell);
 
                     previewTilemap.SetTile(cell,
@@ -90,6 +121,25 @@ namespace TDGame
             }
         }
 
+        private void HandleTowerSelectAccepted()
+        {
+            if (!m_canBuild)
+            {
+                foreach (var cell in m_previewCells)
+                {
+                    blockedCells.Add(cell);
+                    buildTilemap.SetTile(cell, redTile);
+                }
+            }
+            buildTilemap.gameObject.SetActive(false);
+            previewTilemap.gameObject.SetActive(false);
+        }
+
+        private void HandleTowerDeselected()
+        {
+            buildTilemap.gameObject.SetActive(false);
+            previewTilemap.gameObject.SetActive(false);
+        }
 
 
     }
