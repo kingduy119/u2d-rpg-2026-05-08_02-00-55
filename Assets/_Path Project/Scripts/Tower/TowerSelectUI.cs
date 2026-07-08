@@ -128,7 +128,7 @@ namespace TDGame
             m_actionButtons.SetActive(false);
             m_selectedTower = null;
 
-            OnTowerSelectAccepted?.Invoke();
+            OnTowerDeselected?.Invoke();
         }
 
         public void HandleAcceptBuildTower()
@@ -146,8 +146,7 @@ namespace TDGame
                 Debug.Log("Cant Build");
             }
 
-            OnTowerDeselected?.Invoke();
+            OnTowerSelectAccepted?.Invoke();
         }
     }
-
 }

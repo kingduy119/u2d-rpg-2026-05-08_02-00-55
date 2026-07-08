@@ -10,12 +10,13 @@ namespace TDGame
     {
 
         [SerializeField] private Grid grid;
-        [SerializeField] private Tilemap obstacleTilemap;
-        [SerializeField] private Tilemap buildTilemap;
+        [SerializeField] private TileBase blockTile;
+        [SerializeField] private TileBase activeTile;
+        [SerializeField] private Tilemap blockedTilemap;
         [SerializeField] private Tilemap previewTilemap;
 
-        [SerializeField] private TileBase greenTile;
-        [SerializeField] private TileBase redTile;
+        [SerializeField] private Tilemap[] blockTilemaps;
+
 
         private readonly HashSet<Vector3Int> blockedCells = new();
         private HashSet<Vector3Int> m_previewCells = new();
@@ -30,29 +31,14 @@ namespace TDGame
         {
             TowerSelectUI.OnTowerSelecting += HandleTowerSelecting;
             TowerSelectUI.OnTowerSelectAccepted += HandleTowerSelectAccepted;
-            TowerSelectUI.OnTowerDeselected += HandleTowerDeselected;
+            TowerSelectUI.OnTowerDeselected += HiddenPreview;
         }
 
         private void OnDisable()
         {
             TowerSelectUI.OnTowerSelecting -= HandleTowerSelecting;
             TowerSelectUI.OnTowerSelectAccepted -= HandleTowerSelectAccepted;
-            TowerSelectUI.OnTowerDeselected -= HandleTowerDeselected;
-        }
-
-        private void Initialize()
-        {
-            blockedCells.Clear();
-            BoundsInt bounds = obstacleTilemap.cellBounds;
-            foreach (Vector3Int cell in bounds.allPositionsWithin)
-            {
-                if (obstacleTilemap.HasTile(cell))
-                {
-                    blockedCells.Add(cell);
-                    buildTilemap.SetTile(cell, redTile);
-                }
-            }
-            buildTilemap.gameObject.SetActive(false);
+            TowerSelectUI.OnTowerDeselected -= HiddenPreview;
         }
 
         public void RegisterTower(Vector3Int origin, Vector2Int size)
@@ -66,99 +52,83 @@ namespace TDGame
             }
         }
 
-        public void ShowPreview(Vector3Int origin, Vector2Int size)
+        private void Initialize()
         {
-            previewTilemap.ClearAllTiles();
+            blockedCells.Clear();
 
-            foreach (Vector3Int cell in blockedCells)
+            foreach (Tilemap tilemap in blockTilemaps)
             {
-                previewTilemap.SetTile(cell, redTile);
+                if (tilemap == null)
+                    continue;
+
+                CompressBlockedTile(tilemap);
             }
+            blockedTilemap.gameObject.SetActive(false);
+        }
 
-            bool canBuild = true;
-            HashSet<Vector3Int> previewCells = new();
-            for (int x = 0; x < size.x; x++)
+        private void CompressBlockedTile(Tilemap tilemap)
+        {
+            tilemap.CompressBounds();
+            foreach (Vector3Int cell in tilemap.cellBounds.allPositionsWithin)
             {
-                for (int y = 0; y < size.y; y++)
-                {
-                    Vector3Int cell = origin + new Vector3Int(x, y, 0);
+                if (!tilemap.HasTile(cell))
+                    continue;
 
-                    bool hasObstacle = blockedCells.Contains(cell);
-
-                    previewTilemap.SetTile(cell,
-                    hasObstacle ? redTile : greenTile
-                    );
-
-                    if (hasObstacle && canBuild)
-                        canBuild = false;
-                }
-            }
-
-            if (canBuild)
-            {
-                m_previewCells = previewCells;
-                m_canBuild = true;
+                blockedCells.Add(cell);
+                blockedTilemap.SetTile(cell, blockTile);
             }
         }
 
         private void HandleTowerSelecting(Vector3Int origin, Vector2Int size)
         {
-            buildTilemap.gameObject.SetActive(true);
-            previewTilemap.gameObject.SetActive(true);
+            DisplayPreview();
             previewTilemap.ClearAllTiles();
+
+            bool isCanBuild = true;
+            m_previewCells.Clear();
 
             for (int x = 0; x < size.x; x++)
             {
                 for (int y = 0; y < size.y; y++)
                 {
                     Vector3Int cell = origin + new Vector3Int(x, y, 0);
-                    bool hasObstacle = blockedCells.Contains(cell);
+                    bool isBlocked = blockedCells.Contains(cell);
 
+                    m_previewCells.Add(cell);
                     previewTilemap.SetTile(cell,
-                    hasObstacle ? redTile : greenTile
+                    isBlocked ? blockTile : activeTile
                     );
+                    if (isCanBuild && isBlocked) isCanBuild = false;
                 }
             }
+
+            m_canBuild = isCanBuild;
         }
 
         private void HandleTowerSelectAccepted()
         {
-            if (!m_canBuild)
+            if (m_canBuild)
             {
-                foreach (var cell in m_previewCells)
+                foreach (Vector3Int cell in m_previewCells)
                 {
                     blockedCells.Add(cell);
-                    buildTilemap.SetTile(cell, redTile);
+                    blockedTilemap.SetTile(cell, blockTile);
                 }
             }
-            buildTilemap.gameObject.SetActive(false);
-            previewTilemap.gameObject.SetActive(false);
+            HiddenPreview();
         }
 
-        private void HandleTowerDeselected()
+        private void DisplayPreview()
         {
-            buildTilemap.gameObject.SetActive(false);
-            previewTilemap.gameObject.SetActive(false);
+            blockedTilemap.gameObject.SetActive(true);
+            previewTilemap.gameObject.SetActive(true);
         }
 
+        private void HiddenPreview()
+        {
+            blockedTilemap.gameObject.SetActive(false);
+            previewTilemap.gameObject.SetActive(false);
+        }
 
     }
 }
-
-
-// public void UnregisterTower(Vector3Int origin, Vector2Int size)
-// {
-//     for (int x = 0; x < size.x; x++)
-//     {
-//         for (int y = 0; y < size.y; y++)
-//         {
-//             blockedCells.Remove(origin + new Vector3Int(x, y, 0));
-//         }
-//     }
-// }
-
-
-// if (worldMap.CanBuild(cell))
-// {
-//     worldMap.RegisterTower(cell, towerSO.Footprint);
-// }

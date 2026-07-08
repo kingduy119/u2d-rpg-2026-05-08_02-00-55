@@ -2869,7 +2869,7 @@ GameObject:
   - component: {fileID: 392790602}
   - component: {fileID: 392790603}
   m_Layer: 0
-  m_Name: layer 5 - Preview Tilemap
+  m_Name: layer 5 - Preview Building Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3482,7 +3482,7 @@ GameObject:
   - component: {fileID: 663674155}
   - component: {fileID: 663674157}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: World Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3532,11 +3532,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.WorldMap
   grid: {fileID: 663674155}
-  obstacleTilemap: {fileID: 581001251}
-  buildTilemap: {fileID: 1944009559}
+  blockTile: {fileID: 11400000, guid: f201c6e2b9e4e4384b248a0c2b94038b, type: 2}
+  activeTile: {fileID: 11400000, guid: 858ca8359878b4ee89a5dd7bc1debf90, type: 2}
+  blockedTilemap: {fileID: 1944009559}
   previewTilemap: {fileID: 392790602}
-  greenTile: {fileID: 11400000, guid: 858ca8359878b4ee89a5dd7bc1debf90, type: 2}
-  redTile: {fileID: 11400000, guid: f201c6e2b9e4e4384b248a0c2b94038b, type: 2}
+  blockTilemaps:
+  - {fileID: 581001251}
 --- !u!1001 &1133393987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3701,7 +3702,7 @@ GameObject:
   - component: {fileID: 1944009559}
   - component: {fileID: 1944009560}
   m_Layer: 0
-  m_Name: layer 4 - Build Tilemap
+  m_Name: layer 4 - Prevew Blocked Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
