@@ -3,6 +3,11 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
+    public interface ITower
+    {
+
+    }
+
     [RequireComponent(typeof(Tower_Combat))]
 
     public abstract class TowerBase : MonoBehaviour
@@ -11,15 +16,12 @@ namespace TDGame
         [SerializeField] private TowerSO m_data;
         [SerializeField] private bool m_showDraw;
 
-        // private TilePlatform m_platform;
-
         // ###########
         public TowerType Type = TowerType.Tower;
         public IObjectPool<TowerBase> Pool { get; set; }
         // ###########
 
         private Tower_Combat m_combat;
-        // protected IObjectPool<TowerBase> m_pool;
 
         public bool CanBuild { get; private set; } = true;
         public bool Builded { get; private set; } = false;
@@ -47,7 +49,7 @@ namespace TDGame
             m_combat.Init(m_data);
         }
 
-        public void Deactivate() => Pool.Release(this);
+        public virtual void Deactivate() => Pool.Release(this);
 
         private void OnDrawGizmos()
         {
@@ -61,7 +63,6 @@ namespace TDGame
         public void MarkBuilded()
         {
             Builded = true;
-            // m_platform?.gameObject.SetActive(false);
         }
     }
 }

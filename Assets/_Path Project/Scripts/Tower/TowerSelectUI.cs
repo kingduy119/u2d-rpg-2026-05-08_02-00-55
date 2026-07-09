@@ -1,152 +1,82 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 namespace TDGame
 {
-    public class TowerSelectState
-    {
-        public bool IsTowerSelected { get; private set; } = false;
 
-        public void SelectTower()
-        {
-            IsTowerSelected = true;
-        }
-
-        public void DeselectTower()
-        {
-            IsTowerSelected = false;
-        }
-    }
     public class TowerSelectUI : MonoBehaviour
     {
-        [SerializeField] private GameObject m_prefab;
+        [SerializeField] private GameObject m_TowerCardPrefab;
+        [SerializeField] private GameObject m_TowerSelectList;
+        [SerializeField] private GameObject m_ButtonContain;
+        [SerializeField] private Button m_AcceptButton;
+        [SerializeField] private Button m_CancelButton;
 
-        [SerializeField] private GameObject m_testPrefab;
-        [SerializeField] private GameObject m_actionButtons;
-
-        private TowerBase m_selectedTower;
-        private TowerSelectState m_state = new();
-        public Vector3 WorldPosition { get; private set; }
-
-        private Grid m_grid => GameManager.Instance.WorldMap;
         public static event Action<Vector3Int, Vector2Int> OnTowerSelecting;
-        public static event Action OnTowerSelectAccepted;
-        public static event Action OnTowerDeselected;
+        public static event Action OnAcceptBuild;
+        public static event Action OnCancelBuild;
 
         private void Awake()
         {
-            Refresh();
+            RefreshUI();
         }
 
         private void OnEnable()
         {
             GameEvent.OnTowerSelected += HandleTowerCardSelect;
+            WorldMap.OnAcceptBuildResult += HandleBuildResult;
+            m_AcceptButton.onClick.AddListener(HandleAcceptBuildTower);
+            m_CancelButton.onClick.AddListener(HandleCancelBuildTower);
         }
         private void OnDisable()
         {
             GameEvent.OnTowerSelected -= HandleTowerCardSelect;
+            WorldMap.OnAcceptBuildResult -= HandleBuildResult;
+            m_AcceptButton.onClick.RemoveListener(HandleAcceptBuildTower);
+            m_CancelButton.onClick.RemoveListener(HandleCancelBuildTower);
         }
 
-
-
-        private void Update()
+        private void RefreshUI()
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-            WorldPosition = mousePos;
-
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            if (!m_state.IsTowerSelected) return;
-
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
-            {
-                ShowTowerAndCellPreview();
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-            }
-        }
-
-        private void ShowTowerAndCellPreview()
-        {
-            Vector3Int origin = m_grid.WorldToCell(WorldPosition);
-            Vector2Int size = m_selectedTower.Size;
-
-            Vector3 pos = m_grid.CellToWorld(origin);
-
-            pos += new Vector3(
-                size.x * m_grid.cellSize.x * 0.5f,
-                size.y * m_grid.cellSize.y * 0.5f,
-                0);
-
-            m_selectedTower.transform.position = pos;
-
-            OnTowerSelecting?.Invoke(origin, size);
-        }
-
-
-        private void Refresh()
-        {
-            foreach (Transform child in gameObject.transform)
+            foreach (Transform child in m_TowerSelectList.transform)
             {
                 Destroy(child.gameObject);
             }
 
             foreach (var data in GameManager.Instance.Towers)
             {
-                GameObject go = Instantiate(m_prefab, transform);
+                GameObject go = Instantiate(m_TowerCardPrefab, m_TowerSelectList.transform);
                 TowerSelectCard card = go.GetComponent<TowerSelectCard>();
                 card.Initialize(data);
             }
 
-            m_actionButtons.SetActive(false);
+            m_ButtonContain.SetActive(false);
         }
 
-        private void HandleTowerCardSelect(TowerSO data)
-        {
-            if (m_selectedTower != null)
-            {
-                m_selectedTower.Deactivate();
-            }
+        private void HandleTowerCardSelect(TowerSO data) => m_ButtonContain.SetActive(true);
 
-            m_selectedTower = FactoryManager.Instance.TowerFactory.GetObject(data.towerType);
-            m_actionButtons.SetActive(true);
-            m_state.SelectTower();
-
-            ShowTowerAndCellPreview();
-        }
+        public void HandleAcceptBuildTower() => OnAcceptBuild?.Invoke();
 
         public void HandleCancelBuildTower()
         {
-            m_selectedTower.Deactivate();
-            m_state.DeselectTower();
-            m_actionButtons.SetActive(false);
-            m_selectedTower = null;
-
-            OnTowerDeselected?.Invoke();
+            m_ButtonContain.SetActive(false);
+            OnCancelBuild?.Invoke();
         }
 
-        public void HandleAcceptBuildTower()
+        private void HandleBuildResult(bool isSuccess)
         {
-            TowerBase tower = m_selectedTower.GetComponent<TowerBase>();
-            if (tower.CanBuild)
+            if (isSuccess)
             {
-                tower.MarkBuilded();
-                m_state.DeselectTower();
-                m_actionButtons.SetActive(false);
-                m_selectedTower = null;
+                m_ButtonContain.SetActive(false);
             }
             else
             {
-                Debug.Log("Cant Build");
+                Debug.Log("Play sound cant build");
             }
-
-            OnTowerSelectAccepted?.Invoke();
         }
+
     }
 }

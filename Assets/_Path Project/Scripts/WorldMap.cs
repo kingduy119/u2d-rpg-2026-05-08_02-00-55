@@ -1,15 +1,19 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using System.Collections.Generic;
+using System;
 
 
 namespace TDGame
 {
 
+    [RequireComponent(typeof(Grid))]
     public class WorldMap : MonoBehaviour
     {
 
-        [SerializeField] private Grid grid;
+        [SerializeField] private Grid m_grid;
         [SerializeField] private TileBase blockTile;
         [SerializeField] private TileBase activeTile;
         [SerializeField] private Tilemap blockedTilemap;
@@ -21,39 +25,15 @@ namespace TDGame
         private readonly HashSet<Vector3Int> blockedCells = new();
         private HashSet<Vector3Int> m_previewCells = new();
         private bool m_canBuild = false;
+        private Vector3 m_wordPos;
+        private TowerBase m_selectedTower;
+
+        public static event Action<bool> OnAcceptBuildResult;
 
         private void Awake()
         {
-            Initialize();
-        }
+            m_grid = GetComponent<Grid>();
 
-        private void OnEnable()
-        {
-            TowerSelectUI.OnTowerSelecting += HandleTowerSelecting;
-            TowerSelectUI.OnTowerSelectAccepted += HandleTowerSelectAccepted;
-            TowerSelectUI.OnTowerDeselected += HiddenPreview;
-        }
-
-        private void OnDisable()
-        {
-            TowerSelectUI.OnTowerSelecting -= HandleTowerSelecting;
-            TowerSelectUI.OnTowerSelectAccepted -= HandleTowerSelectAccepted;
-            TowerSelectUI.OnTowerDeselected -= HiddenPreview;
-        }
-
-        public void RegisterTower(Vector3Int origin, Vector2Int size)
-        {
-            for (int x = 0; x < size.x; x++)
-            {
-                for (int y = 0; y < size.y; y++)
-                {
-                    blockedCells.Add(origin + new Vector3Int(x, y, 0));
-                }
-            }
-        }
-
-        private void Initialize()
-        {
             blockedCells.Clear();
 
             foreach (Tilemap tilemap in blockTilemaps)
@@ -64,6 +44,67 @@ namespace TDGame
                 CompressBlockedTile(tilemap);
             }
             blockedTilemap.gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            GameEvent.OnTowerSelected += HandleTowerSelect;
+
+            TowerSelectUI.OnAcceptBuild += HandleAcceptBuild;
+            TowerSelectUI.OnCancelBuild += HandleCancelBuild;
+        }
+
+        private void OnDisable()
+        {
+            GameEvent.OnTowerSelected -= HandleTowerSelect;
+
+            TowerSelectUI.OnAcceptBuild -= HandleAcceptBuild;
+            TowerSelectUI.OnCancelBuild -= HandleCancelBuild;
+        }
+
+        private void Update()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+            m_wordPos = mousePos;
+
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+            {
+                ShowTowerAndCellPreview();
+            }
+        }
+
+        private void HandleTowerSelect(TowerSO data)
+        {
+            if (m_selectedTower != null)
+            {
+                m_selectedTower.Deactivate();
+            }
+            m_selectedTower = FactoryManager.Instance.TowerFactory.GetObject(data.towerType);
+
+            ShowTowerAndCellPreview();
+        }
+
+        private void ShowTowerAndCellPreview()
+        {
+            if (m_selectedTower == null) return;
+
+            Vector3Int origin = m_grid.WorldToCell(m_wordPos);
+            Vector2Int size = m_selectedTower.Size;
+
+            Vector3 pos = m_grid.CellToWorld(origin);
+
+            pos += new Vector3(
+                size.x * m_grid.cellSize.x * 0.5f,
+                size.y * m_grid.cellSize.y * 0.5f,
+                0);
+
+            m_selectedTower.transform.position = pos;
+
+            HandleTowerSelecting(origin, size);
         }
 
         private void CompressBlockedTile(Tilemap tilemap)
@@ -83,9 +124,9 @@ namespace TDGame
         {
             DisplayPreview();
             previewTilemap.ClearAllTiles();
+            m_previewCells.Clear();
 
             bool isCanBuild = true;
-            m_previewCells.Clear();
 
             for (int x = 0; x < size.x; x++)
             {
@@ -105,7 +146,7 @@ namespace TDGame
             m_canBuild = isCanBuild;
         }
 
-        private void HandleTowerSelectAccepted()
+        private void HandleAcceptBuild()
         {
             if (m_canBuild)
             {
@@ -114,7 +155,21 @@ namespace TDGame
                     blockedCells.Add(cell);
                     blockedTilemap.SetTile(cell, blockTile);
                 }
+                m_selectedTower = null;
+                HiddenPreview();
             }
+            else
+            {
+                Debug.Log("Cant Build Tower");
+            }
+
+            OnAcceptBuildResult?.Invoke(m_canBuild);
+        }
+
+        private void HandleCancelBuild()
+        {
+            m_selectedTower.Deactivate();
+            m_selectedTower = null;
             HiddenPreview();
         }
 
@@ -129,6 +184,5 @@ namespace TDGame
             blockedTilemap.gameObject.SetActive(false);
             previewTilemap.gameObject.SetActive(false);
         }
-
     }
 }
