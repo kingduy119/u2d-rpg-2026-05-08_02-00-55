@@ -23,8 +23,6 @@ namespace TDGame
 
         private Tower_Combat m_combat;
 
-        public bool CanBuild { get; private set; } = true;
-        public bool Builded { get; private set; } = false;
         public Vector2Int Size => m_data.size;
 
         private void OnValidate()
@@ -34,7 +32,6 @@ namespace TDGame
         }
         protected void Awake()
         {
-            // m_platform = GetComponentInChildren<TilePlatform>();
             m_combat = GetComponent<Tower_Combat>();
 
             if (m_data != null)
@@ -58,11 +55,6 @@ namespace TDGame
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(transform.position, m_data.range);
             }
-        }
-
-        public void MarkBuilded()
-        {
-            Builded = true;
         }
     }
 }
