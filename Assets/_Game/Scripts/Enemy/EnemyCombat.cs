@@ -16,8 +16,8 @@ public class EnemyCombat : MonoBehaviour
     public float m_knockForce = 1f;
     public float m_stunTime = 1f;
     public bool IsKnockedBack = false;
-    public bool IsAttacking = false;
     public bool IsPlayerInAttackRange = false;
+    public bool IsAttacking = false;
 
     public bool CanAttack => m_attackCooldown <= 0f && !IsAttacking && IsPlayerInAttackRange;
 

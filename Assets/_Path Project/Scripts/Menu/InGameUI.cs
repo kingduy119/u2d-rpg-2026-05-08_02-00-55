@@ -41,7 +41,6 @@ namespace TDGame
                 SpawnManager.OnWaveChanged += InGame.HandleWaveChanged;
             }
 
-
             settingsButton.onClick.AddListener(HandleSettingsClick);
             startWaveButton.onClick.AddListener(HandleStartWaveClick);
             gameSpeedButton.onClick.AddListener(HandleGameSpeedClick);

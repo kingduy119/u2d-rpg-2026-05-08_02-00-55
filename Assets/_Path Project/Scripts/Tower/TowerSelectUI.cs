@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
@@ -28,6 +27,7 @@ namespace TDGame
         {
             GameEvent.OnTowerSelected += HandleTowerCardSelect;
             WorldMap.OnAcceptBuildResult += HandleBuildResult;
+
             m_AcceptButton.onClick.AddListener(HandleAcceptBuildTower);
             m_CancelButton.onClick.AddListener(HandleCancelBuildTower);
         }
@@ -35,6 +35,7 @@ namespace TDGame
         {
             GameEvent.OnTowerSelected -= HandleTowerCardSelect;
             WorldMap.OnAcceptBuildResult -= HandleBuildResult;
+
             m_AcceptButton.onClick.RemoveListener(HandleAcceptBuildTower);
             m_CancelButton.onClick.RemoveListener(HandleCancelBuildTower);
         }

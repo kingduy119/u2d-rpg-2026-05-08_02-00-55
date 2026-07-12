@@ -10,7 +10,6 @@ namespace TDGame
         public TowerType towerType;
         public ProjectileType projectType;
         public Sprite sprite;
-        public GameObject towerPrefab;
 
         [Header("Detail")]
         public string towerName;

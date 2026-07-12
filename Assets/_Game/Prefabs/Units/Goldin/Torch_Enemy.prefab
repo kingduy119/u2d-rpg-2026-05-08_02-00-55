@@ -76,10 +76,8 @@ GameObject:
   - component: {fileID: 8678511728633040396}
   - component: {fileID: 8702390186782373605}
   - component: {fileID: 9127469566551827265}
-  - component: {fileID: 5501589138987098204}
-  - component: {fileID: 9061014561253887201}
-  - component: {fileID: 8423482528384257466}
-  - component: {fileID: 6968048663759043236}
+  - component: {fileID: 5002422575433158761}
+  - component: {fileID: 4445686574380531446}
   m_Layer: 7
   m_Name: Torch_Enemy
   m_TagString: Enemy
@@ -285,7 +283,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5501589138987098204
+--- !u!114 &5002422575433158761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,50 +292,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4684991293610104613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1198e02abb6073d48bba75b27a9243c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
-  damage: 1
-  weaponRange: 0.8
-  knockForce: 5
-  stunTime: 1
-  attackPoint: {fileID: 5972471329186398437}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &9061014561253887201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4684991293610104613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5818f4adbd03c6a439afc0e8241ed0d3, type: 3}
+  m_Script: {fileID: 11500000, guid: e2306e0c7547642769cc31b3faadda4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  m_MoveSpeed: 2
-  m_MaxSpeed: 2
-  m_MoveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 04d6464a-03cc-4996-8b46-0bfc1757548d
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  detectionRange: 2.99
-  detectionPoint: {fileID: 5749016346863509916}
-  playerLayer:
+  m_detectionPoint: {fileID: 5749016346863509916}
+  m_playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  attackRange: 1.6
-  attackSpeed: 1
-  attackCountDown: 0
-  isKnockedBack: 0
---- !u!114 &8423482528384257466
+  m_target: {fileID: 0}
+  m_maxSpeed: 10
+  m_moveSpeed: 2
+--- !u!114 &4445686574380531446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -346,22 +311,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4684991293610104613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c4e96504b36a6a4ba0c9afa87ae3087, type: 3}
+  m_Script: {fileID: 11500000, guid: dd066e333dd154ba59e149d95badb69d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
-  expReward: 40
-  maxHealth: 3
-  currentHealth: 1
---- !u!114 &6968048663759043236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4684991293610104613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e73a7ff2457501f4c965dfd2c3d3dbd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Knockback
-  isKnockedBack: 0
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController

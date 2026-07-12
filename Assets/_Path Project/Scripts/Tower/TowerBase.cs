@@ -16,6 +16,8 @@ namespace TDGame
         [SerializeField] private TowerSO m_data;
         [SerializeField] private bool m_showDraw;
 
+        public TowerSO Data => m_data;
+
         // ###########
         public TowerType Type = TowerType.Tower;
         public IObjectPool<TowerBase> Pool { get; set; }

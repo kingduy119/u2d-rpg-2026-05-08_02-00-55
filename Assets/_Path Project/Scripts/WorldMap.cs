@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
 using System.Collections.Generic;
 using System;
 
@@ -18,7 +17,6 @@ namespace TDGame
         [SerializeField] private TileBase activeTile;
         [SerializeField] private Tilemap blockedTilemap;
         [SerializeField] private Tilemap previewTilemap;
-
         [SerializeField] private Tilemap[] blockTilemaps;
 
 
@@ -150,6 +148,12 @@ namespace TDGame
         {
             if (m_canBuild)
             {
+                if (!GameManager.Instance.CheckAndSpendResource(m_selectedTower.Data))
+                {
+                    Debug.Log("Not Enough Gold");
+                    return;
+                }
+
                 foreach (Vector3Int cell in m_previewCells)
                 {
                     blockedCells.Add(cell);

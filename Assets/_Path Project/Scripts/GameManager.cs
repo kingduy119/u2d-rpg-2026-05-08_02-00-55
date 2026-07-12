@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-// using UnityEngine.InputSystem;
 
 namespace TDGame
 {
@@ -9,11 +7,9 @@ namespace TDGame
     {
 
         [SerializeField] private TowerSO[] m_towers;
-        public TowerSO[] Towers => m_towers;
 
+        public TowerSO[] Towers => m_towers;
         public InGameState InGame { get; private set; }
-        [SerializeField] private Grid m_grid;
-        public Grid WorldMap => m_grid;
 
         protected override void Awake()
         {
@@ -39,48 +35,20 @@ namespace TDGame
             LoadScene();
         }
 
-        void Update()
-        {
-        }
-
-        public void SpendGold(int amount)
-        {
-
-        }
-
         private void LoadScene() => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
 
+
+        public bool CheckAndSpendResource(TowerSO towerData)
+        {
+            if (InGame.Golds >= towerData.cost)
+            {
+                InGame.Golds -= towerData.cost;
+                return true;
+            }
+            return false;
+        }
     }
 
 }
 
-// private void Update()
-// {
-//     if (Mouse.current.leftButton.wasPressedThisFrame)
-//     {
-//         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-//         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-
-//         if (hit.collider == null) return;
-
-//         Debug.Log(hit.collider.gameObject.name);
-//         Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
-
-//         switch (LayerMask.LayerToName(hit.collider.gameObject.layer))
-//         {
-//             case "Tile":
-//                 Debug.Log("Click Tile");
-//                 break;
-
-//             case "Tower":
-//                 Debug.Log("Click Tower");
-//                 break;
-
-//             case "Enemy":
-//                 Debug.Log("Click Enemy");
-//                 break;
-//         }
-//     }
-// }

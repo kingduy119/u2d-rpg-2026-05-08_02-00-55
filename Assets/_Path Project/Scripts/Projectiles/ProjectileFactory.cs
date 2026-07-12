@@ -5,81 +5,95 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
-    public class ProjectileFactory : PersistentSingleton<ProjectileFactory>
+    public class ProjectileFactory : MonoBehaviour
     {
+        private readonly Dictionary<ProjectileType, IObjectPool<Projectile>> _pool = new();
+        private readonly Dictionary<ProjectileType, GenericPool<Projectile>> _poolNew = new();
+
+
         [Serializable]
-        public struct ProjectileConfig
+        private class Config
         {
             public ProjectileType type;
             public GameObject prefab;
-            // public int defaultCapacity;
-            // public int maxPoolSize;
         }
+        [SerializeField] private List<Config> _configs;
+        private Dictionary<ProjectileType, Config> _configMap = new();
 
-        [SerializeField] private int defaultCapacity = 3;
-        [SerializeField] private int maxPoolSize = 100;
-        [SerializeField] private List<ProjectileConfig> projectileConfigs;
 
-        private Dictionary<ProjectileType, IObjectPool<Projectile>> m_pool = new();
-
-        private Dictionary<ProjectileType, ProjectileConfig> configDictionary = new();
-
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-
-            foreach (var config in projectileConfigs)
+            foreach (var config in _configs)
             {
-                configDictionary.Add(config.type, config);
-
-                IObjectPool<Projectile> pool = InitPool(config);
-                m_pool.Add(config.type, pool);
+                _configMap.Add(config.type, config);
             }
         }
 
-        private ObjectPool<Projectile> InitPool(ProjectileConfig config)
-        {
-            GameObject prefab = configDictionary[config.type].prefab;
+        // private IObjectPool<Projectile> InitPool(Config config)
+        // {
+        //     GameObject prefab = config.prefab;
 
-            ObjectPool<Projectile> pool = null;
-            pool = new ObjectPool<Projectile>(
-                () => CreateProjectile(config.type),
-                go => go.gameObject.SetActive(true),
-                go => go.gameObject.SetActive(false),
-                go => Destroy(go.gameObject),
-                collectionCheck: true,
-                    defaultCapacity: defaultCapacity,
-                    maxSize: maxPoolSize
-            );
-            return pool;
+        //     ObjectPool<Projectile> pool = null;
+        //     pool = new ObjectPool<Projectile>(
+        //         () =>
+        //         {
+        //             GameObject go = Instantiate(prefab, this.transform);
+
+        //             if (!go.TryGetComponent<Projectile>(out var projectile))
+        //                 return null;
+
+        //             projectile.Pool = pool;
+        //             return projectile;
+        //         },
+        //         go => go.gameObject.SetActive(true),
+        //         go => go.gameObject.SetActive(false),
+        //         go => Destroy(go.gameObject),
+        //         collectionCheck: true,
+        //         defaultCapacity: 3,
+        //         maxSize: 100
+        //     );
+        //     return pool;
+        // }
+
+        private GenericPool<Projectile> CreatePool(Config config)
+        {
+            GameObject prefab = config.prefab;
+            var poolNew = new GenericPool<Projectile>(prefab, this.transform);
+            return poolNew;
         }
 
-        private Projectile CreateProjectile(ProjectileType type)
+        public Projectile Get(ProjectileType type)
         {
-            GameObject prefab = configDictionary[type].prefab;
-            GameObject instanceGo = Instantiate(prefab, this.transform);
-
-            Projectile projectile = instanceGo.GetComponent<Projectile>();
-
-            if (projectile == null)
-                return null;
-
-            projectile.Pool = m_pool[type];
-
-            return projectile;
-        }
-
-        public Projectile GetObject(ProjectileType type)
-        {
-            if (!m_pool.TryGetValue(type, out var pool))
+            if (!_configMap.TryGetValue(type, out var config))
             {
-                Debug.LogError($"No pool found for {type}");
                 return null;
+            }
+
+            if (!_poolNew.TryGetValue(type, out var pool))
+            {
+                pool = CreatePool(config);
+                _poolNew.Add(type, pool);
             }
 
             return pool.Get();
         }
 
+        // public Projectile GetObject(ProjectileType type)
+        // {
 
-    } // Class
+        //     if (!_configMap.TryGetValue(type, out var config))
+        //     {
+        //         return null;
+        //     }
+
+        //     if (!_pool.TryGetValue(type, out var pool))
+        //     {
+        //         pool = InitPool(_configs.Find(c => c.type == type));
+        //         _pool.Add(type, pool);
+        //     }
+
+        //     return pool.Get();
+        // }
+    }
+
 }

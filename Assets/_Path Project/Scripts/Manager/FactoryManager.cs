@@ -6,6 +6,7 @@ namespace TDGame
     {
         [SerializeField] public EnemyFactory EnemyFactory;
         [SerializeField] public TowerFactory TowerFactory;
+        [SerializeField] public ProjectileFactory ProjectileFactory;
 
         protected override void Awake()
         {

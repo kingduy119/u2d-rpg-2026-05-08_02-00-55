@@ -1,28 +1,18 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
 namespace TDGame
 {
-    public abstract class Projectile : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour,
+        IPoolable<Projectile>
     {
         public abstract ProjectileType Type { get; }
-        protected IObjectPool<Projectile> m_pool;
-        public IObjectPool<Projectile> Pool
-        {
-            get => m_pool;
-            set => m_pool = value;
-        }
+        public IObjectPool<Projectile> Pool { get; set; }
         // ###########
 
         private TowerSO m_data;
         private Vector3 m_shotDirection;
         private float m_projectileDuration;
-
-        public virtual void Deactive()
-        {
-            m_pool.Release(this);
-        }
 
         protected void Update()
         {
@@ -53,9 +43,9 @@ namespace TDGame
             }
         }
 
-        protected virtual void Deactivate() => m_pool.Release(this);
+        protected virtual void Deactivate() => Pool.Release(this);
 
-        public void Shoot(TowerSO data, Vector3 shotDirection)
+        public void Launch(TowerSO data, Vector3 shotDirection)
         {
             m_data = data;
             m_shotDirection = shotDirection;

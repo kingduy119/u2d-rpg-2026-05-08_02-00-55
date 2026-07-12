@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public class IdleState : IState
 {
@@ -14,8 +13,10 @@ public class IdleState : IState
         if (m_enemy.Combat.CanAttack)
         {
             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_combatState);
+            return;
         }
-        else if (m_enemy.Target && !m_enemy.Combat.IsPlayerInAttackRange)
+
+        if (m_enemy.Target && !m_enemy.Combat.IsPlayerInAttackRange)
         {
             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_chaseState);
         }
@@ -61,20 +62,21 @@ public class CombatState : IState
         m_enemy = enemy;
     }
 
-    public void Enter()
-    {
-        // m_enemy.Movement.Stop();
-    }
 
     public void Execute()
     {
+        if (m_enemy.Combat.CanAttack)
+        {
+            m_enemy.Combat.LaunchAttack();
+            return;
+        }
+
+        if (m_enemy.Combat.IsAttacking)
+            return;
+
         if (!m_enemy.Combat.IsPlayerInAttackRange)
         {
             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_chaseState);
-        }
-        else if (m_enemy.Combat.CanAttack)
-        {
-            m_enemy.Combat.LaunchAttack();
         }
         else
         {

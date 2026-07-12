@@ -9,7 +9,7 @@ namespace TDGame
 
         public bool IsDirty { get; private set; } = false;
 
-        private float m_maxGameSpeed = 3f;
+        private readonly float m_maxGameSpeed = 3f;
         private float m_gameSpeed = 1f;
         public float GameSpeed
         {
