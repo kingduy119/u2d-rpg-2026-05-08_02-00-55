@@ -1,61 +1,51 @@
-using UnityEngine;
-using UnityEngine.Pool;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace TDGame
 {
 
     public class EnemyFactory : MonoBehaviour
     {
-        [SerializeField] private bool collectionCheck = true;
-        [SerializeField] private int capacity = 20;
-        [SerializeField] private int maxSize = 200;
-        [SerializeField] private EnemyData[] enemyDatas;
+        private readonly Dictionary<EnemyType, GenericPool<Enemy>> _pool = new();
 
-        private Dictionary<EnemyType, ObjectPool<Enemy>> pools;
+        [Serializable]
+        private class Config
+        {
+            public EnemyType type;
+            public GameObject prefab;
+        }
+        [SerializeField] private List<Config> _configs;
+        private Dictionary<EnemyType, Config> _configMap = new();
+
 
         private void Awake()
         {
-            pools = new Dictionary<EnemyType, ObjectPool<Enemy>>();
-
-            foreach (var data in enemyDatas)
+            foreach (var config in _configs)
             {
-                var pool = InitPool(data.prefab);
-                pools.Add(data.type, pool);
+                _configMap.Add(config.type, config);
             }
         }
 
-        private ObjectPool<Enemy> InitPool(Enemy prefab)
+        private GenericPool<Enemy> CreatePool(Config config)
         {
-            ObjectPool<Enemy> pool = null;
-            pool = new ObjectPool<Enemy>(
-                () =>
-                {
-                    Enemy enemy = Instantiate(prefab);
-                    enemy.Pool = pool;
-                    return enemy;
-                },
-                go => go.gameObject.SetActive(true),
-                go => go.gameObject.SetActive(false),
-                go => Destroy(go.gameObject),
-                collectionCheck,
-                capacity,
-                maxSize
-            );
-            return pool;
+            GameObject prefab = config.prefab;
+            var poolNew = new GenericPool<Enemy>(prefab, this.transform);
+            return poolNew;
         }
 
-
-        public Enemy GetEnemy(EnemyType type)
+        public Enemy GetObject(EnemyType type)
         {
-            if (!pools.TryGetValue(type, out var pool))
-            {
-                Debug.LogError($"No pool found for {type}");
+            if (!_configMap.TryGetValue(type, out var config))
                 return null;
+
+            if (!_pool.TryGetValue(type, out var pool))
+            {
+                pool = CreatePool(config);
+                _pool.Add(type, pool);
             }
 
             return pool.Get();
         }
-
     }
 }

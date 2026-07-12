@@ -5,11 +5,9 @@ using UnityEngine.Pool;
 namespace TDGame
 {
     [RequireComponent(typeof(Enemy_Health))]
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour,
+        IPoolable<Enemy>
     {
-        public static event Action<EnemyData> OnEnemyReachedEnd;
-        public static event Action<EnemyData> OnGetEnemyReward;
-
         [SerializeField] private EnemyData _data;
 
         public EnemyData Data => _data;
@@ -62,7 +60,7 @@ namespace TDGame
                 }
                 else // Reached the end of the path
                 {
-                    OnEnemyReachedEnd?.Invoke(_data);
+                    GameEvent.SendEnemyReachedEnd(_data);
                     Deactive();
                 }
             }
@@ -79,7 +77,7 @@ namespace TDGame
         }
         private void HandleEnemyDie()
         {
-            OnGetEnemyReward?.Invoke(_data);
+            GameEvent.SendEnemyReward(_data);
             GameEvent.HandleEnemyDie(this);
 
             Deactive();

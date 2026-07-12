@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Tower 2- House
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerType: 1
-  projectType: 0
+  projectType: 1
   sprite: {fileID: 21300000, guid: f7fd0f42fe80445f0b61e628ae4786d9, type: 3}
-  towerPrefab: {fileID: 1661685818584876446, guid: 2e92f822acb1346439295e34931a5dc7, type: 3}
   towerName: Normal Tower
   cost: 15
   size: {x: 2, y: 2}

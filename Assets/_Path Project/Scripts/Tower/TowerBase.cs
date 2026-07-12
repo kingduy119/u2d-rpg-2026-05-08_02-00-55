@@ -3,14 +3,10 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
-    public interface ITower
-    {
-
-    }
-
     [RequireComponent(typeof(Tower_Combat))]
 
-    public abstract class TowerBase : MonoBehaviour
+    public abstract class TowerBase : MonoBehaviour,
+        IPoolable<TowerBase>
     {
         [SerializeField] private SpriteRenderer m_render;
         [SerializeField] private TowerSO m_data;

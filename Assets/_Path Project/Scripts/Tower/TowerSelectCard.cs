@@ -26,7 +26,7 @@ namespace TDGame
         {
             if (m_data != null)
             {
-                m_button.interactable = GameManager.Instance.InGame.Golds >= m_data.cost;
+                m_button.interactable = GameManager.Instance.InGameState.Golds >= m_data.cost;
             }
         }
 

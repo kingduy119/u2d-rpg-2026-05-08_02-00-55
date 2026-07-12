@@ -11,8 +11,6 @@ namespace TDGame
         protected override void Awake()
         {
             base.Awake();
-            // EnemyFactory = GetComponent<EnemyFactory>();
-            // TowerFactory = GetComponent<TowerFactory>();
         }
     }
 }

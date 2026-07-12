@@ -3,46 +3,26 @@ using System;
 
 namespace TDGame
 {
-    public class Spawn
+
+    public class SpawnState
     {
-        float m_timer = 0;
-        float m_interval = 1;
-
-        public int Count { get; private set; } = 0;
-        public bool IsActive { get; private set; } = false;
-
-        public void Update()
-        {
-            if (IsActive) return;
-
-            m_timer += Time.deltaTime;
-            if (m_timer >= m_interval) IsActive = true;
-        }
-        public void Reset()
-        {
-            m_timer = 0;
-            IsActive = false;
-        }
-    }
-
-
-    [RequireComponent(typeof(EnemyFactory))]
-    public class SpawnManager : PersistentSingleton<SpawnManager>
-    {
-        public static event Action<int, int> OnWaveChanged;
-        public static event Action OnMissionComplete;
-
-
-        [Header("Spawn Config")]
-        public float _spawnTimer = 0f;
-        public float _spawnInterval = 1f;
-
-
-        public bool IsDirty { get; private set; } = true;
-        private bool IsWaveActive = false;
-        private int _spawnedCount = 0;
+        private int _count = 0;
+        private int _waveCount = 0;
+        private float _timer = 0f;
+        private float _interval = 1f;
         private int _removedEnemies = 0;
-        public int RemovedEnemies
+        public bool IsStarted { get; private set; } = false;
+        public bool IsDirty { get; private set; } = false;
+        public int WaveCount
+        {
+            get => _waveCount;
+            set
+            {
+                _waveCount = value;
+                IsDirty = true;
+            }
+        }
+        public int EnemyCount
         {
             get => _removedEnemies;
             set
@@ -52,23 +32,39 @@ namespace TDGame
             }
         }
 
-        private int _waveIndex = 0;
-        public int WaveCount
+        public bool CheckSpawnTimer(int perway)
         {
-            get => _waveIndex;
-            set
-            {
-                _waveIndex = value;
-                IsDirty = true;
-            }
+            _timer -= Time.deltaTime;
+            return _timer <= 0f && _count < perway;
         }
 
+        public void Start()
+        {
+            IsStarted = true;
+        }
 
-        public Spawn m_spawner;
-        private EnemyFactory m_enemyFactor;
+        public void RefreshTimer()
+        {
+            _timer = _interval;
+            _count++;
+        }
+
+        public void Stop()
+        {
+            IsStarted = false;
+            _removedEnemies = 0;
+            _count = 0;
+        }
+    }
+
+    public class SpawnManager : PersistentSingleton<SpawnManager>
+    {
+        public static event Action<int, int> OnWaveChanged;
+
+        private EnemyFactory _enemyFactory;
+        private SpawnState _spawnState = new();
         private WaveData[] Waves => LevelManager.Instance.LevelSO.waves;
-        private WaveData Wave => LevelManager.Instance.LevelSO.waves[_waveIndex];
-
+        private WaveData Wave => Waves[_spawnState.WaveCount];
 
         protected override void Awake()
         {
@@ -78,59 +74,52 @@ namespace TDGame
 
         private void Initialize()
         {
-            m_enemyFactor = GetComponent<EnemyFactory>();
+            _enemyFactory = FactoryManager.Instance.EnemyFactory;
         }
 
         private void OnEnable()
         {
-            Enemy.OnEnemyReachedEnd += HandlePointReachedEnd;
+            GameEvent.OnEnemyReachedEnd += HandlePointReachedEnd;
             GameEvent.OnEnemyDie += HandleEnemyDie;
         }
         private void OnDisable()
         {
-            Enemy.OnEnemyReachedEnd -= HandlePointReachedEnd;
+            GameEvent.OnEnemyReachedEnd -= HandlePointReachedEnd;
             GameEvent.OnEnemyDie -= HandleEnemyDie;
         }
 
         void Update()
         {
-            if (IsDirty)
+            if (_spawnState.IsDirty)
             {
-                OnWaveChanged?.Invoke(Wave.perway - _removedEnemies, _waveIndex + 1);
-                IsDirty = false;
+                OnWaveChanged?.Invoke(Wave.perway - _spawnState.EnemyCount, _spawnState.WaveCount + 1);
             }
 
-            if (!IsWaveActive) return;
+            if (!_spawnState.IsStarted) return;
 
-            _spawnTimer -= Time.deltaTime;
-            if (_spawnTimer <= 0f && _spawnedCount < Wave.perway)
+            if (_spawnState.CheckSpawnTimer(Wave.perway))
             {
-                _spawnTimer = _spawnInterval;
-                _spawnedCount++;
+                _spawnState.RefreshTimer();
                 SpawnObject();
+                return;
             }
-            else if (RemovedEnemies >= Wave.perway)
-            {
-                IsWaveActive = false;
-                _spawnedCount = 0;
-                WaveCount++;
 
-                if (WaveCount >= Waves.Length)
+            if (_spawnState.EnemyCount >= Wave.perway)
+            {
+                _spawnState.Stop();
+                _spawnState.WaveCount++;
+
+                if (_spawnState.WaveCount >= Waves.Length)
                 {
-                    OnMissionComplete?.Invoke();
+                    GameEvent.SendMissionComplete();
                 }
             }
         }
 
-        public void StartWave()
-        {
-            IsWaveActive = true;
-            RemovedEnemies = 0;
-        }
-
+        public void StartWave() => _spawnState.Start();
         private void SpawnObject()
         {
-            Enemy obj = m_enemyFactor.GetEnemy(Wave.enemyType);
+            Enemy obj = _enemyFactory.GetObject(Wave.enemyType);
             if (obj == null) return;
 
             obj.transform.position = transform.position;
@@ -140,13 +129,75 @@ namespace TDGame
 
         private void HandlePointReachedEnd(EnemyData pointData)
         {
-            RemovedEnemies++;
+            _spawnState.EnemyCount++;
         }
 
         private void HandleEnemyDie(Enemy enemy)
         {
-            RemovedEnemies++;
+            // RemovedEnemies++;
+            _spawnState.EnemyCount++;
         }
     }
 
 }
+
+
+// [Header("Spawn Config")]
+// public float _spawnTimer = 0f;
+// public float _spawnInterval = 1f;
+
+
+// public bool IsDirty { get; private set; } = true;
+// private bool IsWaveActive = false;
+// private int _spawnedCount = 0;
+// private int _removedEnemies = 0;
+// public int RemovedEnemies
+// {
+//     get => _removedEnemies;
+//     set
+//     {
+//         _removedEnemies = value;
+//         IsDirty = true;
+//     }
+// }
+
+// private int _waveIndex = 0;
+// public int WaveCount
+// {
+//     get => _waveIndex;
+//     set
+//     {
+//         _waveIndex = value;
+//         IsDirty = true;
+//     }
+// }
+
+
+
+
+// if (IsDirty)
+// {
+//     OnWaveChanged?.Invoke(Wave.perway - _removedEnemies, _waveIndex + 1);
+//     IsDirty = false;
+// }
+
+// if (!IsWaveActive) return;
+
+// _spawnTimer -= Time.deltaTime;
+// if (_spawnTimer <= 0f && _spawnedCount < Wave.perway)
+// {
+//     _spawnTimer = _spawnInterval;
+//     _spawnedCount++;
+//     SpawnObject();
+// }
+// else if (RemovedEnemies >= Wave.perway)
+// {
+//     IsWaveActive = false;
+//     _spawnedCount = 0;
+//     WaveCount++;
+
+//     if (WaveCount >= Waves.Length)
+//     {
+//         GameEvent.SendMissionComplete();
+//     }
+// }

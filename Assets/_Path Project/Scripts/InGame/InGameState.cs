@@ -5,8 +5,6 @@ namespace TDGame
 {
     public class InGameState
     {
-        public static event Action OnUpdateInGameUI;
-
         public bool IsDirty { get; private set; } = false;
 
         private readonly float m_maxGameSpeed = 3f;
@@ -97,10 +95,10 @@ namespace TDGame
             }
         }
 
-        public void HandleWaveChanged(int enemies, int wave)
+        public void HandleWaveChanged(int enemyCount, int waveCount)
         {
-            Enemies = enemies;
-            WaveCount = wave;
+            Enemies = enemyCount;
+            WaveCount = waveCount;
         }
 
 

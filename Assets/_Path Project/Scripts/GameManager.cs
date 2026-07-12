@@ -9,13 +9,13 @@ namespace TDGame
         [SerializeField] private TowerSO[] m_towers;
 
         public TowerSO[] Towers => m_towers;
-        public InGameState InGame { get; private set; }
+        public InGameState InGameState { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
             AudioManager.Instance.PlayMainMenuMusic();
-            InGame = new();
+            InGameState = new();
         }
 
         void OnEnable()
@@ -41,9 +41,9 @@ namespace TDGame
 
         public bool CheckAndSpendResource(TowerSO towerData)
         {
-            if (InGame.Golds >= towerData.cost)
+            if (InGameState.Golds >= towerData.cost)
             {
-                InGame.Golds -= towerData.cost;
+                InGameState.Golds -= towerData.cost;
                 return true;
             }
             return false;

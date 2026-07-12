@@ -34,6 +34,7 @@ namespace TDGame
             }
         }
 
+        public static void SendMissionComplete() => OnMissionComplete?.Invoke();
         public static void HandleEnemyDie(Enemy enemy)
         {
             OnEnemyDie?.Invoke(enemy);
@@ -53,6 +54,19 @@ namespace TDGame
         {
             Time.timeScale = 1f;
             AudioManager.Instance.PlayResumeSound();
+        }
+
+        // Enemy
+        public static event Action<EnemyData> OnEnemyReachedEnd;
+        public static event Action<EnemyData> OnGetEnemyReward;
+        public static void SendEnemyReachedEnd(EnemyData enemySO)
+        {
+            OnEnemyReachedEnd?.Invoke(enemySO);
+        }
+
+        public static void SendEnemyReward(EnemyData enemySO)
+        {
+            OnGetEnemyReward?.Invoke(enemySO);
         }
     }
 

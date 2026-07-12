@@ -8,7 +8,8 @@ namespace TDGame
         IObjectPool<T> Pool { get; set; }
     }
 
-    public class GenericPool<T> where T : Component, IPoolable<T>
+    public class GenericPool<T> where T : Component,
+    IPoolable<T>
     {
         private readonly IObjectPool<T> _pool;
 

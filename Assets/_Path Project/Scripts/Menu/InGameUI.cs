@@ -24,7 +24,7 @@ namespace TDGame
         [Header("UI Pannels")]
         [SerializeField] private GameObject settingsPanel;
 
-        private InGameState InGame => GameManager.Instance.InGame;
+        private InGameState InGameState => GameManager.Instance.InGameState;
 
         private void Awake()
         {
@@ -34,11 +34,11 @@ namespace TDGame
 
         private void OnEnable()
         {
-            if (InGame != null)
+            if (InGameState != null)
             {
-                Enemy.OnEnemyReachedEnd += InGame.HandlePointReachedEnd;
-                Enemy.OnGetEnemyReward += InGame.HandleGetEnemyReward;
-                SpawnManager.OnWaveChanged += InGame.HandleWaveChanged;
+                GameEvent.OnEnemyReachedEnd += InGameState.HandlePointReachedEnd;
+                GameEvent.OnGetEnemyReward += InGameState.HandleGetEnemyReward;
+                SpawnManager.OnWaveChanged += InGameState.HandleWaveChanged;
             }
 
             settingsButton.onClick.AddListener(HandleSettingsClick);
@@ -50,11 +50,11 @@ namespace TDGame
 
         private void OnDisable()
         {
-            if (InGame != null)
+            if (InGameState != null)
             {
-                Enemy.OnEnemyReachedEnd -= InGame.HandlePointReachedEnd;
-                Enemy.OnGetEnemyReward -= InGame.HandleGetEnemyReward;
-                SpawnManager.OnWaveChanged -= InGame.HandleWaveChanged;
+                GameEvent.OnEnemyReachedEnd -= InGameState.HandlePointReachedEnd;
+                GameEvent.OnGetEnemyReward -= InGameState.HandleGetEnemyReward;
+                SpawnManager.OnWaveChanged -= InGameState.HandleWaveChanged;
             }
 
 
@@ -67,10 +67,10 @@ namespace TDGame
 
         private void Update()
         {
-            if (InGame.IsDirty)
+            if (InGameState.IsDirty)
             {
                 UpdateInGameUI();
-                InGame.MarkDirty();
+                InGameState.Clearn();
             }
 
         }
@@ -78,32 +78,27 @@ namespace TDGame
         private void LoadLevelResource()
         {
             LevelSO level = LevelManager.Instance.LevelSO;
-            InGame.Golds = level.startingGold;
-            InGame.Lives = level.startingLives;
+            InGameState.Golds = level.startingGold;
+            InGameState.Lives = level.startingLives;
         }
 
         private void UpdateInGameUI()
         {
-            goldText.SetText("{0}", InGame.Golds);
-            rockText.SetText("{0}", InGame.Rocks);
-            woodText.SetText("{0}", InGame.Woods);
-            livesText.SetText("{0}", InGame.Lives);
-            waveText.SetText("{0}", InGame.WaveCount);
-            gameSpeedText.SetText($"x{InGame.GameSpeed}");
+            goldText.SetText("{0}", InGameState.Golds);
+            rockText.SetText("{0}", InGameState.Rocks);
+            woodText.SetText("{0}", InGameState.Woods);
+            livesText.SetText("{0}", InGameState.Lives);
+            waveText.SetText("{0}", InGameState.WaveCount);
+            gameSpeedText.SetText($"x{InGameState.GameSpeed}");
         }
 
         private void HandleSettingsClick() => PauseGame();
-
         public void OnCloseSettingsClick() => ResumeGame();
-
-        private void HandleStartWaveClick()
-        {
-            SpawnManager.Instance.StartWave();
-        }
+        private void HandleStartWaveClick() => SpawnManager.Instance.StartWave();
 
         private void HandleGameSpeedClick()
         {
-            InGame.GameSpeed++;
+            InGameState.GameSpeed++;
         }
 
         public void PauseGame() => GameEvent.PauseGame();

@@ -14,7 +14,6 @@ namespace TDGame
         [SerializeField] private Button m_AcceptButton;
         [SerializeField] private Button m_CancelButton;
 
-        public static event Action<Vector3Int, Vector2Int> OnTowerSelecting;
         public static event Action OnAcceptBuild;
         public static event Action OnCancelBuild;
 
