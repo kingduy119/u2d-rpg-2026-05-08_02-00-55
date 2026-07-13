@@ -68,7 +68,6 @@ namespace TDGame
             string json = PlayerPrefs.GetString("Level");
             LevelData data = JsonUtility.FromJson<LevelData>(json);
             Level = data.level;
-
         }
     }
 }

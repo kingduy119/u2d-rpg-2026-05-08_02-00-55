@@ -5,6 +5,7 @@ using UnityEngine.Pool;
 namespace TDGame
 {
     [RequireComponent(typeof(Enemy_Health))]
+    [RequireComponent(typeof(CharacterMovement))]
     public class Enemy : MonoBehaviour,
         IPoolable<Enemy>
     {
@@ -12,18 +13,19 @@ namespace TDGame
 
         public EnemyData Data => _data;
 
-        public IObjectPool<Enemy> Pool
-        {
-            get => _pool;
-            set => _pool = value;
-        }
+        public IObjectPool<Enemy> Pool { get; set; }
+        // {
+        //     get => _pool;
+        //     set => _pool = value;
+        // }
 
         #region Private Fields
         private int _pathIndex = 0;
         private Path _currentPath => SpawnManager.Instance.MapPath;
         private Vector3 _targetPosition;
-        private IObjectPool<Enemy> _pool;
+        // private IObjectPool<Enemy> _pool;
         private Enemy_Health _health;
+        private CharacterMovement _movement;
         #endregion
 
 
@@ -31,6 +33,7 @@ namespace TDGame
         {
             // _currentPath = GameObject.Find("MapPath").GetComponent<Path>();
             _health = GetComponent<Enemy_Health>();
+            _movement = GetComponent<CharacterMovement>();
         }
 
         private void OnEnable()
@@ -43,22 +46,22 @@ namespace TDGame
             _health.OnEnemyDie -= HandleEnemyDie;
         }
 
-        void Update()
-        {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                _targetPosition,
-                _data.moveSpeed * Time.deltaTime);
 
-            float distance = (transform.position - _targetPosition).magnitude;
-            if (distance < 0.1f)
+        private void FixedUpdate()
+        {
+            Vector2 direction = (_targetPosition - transform.position).normalized;
+            _movement.Move(direction);
+
+            float distance = Vector2.Distance(transform.position, _targetPosition)
+            if (distance < 0.05f)
             {
+                // Next waypoint or end
                 if (_pathIndex < _currentPath.wayPoints.Length - 1)
                 {
                     _pathIndex++;
                     _targetPosition = _currentPath.GetPointPosition(_pathIndex);
                 }
-                else // Reached the end of the path
+                else
                 {
                     GameEvent.SendEnemyReachedEnd(_data);
                     Deactive();
@@ -66,15 +69,14 @@ namespace TDGame
             }
         }
 
-        public void Deactive() => _pool.Release(this);
-
         private void Init()
         {
             _pathIndex = 0;
             _targetPosition = _currentPath.GetPointPosition(_pathIndex);
-
             _health.Initialize(_data);
+            _movement.Init(_data.moveSpeed, _data.moveSpeed + 3);
         }
+
         private void HandleEnemyDie()
         {
             GameEvent.SendEnemyReward(_data);
@@ -82,6 +84,8 @@ namespace TDGame
 
             Deactive();
         }
+
+        public void Deactive() => Pool.Release(this);
 
     }
 
