@@ -23,13 +23,11 @@ namespace TDGame
         private void OnEnable()
         {
             GameEvent.OnMissionComplete += HandleMissionComplete;
-            // SpawnManager.OnMissionComplete += HandleMissionComplete;
         }
 
         private void OnDisable()
         {
             GameEvent.OnMissionComplete -= HandleMissionComplete;
-            // SpawnManager.OnMissionComplete -= HandleMissionComplete;
         }
 
         private void Start()

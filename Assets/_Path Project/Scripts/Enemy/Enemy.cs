@@ -20,7 +20,7 @@ namespace TDGame
 
         #region Private Fields
         private int _pathIndex = 0;
-        private Path _currentPath;
+        private Path _currentPath => SpawnManager.Instance.MapPath;
         private Vector3 _targetPosition;
         private IObjectPool<Enemy> _pool;
         private Enemy_Health _health;
@@ -29,7 +29,7 @@ namespace TDGame
 
         void Awake()
         {
-            _currentPath = GameObject.Find("Path1").GetComponent<Path>();
+            // _currentPath = GameObject.Find("MapPath").GetComponent<Path>();
             _health = GetComponent<Enemy_Health>();
         }
 

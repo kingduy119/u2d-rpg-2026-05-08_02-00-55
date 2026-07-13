@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
@@ -26,12 +25,12 @@ namespace TDGame
 
         public void SetupUIMainMenu()
         {
-            m_InGameUI?.gameObject.SetActive(false);
+            m_InGameUI.gameObject.SetActive(false);
         }
 
         public void SetupUIInGame()
         {
-            m_InGameUI?.gameObject.SetActive(true);
+            m_InGameUI.gameObject.SetActive(true);
         }
 
         private void HandleMissionComplete()

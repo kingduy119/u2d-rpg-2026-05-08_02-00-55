@@ -65,7 +65,10 @@ namespace TDGame
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
 
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera main = Camera.main;
+            if (!main) return;
+
+            Vector3 mousePos = main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
             m_wordPos = mousePos;
 

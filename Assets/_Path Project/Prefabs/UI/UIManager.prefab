@@ -8902,8 +8902,8 @@ GameObject:
   - component: {fileID: 5183276536100907149}
   - component: {fileID: 3306397546808560234}
   - component: {fileID: 5618238076883257840}
-  - component: {fileID: 8012016952863979250}
   - component: {fileID: 6241498684763119794}
+  - component: {fileID: 8012016952863979250}
   m_Layer: 5
   m_Name: UIManager
   m_TagString: Untagged
@@ -8998,6 +8998,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6241498684763119794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6416304065245925452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e7ad9727c1520478b6745dad81f238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.UIManager
+  m_InGameUI: {fileID: 3872791374998375854}
+  missionCompletePanel: {fileID: 836434155178068146}
 --- !u!114 &8012016952863979250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9014,20 +9028,6 @@ MonoBehaviour:
   masterSlider: {fileID: 2677662736327706822}
   musicSlider: {fileID: 5219521959544385856}
   sfxSlider: {fileID: 3873876790262835990}
---- !u!114 &6241498684763119794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6416304065245925452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0e7ad9727c1520478b6745dad81f238, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TDGame.UIManager
-  m_InGameUI: {fileID: 3872791374998375854}
-  missionCompletePanel: {fileID: 836434155178068146}
 --- !u!1 &6580278767934828972
 GameObject:
   m_ObjectHideFlags: 0

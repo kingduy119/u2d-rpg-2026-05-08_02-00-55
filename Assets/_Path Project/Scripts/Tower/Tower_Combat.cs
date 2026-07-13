@@ -71,7 +71,6 @@ namespace TDGame
         {
             if (m_enemiesInRange.Count > 0)
             {
-                // Projectile projectile = ProjectileFactory.Instance.GetObject(m_data.projectType);
                 Projectile projectile = FactoryManager.Instance.ProjectileFactory.GetObject(m_data.projectType);
                 if (projectile == null) return;
 

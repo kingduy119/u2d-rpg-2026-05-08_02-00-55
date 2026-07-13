@@ -14,8 +14,8 @@ namespace TDGame
         protected override void Awake()
         {
             base.Awake();
-            AudioManager.Instance.PlayMainMenuMusic();
             InGameState = new();
+            AudioManager.Instance.PlayMainMenuMusic();
         }
 
         void OnEnable()

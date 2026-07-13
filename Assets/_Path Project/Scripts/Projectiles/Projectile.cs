@@ -3,10 +3,10 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
-    public abstract class Projectile : MonoBehaviour,
+    public class Projectile : MonoBehaviour,
         IPoolable<Projectile>
     {
-        public abstract ProjectileType Type { get; }
+        public virtual ProjectileType Type { get; }
         public IObjectPool<Projectile> Pool { get; set; }
         // ###########
 
