@@ -13,61 +13,70 @@ namespace TDGame
         [SerializeField] private float zoomSpeed = 1f;
         [SerializeField] private float minZoom = 3;
         [SerializeField] private float maxZoom = 10;
+        [SerializeField] private Rigidbody2D _rigidbody;
 
         private Vector3 m_lastWorldPosition;
-        private bool m_isDragging;
+        private Vector2 _prevMouse;
+        private Vector2 _currentMouse;
+        private bool _isDragging;
+        private bool _pressed;
 
         private void Update()
         {
             HandleMouseZoom();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-            HandleMouse();
+            // HandleMouse();
+            HandleMouseInput();
 #else
             HandleTouch();
 #endif
+
+            if (_isDragging)
+            {
+                Vector2 delta = _prevMouse - _currentMouse;
+                if (delta.sqrMagnitude > 0.0001f)
+                {
+                    Move(delta);
+                    _prevMouse = _currentMouse;
+                }
+
+                // Move(delta);
+                // _prevMouse = _currentMouse;
+            }
         }
 
-        private void HandleMouse()
+        private void HandleMouseInput()
         {
             if (Mouse.current == null)
                 return;
 
-            // Bắt đầu kéo
-            if (Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                if (EventSystem.current != null &&
-                    EventSystem.current.IsPointerOverGameObject())
-                    return;
+            _currentMouse = GetMouseWorldPosition();
 
-                m_lastWorldPosition = GetMouseWorldPosition();
-                m_isDragging = true;
+            if (Input.GetMouseButtonDown(0))
+            {
+                _prevMouse = _currentMouse;
+                _pressed = true;
             }
 
-            // Đang kéo
-            if (m_isDragging && Mouse.current.leftButton.isPressed)
+
+            if (_pressed && _prevMouse != _currentMouse)
             {
-                Vector3 currentWorldPosition = GetMouseWorldPosition();
-
-                Vector3 delta = m_lastWorldPosition - currentWorldPosition;
-
-                transform.position += delta * dragSpeed;
-
-                m_lastWorldPosition = currentWorldPosition;
+                _isDragging = true;
             }
 
-            // Thả chuột
-            if (Mouse.current.leftButton.wasReleasedThisFrame)
+            if (Input.GetMouseButtonUp(0))
             {
-                m_isDragging = false;
+                _pressed = false;
+                _isDragging = false;
             }
         }
+
 
         private void HandleMouseZoom()
         {
             if (Mouse.current == null)
                 return;
-
 
             float scroll = Mouse.current.scroll.ReadValue().y;
 
@@ -75,6 +84,37 @@ namespace TDGame
 
             m_cinemachineCamera.Lens.OrthographicSize =
                 Mathf.Clamp(m_cinemachineCamera.Lens.OrthographicSize, minZoom, maxZoom);
+        }
+
+        private void HandleMouse()
+        {
+            // if (Mouse.current == null)
+            //     return;
+
+            // // Bắt đầu kéo
+            // if (Mouse.current.leftButton.wasPressedThisFrame)
+            // {
+            //     if (EventSystem.current != null &&
+            //         EventSystem.current.IsPointerOverGameObject())
+            //         return;
+
+            //     m_lastWorldPosition = GetMouseWorldPosition();
+            //     _isDragging = true;
+            // }
+
+            // if (_isDragging && Mouse.current.leftButton.isPressed)
+            // {
+            //     Vector3 currentWorldPosition = GetMouseWorldPosition();
+            //     Vector3 delta = m_lastWorldPosition - currentWorldPosition;
+
+            //     transform.position += delta * dragSpeed;
+            //     m_lastWorldPosition = currentWorldPosition;
+            // }
+
+            // if (Mouse.current.leftButton.wasReleasedThisFrame)
+            // {
+            //     _isDragging = false;
+            // }
         }
 
         private void HandleTouch()
@@ -87,10 +127,10 @@ namespace TDGame
             if (touch.press.wasPressedThisFrame)
             {
                 m_lastWorldPosition = GetTouchWorldPosition();
-                m_isDragging = true;
+                _isDragging = true;
             }
 
-            if (m_isDragging && touch.press.isPressed)
+            if (_isDragging && touch.press.isPressed)
             {
                 Vector3 currentWorldPosition = GetTouchWorldPosition();
 
@@ -103,7 +143,7 @@ namespace TDGame
 
             if (touch.press.wasReleasedThisFrame)
             {
-                m_isDragging = false;
+                _isDragging = false;
             }
         }
 
@@ -111,12 +151,12 @@ namespace TDGame
         {
             Vector2 mousePos = Mouse.current.position.ReadValue();
 
-            Vector3 world = m_renderCamera.ScreenToWorldPoint(
+            Vector3 worldPoint = m_renderCamera.ScreenToWorldPoint(
                 new Vector3(mousePos.x, mousePos.y, -m_renderCamera.transform.position.z));
 
-            world.z = transform.position.z;
+            worldPoint.z = transform.position.z;
 
-            return world;
+            return worldPoint;
         }
 
         private Vector3 GetTouchWorldPosition()
@@ -129,6 +169,12 @@ namespace TDGame
             world.z = transform.position.z;
 
             return world;
+        }
+
+        public void Move(Vector2 delta)
+        {
+            // _rigidbody.linearVelocity = delta * dragSpeed;
+            _rigidbody.MovePosition(_rigidbody.position + delta);
         }
     }
 }

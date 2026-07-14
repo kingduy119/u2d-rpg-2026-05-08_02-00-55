@@ -22,11 +22,15 @@ namespace TDGame
 
         private void OnEnable()
         {
+            GameEvent.OnPlaynewGame += LoadLevel;
+            GameEvent.OnPlayContinue += PlayContinue;
             GameEvent.OnMissionComplete += HandleMissionComplete;
         }
 
         private void OnDisable()
         {
+            GameEvent.OnPlaynewGame -= LoadLevel;
+            GameEvent.OnPlayContinue -= PlayContinue;
             GameEvent.OnMissionComplete -= HandleMissionComplete;
         }
 
@@ -41,11 +45,7 @@ namespace TDGame
             _level = level;
             SceneManager.LoadScene(LevelSO.sceneName);
         }
-
-        public void PlayContinue()
-        {
-            LoadLevel(Level);
-        }
+        public void PlayContinue() => LoadLevel(Level);
 
         public void HandleMissionComplete()
         {

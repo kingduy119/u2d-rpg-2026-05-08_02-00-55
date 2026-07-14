@@ -10,28 +10,19 @@ namespace TDGame
         IPoolable<Enemy>
     {
         [SerializeField] private EnemyData _data;
-
-        public EnemyData Data => _data;
-
         public IObjectPool<Enemy> Pool { get; set; }
-        // {
-        //     get => _pool;
-        //     set => _pool = value;
-        // }
 
         #region Private Fields
-        private int _pathIndex = 0;
-        private Path _currentPath => SpawnManager.Instance.MapPath;
-        private Vector3 _targetPosition;
-        // private IObjectPool<Enemy> _pool;
         private Enemy_Health _health;
         private CharacterMovement _movement;
+        private Path _currentPath => SpawnManager.Instance.MapPath;
+        private Vector3 _targetPosition;
+        private int _pathIndex = 0;
         #endregion
 
 
         void Awake()
         {
-            // _currentPath = GameObject.Find("MapPath").GetComponent<Path>();
             _health = GetComponent<Enemy_Health>();
             _movement = GetComponent<CharacterMovement>();
         }
@@ -52,7 +43,7 @@ namespace TDGame
             Vector2 direction = (_targetPosition - transform.position).normalized;
             _movement.Move(direction);
 
-            float distance = Vector2.Distance(transform.position, _targetPosition)
+            float distance = Vector2.Distance(transform.position, _targetPosition);
             if (distance < 0.05f)
             {
                 // Next waypoint or end

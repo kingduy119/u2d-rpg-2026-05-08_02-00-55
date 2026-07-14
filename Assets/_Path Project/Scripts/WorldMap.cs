@@ -72,7 +72,8 @@ namespace TDGame
             mousePos.z = 0;
             m_wordPos = mousePos;
 
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+            //  || Input.GetMouseButton(0)
+            if (Input.GetMouseButtonDown(0))
             {
                 ShowTowerAndCellPreview();
             }

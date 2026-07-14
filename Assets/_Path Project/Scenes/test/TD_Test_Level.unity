@@ -370,17 +370,25 @@ PrefabInstance:
       propertyPath: 'allLevels.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: f95eac0c80fa74e0b9488e5ca29f89d3, type: 2}
+    - target: {fileID: 2124486485573606131, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124486485573606131, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2329058639456026888, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 2518435981126274394, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.40403
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2518435981126274394, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.88217
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2518435981126274394, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4242,6 +4250,14 @@ PrefabInstance:
     - target: {fileID: 7689126523254541609, guid: 6d8095e905ff649b2bb948033a1e08a3, type: 3}
       propertyPath: m_Name
       value: CameraController - Zoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 8709838902654768071, guid: 6d8095e905ff649b2bb948033a1e08a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8709838902654768071, guid: 6d8095e905ff649b2bb948033a1e08a3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.91
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

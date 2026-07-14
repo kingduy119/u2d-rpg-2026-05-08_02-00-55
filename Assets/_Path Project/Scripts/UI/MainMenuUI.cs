@@ -22,15 +22,8 @@ namespace TDGame
             txtLevel.text = LevelManager.Instance.LevelSO.levelName;
         }
 
-        public void StartNewGame()
-        {
-            LevelManager.Instance.LoadLevel(0);
-        }
-
-        public void PlayContinue()
-        {
-            LevelManager.Instance.PlayContinue();
-        }
+        public void StartNewGame() => GameEvent.SendPlayNewgame();
+        public void PlayContinue() => GameEvent.SendPlayContinue();
 
         public void QuitGame()
         {

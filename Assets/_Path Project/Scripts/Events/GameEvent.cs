@@ -10,10 +10,14 @@ namespace TDGame
 
         // InGame
         public static event Action OnLoadLevel;
-        public static event Action OnMissionComplete;
-
         public static event Action<TowerSO> OnTowerSelected;
 
+        // Level
+        public static event Action<int> OnPlaynewGame;
+        public static event Action OnPlayContinue;
+        public static event Action OnMissionComplete;
+
+        //  Event Functional:
         public static void UpdateUI()
         {
             OnUpdateUI?.Invoke();
@@ -34,7 +38,10 @@ namespace TDGame
             }
         }
 
+        public static void SendPlayNewgame() => OnPlaynewGame?.Invoke(0);
+        public static void SendPlayContinue() => OnPlayContinue?.Invoke();
         public static void SendMissionComplete() => OnMissionComplete?.Invoke();
+
         public static void HandleEnemyDie(Enemy enemy)
         {
             OnEnemyDie?.Invoke(enemy);
