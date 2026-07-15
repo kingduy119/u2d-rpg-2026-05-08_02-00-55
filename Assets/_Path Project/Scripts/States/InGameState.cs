@@ -99,10 +99,10 @@ namespace TDGame
         }
 
         public InGameState() { }
-        public void HandlePointReachedEnd(EnemyData enemy)
+        public void HandlePointReachedEnd(Enemy enemy)
         {
             Enemies--;
-            Lives -= enemy.damage;
+            Lives -= enemy.Data.damage;
             if (Lives <= 0)
             {
                 Debug.Log("Game Over!");

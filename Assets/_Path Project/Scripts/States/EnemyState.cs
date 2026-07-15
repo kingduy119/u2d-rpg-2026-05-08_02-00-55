@@ -1,20 +1,23 @@
 
 namespace TDGame
 {
-    public class EnemyState : DirtyState
+    public class HealthState : DirtyState
     {
-        // public bool IsDirty { get; private set; } = false;
-        private float _health;
-        private float _maxHealth;
+        protected float _health;
+        protected float _maxHealth;
 
         public float Health
         {
             get => _health;
-            set
-            {
-                _health = value;
-                IsDirty = true;
-            }
+            set => SetValue(ref _health, value);
         }
+
+        public float MaxHealth
+        {
+            get => _maxHealth;
+            set => SetValue(ref _maxHealth, value);
+        }
+
+        public float Percent => _health / _maxHealth;
     }
 }

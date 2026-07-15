@@ -7,56 +7,49 @@ namespace TDGame
 {
     public class Enemy_Health : MonoBehaviour
     {
-        public event Action OnEnemyDie;
-
         [SerializeField] private Transform _healthBar;
 
-        private float _health;
-        private float _maxHealth;
         private Vector3 _healthBarOriginalScale;
+        private HealthState _healthState;
+        private Enemy _enemy;
 
-        public float Health
-        {
-            get => _health;
-            set
-            {
-                _health = value;
-                UpdateHealthUI();
-            }
-        }
 
         private void Awake()
         {
+            _healthState = new();
             _healthBarOriginalScale = _healthBar.localScale;
         }
 
-        private void Start()
+        private void Update()
         {
-            UpdateHealthUI();
+            if (_healthState.IsDirty)
+            {
+                UpdateHealthUI();
+                _healthState.Clearn();
+            }
         }
 
-        public void Init(EnemyData data)
+        public void Init(Enemy enemy)
         {
-            _health = data.health;
-            _maxHealth = data.maxHealth;
-            UpdateHealthUI();
+            _enemy = enemy;
+            _healthState.Health = enemy.Data.health;
+            _healthState.MaxHealth = enemy.Data.maxHealth;
         }
 
         public void TakeDamage(TowerSO data)
         {
-            Health -= data.damage;
-            Health = Mathf.Clamp(Health, 0, _maxHealth);
-            if (Health <= 0)
+            _healthState.Health -= data.damage;
+            if (_healthState.Health <= 0)
             {
-                OnEnemyDie?.Invoke();
+                GameEvent.SendEnemyDie(_enemy);
+                _enemy.Deactive();
             }
         }
 
         private void UpdateHealthUI()
         {
-            float percent = _health / _maxHealth;
             Vector3 scale = _healthBarOriginalScale;
-            scale.x = _healthBarOriginalScale.x * percent;
+            scale.x = _healthBarOriginalScale.x * _healthState.Percent;
             _healthBar.localScale = scale;
         }
     }
