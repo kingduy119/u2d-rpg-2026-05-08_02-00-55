@@ -5,7 +5,6 @@ namespace TDGame
 {
     public class SpawnManager : PersistentSingleton<SpawnManager>
     {
-        public static event Action<int, int> OnWaveChanged;
 
         private EnemyFactory _enemyFactory;
         private InGameState InGameState => GameManager.Instance.InGameState;

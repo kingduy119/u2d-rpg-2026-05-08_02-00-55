@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
@@ -13,7 +14,7 @@ namespace TDGame
 
         // Level
         public static event Action<int> OnPlaynewGame;
-        public static event Action OnPlayContinue;
+        public static event Action OnPlayAgain;
         public static event Action OnMissionComplete;
 
         //  Event Functional:
@@ -38,9 +39,9 @@ namespace TDGame
         }
 
         public static void SendPlayNewgame() => OnPlaynewGame?.Invoke(0);
-        public static void SendPlayContinue() => OnPlayContinue?.Invoke();
+        public static void SendPlayAgain() => OnPlayAgain?.Invoke();
+        public static void SendRestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         public static void SendMissionComplete() => OnMissionComplete?.Invoke();
-
 
 
         public static void HandleTowerSelect(TowerSO data)

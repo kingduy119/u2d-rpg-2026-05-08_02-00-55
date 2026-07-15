@@ -9,8 +9,7 @@ namespace TDGame
     public class Enemy : MonoBehaviour,
         IPoolable<Enemy>
     {
-        [SerializeField] private EnemyData _data;
-        public IObjectPool<Enemy> Pool { get; set; }
+        [SerializeField] public EnemySO Data;
 
         #region Private Fields
         private EnemyHealth _health;
@@ -20,13 +19,12 @@ namespace TDGame
         private int _pathIndex = 0;
         #endregion
 
-        public EnemyData Data => _data;
+        public IObjectPool<Enemy> Pool { get; set; }
 
         private void Awake()
         {
             _health = GetComponent<EnemyHealth>();
             _movement = GetComponent<CharacterMovement>();
-
         }
 
         private void Start()
@@ -59,7 +57,7 @@ namespace TDGame
         private void Reset()
         {
             _health.Init(this);
-            _movement.Init(_data.moveSpeed, _data.moveSpeed + 3);
+            _movement.Init(Data.moveSpeed, Data.moveSpeed + 3);
             _pathIndex = 0;
             _targetPosition = _currentPath.GetPointPosition(_pathIndex);
         }

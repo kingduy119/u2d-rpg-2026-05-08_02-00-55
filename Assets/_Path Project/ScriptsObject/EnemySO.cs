@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace TDGame
 {
-    [CreateAssetMenu(fileName = "EnemyData", menuName = "Game TD/EnemyData")]
-    public class EnemyData : ScriptableObject
+    [CreateAssetMenu(fileName = "EnemySO", menuName = "Game TD/EnemySO")]
+    public class EnemySO : ScriptableObject
     {
         public EnemyType type;
         public Enemy prefab;

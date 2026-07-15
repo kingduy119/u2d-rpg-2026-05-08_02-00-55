@@ -100,14 +100,7 @@ namespace TDGame
 
         public InGameState() { }
 
-
-        public void HandleWaveChanged(int enemyCount, int waveCount)
-        {
-            Enemies = enemyCount;
-            WaveCount = waveCount;
-        }
-
-        public void HandleStartWave()
+        public void StartWave()
         {
             IsStarted = true;
             OnStartWave?.Invoke();

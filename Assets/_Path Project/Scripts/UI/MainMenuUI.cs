@@ -23,7 +23,7 @@ namespace TDGame
         }
 
         public void StartNewGame() => GameEvent.SendPlayNewgame();
-        public void PlayContinue() => GameEvent.SendPlayContinue();
+        public void PlayContinue() => GameEvent.SendPlayAgain();
 
         public void QuitGame()
         {

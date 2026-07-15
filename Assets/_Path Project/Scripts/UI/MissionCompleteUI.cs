@@ -4,6 +4,6 @@ namespace TDGame
 {
     public class MissionCompleteUI : MonoBehaviour
     {
-        public void SendPlayContinue() => GameEvent.SendPlayContinue();
+        public void SendPlayContinue() => GameEvent.SendPlayAgain();
     }
 }

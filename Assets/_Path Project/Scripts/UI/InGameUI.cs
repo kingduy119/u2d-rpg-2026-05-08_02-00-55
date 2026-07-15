@@ -39,12 +39,11 @@ namespace TDGame
                 GameEvent.OnEnemyReachedEnd += InGameState.HandlePointReachedEnd;
                 GameEvent.OnEnemyDie += InGameState.HandleEnemyDie;
                 GameEvent.OnGetEnemyReward += InGameState.HandleGetEnemyReward;
-                SpawnManager.OnWaveChanged += InGameState.HandleWaveChanged;
             }
 
             settingsButton.onClick.AddListener(HandleSettingsClick);
-            startWaveButton.onClick.AddListener(InGameState.HandleStartWave);
-            gameSpeedButton.onClick.AddListener(HandleGameSpeedClick);
+            startWaveButton.onClick.AddListener(InGameState.StartWave);
+            gameSpeedButton.onClick.AddListener(HandleChangeGameSpeed);
 
             GameEvent.OnLoadLevel += LoadLevelResource;
         }
@@ -56,13 +55,12 @@ namespace TDGame
                 GameEvent.OnEnemyReachedEnd -= InGameState.HandlePointReachedEnd;
                 GameEvent.OnEnemyDie -= InGameState.HandleEnemyDie;
                 GameEvent.OnGetEnemyReward -= InGameState.HandleGetEnemyReward;
-                SpawnManager.OnWaveChanged -= InGameState.HandleWaveChanged;
             }
 
 
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
-            startWaveButton.onClick.RemoveListener(InGameState.HandleStartWave);
-            gameSpeedButton.onClick.RemoveListener(HandleGameSpeedClick);
+            startWaveButton.onClick.RemoveListener(InGameState.StartWave);
+            gameSpeedButton.onClick.RemoveListener(HandleChangeGameSpeed);
 
             GameEvent.OnLoadLevel -= LoadLevelResource;
         }
@@ -97,15 +95,18 @@ namespace TDGame
             InGameState.Lives = level.startingLives;
         }
 
-        private void HandleSettingsClick() => PauseGame();
-        public void OnCloseSettingsClick() => ResumeGame();
 
-        // private void HandleStartWaveClick() => SpawnManager.Instance.StartWave();
-        private void HandleGameSpeedClick()
+        private void HandleChangeGameSpeed()
         {
             InGameState.GameSpeed++;
         }
 
+        public void OnCloseSettingsClick() => ResumeGame();
+        private void HandleSettingsClick()
+        {
+            GameEvent.PauseGame();
+            settingsPanel.gameObject.SetActive(true);
+        }
         public void PauseGame() => GameEvent.PauseGame();
         public void ResumeGame() => GameEvent.ResumeGame();
     }
