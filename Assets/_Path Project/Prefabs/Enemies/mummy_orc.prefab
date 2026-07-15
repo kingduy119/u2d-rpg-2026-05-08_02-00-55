@@ -206,7 +206,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1775246570579743652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87db52419285d4249aeff4ea1ffd7e78, type: 3}
+  m_Script: {fileID: 11500000, guid: 9861d9f9515b5443b8ac956607d5495c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.Enemy_Health
   _healthBar: {fileID: 5587830760002416646}

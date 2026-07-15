@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public class Enemy_Health : MonoBehaviour
+    public class EnemyHealth : MonoBehaviour
     {
         [SerializeField] private Transform _healthBar;
 

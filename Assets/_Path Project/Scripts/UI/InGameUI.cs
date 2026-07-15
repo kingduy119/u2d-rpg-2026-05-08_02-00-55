@@ -37,6 +37,7 @@ namespace TDGame
             if (InGameState != null)
             {
                 GameEvent.OnEnemyReachedEnd += InGameState.HandlePointReachedEnd;
+                GameEvent.OnEnemyDie += InGameState.HandleEnemyDie;
                 GameEvent.OnGetEnemyReward += InGameState.HandleGetEnemyReward;
                 SpawnManager.OnWaveChanged += InGameState.HandleWaveChanged;
             }
@@ -53,6 +54,7 @@ namespace TDGame
             if (InGameState != null)
             {
                 GameEvent.OnEnemyReachedEnd -= InGameState.HandlePointReachedEnd;
+                GameEvent.OnEnemyDie -= InGameState.HandleEnemyDie;
                 GameEvent.OnGetEnemyReward -= InGameState.HandleGetEnemyReward;
                 SpawnManager.OnWaveChanged -= InGameState.HandleWaveChanged;
             }
@@ -75,22 +77,24 @@ namespace TDGame
 
         }
 
-        private void LoadLevelResource()
-        {
-            LevelSO level = LevelManager.Instance.LevelSO;
-            InGameState.Golds = level.startingGold;
-            InGameState.Lives = level.startingLives;
-        }
-
         private void UpdateInGameUI()
         {
             goldText.SetText("{0}", InGameState.Golds);
             rockText.SetText("{0}", InGameState.Rocks);
             woodText.SetText("{0}", InGameState.Woods);
             livesText.SetText("{0}", InGameState.Lives);
-            waveText.SetText("{0}", InGameState.WaveCount);
+            waveText.SetText("{0}", InGameState.WaveCount + 1);
+            enemiesText.SetText("{0}", InGameState.Enemies);
+
             gameSpeedText.SetText($"x{InGameState.GameSpeed}");
             startWaveButton.interactable = !InGameState.IsStarted;
+        }
+
+        private void LoadLevelResource()
+        {
+            LevelSO level = LevelManager.Instance.LevelSO;
+            InGameState.Golds = level.startingGold;
+            InGameState.Lives = level.startingLives;
         }
 
         private void HandleSettingsClick() => PauseGame();

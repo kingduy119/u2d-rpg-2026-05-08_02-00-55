@@ -4,57 +4,32 @@ namespace TDGame
 {
     public class SpawnState : DirtyState
     {
-        // public bool IsDirty { get; private set; } = false;
-        private int _count = 0;
-        private int _waveCount = 0;
+        private int _spawnCount = 0;
         private float _timer = 0f;
         private float _interval = 1f;
-        private int _removedEnemies = 0;
-        public int WaveCount
+
+        public void UpdateSpawn(WaveData data)
         {
-            get => _waveCount;
-            set
-            {
-                _waveCount = value;
-                IsDirty = true;
-            }
-        }
-        public int EnemyCount
-        {
-            get => _removedEnemies;
-            set
-            {
-                _removedEnemies = value;
-                IsDirty = true;
-            }
+            _interval = data._spawnInterval;
+            _timer = data._spawnInterval;
+            _spawnCount = 0;
         }
 
         public bool ForEachTimer(int perway)
         {
             _timer -= Time.deltaTime;
-            return _timer <= 0f && _count < perway;
+            return _timer <= 0f && _spawnCount < perway;
         }
 
         public void RefreshTimer()
         {
             _timer = _interval;
-            _count++;
+            _spawnCount++;
         }
 
-        public void ResetNewWave()
+        public void ResetCount()
         {
-            WaveCount++;
-            _removedEnemies = 0;
-            _count = 0;
+            _spawnCount = 0;
         }
-        // public void HandlePointReachedEnd(EnemyData pointData)
-        // {
-        //     EnemyCount++;
-        // }
-
-        // public void HandleEnemyDie(Enemy enemy)
-        // {
-        //     EnemyCount++;
-        // }
     }
 }

@@ -10,11 +10,12 @@ namespace TDGame
         public IObjectPool<Projectile> Pool { get; set; }
         // ###########
 
-        private TowerSO m_data;
-        private Vector3 m_shotDirection;
-        private float m_projectileDuration;
+        private TowerSO _data;
+        protected Vector3 _shotDirection;
+        private float _projectileDuration;
+        private float _speed = 1;
 
-        protected void Update()
+        protected virtual void Update()
         {
             HandleMovement();
         }
@@ -23,34 +24,35 @@ namespace TDGame
         {
             if (collision.CompareTag("Enemy"))
             {
-                Enemy_Health enemy = collision.GetComponent<Enemy_Health>();
-                enemy.TakeDamage(m_data);
-
-                Deactivate();
+                if (collision.TryGetComponent(out EnemyHealth enemy))
+                {
+                    enemy.TakeDamage(_data);
+                    Deactivate();
+                }
             }
+        }
+
+        public virtual void Launch(TowerSO data, Vector3 shotDirection)
+        {
+            _data = data;
+            _shotDirection = shotDirection;
+            _projectileDuration = data.projectileDuration;
+            _speed = data.projectileSpeed;
         }
 
         protected virtual void HandleMovement()
         {
-            if (m_projectileDuration <= 0)
+            if (_projectileDuration <= 0)
             {
                 Deactivate();
+                return;
             }
-            else
-            {
-                m_projectileDuration -= Time.deltaTime;
-                transform.position += m_data.projectileSpeed * Time.deltaTime * new Vector3(m_shotDirection.x, m_shotDirection.y);
-            }
+
+            _projectileDuration -= Time.deltaTime;
+            transform.position += _speed * Time.deltaTime * _shotDirection;
         }
 
         protected virtual void Deactivate() => Pool.Release(this);
-
-        public void Launch(TowerSO data, Vector3 shotDirection)
-        {
-            m_data = data;
-            m_shotDirection = shotDirection;
-            m_projectileDuration = data.projectileDuration;
-        }
     }
 
 }

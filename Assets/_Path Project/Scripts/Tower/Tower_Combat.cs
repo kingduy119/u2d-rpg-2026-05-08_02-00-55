@@ -10,6 +10,7 @@ namespace TDGame
         private CircleCollider2D m_circleCollider;
         private List<Enemy> m_enemiesInRange = new();
         private float m_shootTimer = 0f;
+        private ProjectileFactory _factory => FactoryManager.Instance.ProjectileFactory;
 
         private void Awake()
         {
@@ -71,7 +72,7 @@ namespace TDGame
         {
             if (m_enemiesInRange.Count > 0)
             {
-                Projectile projectile = FactoryManager.Instance.ProjectileFactory.GetObject(m_data.projectType);
+                Projectile projectile = _factory.GetObject(m_data.projectType);
                 if (projectile == null) return;
 
                 Vector2 shootDirection = (m_enemiesInRange[0].transform.position - transform.position).normalized;

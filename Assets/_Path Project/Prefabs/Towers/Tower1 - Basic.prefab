@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.Tower
   m_render: {fileID: 5025079926833231070}
   m_data: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
-  m_showDraw: 0
+  m_showDraw: 1
   Type: 0
 --- !u!58 &6198412523016430597
 CircleCollider2D:
@@ -98,7 +98,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1.5
 --- !u!1 &6907313596374074367
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 6907313596374074367}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.106, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

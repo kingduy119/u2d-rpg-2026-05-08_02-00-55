@@ -15,12 +15,11 @@ MonoBehaviour:
   towerType: 0
   projectType: 1
   sprite: {fileID: 21300000, guid: 4f4d52f9c667d4205b750b68030da40c, type: 3}
-  towerPrefab: {fileID: 85164629013926071, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
   towerName: Basic Tower
   cost: 10
   size: {x: 1, y: 1}
-  range: 1.5
+  range: 1
   shootInterval: 0.7
-  projectileSpeed: 12
-  projectileDuration: 2
+  projectileSpeed: 3
+  projectileDuration: 1
   damage: 1

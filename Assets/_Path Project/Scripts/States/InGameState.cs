@@ -76,7 +76,7 @@ namespace TDGame
             }
         }
 
-        private int _wave = 1;
+        private int _wave = 0;
         public int WaveCount
         {
             get => _wave;
@@ -99,15 +99,7 @@ namespace TDGame
         }
 
         public InGameState() { }
-        public void HandlePointReachedEnd(Enemy enemy)
-        {
-            Enemies--;
-            Lives -= enemy.Data.damage;
-            if (Lives <= 0)
-            {
-                Debug.Log("Game Over!");
-            }
-        }
+
 
         public void HandleWaveChanged(int enemyCount, int waveCount)
         {
@@ -121,8 +113,23 @@ namespace TDGame
             OnStartWave?.Invoke();
         }
 
+        public void NextWave()
+        {
+            IsStarted = false;
+            WaveCount++;
+        }
+        public void HandlePointReachedEnd(Enemy enemy)
+        {
+            Enemies--;
+            Lives -= enemy.Data.damage;
+            if (Lives <= 0)
+            {
+                Debug.Log("Game Over!");
+            }
+        }
+
+        public void HandleEnemyDie(Enemy _) => Enemies--;
         public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.Data.goldReward;
-        // public void MarkDirty() => IsDirty = true;
-        // public void Clearn() => IsDirty = false;
+
     }
 }

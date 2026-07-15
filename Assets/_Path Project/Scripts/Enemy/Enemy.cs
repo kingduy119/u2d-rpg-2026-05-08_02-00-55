@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
-    [RequireComponent(typeof(Enemy_Health))]
+    [RequireComponent(typeof(EnemyHealth))]
     [RequireComponent(typeof(CharacterMovement))]
     public class Enemy : MonoBehaviour,
         IPoolable<Enemy>
@@ -13,7 +13,7 @@ namespace TDGame
         public IObjectPool<Enemy> Pool { get; set; }
 
         #region Private Fields
-        private Enemy_Health _health;
+        private EnemyHealth _health;
         private CharacterMovement _movement;
         private Path _currentPath => SpawnManager.Instance.MapPath;
         private Vector3 _targetPosition;
@@ -24,14 +24,14 @@ namespace TDGame
 
         private void Awake()
         {
-            _health = GetComponent<Enemy_Health>();
+            _health = GetComponent<EnemyHealth>();
             _movement = GetComponent<CharacterMovement>();
 
         }
 
         private void Start()
         {
-            Init();
+            Reset();
         }
 
         private void FixedUpdate()
@@ -56,14 +56,19 @@ namespace TDGame
             }
         }
 
-        private void Init()
+        private void Reset()
         {
             _health.Init(this);
             _movement.Init(_data.moveSpeed, _data.moveSpeed + 3);
+            _pathIndex = 0;
             _targetPosition = _currentPath.GetPointPosition(_pathIndex);
         }
 
-        public void Deactive() => Pool.Release(this);
+        public void Deactive()
+        {
+            Reset();
+            Pool.Release(this);
+        }
 
     }
 

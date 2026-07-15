@@ -45,7 +45,11 @@ namespace TDGame
             _level = level;
             SceneManager.LoadScene(LevelSO.sceneName);
         }
-        public void PlayContinue() => LoadLevel(Level);
+        public void PlayContinue()
+        {
+            Debug.Log("PlayContinue");
+            LoadLevel(Level);
+        }
 
         public void HandleMissionComplete()
         {

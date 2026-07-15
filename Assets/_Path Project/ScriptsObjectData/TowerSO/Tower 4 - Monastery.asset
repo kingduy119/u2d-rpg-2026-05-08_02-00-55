@@ -18,8 +18,8 @@ MonoBehaviour:
   towerName: Fire Tower
   cost: 20
   size: {x: 2, y: 2}
-  range: 2
+  range: 2.2
   shootInterval: 0.2
   projectileSpeed: 14
-  projectileDuration: 6
+  projectileDuration: 1
   damage: 2

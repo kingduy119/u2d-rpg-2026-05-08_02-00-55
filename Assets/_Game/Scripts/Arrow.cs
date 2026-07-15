@@ -42,10 +42,8 @@ public class Arrow : MonoBehaviour
 
     private void AttachToTarget(Transform target)
     {
-        Debug.Log("AttachToTarget");
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
-        // rb.bodyType = RigidbodyType2D.Dynamic;
 
         transform.SetParent(target);
     }

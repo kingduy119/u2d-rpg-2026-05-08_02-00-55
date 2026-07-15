@@ -16,7 +16,7 @@ namespace TDGame
             public GameObject prefab;
         }
         [SerializeField] private List<Config> _configs;
-        private Dictionary<ProjectileType, Config> _configMap = new();
+        private readonly Dictionary<ProjectileType, Config> _configMap = new();
 
 
         private void Awake()
@@ -30,7 +30,7 @@ namespace TDGame
         private GenericPool<Projectile> CreatePool(Config config)
         {
             GameObject prefab = config.prefab;
-            var poolNew = new GenericPool<Projectile>(prefab, this.transform);
+            var poolNew = new GenericPool<Projectile>(prefab, transform);
             return poolNew;
         }
 
