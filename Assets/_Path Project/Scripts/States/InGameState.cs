@@ -3,84 +3,97 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public class InGameState
+    public class InGameState : DirtyState
     {
-        public bool IsDirty { get; private set; } = false;
+        public static Action OnStartWave;
 
-        private readonly float m_maxGameSpeed = 3f;
-        private float m_gameSpeed = 1f;
+        // public bool IsDirty { get; private set; } = false;
+
+        private bool _isStarted = false;
+        public bool IsStarted
+        {
+            get => _isStarted;
+            set
+            {
+                _isStarted = value;
+                IsDirty = true;
+            }
+        }
+
+        private readonly float _maxGameSpeed = 3f;
+        private float _gameSpeed = 1f;
         public float GameSpeed
         {
-            get => m_gameSpeed;
+            get => _gameSpeed;
             set
             {
-                m_gameSpeed = value >= m_maxGameSpeed ? 1 : value;
+                _gameSpeed = Mathf.Clamp(value, 1f, _maxGameSpeed);
                 IsDirty = true;
             }
         }
 
-        private int m_lives = 0;
+        private int _lives = 0;
         public int Lives
         {
-            get => m_lives;
+            get => _lives;
             set
             {
-                m_lives = value;
+                _lives = value;
                 IsDirty = true;
             }
         }
 
-        private int m_golds = 0;
+        private int _golds = 0;
         public int Golds
         {
-            get => m_golds;
+            get => _golds;
             set
             {
-                m_golds = value;
+                _golds = value;
                 IsDirty = true;
             }
         }
 
-        private int m_rocks = 0;
+        private int _rocks = 0;
         public int Rocks
         {
-            get => m_rocks;
+            get => _rocks;
             set
             {
-                m_rocks = value;
+                _rocks = value;
                 IsDirty = true;
             }
         }
 
-        private int m_wood = 0;
+        private int _wood = 0;
         public int Woods
         {
-            get => m_wood;
+            get => _wood;
             set
             {
-                m_wood = value;
+                _wood = value;
                 IsDirty = true;
             }
         }
 
-        private int m_wave = 1;
+        private int _wave = 1;
         public int WaveCount
         {
-            get => m_wave;
+            get => _wave;
             set
             {
-                m_wave = value;
+                _wave = value;
                 IsDirty = true;
             }
         }
 
-        private int m_enemies = 0;
+        private int _enemies = 0;
         public int Enemies
         {
-            get => m_enemies;
+            get => _enemies;
             set
             {
-                m_enemies = value;
+                _enemies = value;
                 IsDirty = true;
             }
         }
@@ -88,6 +101,7 @@ namespace TDGame
         public InGameState() { }
         public void HandlePointReachedEnd(EnemyData enemy)
         {
+            Enemies--;
             Lives -= enemy.damage;
             if (Lives <= 0)
             {
@@ -101,9 +115,14 @@ namespace TDGame
             WaveCount = waveCount;
         }
 
+        public void HandleStartWave()
+        {
+            IsStarted = true;
+            OnStartWave?.Invoke();
+        }
 
-        public void HandleGetEnemyReward(EnemyData enemy) => Golds += enemy.goldReward;
-        public void MarkDirty() => IsDirty = true;
-        public void Clearn() => IsDirty = false;
+        public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.Data.goldReward;
+        // public void MarkDirty() => IsDirty = true;
+        // public void Clearn() => IsDirty = false;
     }
 }

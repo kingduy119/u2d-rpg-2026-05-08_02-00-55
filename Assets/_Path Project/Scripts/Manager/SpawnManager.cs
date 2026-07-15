@@ -11,6 +11,8 @@ namespace TDGame
         private SpawnState _spawnState = new();
         private WaveData[] Waves => LevelManager.Instance.LevelSO.waves;
         private WaveData Wave => Waves[_spawnState.WaveCount];
+        // private InGameState InGameState => GameManager.Instance.InGameState;
+        private InGameState InGameState => GameManager.Instance.InGameState;
 
         public Path MapPath;
         private Transform _spawnPoint;
@@ -28,13 +30,15 @@ namespace TDGame
 
         private void OnEnable()
         {
-            GameEvent.OnEnemyReachedEnd += _spawnState.HandlePointReachedEnd;
-            GameEvent.OnEnemyDie += _spawnState.HandleEnemyDie;
+            // GameEvent.OnEnemyReachedEnd += _spawnState.HandlePointReachedEnd;
+            // GameEvent.OnEnemyDie += _spawnState.HandleEnemyDie;
+            InGameState.OnStartWave += HandleStartWave;
         }
         private void OnDisable()
         {
-            GameEvent.OnEnemyReachedEnd -= _spawnState.HandlePointReachedEnd;
-            GameEvent.OnEnemyDie -= _spawnState.HandleEnemyDie;
+            // GameEvent.OnEnemyReachedEnd -= _spawnState.HandlePointReachedEnd;
+            // GameEvent.OnEnemyDie -= _spawnState.HandleEnemyDie;
+            InGameState.OnStartWave -= HandleStartWave;
         }
 
         void Update()
@@ -44,9 +48,10 @@ namespace TDGame
                 OnWaveChanged?.Invoke(Wave.perway - _spawnState.EnemyCount, _spawnState.WaveCount + 1);
             }
 
-            if (!_spawnState.IsStarted) return;
+            // if (!_spawnState.IsStarted) return;
+            if (!InGameState.IsStarted) return;
 
-            if (_spawnState.CheckSpawnTimer(Wave.perway))
+            if (_spawnState.ForEachTimer(Wave.perway))
             {
                 _spawnState.RefreshTimer();
                 SpawnObject();
@@ -55,8 +60,7 @@ namespace TDGame
 
             if (_spawnState.EnemyCount >= Wave.perway)
             {
-                _spawnState.Stop();
-                _spawnState.WaveCount++;
+                _spawnState.ResetNewWave();
 
                 if (_spawnState.WaveCount >= Waves.Length)
                 {
@@ -65,11 +69,10 @@ namespace TDGame
             }
         }
 
-        public void StartWave()
+        public void HandleStartWave()
         {
             MapPath = GameObject.Find("MapPath").GetComponent<Path>();
             _spawnPoint = MapPath.wayPoints[0].transform;
-            _spawnState.Start();
         }
         private void SpawnObject()
         {

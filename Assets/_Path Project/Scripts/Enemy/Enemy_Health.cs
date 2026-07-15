@@ -11,7 +11,6 @@ namespace TDGame
 
         [SerializeField] private Transform _healthBar;
 
-
         private float _health;
         private float _maxHealth;
         private Vector3 _healthBarOriginalScale;
@@ -36,7 +35,7 @@ namespace TDGame
             UpdateHealthUI();
         }
 
-        public void Initialize(EnemyData data)
+        public void Init(EnemyData data)
         {
             _health = data.health;
             _maxHealth = data.maxHealth;
@@ -50,7 +49,6 @@ namespace TDGame
             if (Health <= 0)
             {
                 OnEnemyDie?.Invoke();
-                return;
             }
         }
 

@@ -6,7 +6,6 @@ namespace TDGame
     public static class GameEvent
     {
         public static event Action OnUpdateUI;
-        public static event Action<Enemy> OnEnemyDie;
 
         // InGame
         public static event Action OnLoadLevel;
@@ -42,10 +41,7 @@ namespace TDGame
         public static void SendPlayContinue() => OnPlayContinue?.Invoke();
         public static void SendMissionComplete() => OnMissionComplete?.Invoke();
 
-        public static void HandleEnemyDie(Enemy enemy)
-        {
-            OnEnemyDie?.Invoke(enemy);
-        }
+
 
         public static void HandleTowerSelect(TowerSO data)
         {
@@ -64,16 +60,19 @@ namespace TDGame
         }
 
         // Enemy
-        public static event Action<EnemyData> OnEnemyReachedEnd;
-        public static event Action<EnemyData> OnGetEnemyReward;
-        public static void SendEnemyReachedEnd(EnemyData enemySO)
+        public static event Action<Enemy> OnEnemyReachedEnd;
+        public static event Action<Enemy> OnGetEnemyReward;
+        public static event Action<Enemy> OnEnemyDie;
+
+        public static void SendEnemyReachedEnd(Enemy enemy)
         {
-            OnEnemyReachedEnd?.Invoke(enemySO);
+            OnEnemyReachedEnd?.Invoke(enemy);
         }
 
-        public static void SendEnemyReward(EnemyData enemySO)
+        public static void SendEnemyDie(Enemy enemy)
         {
-            OnGetEnemyReward?.Invoke(enemySO);
+            OnEnemyDie?.Invoke(enemy);
+            OnGetEnemyReward?.Invoke(enemy);
         }
     }
 

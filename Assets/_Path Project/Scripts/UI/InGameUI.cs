@@ -42,7 +42,7 @@ namespace TDGame
             }
 
             settingsButton.onClick.AddListener(HandleSettingsClick);
-            startWaveButton.onClick.AddListener(HandleStartWaveClick);
+            startWaveButton.onClick.AddListener(InGameState.HandleStartWave);
             gameSpeedButton.onClick.AddListener(HandleGameSpeedClick);
 
             GameEvent.OnLoadLevel += LoadLevelResource;
@@ -59,7 +59,7 @@ namespace TDGame
 
 
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
-            startWaveButton.onClick.RemoveListener(HandleStartWaveClick);
+            startWaveButton.onClick.RemoveListener(InGameState.HandleStartWave);
             gameSpeedButton.onClick.RemoveListener(HandleGameSpeedClick);
 
             GameEvent.OnLoadLevel -= LoadLevelResource;
@@ -90,12 +90,13 @@ namespace TDGame
             livesText.SetText("{0}", InGameState.Lives);
             waveText.SetText("{0}", InGameState.WaveCount);
             gameSpeedText.SetText($"x{InGameState.GameSpeed}");
+            startWaveButton.interactable = !InGameState.IsStarted;
         }
 
         private void HandleSettingsClick() => PauseGame();
         public void OnCloseSettingsClick() => ResumeGame();
-        private void HandleStartWaveClick() => SpawnManager.Instance.StartWave();
 
+        // private void HandleStartWaveClick() => SpawnManager.Instance.StartWave();
         private void HandleGameSpeedClick()
         {
             InGameState.GameSpeed++;

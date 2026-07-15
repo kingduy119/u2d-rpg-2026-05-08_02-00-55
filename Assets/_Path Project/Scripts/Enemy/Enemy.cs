@@ -13,6 +13,7 @@ namespace TDGame
         public IObjectPool<Enemy> Pool { get; set; }
 
         #region Private Fields
+        private EnemyState _state;
         private Enemy_Health _health;
         private CharacterMovement _movement;
         private Path _currentPath => SpawnManager.Instance.MapPath;
@@ -20,17 +21,19 @@ namespace TDGame
         private int _pathIndex = 0;
         #endregion
 
+        public EnemyData Data => _data;
 
         void Awake()
         {
             _health = GetComponent<Enemy_Health>();
             _movement = GetComponent<CharacterMovement>();
+
+            Init();
         }
 
         private void OnEnable()
         {
             _health.OnEnemyDie += HandleEnemyDie;
-            Init();
         }
         private void OnDisable()
         {
@@ -54,7 +57,7 @@ namespace TDGame
                 }
                 else
                 {
-                    GameEvent.SendEnemyReachedEnd(_data);
+                    GameEvent.SendEnemyReachedEnd(this);
                     Deactive();
                 }
             }
@@ -62,17 +65,14 @@ namespace TDGame
 
         private void Init()
         {
-            _pathIndex = 0;
-            _targetPosition = _currentPath.GetPointPosition(_pathIndex);
-            _health.Initialize(_data);
+            _health.Init(_data);
             _movement.Init(_data.moveSpeed, _data.moveSpeed + 3);
+            _targetPosition = _currentPath.GetPointPosition(_pathIndex);
         }
 
         private void HandleEnemyDie()
         {
-            GameEvent.SendEnemyReward(_data);
-            GameEvent.HandleEnemyDie(this);
-
+            GameEvent.SendEnemyDie(this);
             Deactive();
         }
 
