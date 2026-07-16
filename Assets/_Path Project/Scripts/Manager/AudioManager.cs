@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public class AudioManager : PersistentSingleton<AudioManager>
+    public class AudioManager : Singleton<AudioManager>
     {
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
@@ -35,7 +35,7 @@ namespace TDGame
             musicSource.Play();
         }
 
-        public void PlaySound(AudioClip clip)
+        public void PlaySoundEffect(AudioClip clip)
         {
             sfxSource.PlayOneShot(clip);
         }
@@ -43,13 +43,13 @@ namespace TDGame
         public void PlayMainMenuMusic() => PlayMusic(mainMenuMusic);
         public void PlayGameplayMusic() => PlayMusic(gameplayMusic);
 
-        public void PlayPauseSound() => PlaySound(pasueClip);
-        public void PlayResumeSound() => PlaySound(resumeClip);
-        public void PlayButtonClickSound() => PlaySound(buttonClickClip);
-        public void PlayTowerPlacedSound() => PlaySound(towerPlacedClip);
-        public void PlayEnemyDestroyedSound() => PlaySound(enemyDestroyedClip);
-        public void PlayMissionCompleteSound() => PlaySound(missionCompleteClip);
-        public void PlayGameOverSound() => PlaySound(gameOverClip);
+        public void PlayPauseSound() => PlaySoundEffect(pasueClip);
+        public void PlayResumeSound() => PlaySoundEffect(resumeClip);
+        public void PlayButtonClickSound() => PlaySoundEffect(buttonClickClip);
+        public void PlayTowerPlacedSound() => PlaySoundEffect(towerPlacedClip);
+        public void PlayEnemyDestroyedSound() => PlaySoundEffect(enemyDestroyedClip);
+        public void PlayMissionCompleteSound() => PlaySoundEffect(missionCompleteClip);
+        public void PlayGameOverSound() => PlaySoundEffect(gameOverClip);
 
     }
 

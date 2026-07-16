@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e0cc8979470429d9e5bf4316af7316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDEnemy
-  _data: {fileID: 11400000, guid: 8d9c14b98d97c40a28b7468693fcff7b, type: 2}
+  Data: {fileID: 11400000, guid: 8d9c14b98d97c40a28b7468693fcff7b, type: 2}
 --- !u!114 &451860075186101210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.Enemy_Health
   _healthBar: {fileID: 5587830760002416646}
+  _effectPrefab: {fileID: 8002050955077703852, guid: 9bde9e48bb2a1426c8480805b43dfee9, type: 3}
 --- !u!114 &8168154182705731090
 MonoBehaviour:
   m_ObjectHideFlags: 0

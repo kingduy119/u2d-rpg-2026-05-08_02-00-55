@@ -1,6 +1,4 @@
 
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TDGame
@@ -38,6 +36,9 @@ namespace TDGame
 
         public void TakeDamage(TowerSO data)
         {
+            // if (_effectPrefab)
+            //     Instantiate(_effectPrefab, transform.position, Quaternion.identity);
+
             _healthState.Health -= data.damage;
             if (_healthState.Health <= 0)
             {

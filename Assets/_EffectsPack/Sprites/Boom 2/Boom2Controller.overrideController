@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Boom2Controller
+  m_Controller: {fileID: 9100000, guid: ce4d429174630415a85e5fa23468a777, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 878b4d15fbdcb4b029b606034888a2ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8adfe44c16655469d9f9496448231e8f, type: 2}
