@@ -86,37 +86,6 @@ namespace TDGame
                 Mathf.Clamp(m_cinemachineCamera.Lens.OrthographicSize, minZoom, maxZoom);
         }
 
-        private void HandleMouse()
-        {
-            // if (Mouse.current == null)
-            //     return;
-
-            // // Bắt đầu kéo
-            // if (Mouse.current.leftButton.wasPressedThisFrame)
-            // {
-            //     if (EventSystem.current != null &&
-            //         EventSystem.current.IsPointerOverGameObject())
-            //         return;
-
-            //     m_lastWorldPosition = GetMouseWorldPosition();
-            //     _isDragging = true;
-            // }
-
-            // if (_isDragging && Mouse.current.leftButton.isPressed)
-            // {
-            //     Vector3 currentWorldPosition = GetMouseWorldPosition();
-            //     Vector3 delta = m_lastWorldPosition - currentWorldPosition;
-
-            //     transform.position += delta * dragSpeed;
-            //     m_lastWorldPosition = currentWorldPosition;
-            // }
-
-            // if (Mouse.current.leftButton.wasReleasedThisFrame)
-            // {
-            //     _isDragging = false;
-            // }
-        }
-
         private void HandleTouch()
         {
             if (Touchscreen.current == null)

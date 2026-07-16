@@ -21,7 +21,7 @@ namespace TDGame
             {
                 if (s_Instance == null)
                 {
-                    s_Instance = (T)FindFirstObjectByType(typeof(T));
+                    s_Instance = (T)FindAnyObjectByType(typeof(T));
 
                     if (s_Instance == null)
                     {
@@ -61,11 +61,10 @@ namespace TDGame
             }
         }
 
-        [System.Obsolete]
         private static void SetupInstance()
         {
             // lazy instantiation
-            s_Instance = (T)FindFirstObjectByType(typeof(T));
+            s_Instance = (T)FindAnyObjectByType(typeof(T));
 
             if (s_Instance == null)
             {

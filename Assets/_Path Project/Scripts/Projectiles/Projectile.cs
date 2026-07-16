@@ -23,15 +23,37 @@ namespace TDGame
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Enemy"))
+            CheckCollisionInterfaces(collision);
+            Deactivate();
+        }
+
+        private void CheckCollisionInterfaces(Collider2D collision)
+        {
+            var monoBehaviours = collision.gameObject.GetComponents<MonoBehaviour>();
+            foreach (var monoBehaviour in monoBehaviours)
             {
-                if (collision.TryGetComponent(out EnemyHealth enemy))
-                {
-                    enemy.TakeDamage(_data);
-                    Deactivate();
-                }
+                HandleDamageableInterface(monoBehaviour);
+                HandleEffectTriggerInterface(monoBehaviour);
             }
         }
+
+        private void HandleDamageableInterface(MonoBehaviour monoBehaviour)
+        {
+            if (monoBehaviour is IDamageable damageable)
+            {
+                damageable.TakeDamage(_data.damage);
+            }
+        }
+
+        private void HandleEffectTriggerInterface(MonoBehaviour monoBehaviour)
+        {
+            if (monoBehaviour is IEffectTrigger effectTrigger)
+            {
+                effectTrigger.TriggerEffect();
+            }
+        }
+
+
 
         public virtual void Launch(TowerSO data, Vector3 shotDirection)
         {

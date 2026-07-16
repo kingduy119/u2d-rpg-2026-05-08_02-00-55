@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public class EnemyHealth : MonoBehaviour
+    public class EnemyHealth : MonoBehaviour, IDamageable
     {
         [SerializeField] private Transform _healthBar;
 
@@ -34,12 +34,9 @@ namespace TDGame
             _healthState.MaxHealth = enemy.Data.maxHealth;
         }
 
-        public void TakeDamage(TowerSO data)
+        public void TakeDamage(float amount)
         {
-            // if (_effectPrefab)
-            //     Instantiate(_effectPrefab, transform.position, Quaternion.identity);
-
-            _healthState.Health -= data.damage;
+            _healthState.Health -= amount;
             if (_healthState.Health <= 0)
             {
                 GameEvent.SendEnemyDie(_enemy);
@@ -53,6 +50,7 @@ namespace TDGame
             scale.x = _healthBarOriginalScale.x * _healthState.Percent;
             _healthBar.localScale = scale;
         }
+
     }
 
 }
