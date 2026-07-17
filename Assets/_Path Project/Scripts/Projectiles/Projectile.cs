@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Pool;
-using EffectPack;
 
 namespace TDGame
 {
@@ -16,44 +15,20 @@ namespace TDGame
         private float _projectileDuration;
         private float _speed = 1;
 
+        public TowerSO Data => _data;
+
+        protected virtual void Awake()
+        {
+            if (TryGetComponent<ProjectileCollision>(out var collision))
+            {
+                collision.ProjectTile = this;
+            }
+        }
+
         protected virtual void Update()
         {
             HandleMovement();
         }
-
-        void OnTriggerEnter2D(Collider2D collision)
-        {
-            CheckCollisionInterfaces(collision);
-            Deactivate();
-        }
-
-        private void CheckCollisionInterfaces(Collider2D collision)
-        {
-            var monoBehaviours = collision.gameObject.GetComponents<MonoBehaviour>();
-            foreach (var monoBehaviour in monoBehaviours)
-            {
-                HandleDamageableInterface(monoBehaviour);
-                HandleEffectTriggerInterface(monoBehaviour);
-            }
-        }
-
-        private void HandleDamageableInterface(MonoBehaviour monoBehaviour)
-        {
-            if (monoBehaviour is IDamageable damageable)
-            {
-                damageable.TakeDamage(_data.damage);
-            }
-        }
-
-        private void HandleEffectTriggerInterface(MonoBehaviour monoBehaviour)
-        {
-            if (monoBehaviour is IEffectTrigger effectTrigger)
-            {
-                effectTrigger.TriggerEffect();
-            }
-        }
-
-
 
         public virtual void Launch(TowerSO data, Vector3 shotDirection)
         {
@@ -75,7 +50,7 @@ namespace TDGame
             transform.position += _speed * Time.deltaTime * _shotDirection;
         }
 
-        protected virtual void Deactivate() => Pool.Release(this);
+        public virtual void Deactivate() => Pool.Release(this);
     }
 
 }

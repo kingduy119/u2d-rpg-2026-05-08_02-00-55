@@ -1,16 +1,5 @@
 using UnityEngine;
 
-
-public interface IEffectTrigger
-{
-    void TriggerEffect();
-}
-
-public interface IDamageable
-{
-    void TakeDamage(float amount);
-}
-
 namespace TDGame
 {
     public class EnemyEffect : MonoBehaviour, IEffectTrigger

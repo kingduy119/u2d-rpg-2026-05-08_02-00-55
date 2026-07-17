@@ -11,16 +11,21 @@ namespace TDGame
         [SerializeField] private AudioClip mainMenuMusic;
         [SerializeField] private AudioClip gameplayMusic;
 
-        [Header("Button SFX")]
-        [SerializeField] private AudioClip pasueClip;
-        [SerializeField] private AudioClip resumeClip;
-        [SerializeField] private AudioClip buttonClickClip;
+        [Header("Game SFX")]
+        [SerializeField] private AudioClip pasue;
+        [SerializeField] private AudioClip resume;
+        [SerializeField] private AudioClip buttonClick;
+        [SerializeField] private AudioClip missionComplete;
+        [SerializeField] private AudioClip gameOver;
 
-        [Header("Object SFX")]
-        [SerializeField] private AudioClip towerPlacedClip;
-        [SerializeField] private AudioClip enemyDestroyedClip;
-        [SerializeField] private AudioClip missionCompleteClip;
-        [SerializeField] private AudioClip gameOverClip;
+        [Header("Enemy SFX")]
+        [SerializeField] private AudioClip enemyDestroyed;
+        // [SerializeField] private AudioClip enemyDestroyed;
+
+        [Header("Tower SFX")]
+        [SerializeField] private AudioClip towerCantBuild;
+        [SerializeField] private AudioClip towerPlaced;
+        [SerializeField] private AudioClip towerAttack;
 
         protected override void Awake()
         {
@@ -43,13 +48,18 @@ namespace TDGame
         public void PlayMainMenuMusic() => PlayMusic(mainMenuMusic);
         public void PlayGameplayMusic() => PlayMusic(gameplayMusic);
 
-        public void PlayPauseSound() => PlaySoundEffect(pasueClip);
-        public void PlayResumeSound() => PlaySoundEffect(resumeClip);
-        public void PlayButtonClickSound() => PlaySoundEffect(buttonClickClip);
-        public void PlayTowerPlacedSound() => PlaySoundEffect(towerPlacedClip);
-        public void PlayEnemyDestroyedSound() => PlaySoundEffect(enemyDestroyedClip);
-        public void PlayMissionCompleteSound() => PlaySoundEffect(missionCompleteClip);
-        public void PlayGameOverSound() => PlaySoundEffect(gameOverClip);
+        public void PlayPauseSound() => PlaySoundEffect(pasue);
+        public void PlayResumeSound() => PlaySoundEffect(resume);
+        public void PlayButtonClickSound() => PlaySoundEffect(buttonClick);
+        public void PlayMissionCompleteSound() => PlaySoundEffect(missionComplete);
+        public void PlayGameOverSound() => PlaySoundEffect(gameOver);
+
+        public void PlayEnemyDestroyedSound() => PlaySoundEffect(enemyDestroyed);
+        public void PlayEnemyTakeDamage() => PlaySoundEffect(enemyDestroyed);
+
+        public void PlayTowerPlacedSound() => PlaySoundEffect(towerPlaced);
+        public void PlayTowerCantBuild() => PlaySoundEffect(towerCantBuild);
+        public void PlayTowerAttack() => PlaySoundEffect(towerAttack);
 
     }
 

@@ -10,6 +10,7 @@ namespace TDGame
         IPoolable<Enemy>
     {
         [SerializeField] public EnemySO Data;
+        [SerializeField] public EnemySound Sound;
 
         #region Private Fields
         private EnemyHealth _health;

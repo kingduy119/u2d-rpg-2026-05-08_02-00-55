@@ -42,6 +42,7 @@ namespace TDGame
                 GameEvent.SendEnemyDie(_enemy);
                 _enemy.Deactive();
             }
+            _enemy.Sound.PlayTakeDamage();
         }
 
         private void UpdateHealthUI()
@@ -50,7 +51,6 @@ namespace TDGame
             scale.x = _healthBarOriginalScale.x * _healthState.Percent;
             _healthBar.localScale = scale;
         }
-
     }
 
 }

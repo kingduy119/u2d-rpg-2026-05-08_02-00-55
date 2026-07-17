@@ -75,6 +75,8 @@ namespace TDGame
             OnEnemyDie?.Invoke(enemy);
             OnGetEnemyReward?.Invoke(enemy);
         }
+
+        public static void PlaySFX(AudioClip clip) => AudioManager.Instance.PlaySoundEffect(clip);
     }
 
 }

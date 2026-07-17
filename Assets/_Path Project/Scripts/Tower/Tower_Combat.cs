@@ -7,15 +7,9 @@ namespace TDGame
     public class Tower_Combat : MonoBehaviour
     {
         private TowerSO m_data;
-        private CircleCollider2D m_circleCollider;
         private List<Enemy> m_enemiesInRange = new();
+        private ProjectileFactory Factory => FactoryManager.Instance.ProjectileFactory;
         private float m_shootTimer = 0f;
-        private ProjectileFactory _factory => FactoryManager.Instance.ProjectileFactory;
-
-        private void Awake()
-        {
-            m_circleCollider = GetComponent<CircleCollider2D>();
-        }
 
         private void OnEnable()
         {
@@ -31,8 +25,12 @@ namespace TDGame
         public void Init(TowerSO data)
         {
             m_data = data;
-            m_circleCollider.radius = data.range;
             m_enemiesInRange = new List<Enemy>();
+
+            if (TryGetComponent<CircleCollider2D>(out var collider))
+            {
+                collider.radius = m_data.range;
+            }
         }
 
         private void Update()
@@ -72,7 +70,7 @@ namespace TDGame
         {
             if (m_enemiesInRange.Count > 0)
             {
-                Projectile projectile = _factory.GetObject(m_data.projectType);
+                Projectile projectile = Factory.GetObject(m_data.projectType);
                 if (projectile == null) return;
 
                 Vector2 shootDirection = (m_enemiesInRange[0].transform.position - transform.position).normalized;

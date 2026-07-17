@@ -1,0 +1,18 @@
+using UnityEngine;
+using UnityEngine.Pool;
+
+public interface IPoolable<T> where T : Component
+{
+    IObjectPool<T> Pool { get; set; }
+}
+
+
+public interface IEffectTrigger
+{
+    void TriggerEffect();
+}
+
+public interface IDamageable
+{
+    void TakeDamage(float amount);
+}

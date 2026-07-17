@@ -3,11 +3,6 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
-    public interface IPoolable<T> where T : Component
-    {
-        IObjectPool<T> Pool { get; set; }
-    }
-
     public class GenericPool<T> where T : Component,
     IPoolable<T>
     {

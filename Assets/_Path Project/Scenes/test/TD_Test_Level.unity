@@ -1531,7 +1531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6416304065245925452, guid: 2f3ca21cac40b4eaca61d5f368e461a6, type: 3}
       propertyPath: m_Name
-      value: UIManager (1)
+      value: UIManager
       objectReference: {fileID: 0}
     - target: {fileID: 6496922424000631291, guid: 2f3ca21cac40b4eaca61d5f368e461a6, type: 3}
       propertyPath: m_AnchorMax.y

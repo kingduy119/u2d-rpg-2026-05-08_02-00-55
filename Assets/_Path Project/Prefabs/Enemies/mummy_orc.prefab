@@ -198,6 +198,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDEnemy
   Data: {fileID: 11400000, guid: 8d9c14b98d97c40a28b7468693fcff7b, type: 2}
+  Sound:
+    TakeDamgeSFX: {fileID: 8300000, guid: 6dc55b14817d64357a47cad631654bdc, type: 3}
+    DestroySFX: {fileID: 8300000, guid: 6dc55b14817d64357a47cad631654bdc, type: 3}
 --- !u!114 &451860075186101210
 MonoBehaviour:
   m_ObjectHideFlags: 0

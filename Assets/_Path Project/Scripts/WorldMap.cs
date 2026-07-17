@@ -165,9 +165,11 @@ namespace TDGame
                 }
                 m_selectedTower = null;
                 HiddenPreview();
+                AudioManager.Instance.PlayTowerPlacedSound();
             }
             else
             {
+                AudioManager.Instance.PlayTowerCantBuild();
                 Debug.Log("Cant Build Tower");
             }
 
