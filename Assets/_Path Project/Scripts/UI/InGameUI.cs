@@ -24,10 +24,11 @@ namespace TDGame
         [Header("UI Pannels")]
         [SerializeField] private GameObject settingsPanel;
 
-        private InGameState InGameState => GameManager.Instance.InGameState;
+        private InGameState InGameState;
 
         private void Awake()
         {
+            InGameState = GameManager.Instance.InGameState;
             settingsPanel.SetActive(false);
             gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
         }
@@ -43,7 +44,7 @@ namespace TDGame
 
             settingsButton.onClick.AddListener(HandleSettingsClick);
             startWaveButton.onClick.AddListener(InGameState.StartWave);
-            gameSpeedButton.onClick.AddListener(HandleChangeGameSpeed);
+            gameSpeedButton.onClick.AddListener(ChamgeGameSpeed);
 
             GameEvent.OnLoadLevel += LoadLevelResource;
         }
@@ -60,7 +61,7 @@ namespace TDGame
 
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
             startWaveButton.onClick.RemoveListener(InGameState.StartWave);
-            gameSpeedButton.onClick.RemoveListener(HandleChangeGameSpeed);
+            gameSpeedButton.onClick.RemoveListener(ChamgeGameSpeed);
 
             GameEvent.OnLoadLevel -= LoadLevelResource;
         }
@@ -90,22 +91,18 @@ namespace TDGame
 
         private void LoadLevelResource()
         {
-            LevelSO level = LevelManager.Instance.LevelSO;
+            LevelSO level = LevelManager.Instance.LevelState.CurrentLevel;
             InGameState.Golds = level.startingGold;
             InGameState.Lives = level.startingLives;
         }
 
 
-        private void HandleChangeGameSpeed()
-        {
-            InGameState.GameSpeed++;
-        }
-
+        private void ChamgeGameSpeed() => InGameState.GameSpeed++;
         public void OnCloseSettingsClick() => ResumeGame();
         private void HandleSettingsClick()
         {
             GameEvent.PauseGame();
-            settingsPanel.gameObject.SetActive(true);
+            settingsPanel.SetActive(true);
         }
         public void PauseGame() => GameEvent.PauseGame();
         public void ResumeGame() => GameEvent.ResumeGame();

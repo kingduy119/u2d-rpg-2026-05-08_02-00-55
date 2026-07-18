@@ -17,6 +17,8 @@ namespace TDGame
         public static event Action OnPlayAgain;
         public static event Action OnMissionComplete;
 
+        public static AudioController Audio { get; set; }
+
         //  Event Functional:
         public static void UpdateUI()
         {
@@ -28,12 +30,12 @@ namespace TDGame
             if (name == "TD_MainMenu")
             {
                 UIManager.Instance.SetupUIMainMenu();
-                AudioManager.Instance.PlayMainMenuMusic();
+                Audio.PlayMainMenuMusic();
             }
             else
             {
                 UIManager.Instance.SetupUIInGame();
-                AudioManager.Instance.PlayGameplayMusic();
+                Audio.PlayGameplayMusic();
                 OnLoadLevel?.Invoke();
             }
         }
@@ -52,12 +54,12 @@ namespace TDGame
         public static void PauseGame()
         {
             Time.timeScale = 0f;
-            AudioManager.Instance.PlayPauseSound();
+            Audio.PlayPauseSound();
         }
         public static void ResumeGame()
         {
             Time.timeScale = 1f;
-            AudioManager.Instance.PlayResumeSound();
+            Audio.PlayResumeSound();
         }
 
         // Enemy
@@ -76,7 +78,7 @@ namespace TDGame
             OnGetEnemyReward?.Invoke(enemy);
         }
 
-        public static void PlaySFX(AudioClip clip) => AudioManager.Instance.PlaySoundEffect(clip);
+        public static void PlaySFX(AudioClip clip) => Audio.PlaySoundEffect(clip);
     }
 
 }

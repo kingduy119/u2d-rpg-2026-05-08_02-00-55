@@ -18,8 +18,8 @@ MonoBehaviour:
   towerName: Basic Tower
   cost: 10
   size: {x: 1, y: 1}
-  range: 1
-  shootInterval: 0.7
+  range: 2
+  shootInterval: 2
   projectileSpeed: 3
   projectileDuration: 1
-  damage: 1
+  damage: 5

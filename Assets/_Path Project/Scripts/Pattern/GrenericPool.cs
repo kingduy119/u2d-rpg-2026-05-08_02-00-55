@@ -24,24 +24,18 @@ namespace TDGame
 
                     return instance;
                 },
-                obj => obj.gameObject.SetActive(true),
-                obj => obj.gameObject.SetActive(false),
-                obj => Object.Destroy(obj.gameObject),
+                OnGet,
+                OnRelease,
+                OnDestroy,
                 true,
                 defaultCapacity,
                 maxSize);
         }
 
-        public T Get()
-        {
-            return _pool.Get();
-        }
+        private void OnGet(T item) => item.gameObject.SetActive(true);
+        private void OnRelease(T item) => item.gameObject.SetActive(false);
+        private void OnDestroy(T item) => Object.Destroy(item.gameObject);
 
-        public void Release(T obj)
-        {
-            _pool.Release(obj);
-        }
-
-        public IObjectPool<T> Pool => _pool;
+        public T Get() => _pool.Get();
     }
 }

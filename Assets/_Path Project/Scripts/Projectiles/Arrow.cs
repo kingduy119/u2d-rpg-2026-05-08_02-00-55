@@ -7,7 +7,6 @@ namespace TDGame
     {
         public override ProjectileType Type => ProjectileType.Arrow;
 
-
         public override void Launch(TowerSO data, Vector3 shotDirection)
         {
             base.Launch(data, shotDirection);

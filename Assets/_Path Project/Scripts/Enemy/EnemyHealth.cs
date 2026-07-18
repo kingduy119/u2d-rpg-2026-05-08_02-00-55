@@ -11,7 +11,6 @@ namespace TDGame
         private HealthState _healthState;
         private Enemy _enemy;
 
-
         private void Awake()
         {
             _healthState = new();
@@ -41,6 +40,8 @@ namespace TDGame
             {
                 GameEvent.SendEnemyDie(_enemy);
                 _enemy.Deactive();
+                _enemy.Sound.PlayDestroy();
+                return;
             }
             _enemy.Sound.PlayTakeDamage();
         }

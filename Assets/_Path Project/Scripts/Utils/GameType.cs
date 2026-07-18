@@ -15,6 +15,7 @@ namespace TDGame
     {
         Default,
         Arrow,
+        Bullet
     }
 
     public enum EnemyType

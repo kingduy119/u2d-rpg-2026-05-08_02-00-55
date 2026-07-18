@@ -4,9 +4,11 @@ namespace TDGame
 {
     public class FactoryManager : PersistentSingleton<FactoryManager>
     {
-        [SerializeField] public EnemyFactory EnemyFactory;
-        [SerializeField] public TowerFactory TowerFactory;
-        [SerializeField] public ProjectileFactory ProjectileFactory;
+        public EnemyFactory EnemyFactory;
+        public TowerFactory TowerFactory;
+        public ProjectileFactory ProjectileFactory;
+
+
 
         protected override void Awake()
         {

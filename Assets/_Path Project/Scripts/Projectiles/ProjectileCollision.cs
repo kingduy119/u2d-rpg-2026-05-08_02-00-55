@@ -4,12 +4,20 @@ namespace TDGame
 {
     public class ProjectileCollision : MonoBehaviour
     {
-        public Projectile ProjectTile;
+        private Projectile m_ProjectTile;
+
+        private void Awake()
+        {
+            if (TryGetComponent<Projectile>(out var instance))
+            {
+                m_ProjectTile = instance;
+            }
+        }
 
         void OnTriggerEnter2D(Collider2D collision)
         {
             CheckCollisionInterfaces(collision);
-            ProjectTile.Deactivate();
+            m_ProjectTile.Deactivate();
         }
 
         private void CheckCollisionInterfaces(Collider2D collision)
@@ -26,7 +34,7 @@ namespace TDGame
         {
             if (monoBehaviour is IDamageable damageable)
             {
-                damageable.TakeDamage(ProjectTile.Data.damage);
+                damageable.TakeDamage(m_ProjectTile.Data.damage);
             }
         }
 

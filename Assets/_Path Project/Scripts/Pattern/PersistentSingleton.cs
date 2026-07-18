@@ -18,7 +18,7 @@ namespace TDGame
                     // Create a new GameObject with the Type T if it does not exist
                     if (s_Instance == null)
                     {
-                        GameObject singletonObject = new GameObject();
+                        GameObject singletonObject = new();
                         s_Instance = singletonObject.AddComponent<T>();
 
                         // Name the singleton instance for the Type

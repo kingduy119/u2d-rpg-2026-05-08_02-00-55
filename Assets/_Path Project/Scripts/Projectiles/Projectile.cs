@@ -6,24 +6,14 @@ namespace TDGame
     public class Projectile : MonoBehaviour,
         IPoolable<Projectile>
     {
-        public virtual ProjectileType Type { get; }
+        public virtual ProjectileType Type => ProjectileType.Default;
         public IObjectPool<Projectile> Pool { get; set; }
-        // ###########
-
         private TowerSO _data;
         protected Vector3 _shotDirection;
         private float _projectileDuration;
         private float _speed = 1;
 
         public TowerSO Data => _data;
-
-        protected virtual void Awake()
-        {
-            if (TryGetComponent<ProjectileCollision>(out var collision))
-            {
-                collision.ProjectTile = this;
-            }
-        }
 
         protected virtual void Update()
         {

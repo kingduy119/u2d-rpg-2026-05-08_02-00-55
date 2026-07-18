@@ -19,7 +19,7 @@ namespace TDGame
 
         private void UpdateUI()
         {
-            txtLevel.text = LevelManager.Instance.LevelSO.levelName;
+            txtLevel.text = LevelManager.Instance.LevelState.CurrentLevel.levelName;
         }
 
         public void StartNewGame() => GameEvent.SendPlayNewgame();

@@ -9,8 +9,8 @@ namespace TDGame
     public class Enemy : MonoBehaviour,
         IPoolable<Enemy>
     {
-        [SerializeField] public EnemySO Data;
-        [SerializeField] public EnemySound Sound;
+        public EnemySO Data;
+        public EnemySound Sound;
 
         #region Private Fields
         private EnemyHealth _health;

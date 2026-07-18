@@ -1,8 +1,9 @@
+
 using UnityEngine;
 
 namespace TDGame
 {
-    public class AudioManager : Singleton<AudioManager>
+    public class AudioController : MonoBehaviour
     {
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
@@ -17,20 +18,6 @@ namespace TDGame
         [SerializeField] private AudioClip buttonClick;
         [SerializeField] private AudioClip missionComplete;
         [SerializeField] private AudioClip gameOver;
-
-        [Header("Enemy SFX")]
-        [SerializeField] private AudioClip enemyDestroyed;
-        // [SerializeField] private AudioClip enemyDestroyed;
-
-        [Header("Tower SFX")]
-        [SerializeField] private AudioClip towerCantBuild;
-        [SerializeField] private AudioClip towerPlaced;
-        [SerializeField] private AudioClip towerAttack;
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
 
         public void PlayMusic(AudioClip clip)
         {
@@ -53,14 +40,5 @@ namespace TDGame
         public void PlayButtonClickSound() => PlaySoundEffect(buttonClick);
         public void PlayMissionCompleteSound() => PlaySoundEffect(missionComplete);
         public void PlayGameOverSound() => PlaySoundEffect(gameOver);
-
-        public void PlayEnemyDestroyedSound() => PlaySoundEffect(enemyDestroyed);
-        public void PlayEnemyTakeDamage() => PlaySoundEffect(enemyDestroyed);
-
-        public void PlayTowerPlacedSound() => PlaySoundEffect(towerPlaced);
-        public void PlayTowerCantBuild() => PlaySoundEffect(towerCantBuild);
-        public void PlayTowerAttack() => PlaySoundEffect(towerAttack);
-
     }
-
 }

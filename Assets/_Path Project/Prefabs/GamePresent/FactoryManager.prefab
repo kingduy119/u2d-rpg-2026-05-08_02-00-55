@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.ProjectileFactory
   _configs:
+  - type: 0
+    prefab: {fileID: 7395881598276135404, guid: 84a4fd2c8a7844d02bcf076f950840db, type: 3}
   - type: 1
     prefab: {fileID: 1272348038168014784, guid: 2560d9671c22747d7a2e04975c0e95a2, type: 3}
 --- !u!1 &6969007811572122509

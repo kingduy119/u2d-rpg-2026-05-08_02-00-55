@@ -27,7 +27,8 @@ namespace TDGame
             get => _gameSpeed;
             set
             {
-                _gameSpeed = Mathf.Clamp(value, 1f, _maxGameSpeed);
+                _gameSpeed = (_gameSpeed + value) % _maxGameSpeed;
+                Time.timeScale = _gameSpeed;
                 IsDirty = true;
             }
         }
@@ -124,5 +125,14 @@ namespace TDGame
         public void HandleEnemyDie(Enemy _) => Enemies--;
         public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.Data.goldReward;
 
+        public bool CheckAndSpendResource(TowerSO towerData)
+        {
+            if (Golds >= towerData.cost)
+            {
+                Golds -= towerData.cost;
+                return true;
+            }
+            return false;
+        }
     }
 }

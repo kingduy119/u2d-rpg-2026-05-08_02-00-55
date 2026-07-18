@@ -5,25 +5,22 @@ namespace TDGame
 {
     public class SpawnManager : PersistentSingleton<SpawnManager>
     {
-
-        private EnemyFactory _enemyFactory;
-        private InGameState InGameState => GameManager.Instance.InGameState;
-        private WaveData[] Waves => LevelManager.Instance.LevelSO.waves;
+        private EnemyFactory EnemyFactory => FactoryManager.Instance.EnemyFactory;
+        private InGameState InGameState;
+        private LevelState LevelState;
+        private WaveData[] Waves => LevelState.CurrentLevel.waves;
         private WaveData CurrentWave => Waves[InGameState.WaveCount];
-        private SpawnState _spawnState = new();
+        private readonly SpawnState _spawnState = new();
 
+        [NonSerialized]
         public Path MapPath;
         private Transform _spawnPoint;
 
         protected override void Awake()
         {
             base.Awake();
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            _enemyFactory = FactoryManager.Instance.EnemyFactory;
+            InGameState = GameManager.Instance.InGameState;
+            LevelState = LevelManager.Instance.LevelState;
         }
 
         private void OnEnable()
@@ -37,6 +34,8 @@ namespace TDGame
 
         void Update()
         {
+            if (InGameState == null) return;
+
             if (!InGameState.IsStarted) return;
 
             if (_spawnState.ForEachTimer(CurrentWave.perway))
@@ -66,9 +65,10 @@ namespace TDGame
             InGameState.Enemies = CurrentWave.perway;
             _spawnState.UpdateSpawn(CurrentWave);
         }
+
         private void SpawnObject()
         {
-            Enemy obj = _enemyFactory.GetObject(CurrentWave.enemyType);
+            Enemy obj = EnemyFactory.GetObject(CurrentWave.enemyType);
             if (obj == null) return;
 
             obj.transform.position = _spawnPoint.position;

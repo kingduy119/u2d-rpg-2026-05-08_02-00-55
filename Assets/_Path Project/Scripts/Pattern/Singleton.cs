@@ -1,20 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace TDGame
 {
 
     public class Singleton<T> : MonoBehaviour where T : Component
     {
-
-        // [Tooltip("Delays the removal of duplicate instances until explicitly invoked (for demo use only).")]
-        // [SerializeField]
-        // private bool m_DelayDuplicateRemoval;
-
-
         private static T s_Instance;
-
         public static T Instance
         {
             get
@@ -40,20 +32,14 @@ namespace TDGame
             }
         }
 
-        protected virtual void Awake()
-        {
-            // For demo purposes, this flag can delay the removal of duplicates
-            // if (!m_DelayDuplicateRemoval)
-            //     RemoveDuplicates();
-        }
-
-        private void OnEnable()
+        protected virtual void Awake() { }
+        protected virtual void OnEnable()
         {
             // Clear the single instance when unloading the current scene
             SceneManager.sceneUnloaded += SceneManager_SceneUnloaded;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if (s_Instance == this as T)
             {
@@ -98,6 +84,7 @@ namespace TDGame
         // Destroy singleton when unloading scene (for demo use only)
         private void SceneManager_SceneUnloaded(Scene scene)
         {
+            Debug.Log("Load Scece");
             if (s_Instance != null)
                 Destroy(s_Instance.gameObject);
 

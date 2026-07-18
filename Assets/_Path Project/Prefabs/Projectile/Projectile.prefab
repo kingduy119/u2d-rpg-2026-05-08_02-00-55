@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1958835160419267379}
   - component: {fileID: -4834817975960342485}
   - component: {fileID: -5725259633414423538}
+  - component: {fileID: 5291786693924668431}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -141,3 +142,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79606b98f56c11847b0f662b411eea0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.Bullet
+--- !u!114 &5291786693924668431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395881598276135404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1a8101453bc40198143328129aafe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.ProjectileCollision

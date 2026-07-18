@@ -19,6 +19,7 @@ namespace TDGame
         [SerializeField] private Tilemap previewTilemap;
         [SerializeField] private Tilemap[] blockTilemaps;
 
+        private InGameState InGameState;
 
         private readonly HashSet<Vector3Int> blockedCells = new();
         private HashSet<Vector3Int> m_previewCells = new();
@@ -30,6 +31,7 @@ namespace TDGame
 
         private void Awake()
         {
+            InGameState = GameManager.Instance.InGameState;
             m_grid = GetComponent<Grid>();
 
             blockedCells.Clear();
@@ -152,7 +154,7 @@ namespace TDGame
         {
             if (m_canBuild)
             {
-                if (!GameManager.Instance.CheckAndSpendResource(m_selectedTower.Data))
+                if (!InGameState.CheckAndSpendResource(m_selectedTower.Data))
                 {
                     Debug.Log("Not Enough Gold");
                     return;
@@ -165,11 +167,11 @@ namespace TDGame
                 }
                 m_selectedTower = null;
                 HiddenPreview();
-                AudioManager.Instance.PlayTowerPlacedSound();
+                // GameManager.Audio.PlayTowerPlacedSound();
             }
             else
             {
-                AudioManager.Instance.PlayTowerCantBuild();
+                // GameManager.Audio.PlayTowerCantBuild();
                 Debug.Log("Cant Build Tower");
             }
 
