@@ -1,27 +1,24 @@
-// using UnityEngine;
-// using UnityEngine.Pool;
-// using System;
-// using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace TDGame
 {
-    public class TowerFactory : FactoryAbstract<TowerType, TowerBase>
-    {
 
-    }
+    public class EnemyFactory : BaseFactory<EnemyType, Enemy>
+    { }
     // : MonoBehaviour
     // {
-    //     private readonly Dictionary<TowerType, GenericPool<TowerBase>> _pool = new();
-
+    //     private readonly Dictionary<EnemyType, GenericPool<Enemy>> _pool = new();
 
     //     [Serializable]
     //     private class Config
     //     {
-    //         public TowerType type;
+    //         public EnemyType type;
     //         public GameObject prefab;
     //     }
     //     [SerializeField] private List<Config> _configs;
-    //     private Dictionary<TowerType, Config> _configMap = new();
+    //     private Dictionary<EnemyType, Config> _configMap = new();
 
 
     //     private void Awake()
@@ -32,14 +29,14 @@ namespace TDGame
     //         }
     //     }
 
-    //     private GenericPool<TowerBase> CreatePool(Config config)
+    //     private GenericPool<Enemy> CreatePool(Config config)
     //     {
     //         GameObject prefab = config.prefab;
-    //         var poolNew = new GenericPool<TowerBase>(prefab, this.transform);
-    //         return poolNew;
+    //         var pool = new GenericPool<Enemy>(prefab, transform);
+    //         return pool;
     //     }
 
-    //     public TowerBase GetObject(TowerType type)
+    //     public Enemy GetObject(EnemyType type)
     //     {
     //         if (!_configMap.TryGetValue(type, out var config))
     //             return null;
@@ -52,6 +49,6 @@ namespace TDGame
 
     //         return pool.Get();
     //     }
-    // }
 
+    // }
 }

@@ -8,36 +8,33 @@ namespace TDGame
     {
         public virtual ProjectileType Type => ProjectileType.Default;
         public IObjectPool<Projectile> Pool { get; set; }
-        private TowerSO _data;
-        protected Vector3 _shotDirection;
-        private float _projectileDuration;
-        private float _speed = 1;
 
-        public TowerSO Data => _data;
+        public ProjectileSO ShareData;
+        protected ProjectileData Data;
+
 
         protected virtual void Update()
         {
             HandleMovement();
         }
 
-        public virtual void Launch(TowerSO data, Vector3 shotDirection)
+        public virtual void Launch(Vector3 shootDirection)
         {
-            _data = data;
-            _shotDirection = shotDirection;
-            _projectileDuration = data.projectileDuration;
-            _speed = data.projectileSpeed;
+
+            Data = ShareData.Data.Clone();
+            Data.Direction = shootDirection;
         }
 
         protected virtual void HandleMovement()
         {
-            if (_projectileDuration <= 0)
+
+            if (Data.LifeTime <= 0)
             {
                 Deactivate();
                 return;
             }
-
-            _projectileDuration -= Time.deltaTime;
-            transform.position += _speed * Time.deltaTime * _shotDirection;
+            Data.LifeTime -= Time.deltaTime;
+            transform.position += Data.Speed * Time.deltaTime * Data.Direction;
         }
 
         public virtual void Deactivate() => Pool.Release(this);

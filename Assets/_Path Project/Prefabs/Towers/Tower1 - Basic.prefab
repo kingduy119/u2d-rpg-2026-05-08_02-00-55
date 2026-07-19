@@ -60,9 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.Tower
   m_render: {fileID: 5025079926833231070}
-  m_data: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
   m_showDraw: 1
-  Type: 0
+  TowerSO: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
 --- !u!58 &6198412523016430597
 CircleCollider2D:
   m_ObjectHideFlags: 0

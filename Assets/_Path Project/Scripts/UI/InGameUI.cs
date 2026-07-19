@@ -44,7 +44,7 @@ namespace TDGame
 
             settingsButton.onClick.AddListener(HandleSettingsClick);
             startWaveButton.onClick.AddListener(InGameState.StartWave);
-            gameSpeedButton.onClick.AddListener(ChamgeGameSpeed);
+            gameSpeedButton.onClick.AddListener(InGameState.ChangeGameSpeed);
 
             GameEvent.OnLoadLevel += LoadLevelResource;
         }
@@ -61,7 +61,7 @@ namespace TDGame
 
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
             startWaveButton.onClick.RemoveListener(InGameState.StartWave);
-            gameSpeedButton.onClick.RemoveListener(ChamgeGameSpeed);
+            gameSpeedButton.onClick.RemoveListener(InGameState.ChangeGameSpeed);
 
             GameEvent.OnLoadLevel -= LoadLevelResource;
         }
@@ -96,8 +96,6 @@ namespace TDGame
             InGameState.Lives = level.startingLives;
         }
 
-
-        private void ChamgeGameSpeed() => InGameState.GameSpeed++;
         public void OnCloseSettingsClick() => ResumeGame();
         private void HandleSettingsClick()
         {

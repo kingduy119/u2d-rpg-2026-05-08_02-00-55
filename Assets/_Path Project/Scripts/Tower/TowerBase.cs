@@ -9,49 +9,32 @@ namespace TDGame
         IPoolable<TowerBase>
     {
         [SerializeField] private SpriteRenderer m_render;
-        [SerializeField] private TowerSO m_data;
         [SerializeField] private bool m_showDraw;
 
-        public TowerSO Data => m_data;
-
-        // ###########
-        public TowerType Type = TowerType.Tower;
+        public TowerSO TowerSO;
+        public Vector2Int Size => TowerSO.size;
         public IObjectPool<TowerBase> Pool { get; set; }
-        // ###########
-
-        private Tower_Combat m_combat;
-
-        public Vector2Int Size => m_data.size;
 
         private void OnValidate()
         {
-            if (!m_data) return;
-            m_render.sprite = m_data.sprite;
+            if (!TowerSO) return;
+            m_render.sprite = TowerSO.sprite;
         }
         protected void Awake()
         {
-            m_combat = GetComponent<Tower_Combat>();
-
-            if (m_data != null)
+            if (TowerSO != null)
             {
-                Type = m_data.towerType;
-                m_render.sprite = m_data.sprite;
+                m_render.sprite = TowerSO.sprite;
             }
         }
 
-        private void Start()
-        {
-            m_combat.Init(m_data);
-        }
-
         public virtual void Deactivate() => Pool.Release(this);
-
         private void OnDrawGizmos()
         {
             if (m_showDraw)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(transform.position, m_data.range);
+                Gizmos.DrawWireSphere(transform.position, TowerSO.ShootRange);
             }
         }
     }

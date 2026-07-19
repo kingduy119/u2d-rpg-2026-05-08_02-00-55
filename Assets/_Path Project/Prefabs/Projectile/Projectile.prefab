@@ -142,6 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79606b98f56c11847b0f662b411eea0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.Bullet
+  ShareData: {fileID: 11400000, guid: 242b02395777b4641a8862cb4b022580, type: 2}
+  ProjectileData:
+    m_Damage: 0
+    m_Speed: 0
+    m_LifeTime: 0
 --- !u!114 &5291786693924668431
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -164,3 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af91620ddf6144cfa74e9e269381370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.Arrow
+  ShareData: {fileID: 11400000, guid: 242b02395777b4641a8862cb4b022580, type: 2}
+  ProjectileData:
+    m_Damage: 0
+    m_Speed: 0
+    m_LifeTime: 0

@@ -1,15 +1,30 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace TDGame
 {
     public class Tower_Combat : MonoBehaviour
     {
-        private TowerSO m_data;
+        private TowerBase Tower;
+        private TowerSO m_TowerSO;
         private List<Enemy> m_enemiesInRange = new();
         private ProjectileFactory Factory => FactoryManager.Instance.ProjectileFactory;
         private float m_shootTimer = 0f;
+
+        private void Awake()
+        {
+            m_enemiesInRange = new List<Enemy>();
+
+            if (TryGetComponent<TowerBase>(out var tower))
+            {
+                Tower = tower;
+                m_TowerSO = tower.TowerSO;
+            }
+            if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
+            {
+                collider.radius = Tower.TowerSO.ShootRange;
+            }
+        }
 
         private void OnEnable()
         {
@@ -21,28 +36,15 @@ namespace TDGame
             GameEvent.OnEnemyDie -= HandleEnemyDie;
         }
 
-
-        public void Init(TowerSO data)
-        {
-            m_data = data;
-            m_enemiesInRange = new List<Enemy>();
-
-            if (TryGetComponent<CircleCollider2D>(out var collider))
-            {
-                collider.radius = m_data.range;
-            }
-        }
-
         private void Update()
         {
             m_shootTimer -= Time.deltaTime;
             if (m_shootTimer <= 0)
             {
-                m_shootTimer = m_data.shootInterval;
                 Shoot();
+                m_shootTimer = m_TowerSO.ShootInterval;
             }
         }
-
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -68,15 +70,16 @@ namespace TDGame
 
         private void Shoot()
         {
+            Debug.Log("Shoot");
             if (m_enemiesInRange.Count > 0)
             {
-                Projectile projectile = Factory.GetObject(m_data.projectType);
+                Projectile projectile = Factory.GetObject(m_TowerSO.projectType);
                 if (projectile == null) return;
 
                 Vector2 shootDirection = (m_enemiesInRange[0].transform.position - transform.position).normalized;
 
                 projectile.transform.position = transform.position;
-                projectile.Launch(m_data, shootDirection);
+                projectile.Launch(shootDirection);
             }
         }
 

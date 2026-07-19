@@ -7,15 +7,15 @@ namespace TDGame
     {
         public override ProjectileType Type => ProjectileType.Arrow;
 
-        public override void Launch(TowerSO data, Vector3 shotDirection)
+        public override void Launch(Vector3 shotDirection)
         {
-            base.Launch(data, shotDirection);
+            base.Launch(shotDirection);
             RotateArrow();
         }
 
         private void RotateArrow()
         {
-            float angle = Mathf.Atan2(_shotDirection.y, _shotDirection.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(Data.Direction.y, Data.Direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
     }

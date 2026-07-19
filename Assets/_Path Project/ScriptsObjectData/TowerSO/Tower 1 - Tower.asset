@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cfdbd43872cedc45a90b8edec095ec5, type: 3}
   m_Name: Tower 1 - Tower
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  towerType: 0
-  projectType: 1
   sprite: {fileID: 21300000, guid: 4f4d52f9c667d4205b750b68030da40c, type: 3}
   towerName: Basic Tower
   cost: 10
   size: {x: 1, y: 1}
-  range: 2
-  shootInterval: 2
-  projectileSpeed: 3
+  towerType: 0
+  projectType: 1
+  ShootRange: 1.5
+  ShootInterval: 1
+  projectileSpeed: 5
   projectileDuration: 1
   damage: 5

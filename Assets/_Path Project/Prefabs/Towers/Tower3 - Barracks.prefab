@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_data
       value: 
       objectReference: {fileID: 11400000, guid: 0acda361f59cd462099fa423368767a6, type: 2}
+    - target: {fileID: 3550209037226374788, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
+      propertyPath: TowerSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 0acda361f59cd462099fa423368767a6, type: 2}
     - target: {fileID: 3935972184523369920, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.59

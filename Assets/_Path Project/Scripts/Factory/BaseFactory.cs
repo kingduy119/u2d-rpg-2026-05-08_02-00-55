@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public abstract class FactoryAbstract<Type, T> : MonoBehaviour
+    public abstract class BaseFactory<Type, T> : MonoBehaviour
         where T : MonoBehaviour, IPoolable<T>
     {
         private readonly Dictionary<Type, GenericPool<T>> _pool = new();

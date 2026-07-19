@@ -20,16 +20,22 @@ namespace TDGame
             }
         }
 
-        private readonly float _maxGameSpeed = 3f;
+        private float _maxGameSpeed = 3f;
+        public float MaxGameSpeed
+        {
+            get => _maxGameSpeed;
+            set => SetValue(ref _maxGameSpeed, value);
+        }
+
         private float _gameSpeed = 1f;
         public float GameSpeed
         {
             get => _gameSpeed;
             set
             {
-                _gameSpeed = (_gameSpeed + value) % _maxGameSpeed;
+                SetValue(ref _gameSpeed, value);
+                _gameSpeed = Mathf.Clamp(_gameSpeed % _maxGameSpeed, 1, _maxGameSpeed);
                 Time.timeScale = _gameSpeed;
-                IsDirty = true;
             }
         }
 
@@ -122,6 +128,7 @@ namespace TDGame
             }
         }
 
+        public void ChangeGameSpeed() => GameSpeed++;
         public void HandleEnemyDie(Enemy _) => Enemies--;
         public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.Data.goldReward;
 
