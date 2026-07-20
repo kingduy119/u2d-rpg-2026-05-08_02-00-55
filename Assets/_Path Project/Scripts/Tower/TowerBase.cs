@@ -3,8 +3,6 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
-    [RequireComponent(typeof(Tower_Combat))]
-
     public abstract class TowerBase : MonoBehaviour,
         IPoolable<TowerBase>
     {

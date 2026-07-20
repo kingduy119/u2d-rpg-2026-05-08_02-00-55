@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb35027622418450a8321b9ddec65844, type: 3}
-  m_Name: Basic Wave
-  m_EditorClassIdentifier: Assembly-CSharp::WayData
-  enemyType: 0
-  _spawnTimer: 0
-  _spawnInterval: 1
-  perway: 3
+  m_Script: {fileID: 11500000, guid: e8c007e3ee6404608ac1fad35605767f, type: 3}
+  m_Name: Lazer
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.ProjectileSO
+  Sprite: {fileID: 0}
+  Type: 0
+  Data:
+    m_Damage: 1
+    m_Speed: 2
+    m_LifeTime: 5

@@ -10,14 +10,14 @@ namespace TDGame
 
         private void OnEnable()
         {
-            GameEvent.OnPlayAgain += PlayAgain;
+            GameEvent.OnPlayAgain += PlayCurrentLevel;
             GameEvent.OnPlaynewGame += LoadLevel;
             GameEvent.OnMissionComplete += HandleMissionComplete;
         }
 
         private void OnDisable()
         {
-            GameEvent.OnPlayAgain -= PlayAgain;
+            GameEvent.OnPlayAgain -= PlayCurrentLevel;
             GameEvent.OnPlaynewGame -= LoadLevel;
             GameEvent.OnMissionComplete -= HandleMissionComplete;
         }
@@ -34,15 +34,17 @@ namespace TDGame
             SceneManager.LoadScene(LevelState.CurrentLevel.sceneName);
         }
 
-        public void PlayAgain()
+        public void PlayCurrentLevel()
         {
-            LoadLevel(LevelState.Level);
+            SceneManager.LoadScene(LevelState.CurrentLevel.sceneName);
         }
 
         public void HandleMissionComplete()
         {
+            Debug.Log($"HandleMissionComplete:1 {LevelState.Level}");
             LevelState.Level++;
             LevelState.SaveLevelData();
+            Debug.Log($"HandleMissionComplete:2 {LevelState.Level}");
         }
     }
 }

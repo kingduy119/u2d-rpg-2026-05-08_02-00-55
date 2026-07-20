@@ -63,25 +63,6 @@ namespace TDGame
                 DontDestroyOnLoad(gameObj);
             }
         }
-
-        // public void RemoveDuplicates()
-        // {
-        //     if (s_Instance == null)
-        //     {
-        //         s_Instance = this as T;
-
-        //         // Use DontDestroyOnLoad to make persistent but clean up/dispose manually
-        //         //DontDestroyOnLoad(gameObject);
-        //     }
-        //     else if (s_Instance != this)
-        //     {
-        //         Destroy(gameObject);
-        //     }
-        // }
-
-        // Event-handling method
-
-        // Destroy singleton when unloading scene (for demo use only)
         private void SceneManager_SceneUnloaded(Scene scene)
         {
             Debug.Log("Load Scece");

@@ -15,13 +15,17 @@ namespace TDGame
 
         private void Awake()
         {
-            InGameState = GameManager.Instance.InGameState;
             m_button.onClick.AddListener(OnCardClick);
         }
 
         private void OnEnable()
         {
             UpdateUI();
+        }
+
+        private void Start()
+        {
+            InGameState = GameManager.Instance.InGameState;
         }
 
         private void Update()

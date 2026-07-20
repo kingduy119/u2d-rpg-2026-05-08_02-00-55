@@ -15,7 +15,7 @@ namespace TDGame
             _spawnCount = 0;
         }
 
-        public bool ForEachTimer(int perway)
+        public bool RunTimer(int perway)
         {
             _timer -= Time.deltaTime;
             return _timer <= 0f && _spawnCount < perway;

@@ -28,9 +28,10 @@ namespace TDGame
 
         private void Awake()
         {
-            InGameState = GameManager.Instance.InGameState;
             settingsPanel.SetActive(false);
             gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
+
+            InGameState = GameManager.Instance.InGameState;
         }
 
         private void OnEnable()

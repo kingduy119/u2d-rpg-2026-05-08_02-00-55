@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
-    public class GameManager : Singleton<GameManager>
+    public class GameManager : PersistentSingleton<GameManager>
     {
         [SerializeField] private TowerSO[] m_towers;
 
@@ -27,13 +27,13 @@ namespace TDGame
             }
         }
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
         }
 
-        protected override void OnDisable()
+        private void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
 

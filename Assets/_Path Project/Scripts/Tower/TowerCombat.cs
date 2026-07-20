@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public class Tower_Combat : MonoBehaviour
+    public class TowerCombat : MonoBehaviour
     {
-        private TowerBase Tower;
+        [SerializeField] private TowerBase Tower;
         private TowerSO m_TowerSO;
         private List<Enemy> m_enemiesInRange = new();
         private ProjectileFactory Factory => FactoryManager.Instance.ProjectileFactory;
@@ -15,13 +15,14 @@ namespace TDGame
         {
             m_enemiesInRange = new List<Enemy>();
 
-            if (TryGetComponent<TowerBase>(out var tower))
-            {
-                Tower = tower;
-                m_TowerSO = tower.TowerSO;
-            }
+            // if (TryGetComponent<TowerBase>(out var tower))
+            // {
+            //     Tower = tower;
+            //     m_TowerSO = tower.TowerSO;
+            // }
             if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
             {
+                m_TowerSO = Tower.TowerSO;
                 collider.radius = Tower.TowerSO.ShootRange;
             }
         }
@@ -70,7 +71,6 @@ namespace TDGame
 
         private void Shoot()
         {
-            Debug.Log("Shoot");
             if (m_enemiesInRange.Count > 0)
             {
                 Projectile projectile = Factory.GetObject(m_TowerSO.projectType);

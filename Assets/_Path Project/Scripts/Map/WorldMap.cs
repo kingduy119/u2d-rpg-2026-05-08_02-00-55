@@ -19,19 +19,18 @@ namespace TDGame
         [SerializeField] private Tilemap previewTilemap;
         [SerializeField] private Tilemap[] blockTilemaps;
 
-        private InGameState InGameState => GameManager.Instance.InGameState;
+        private InGameState InGameState;
 
         private readonly HashSet<Vector3Int> blockedCells = new();
-        private HashSet<Vector3Int> m_previewCells = new();
-        private bool m_canBuild = false;
-        private Vector3 m_wordPos;
+        private readonly HashSet<Vector3Int> m_previewCells = new();
         private TowerBase m_selectedTower;
+        private Vector3 m_wordPos;
+        private bool CanBuild = false;
 
         public static event Action<bool> OnAcceptBuildResult;
 
         private void Awake()
         {
-            // InGameState = GameManager.Instance.InGameState;
             m_grid = GetComponent<Grid>();
 
             blockedCells.Clear();
@@ -62,6 +61,11 @@ namespace TDGame
             TowerSelectUI.OnCancelBuild -= HandleCancelBuild;
         }
 
+        private void Start()
+        {
+            InGameState = GameManager.Instance.InGameState;
+        }
+
         private void Update()
         {
             if (EventSystem.current.IsPointerOverGameObject())
@@ -74,7 +78,6 @@ namespace TDGame
             mousePos.z = 0;
             m_wordPos = mousePos;
 
-            //  || Input.GetMouseButton(0)
             if (Input.GetMouseButtonDown(0))
             {
                 ShowTowerAndCellPreview();
@@ -126,7 +129,7 @@ namespace TDGame
 
         private void HandleTowerSelecting(Vector3Int origin, Vector2Int size)
         {
-            DisplayPreview();
+            DisplayTilemapPreview();
             previewTilemap.ClearAllTiles();
             m_previewCells.Clear();
 
@@ -138,25 +141,25 @@ namespace TDGame
                 {
                     Vector3Int cell = origin + new Vector3Int(x, y, 0);
                     bool isBlocked = blockedCells.Contains(cell);
+                    var tile = isBlocked ? blockTile : activeTile;
 
                     m_previewCells.Add(cell);
-                    previewTilemap.SetTile(cell,
-                    isBlocked ? blockTile : activeTile
-                    );
+                    previewTilemap.SetTile(cell, tile);
+
                     if (isCanBuild && isBlocked) isCanBuild = false;
                 }
             }
 
-            m_canBuild = isCanBuild;
+            CanBuild = isCanBuild;
         }
 
         private void HandleAcceptBuild()
         {
-            if (m_canBuild)
+            if (CanBuild)
             {
                 if (!InGameState.CheckAndSpendResource(m_selectedTower.TowerSO))
                 {
-                    Debug.Log("Not Enough Gold");
+                    // Debug.Log("Not Enough Gold");
                     return;
                 }
 
@@ -166,7 +169,7 @@ namespace TDGame
                     blockedTilemap.SetTile(cell, blockTile);
                 }
                 m_selectedTower = null;
-                HiddenPreview();
+                HiddenTilemapPreview();
                 // GameManager.Audio.PlayTowerPlacedSound();
             }
             else
@@ -175,23 +178,23 @@ namespace TDGame
                 Debug.Log("Cant Build Tower");
             }
 
-            OnAcceptBuildResult?.Invoke(m_canBuild);
+            OnAcceptBuildResult?.Invoke(CanBuild);
         }
 
         private void HandleCancelBuild()
         {
             m_selectedTower.Deactivate();
             m_selectedTower = null;
-            HiddenPreview();
+            HiddenTilemapPreview();
         }
 
-        private void DisplayPreview()
+        private void DisplayTilemapPreview()
         {
             blockedTilemap.gameObject.SetActive(true);
             previewTilemap.gameObject.SetActive(true);
         }
 
-        private void HiddenPreview()
+        private void HiddenTilemapPreview()
         {
             blockedTilemap.gameObject.SetActive(false);
             previewTilemap.gameObject.SetActive(false);

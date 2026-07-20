@@ -17,6 +17,4 @@ MonoBehaviour:
   startingLives: 10
   startingGold: 100
   waves:
-  - {fileID: 11400000, guid: 139fb018392d141f9bf15c09211f6c6a, type: 2}
-  - {fileID: 11400000, guid: 26fd00660e6064435a0369fc97b5b690, type: 2}
   - {fileID: 11400000, guid: 17477937bea504221afa33127c34c9cb, type: 2}

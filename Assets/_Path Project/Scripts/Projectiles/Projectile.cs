@@ -37,7 +37,10 @@ namespace TDGame
             transform.position += Data.Speed * Time.deltaTime * Data.Direction;
         }
 
-        public virtual void Deactivate() => Pool.Release(this);
+        public virtual void Deactivate()
+        {
+            if (gameObject.activeSelf) Pool.Release(this);
+        }
     }
 
 }

@@ -19,8 +19,6 @@ namespace TDGame
         protected override void Awake()
         {
             base.Awake();
-            InGameState = GameManager.Instance.InGameState;
-            LevelState = LevelManager.Instance.LevelState;
         }
 
         private void OnEnable()
@@ -32,13 +30,19 @@ namespace TDGame
             InGameState.OnStartWave -= HandleStartWave;
         }
 
+        void Start()
+        {
+            InGameState = GameManager.Instance.InGameState;
+            LevelState = LevelManager.Instance.LevelState;
+        }
+
         void Update()
         {
             if (InGameState == null) return;
 
             if (!InGameState.IsStarted) return;
 
-            if (_spawnState.ForEachTimer(CurrentWave.perway))
+            if (_spawnState.RunTimer(CurrentWave.perway))
             {
                 _spawnState.RefreshTimer();
                 SpawnObject();

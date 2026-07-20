@@ -10,7 +10,7 @@ namespace TDGame
         protected override void Awake()
         {
             base.Awake();
-            missionCompletePanel.SetActive(false);
+            // missionCompletePanel.SetActive(false);
         }
 
         private void OnEnable()
@@ -26,11 +26,13 @@ namespace TDGame
         public void SetupUIMainMenu()
         {
             m_InGameUI.gameObject.SetActive(false);
+            missionCompletePanel.SetActive(false);
         }
 
         public void SetupUIInGame()
         {
             m_InGameUI.gameObject.SetActive(true);
+            missionCompletePanel.SetActive(false);
         }
 
         private void HandleMissionComplete()
