@@ -1,6 +1,6 @@
 
 namespace TDGame
 {
-    public class ProjectileFactory : BaseFactory<ProjectileType, Projectile>
+    public class ProjectileFactory : Factory<ProjectileType, Projectile>
     { }
 }

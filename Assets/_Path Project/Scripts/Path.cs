@@ -1,26 +1,29 @@
 using UnityEditor;
 using UnityEngine;
 
-public class Path : MonoBehaviour
+namespace TDGame
 {
-    public GameObject[] wayPoints;
-
-    public Vector3 GetPointPosition(int index)
+    public class Path : MonoBehaviour
     {
-        return wayPoints[index].transform.position;
-    }
+        public GameObject[] wayPoints;
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        for (int i = 0; i < wayPoints.Length - 1; i++)
+        public Vector3 GetPointPosition(int index)
         {
-            GUIStyle style = new();
-            style.normal.textColor = Color.white;
-            style.alignment = TextAnchor.MiddleCenter;
-            Handles.Label(wayPoints[i].transform.position, wayPoints[i].name, style);
+            return wayPoints[index].transform.position;
+        }
 
-            Gizmos.DrawLine(wayPoints[i].transform.position, wayPoints[i + 1].transform.position);
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            for (int i = 0; i < wayPoints.Length - 1; i++)
+            {
+                GUIStyle style = new();
+                style.normal.textColor = Color.white;
+                style.alignment = TextAnchor.MiddleCenter;
+                Handles.Label(wayPoints[i].transform.position, wayPoints[i].name, style);
+
+                Gizmos.DrawLine(wayPoints[i].transform.position, wayPoints[i + 1].transform.position);
+            }
         }
     }
 }

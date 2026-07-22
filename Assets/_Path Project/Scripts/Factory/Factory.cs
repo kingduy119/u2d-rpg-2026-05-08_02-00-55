@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public abstract class BaseFactory<Type, T> : MonoBehaviour
+    public abstract class Factory<Type, T> : MonoBehaviour
         where T : MonoBehaviour, IPoolable<T>
     {
-        private readonly Dictionary<Type, GenericPool<T>> _pool = new();
+        private readonly Dictionary<Type, GenericPool<T>> _PoolDictionary = new();
         [Serializable]
         private class Config
         {
@@ -38,13 +38,14 @@ namespace TDGame
             if (!_configMap.TryGetValue(type, out var config))
                 return null;
 
-            if (!_pool.TryGetValue(type, out var pool))
+            if (!_PoolDictionary.TryGetValue(type, out var pool))
             {
                 pool = CreatePool(config);
-                _pool.Add(type, pool);
+                _PoolDictionary.Add(type, pool);
             }
 
             return pool.Get();
         }
     }
+
 }

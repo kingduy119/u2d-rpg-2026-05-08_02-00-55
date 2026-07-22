@@ -15,7 +15,7 @@ namespace TDGame
         #region Private Fields
         private EnemyHealth _health;
         private CharacterMovement _movement;
-        private Path _currentPath => SpawnManager.Instance.MapPath;
+        private Path PathWay => SpawnManager.Instance.MapPath;
         private Vector3 _targetPosition;
         private int _pathIndex = 0;
         #endregion
@@ -42,10 +42,10 @@ namespace TDGame
             if (distance < 0.05f)
             {
                 // Next waypoint or end
-                if (_pathIndex < _currentPath.wayPoints.Length - 1)
+                if (_pathIndex < PathWay.wayPoints.Length - 1)
                 {
                     _pathIndex++;
-                    _targetPosition = _currentPath.GetPointPosition(_pathIndex);
+                    _targetPosition = PathWay.GetPointPosition(_pathIndex);
                 }
                 else
                 {
@@ -60,7 +60,7 @@ namespace TDGame
             _health.Init(this);
             _movement.Init(Data.moveSpeed, Data.moveSpeed + 3);
             _pathIndex = 0;
-            _targetPosition = _currentPath.GetPointPosition(_pathIndex);
+            _targetPosition = PathWay.GetPointPosition(_pathIndex);
         }
 
         public void Deactive()

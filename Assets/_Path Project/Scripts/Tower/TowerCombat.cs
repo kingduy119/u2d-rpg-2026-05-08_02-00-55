@@ -8,8 +8,11 @@ namespace TDGame
         [SerializeField] private TowerBase Tower;
         private TowerSO m_TowerSO;
         private List<Enemy> m_enemiesInRange = new();
-        private ProjectileFactory Factory => FactoryManager.Instance.ProjectileFactory;
+        private ProjectileFactory Factory => GameManager.Instance.FactoryManager.ProjectileFactory;
         private float m_shootTimer = 0f;
+
+        [SerializeField] private GameObject _ProjectilePrefab;
+        public GenericPool<Projectile> ProjectilePool;
 
         private void Awake()
         {

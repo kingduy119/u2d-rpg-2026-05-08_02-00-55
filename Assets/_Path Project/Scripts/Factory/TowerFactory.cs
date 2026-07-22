@@ -5,6 +5,6 @@
 
 namespace TDGame
 {
-    public class TowerFactory : BaseFactory<TowerType, TowerBase>
+    public class TowerFactory : Factory<TowerType, TowerBase>
     { }
 }

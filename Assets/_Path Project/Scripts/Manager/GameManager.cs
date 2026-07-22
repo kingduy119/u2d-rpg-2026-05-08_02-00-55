@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,13 +6,25 @@ namespace TDGame
 {
     public class GameManager : PersistentSingleton<GameManager>
     {
-        [SerializeField] private TowerSO[] m_towers;
+        [SerializeField] private TowerSO[] _towers;
+        [SerializeField] private FactoryManager _factoryPrefab;
 
         private AudioController m_Audio;
 
         public InGameState InGameState;
         public AudioController Audio => m_Audio;
-        public TowerSO[] Towers => m_towers;
+        public TowerSO[] Towers => _towers;
+
+        public FactoryManager m_factoryManager;
+        public FactoryManager FactoryManager
+        {
+            get
+            {
+                if (m_factoryManager == null) m_factoryManager = Instantiate(_factoryPrefab);
+                return m_factoryManager;
+            }
+        }
+
 
         protected override void Awake()
         {
@@ -29,17 +42,25 @@ namespace TDGame
 
         private void OnEnable()
         {
+            InGameState.OnEnable();
             SceneManager.sceneLoaded += OnSceneLoaded;
-
         }
 
         private void OnDisable()
         {
+            InGameState.OnDisable();
             SceneManager.sceneLoaded -= OnSceneLoaded;
-
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => GameEvent.LoadScene(SceneManager.GetActiveScene().name);
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            InGameState.ResetOnLoadScene();
+
+            if (FactoryManager != null)
+                Destroy(FactoryManager.gameObject);
+
+            GameEvent.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
 }

@@ -9,6 +9,7 @@ namespace TDGame
         [SerializeField] private SpriteRenderer m_render;
         [SerializeField] private bool m_showDraw;
 
+
         public TowerSO TowerSO;
         public Vector2Int Size => TowerSO.size;
         public IObjectPool<TowerBase> Pool { get; set; }
@@ -24,6 +25,9 @@ namespace TDGame
             {
                 m_render.sprite = TowerSO.sprite;
             }
+
+            // if (_ProjectilePrefab != null)
+            //     ProjectilePool = new(_ProjectilePrefab, transform);
         }
 
         public virtual void Deactivate() => Pool.Release(this);

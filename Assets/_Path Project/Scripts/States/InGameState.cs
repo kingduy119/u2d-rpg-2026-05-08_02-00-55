@@ -107,6 +107,20 @@ namespace TDGame
 
         public InGameState() { }
 
+        public void OnEnable()
+        {
+            GameEvent.OnEnemyReachedEnd += HandlePointReachedEnd;
+            GameEvent.OnEnemyDie += HandleEnemyDie;
+            GameEvent.OnGetEnemyReward += HandleGetEnemyReward;
+        }
+
+        public void OnDisable()
+        {
+            GameEvent.OnEnemyReachedEnd -= HandlePointReachedEnd;
+            GameEvent.OnEnemyDie -= HandleEnemyDie;
+            GameEvent.OnGetEnemyReward -= HandleGetEnemyReward;
+        }
+
         public void StartWave()
         {
             IsStarted = true;
@@ -124,8 +138,13 @@ namespace TDGame
             Lives -= enemy.Data.damage;
             if (Lives <= 0)
             {
-                Debug.Log("Game Over!");
+                Debug.Log("Show GameOver!");
             }
+        }
+
+        public void ResetOnLoadScene()
+        {
+            WaveCount = 0;
         }
 
         public void ChangeGameSpeed() => GameSpeed++;

@@ -41,10 +41,8 @@ namespace TDGame
 
         public void HandleMissionComplete()
         {
-            Debug.Log($"HandleMissionComplete:1 {LevelState.Level}");
             LevelState.Level++;
             LevelState.SaveLevelData();
-            Debug.Log($"HandleMissionComplete:2 {LevelState.Level}");
         }
     }
 }

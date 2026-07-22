@@ -90,7 +90,7 @@ namespace TDGame
             {
                 m_selectedTower.Deactivate();
             }
-            m_selectedTower = FactoryManager.Instance.TowerFactory.GetObject(data.towerType);
+            m_selectedTower = GameManager.Instance.FactoryManager.TowerFactory.GetObject(data.towerType);
 
             ShowTowerAndCellPreview();
         }

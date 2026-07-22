@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -7,6 +8,7 @@ namespace TDGame
     IPoolable<T>
     {
         private readonly IObjectPool<T> _pool;
+        private HashSet<T> _activeObjects = new HashSet<T>();
 
         public GenericPool(
             GameObject prefab,
@@ -32,10 +34,23 @@ namespace TDGame
                 maxSize);
         }
 
-        private void OnGet(T item) => item.gameObject.SetActive(true);
-        private void OnRelease(T item) => item.gameObject.SetActive(false);
-        private void OnDestroy(T item) => Object.Destroy(item.gameObject);
-
+        private void OnGet(T item)
+        {
+            _activeObjects.Add(item);
+            item.gameObject.SetActive(true);
+        }
+        private void OnRelease(T item)
+        {
+            _activeObjects.Remove(item);
+            item.gameObject.SetActive(false);
+        }
+        private void OnDestroy(T item)
+        {
+            if (item != null)
+            {
+                Object.Destroy(item.gameObject);
+            }
+        }
         public T Get() => _pool.Get();
     }
 }

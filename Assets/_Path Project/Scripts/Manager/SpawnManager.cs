@@ -5,7 +5,7 @@ namespace TDGame
 {
     public class SpawnManager : PersistentSingleton<SpawnManager>
     {
-        private EnemyFactory EnemyFactory => FactoryManager.Instance.EnemyFactory;
+        private EnemyFactory EnemyFactory => GameManager.Instance.FactoryManager.EnemyFactory;
         private InGameState InGameState;
         private LevelState LevelState;
         private WaveData[] Waves => LevelState.CurrentLevel.waves;
@@ -38,9 +38,7 @@ namespace TDGame
 
         void Update()
         {
-            if (InGameState == null) return;
-
-            if (!InGameState.IsStarted) return;
+            if (InGameState == null || !InGameState.IsStarted) return;
 
             if (_spawnState.RunTimer(CurrentWave.perway))
             {
