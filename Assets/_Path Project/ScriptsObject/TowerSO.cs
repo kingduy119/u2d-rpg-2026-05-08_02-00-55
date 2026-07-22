@@ -15,18 +15,12 @@ namespace TDGame
         [Header("Detail")]
         public TowerType towerType;
         public ProjectileType projectType;
-        public Vector2Int size = new(1, 1);
+        public Vector2Int Size = new(1, 1);
 
-        public ProjectileSO ProjectileSO;
 
         [Header("Combat")]
-        // private float m_ShootRange;
-        // private float m_ShootInterval;
         public float ShootRange;
         public float ShootInterval;
-
-        // public float projectileSpeed;
-        // public float projectileDuration;
-        // public float damage;
+        public ProjectileSO ProjectileSO;
     }
 }

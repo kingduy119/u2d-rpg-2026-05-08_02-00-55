@@ -6,12 +6,10 @@ namespace TDGame
     public abstract class TowerBase : MonoBehaviour,
         IPoolable<TowerBase>
     {
-        [SerializeField] private SpriteRenderer m_render;
         [SerializeField] private bool m_showDraw;
-
+        [SerializeField] private SpriteRenderer m_render;
 
         public TowerSO TowerSO;
-        public Vector2Int Size => TowerSO.size;
         public IObjectPool<TowerBase> Pool { get; set; }
 
         private void OnValidate()
@@ -25,9 +23,6 @@ namespace TDGame
             {
                 m_render.sprite = TowerSO.sprite;
             }
-
-            // if (_ProjectilePrefab != null)
-            //     ProjectilePool = new(_ProjectilePrefab, transform);
         }
 
         public virtual void Deactivate() => Pool.Release(this);
@@ -38,6 +33,10 @@ namespace TDGame
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(transform.position, TowerSO.ShootRange);
             }
+        }
+        public void Log()
+        {
+            Debug.Log($"Tower: {gameObject.name}");
         }
     }
 }

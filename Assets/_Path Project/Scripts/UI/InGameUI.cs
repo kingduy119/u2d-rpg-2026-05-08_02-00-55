@@ -36,13 +36,6 @@ namespace TDGame
 
         private void OnEnable()
         {
-            // if (InGameState != null)
-            // {
-            //     GameEvent.OnEnemyReachedEnd += InGameState.HandlePointReachedEnd;
-            //     GameEvent.OnEnemyDie += InGameState.HandleEnemyDie;
-            //     GameEvent.OnGetEnemyReward += InGameState.HandleGetEnemyReward;
-            // }
-
             settingsButton.onClick.AddListener(HandleSettingsClick);
             startWaveButton.onClick.AddListener(InGameState.StartWave);
             gameSpeedButton.onClick.AddListener(InGameState.ChangeGameSpeed);
@@ -52,14 +45,6 @@ namespace TDGame
 
         private void OnDisable()
         {
-            // if (InGameState != null)
-            // {
-            //     GameEvent.OnEnemyReachedEnd -= InGameState.HandlePointReachedEnd;
-            //     GameEvent.OnEnemyDie -= InGameState.HandleEnemyDie;
-            //     GameEvent.OnGetEnemyReward -= InGameState.HandleGetEnemyReward;
-            // }
-
-
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
             startWaveButton.onClick.RemoveListener(InGameState.StartWave);
             gameSpeedButton.onClick.RemoveListener(InGameState.ChangeGameSpeed);

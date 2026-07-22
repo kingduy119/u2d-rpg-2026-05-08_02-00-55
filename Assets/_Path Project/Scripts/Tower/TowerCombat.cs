@@ -18,11 +18,6 @@ namespace TDGame
         {
             m_enemiesInRange = new List<Enemy>();
 
-            // if (TryGetComponent<TowerBase>(out var tower))
-            // {
-            //     Tower = tower;
-            //     m_TowerSO = tower.TowerSO;
-            // }
             if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
             {
                 m_TowerSO = Tower.TowerSO;

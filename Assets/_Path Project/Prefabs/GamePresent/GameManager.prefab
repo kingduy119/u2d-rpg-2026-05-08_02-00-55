@@ -231,9 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a8a7252048e4f0888b6b8448bbc6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGameManager
-  _towers: []
-  _factoryPrefab: {fileID: 8259301134455721308, guid: a58d39414d4bd1045b09439f7c72399a, type: 3}
-  FactoryManager: {fileID: 0}
+  _towers:
+  - {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
+  - {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}
+  _factoryManagerPrefab: {fileID: 8259301134455721308, guid: a58d39414d4bd1045b09439f7c72399a, type: 3}
+  _spawnManagerPrefab: {fileID: 6680820017466012895, guid: 82af327edd38a4cc583e0cdae33d394a, type: 3}
 --- !u!114 &212997809248664659
 MonoBehaviour:
   m_ObjectHideFlags: 0

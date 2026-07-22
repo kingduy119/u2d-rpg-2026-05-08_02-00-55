@@ -62,6 +62,13 @@ namespace TDGame
             Audio.PlayResumeSound();
         }
 
+        // Tower
+        public static void SendTowerHover(Tower tower)
+        {
+            if (tower != null) tower.Log();
+            else Debug.Log("Tower Hover Out");
+        }
+
         // Enemy
         public static event Action<Enemy> OnEnemyReachedEnd;
         public static event Action<Enemy> OnGetEnemyReward;

@@ -40,6 +40,22 @@ PrefabInstance:
       propertyPath: TowerSO
       value: 
       objectReference: {fileID: 11400000, guid: 0acda361f59cd462099fa423368767a6, type: 2}
+    - target: {fileID: 3778925437921086048, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3946147
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778925437921086048, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
+      propertyPath: m_Size.y
+      value: 1.425592
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778925437921086048, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.008719683
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778925437921086048, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.07702911
+      objectReference: {fileID: 0}
     - target: {fileID: 3935972184523369920, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.59

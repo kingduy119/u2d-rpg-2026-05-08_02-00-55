@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Path Project/Scenes/GreenMap/TD_Level_2.unity
     guid: b9dcbcfde18ea477fbe90fec7853e0da
+  - enabled: 1
+    path: Assets/_Path Project/Scenes/GreenMap/TD_Level_3.unity
+    guid: fd3be2ae705f944f38a93244db85bfc8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

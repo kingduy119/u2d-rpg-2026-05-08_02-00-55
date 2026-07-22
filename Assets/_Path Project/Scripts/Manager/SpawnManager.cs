@@ -3,7 +3,7 @@ using System;
 
 namespace TDGame
 {
-    public class SpawnManager : PersistentSingleton<SpawnManager>
+    public class SpawnManager : MonoBehaviour
     {
         private EnemyFactory EnemyFactory => GameManager.Instance.FactoryManager.EnemyFactory;
         private InGameState InGameState;
@@ -15,11 +15,6 @@ namespace TDGame
         [NonSerialized]
         public Path MapPath;
         private Transform _spawnPoint;
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
 
         private void OnEnable()
         {

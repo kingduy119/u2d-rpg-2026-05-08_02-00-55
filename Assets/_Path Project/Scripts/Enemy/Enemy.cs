@@ -13,9 +13,9 @@ namespace TDGame
         public EnemySound Sound;
 
         #region Private Fields
-        private EnemyHealth _health;
+        // private EnemyHealth _health;
         private CharacterMovement _movement;
-        private Path PathWay => SpawnManager.Instance.MapPath;
+        private Path PathWay => GameManager.Instance.SpawnManager.MapPath;
         private Vector3 _targetPosition;
         private int _pathIndex = 0;
         #endregion
@@ -24,7 +24,6 @@ namespace TDGame
 
         private void Awake()
         {
-            _health = GetComponent<EnemyHealth>();
             _movement = GetComponent<CharacterMovement>();
         }
 
@@ -57,7 +56,6 @@ namespace TDGame
 
         private void Reset()
         {
-            _health.Init(this);
             _movement.Init(Data.moveSpeed, Data.moveSpeed + 3);
             _pathIndex = 0;
             _targetPosition = PathWay.GetPointPosition(_pathIndex);

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace TDGame
@@ -7,7 +8,8 @@ namespace TDGame
     public class GameManager : PersistentSingleton<GameManager>
     {
         [SerializeField] private TowerSO[] _towers;
-        [SerializeField] private FactoryManager _factoryPrefab;
+        [SerializeField] private FactoryManager _factoryManagerPrefab;
+        [SerializeField] private SpawnManager _spawnManagerPrefab;
 
         private AudioController m_Audio;
 
@@ -15,15 +17,26 @@ namespace TDGame
         public AudioController Audio => m_Audio;
         public TowerSO[] Towers => _towers;
 
-        public FactoryManager m_factoryManager;
+        private FactoryManager _factoryManager;
         public FactoryManager FactoryManager
         {
             get
             {
-                if (m_factoryManager == null) m_factoryManager = Instantiate(_factoryPrefab);
-                return m_factoryManager;
+                if (_factoryManager == null) _factoryManager = Instantiate(_factoryManagerPrefab);
+                return _factoryManager;
             }
         }
+
+        private SpawnManager _spawnManager;
+        public SpawnManager SpawnManager
+        {
+            get
+            {
+                if (_spawnManager == null) _spawnManager = Instantiate(_spawnManagerPrefab);
+                return _spawnManager;
+            }
+        }
+
 
 
         protected override void Awake()
@@ -50,6 +63,17 @@ namespace TDGame
         {
             InGameState.OnDisable();
             SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void Update()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("GetMouseButtonUp");
+            }
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

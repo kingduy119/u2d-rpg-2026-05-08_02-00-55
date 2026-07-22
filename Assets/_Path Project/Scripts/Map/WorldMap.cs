@@ -100,7 +100,7 @@ namespace TDGame
             if (m_selectedTower == null) return;
 
             Vector3Int origin = m_grid.WorldToCell(m_wordPos);
-            Vector2Int size = m_selectedTower.Size;
+            Vector2Int size = m_selectedTower.TowerSO.Size;
 
             Vector3 pos = m_grid.CellToWorld(origin);
 

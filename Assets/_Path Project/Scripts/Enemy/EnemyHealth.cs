@@ -7,14 +7,20 @@ namespace TDGame
     {
         [SerializeField] private Transform _healthBar;
 
-        private Vector3 _healthBarOriginalScale;
-        private HealthState _healthState;
         private Enemy _enemy;
+        private Vector3 _healthBarOriginalScale;
+        private HealthState _healthState = new();
 
         private void Awake()
         {
-            _healthState = new();
             _healthBarOriginalScale = _healthBar.localScale;
+
+            if (TryGetComponent<Enemy>(out var enemy))
+            {
+                _enemy = enemy;
+                _healthState.Health = enemy.Data.health;
+                _healthState.MaxHealth = enemy.Data.maxHealth;
+            }
         }
 
         private void Update()
@@ -24,13 +30,6 @@ namespace TDGame
                 UpdateHealthUI();
                 _healthState.Clearn();
             }
-        }
-
-        public void Init(Enemy enemy)
-        {
-            _enemy = enemy;
-            _healthState.Health = enemy.Data.health;
-            _healthState.MaxHealth = enemy.Data.maxHealth;
         }
 
         public void TakeDamage(float amount)
@@ -48,8 +47,9 @@ namespace TDGame
 
         private void UpdateHealthUI()
         {
+
             Vector3 scale = _healthBarOriginalScale;
-            scale.x = _healthBarOriginalScale.x * _healthState.Percent;
+            scale.x *= _healthState.Percent;
             _healthBar.localScale = scale;
         }
     }
