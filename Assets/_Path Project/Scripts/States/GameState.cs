@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public class InGameState : DirtyState
+    public class GameState : DirtyState
     {
         public static Action OnStartWave;
 
@@ -105,7 +105,7 @@ namespace TDGame
             }
         }
 
-        public InGameState() { }
+        public GameState() { }
 
         public void OnEnable()
         {

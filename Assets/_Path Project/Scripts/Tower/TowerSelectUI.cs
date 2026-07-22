@@ -14,6 +14,8 @@ namespace TDGame
         [SerializeField] private Button m_AcceptButton;
         [SerializeField] private Button m_CancelButton;
 
+        private TowerBoard TowerBoard => GameManager.Instance.TowerBoard;
+
         public static event Action OnAcceptBuild;
         public static event Action OnCancelBuild;
 
@@ -46,7 +48,7 @@ namespace TDGame
                 Destroy(child.gameObject);
             }
 
-            foreach (var data in GameManager.Instance.Towers)
+            foreach (var data in TowerBoard.Towers)
             {
                 GameObject go = Instantiate(m_TowerCardPrefab, m_TowerSelectList.transform);
                 TowerSelectCard card = go.GetComponent<TowerSelectCard>();

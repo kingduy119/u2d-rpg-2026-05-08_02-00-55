@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
-    public class LevelManager : PersistentSingleton<LevelManager>
+    public class LevelManager : MonoBehaviour
     {
         public LevelState LevelState;
 

@@ -3,8 +3,13 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
+    public interface IHoverable
+    {
+        void SetHover(bool value);
+    }
     public abstract class TowerBase : MonoBehaviour,
-        IPoolable<TowerBase>
+        IPoolable<TowerBase>,
+        IHoverable
     {
         [SerializeField] private bool m_showDraw;
         [SerializeField] private SpriteRenderer m_render;
@@ -17,7 +22,7 @@ namespace TDGame
             if (!TowerSO) return;
             m_render.sprite = TowerSO.sprite;
         }
-        protected void Awake()
+        protected virtual void Awake()
         {
             if (TowerSO != null)
             {
@@ -38,5 +43,8 @@ namespace TDGame
         {
             Debug.Log($"Tower: {gameObject.name}");
         }
+
+        public abstract void SetHover(bool value);
+
     }
 }

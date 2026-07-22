@@ -11,7 +11,7 @@ namespace TDGame
         [SerializeField] private Button m_button;
 
         private TowerSO m_data;
-        private InGameState InGameState;
+        private GameState GameState;
 
         private void Awake()
         {
@@ -25,14 +25,14 @@ namespace TDGame
 
         private void Start()
         {
-            InGameState = GameManager.Instance.InGameState;
+            GameState = GameManager.Instance.GameState;
         }
 
         private void Update()
         {
             if (m_data != null)
             {
-                m_button.interactable = InGameState.Golds >= m_data.cost;
+                m_button.interactable = GameState.Golds >= m_data.cost;
             }
         }
 

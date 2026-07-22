@@ -24,21 +24,21 @@ namespace TDGame
         [Header("UI Pannels")]
         [SerializeField] private GameObject settingsPanel;
 
-        private InGameState InGameState;
+        private GameState GameState;
 
         private void Awake()
         {
             settingsPanel.SetActive(false);
             gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
 
-            InGameState = GameManager.Instance.InGameState;
+            GameState = GameManager.Instance.GameState;
         }
 
         private void OnEnable()
         {
             settingsButton.onClick.AddListener(HandleSettingsClick);
-            startWaveButton.onClick.AddListener(InGameState.StartWave);
-            gameSpeedButton.onClick.AddListener(InGameState.ChangeGameSpeed);
+            startWaveButton.onClick.AddListener(GameState.StartWave);
+            gameSpeedButton.onClick.AddListener(GameState.ChangeGameSpeed);
 
             GameEvent.OnLoadLevel += LoadLevelResource;
         }
@@ -46,40 +46,40 @@ namespace TDGame
         private void OnDisable()
         {
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
-            startWaveButton.onClick.RemoveListener(InGameState.StartWave);
-            gameSpeedButton.onClick.RemoveListener(InGameState.ChangeGameSpeed);
+            startWaveButton.onClick.RemoveListener(GameState.StartWave);
+            gameSpeedButton.onClick.RemoveListener(GameState.ChangeGameSpeed);
 
             GameEvent.OnLoadLevel -= LoadLevelResource;
         }
 
         private void Update()
         {
-            if (InGameState.IsDirty)
+            if (GameState.IsDirty)
             {
                 UpdateInGameUI();
-                InGameState.Clearn();
+                GameState.Clearn();
             }
 
         }
 
         private void UpdateInGameUI()
         {
-            goldText.SetText("{0}", InGameState.Golds);
-            rockText.SetText("{0}", InGameState.Rocks);
-            woodText.SetText("{0}", InGameState.Woods);
-            livesText.SetText("{0}", InGameState.Lives);
-            waveText.SetText("{0}", InGameState.WaveCount + 1);
-            enemiesText.SetText("{0}", InGameState.Enemies);
+            goldText.SetText("{0}", GameState.Golds);
+            rockText.SetText("{0}", GameState.Rocks);
+            woodText.SetText("{0}", GameState.Woods);
+            livesText.SetText("{0}", GameState.Lives);
+            waveText.SetText("{0}", GameState.WaveCount + 1);
+            enemiesText.SetText("{0}", GameState.Enemies);
 
-            gameSpeedText.SetText($"x{InGameState.GameSpeed}");
-            startWaveButton.interactable = !InGameState.IsStarted;
+            gameSpeedText.SetText($"x{GameState.GameSpeed}");
+            startWaveButton.interactable = !GameState.IsStarted;
         }
 
         private void LoadLevelResource()
         {
-            LevelSO level = LevelManager.Instance.LevelState.CurrentLevel;
-            InGameState.Golds = level.startingGold;
-            InGameState.Lives = level.startingLives;
+            LevelSO level = GameManager.Instance.LevelManager.LevelState.CurrentLevel;
+            GameState.Golds = level.startingGold;
+            GameState.Lives = level.startingLives;
         }
 
         public void OnCloseSettingsClick() => ResumeGame();

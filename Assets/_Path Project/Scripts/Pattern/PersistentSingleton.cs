@@ -28,8 +28,6 @@ namespace TDGame
                     }
 
                     string typeName = typeof(T).Name;
-                    Debug.Log("[Instance] " + typeName + " instance already created: " +
-                              s_Instance.gameObject.name);
                 }
                 return s_Instance;
             }

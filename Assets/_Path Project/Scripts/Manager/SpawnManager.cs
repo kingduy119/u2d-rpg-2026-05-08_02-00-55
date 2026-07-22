@@ -6,10 +6,10 @@ namespace TDGame
     public class SpawnManager : MonoBehaviour
     {
         private EnemyFactory EnemyFactory => GameManager.Instance.FactoryManager.EnemyFactory;
-        private InGameState InGameState;
-        private LevelState LevelState;
+        private GameState GameState => GameManager.Instance.GameState;
+        private LevelState LevelState => GameManager.Instance.LevelManager.LevelState;
         private WaveData[] Waves => LevelState.CurrentLevel.waves;
-        private WaveData CurrentWave => Waves[InGameState.WaveCount];
+        private WaveData CurrentWave => Waves[GameState.WaveCount];
         private readonly SpawnState _spawnState = new();
 
         [NonSerialized]
@@ -18,22 +18,16 @@ namespace TDGame
 
         private void OnEnable()
         {
-            InGameState.OnStartWave += HandleStartWave;
+            GameState.OnStartWave += HandleStartWave;
         }
         private void OnDisable()
         {
-            InGameState.OnStartWave -= HandleStartWave;
-        }
-
-        void Start()
-        {
-            InGameState = GameManager.Instance.InGameState;
-            LevelState = LevelManager.Instance.LevelState;
+            GameState.OnStartWave -= HandleStartWave;
         }
 
         void Update()
         {
-            if (InGameState == null || !InGameState.IsStarted) return;
+            if (GameState == null || !GameState.IsStarted) return;
 
             if (_spawnState.RunTimer(CurrentWave.perway))
             {
@@ -42,12 +36,12 @@ namespace TDGame
                 return;
             }
 
-            if (InGameState.Enemies <= 0)
+            if (GameState.Enemies <= 0)
             {
                 _spawnState.ResetCount();
-                InGameState.NextWave();
+                GameState.NextWave();
 
-                if (InGameState.WaveCount >= Waves.Length)
+                if (GameState.WaveCount >= Waves.Length)
                 {
                     GameEvent.SendMissionComplete();
                 }
@@ -59,7 +53,7 @@ namespace TDGame
             MapPath = GameObject.Find("MapPath").GetComponent<Path>();
             _spawnPoint = MapPath.wayPoints[0].transform;
 
-            InGameState.Enemies = CurrentWave.perway;
+            GameState.Enemies = CurrentWave.perway;
             _spawnState.UpdateSpawn(CurrentWave);
         }
 

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1885078259145477736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2778775889358059699}
+  - component: {fileID: 3478130024049826426}
+  - component: {fileID: -2656962012197812676}
+  m_Layer: 0
+  m_Name: TowerBoard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2778775889358059699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885078259145477736}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.17082, y: -0.09316, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3478130024049826426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885078259145477736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3bd6b9329d64a5da1b6edb8c2d3658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerBoard
+  Towers:
+  - {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
+  - {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}
+  - {fileID: 11400000, guid: 0acda361f59cd462099fa423368767a6, type: 2}
+  - {fileID: 11400000, guid: 7b0fd9569ac6e4186b59b3ef0da1a3d6, type: 2}
+  - {fileID: 11400000, guid: ba61442d6a14944029b12e8ef411afed, type: 2}
+  - {fileID: 11400000, guid: 046a0429a111248599d75b467269bbf6, type: 2}
+--- !u!114 &-2656962012197812676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885078259145477736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70c6206a60dc4fbda305e9f80dd8cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerBoardEvent
+  _towerLayer:
+    serializedVersion: 2
+    m_Bits: 256

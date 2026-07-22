@@ -63,10 +63,9 @@ namespace TDGame
         }
 
         // Tower
-        public static void SendTowerHover(Tower tower)
+        public static void RaisePointUpOnTower(GameObject tower)
         {
-            if (tower != null) tower.Log();
-            else Debug.Log("Tower Hover Out");
+            Debug.Log("RaiseTowerPointerUpEvent");
         }
 
         // Enemy

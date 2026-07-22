@@ -7,42 +7,30 @@ namespace TDGame
 {
     public class GameManager : PersistentSingleton<GameManager>
     {
-        [SerializeField] private TowerSO[] _towers;
+        [SerializeField] private LevelManager _levelManagerPrefab;
         [SerializeField] private FactoryManager _factoryManagerPrefab;
         [SerializeField] private SpawnManager _spawnManagerPrefab;
+        [SerializeField] private TowerBoard _towerBoardPrefab;
 
         private AudioController m_Audio;
 
-        public InGameState InGameState;
-        public AudioController Audio => m_Audio;
-        public TowerSO[] Towers => _towers;
-
+        private LevelManager _levelManager;
         private FactoryManager _factoryManager;
-        public FactoryManager FactoryManager
-        {
-            get
-            {
-                if (_factoryManager == null) _factoryManager = Instantiate(_factoryManagerPrefab);
-                return _factoryManager;
-            }
-        }
-
         private SpawnManager _spawnManager;
-        public SpawnManager SpawnManager
-        {
-            get
-            {
-                if (_spawnManager == null) _spawnManager = Instantiate(_spawnManagerPrefab);
-                return _spawnManager;
-            }
-        }
+        private TowerBoard _towerBoard;
 
+        public LevelManager LevelManager => LazyLoad(ref _levelManager, _levelManagerPrefab);
+        public FactoryManager FactoryManager => LazyLoad(ref _factoryManager, _factoryManagerPrefab);
+        public SpawnManager SpawnManager => LazyLoad(ref _spawnManager, _spawnManagerPrefab);
+        public TowerBoard TowerBoard => LazyLoad(ref _towerBoard, _towerBoardPrefab);
 
+        public AudioController Audio => m_Audio;
+        public GameState GameState;
 
         protected override void Awake()
         {
             base.Awake();
-            InGameState = new();
+            GameState = new();
 
             var audio = transform.Find("AudioController");
             if (audio && audio.TryGetComponent<AudioController>(out var instance))
@@ -55,13 +43,13 @@ namespace TDGame
 
         private void OnEnable()
         {
-            InGameState.OnEnable();
+            GameState.OnEnable();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         private void OnDisable()
         {
-            InGameState.OnDisable();
+            GameState.OnDisable();
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
@@ -78,14 +66,21 @@ namespace TDGame
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            InGameState.ResetOnLoadScene();
+            GameState.ResetOnLoadScene();
 
             if (FactoryManager != null)
                 Destroy(FactoryManager.gameObject);
 
             GameEvent.LoadScene(SceneManager.GetActiveScene().name);
         }
-    }
 
+        private T LazyLoad<T>(ref T instance, T prefab) where T : MonoBehaviour
+        {
+            if (instance == null)
+                instance = Instantiate(prefab);
+
+            return instance;
+        }
+    }
 }
 
