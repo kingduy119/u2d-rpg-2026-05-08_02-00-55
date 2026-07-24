@@ -6,10 +6,11 @@ namespace TDGame
     public class TowerCombat : MonoBehaviour
     {
         [SerializeField] private TowerBase Tower;
-        private TowerSO m_TowerSO;
+        private TowerSO _TowerSO;
         private List<Enemy> m_enemiesInRange = new();
         private ProjectileFactory Factory => GameManager.Instance.FactoryManager.ProjectileFactory;
         private float m_shootTimer = 0f;
+        private TowerAbility _ability;
 
         [SerializeField] private GameObject _ProjectilePrefab;
         public GenericPool<Projectile> ProjectilePool;
@@ -20,8 +21,10 @@ namespace TDGame
 
             if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
             {
-                m_TowerSO = Tower.TowerSO;
-                collider.radius = Tower.TowerSO.ShootRange;
+                _TowerSO = Tower.TowerSO;
+                // collider.radius = Tower.TowerSO.ShootRange;
+                _ability = _TowerSO.Ability;
+                collider.radius = _TowerSO.Ability.ShootRange;
             }
         }
 
@@ -41,7 +44,8 @@ namespace TDGame
             if (m_shootTimer <= 0)
             {
                 Shoot();
-                m_shootTimer = m_TowerSO.ShootInterval;
+                // m_shootTimer = _TowerSO.ShootInterval;
+                m_shootTimer = _ability.ShootInterval;
             }
         }
 
@@ -71,7 +75,7 @@ namespace TDGame
         {
             if (m_enemiesInRange.Count > 0)
             {
-                Projectile projectile = Factory.GetObject(m_TowerSO.projectType);
+                Projectile projectile = Factory.GetObject(_TowerSO.projectType);
                 if (projectile == null) return;
 
                 Vector2 shootDirection = (m_enemiesInRange[0].transform.position - transform.position).normalized;

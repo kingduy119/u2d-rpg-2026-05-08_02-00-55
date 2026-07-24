@@ -62,12 +62,6 @@ namespace TDGame
             Audio.PlayResumeSound();
         }
 
-        // Tower
-        public static void RaisePointUpOnTower(GameObject tower)
-        {
-            Debug.Log("RaiseTowerPointerUpEvent");
-        }
-
         // Enemy
         public static event Action<Enemy> OnEnemyReachedEnd;
         public static event Action<Enemy> OnGetEnemyReward;

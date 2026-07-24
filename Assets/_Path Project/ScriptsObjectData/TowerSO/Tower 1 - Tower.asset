@@ -15,11 +15,11 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 4f4d52f9c667d4205b750b68030da40c, type: 3}
   towerName: Basic Tower
   cost: 10
-  size: {x: 1, y: 1}
   towerType: 0
   projectType: 1
-  ShootRange: 1.5
-  ShootInterval: 1
-  projectileSpeed: 5
-  projectileDuration: 1
-  damage: 5
+  Size: {x: 1, y: 1}
+  ProjectileSO: {fileID: 0}
+  Ability:
+    ShootRange: 2
+    ShootInterval: 1.5
+    PhysicDamage: 10

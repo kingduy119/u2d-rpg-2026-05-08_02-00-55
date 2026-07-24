@@ -6,23 +6,12 @@ using UnityEngine.UI;
 
 namespace TDGame
 {
-    public static class TowerEvent
-    {
-        public static event Action<SkillCardSO> OnSkillCardSelect;
-        public static void RaiseSkillCardSelect(SkillCardSO so) => OnSkillCardSelect?.Invoke(so);
-
-        public static void RaiseAbilitySelect(Ability ability)
-        {
-            ability.Use();
-        }
-    }
     public class TowerSkillCard : MonoBehaviour
     {
         [SerializeField] private TMP_Text _titleText;
         [SerializeField] private TMP_Text _descriptionText;
         [SerializeField] private Image _thumbnail;
 
-        public SkillCardSO SO;
         public Ability _ability;
 
         private void OnValidate()
@@ -35,8 +24,6 @@ namespace TDGame
             }
         }
 
-        public void OnCardSelect() => TowerEvent.RaiseSkillCardSelect(SO);
-
-        public void OnTestAbility() => TowerEvent.RaiseAbilitySelect(_ability);
+        public void OnAbilitySelect() => TowerEvent.RaiseAbilitySelect(_ability);
     }
 }

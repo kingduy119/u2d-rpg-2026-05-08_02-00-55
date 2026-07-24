@@ -53,17 +53,6 @@ namespace TDGame
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
-        private void Update()
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                Debug.Log("GetMouseButtonUp");
-            }
-        }
-
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             GameState.ResetOnLoadScene();

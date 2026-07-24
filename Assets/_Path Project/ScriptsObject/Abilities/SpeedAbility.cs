@@ -12,9 +12,7 @@ namespace TDGame
 
         public override void Use(GameObject gameObject = null)
         {
-            base.Use(gameObject);
             Debug.Log($"Speed: {_attackSpeed} - {_runSpeed}");
         }
-
     }
 }
