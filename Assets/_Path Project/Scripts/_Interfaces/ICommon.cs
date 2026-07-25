@@ -23,5 +23,5 @@ public interface IHoverable
 
 public interface IClickTrigger
 {
-    public void RaiseEvent();
+    public void RaiseEvent(GameObject go = null);
 }

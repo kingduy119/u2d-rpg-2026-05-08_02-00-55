@@ -4,9 +4,9 @@ using UnityEngine;
 namespace TDGame
 {
     public abstract class ClickEvent : MonoBehaviour,
-IClickTrigger
+    IClickTrigger
     {
-        public virtual void RaiseEvent()
+        public virtual void RaiseEvent(GameObject go)
         {
             throw new System.NotImplementedException();
         }

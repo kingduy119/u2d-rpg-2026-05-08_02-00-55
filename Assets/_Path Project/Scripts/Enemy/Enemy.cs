@@ -49,7 +49,7 @@ namespace TDGame
                 else
                 {
                     GameEvent.SendEnemyReachedEnd(this);
-                    Deactive();
+                    Deactivate();
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace TDGame
             _targetPosition = PathWay.GetPointPosition(_pathIndex);
         }
 
-        public void Deactive()
+        public void Deactivate()
         {
             Reset();
             Pool.Release(this);

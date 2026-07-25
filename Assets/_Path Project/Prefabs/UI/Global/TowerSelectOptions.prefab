@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 779583362741873125}
   - component: {fileID: 5858297772500440514}
-  m_Layer: 8
-  m_Name: SelectOptions
+  m_Layer: 5
+  m_Name: TowerSelectOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 5363705046628482180}
   - component: {fileID: 3209156172849590575}
   - component: {fileID: 5778176602575139647}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: button_sell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4637009401830046493}
   - component: {fileID: 2076447119257749267}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8533395206639161711}
   - component: {fileID: 4914271283248671604}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +429,8 @@ GameObject:
   - component: {fileID: 5221215666252337805}
   - component: {fileID: 5688121319956045397}
   - component: {fileID: 2718747668831426155}
-  m_Layer: 8
+  - component: {fileID: 1108162407643237859}
+  m_Layer: 5
   m_Name: button_detail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,6 +548,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.73
+--- !u!114 &1108162407643237859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7251377407258116167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4dc2871f03934ba9b36580f8164cff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.ButtonTowerDetail
 --- !u!1 &7439814306846604221
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +571,8 @@ GameObject:
   - component: {fileID: 1360832296940941714}
   - component: {fileID: 77176291311191265}
   - component: {fileID: 5712254069065530049}
-  m_Layer: 8
+  - component: {fileID: 6140643376101407357}
+  m_Layer: 5
   m_Name: button_update
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,6 +690,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.0000019073486, y: 0.00000023841858}
   m_Radius: 0.73
+--- !u!114 &6140643376101407357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439814306846604221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b19f0edf5134079a2703f0403cf210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.ButtonTowerUpdate
 --- !u!1 &8649000750244163948
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,7 +712,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7529684531615078300}
   - component: {fileID: 4759537649698351098}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

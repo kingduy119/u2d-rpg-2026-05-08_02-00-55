@@ -260,7 +260,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5431593542665046277}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5045367851910399214}
+        m_TargetAssemblyTypeName: TDGame.TowerSkillCard, Assembly-CSharp
+        m_MethodName: OnAbilitySelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5045367851910399214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +288,6 @@ MonoBehaviour:
   _titleText: {fileID: 6296217232814152135}
   _descriptionText: {fileID: 6748128520115600411}
   _thumbnail: {fileID: 6753108494655344915}
-  SO: {fileID: 11400000, guid: ae82dcc660b7e42ffb0bf52d869df692, type: 2}
   _ability: {fileID: 11400000, guid: a5f8679a22d074d598c21d525c54bb41, type: 2}
 --- !u!1 &6367533662190660166
 GameObject:

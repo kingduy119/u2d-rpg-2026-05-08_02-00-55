@@ -22,7 +22,6 @@ namespace TDGame
             if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
             {
                 _TowerSO = Tower.TowerSO;
-                // collider.radius = Tower.TowerSO.ShootRange;
                 _ability = _TowerSO.Ability;
                 collider.radius = _TowerSO.Ability.ShootRange;
             }
@@ -44,7 +43,6 @@ namespace TDGame
             if (m_shootTimer <= 0)
             {
                 Shoot();
-                // m_shootTimer = _TowerSO.ShootInterval;
                 m_shootTimer = _ability.ShootInterval;
             }
         }

@@ -67,3 +67,4 @@ MonoBehaviour:
   _towerLayer:
     serializedVersion: 2
     m_Bits: 256
+  _selectOptionsPrefab: {fileID: 121090650231406453, guid: e2a520ca4c677404eaeac2aff599daa8, type: 3}

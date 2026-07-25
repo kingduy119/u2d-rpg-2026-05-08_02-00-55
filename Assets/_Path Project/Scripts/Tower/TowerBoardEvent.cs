@@ -1,20 +1,21 @@
 
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace TDGame
 {
     public class TowerBoardEvent : MonoBehaviour
     {
         [SerializeField] private LayerMask _towerLayer;
-        [SerializeField] private TowerSelectCursor _selectOptionsPrefab;
+        [SerializeField] private GameObject _selectOptionsPrefab;
 
         private GameObject _tower;
         private GameObject _selectedTower;
         private GameObject _prevTower;
 
-        private TowerSelectCursor _towerSelect;
-        public TowerSelectCursor TowerSelect
+        private GameObject _towerSelect;
+        public GameObject TowerSelect
         {
             get
             {
@@ -27,23 +28,28 @@ namespace TDGame
 
         private void Start()
         {
-            TowerSelect.Deactivate();
+            TowerSelect.SetActive(false);
         }
 
         private void Update()
         {
-            HandleHoverTower();
-            HandlePowerUpOnTower();
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            HandlePointerHover();
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                HandlePointerUp();
+            }
         }
 
-        private void HandleHoverTower()
+        private void HandlePointerHover()
         {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, Mathf.Infinity, _towerLayer);
-
-            if (hit.collider != null)
+            Collider2D collider = GetColider(_towerLayer);
+            if (collider != null)
             {
-                _tower = hit.collider.gameObject;
+                _tower = collider.gameObject;
                 if (_tower != _prevTower
                 && _tower.TryGetComponent<IHoverable>(out var hoverable))
                 {
@@ -53,57 +59,65 @@ namespace TDGame
             }
             else
             {
-                if (_tower != null
-                && _tower != _selectedTower
-                && _tower.TryGetComponent<IHoverable>(out var hoverable))
+                _tower = null;
+                if (_prevTower != null
+                && _prevTower != _selectedTower
+                && _prevTower.TryGetComponent<IHoverable>(out var hoverable))
                 {
                     hoverable.SetHover(false);
-                    _tower = null;
                     _prevTower = null;
                 }
             }
         }
 
-        private void HandlePowerUpOnTower()
+        private void HandlePointerUp()
         {
-            if (Input.GetMouseButtonUp(0))
+            Collider2D uiColider = GetColider(LayerMask.GetMask("UI"));
+
+            if (_tower != null)
             {
-                CheckButtonClick();
                 CheckTowerClick();
             }
 
-        }
-
-        private Collider2D GetColider()
-        {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, Mathf.Infinity, _towerLayer);
-            return hit.collider;
-        }
-
-        private void CheckButtonClick()
-        {
-            Collider2D colider = GetColider();
-            if (colider != null && colider.gameObject.TryGetComponent<IClickTrigger>(out var button))
+            if (uiColider != null && uiColider.gameObject.TryGetComponent<IClickTrigger>(out var button))
             {
-                button.RaiseEvent();
+                button.RaiseEvent(_selectedTower);
+            }
+
+            if (_tower == null && uiColider == null)
+            {
+                TowerSelect.SetActive(false);
+                if (_selectedTower != null && _selectedTower.TryGetComponent<IHoverable>(out var hoverable))
+                {
+                    hoverable.SetHover(false);
+                    _selectedTower = null;
+                }
             }
         }
 
         private void CheckTowerClick()
         {
-            if (_tower != null)
+            if (_selectedTower != null
+            && _selectedTower != _tower
+            && _selectedTower.TryGetComponent<IHoverable>(out var hoverable))
             {
-                if (_selectedTower != null
-                && _selectedTower != _tower
-                && _selectedTower.TryGetComponent<IHoverable>(out var hoverable))
-                {
-                    hoverable.SetHover(false);
-                }
-
-                if (_selectedTower != _tower)
-                    _selectedTower = _tower;
+                hoverable.SetHover(false);
+                TowerSelect.SetActive(false);
             }
+
+            if (_selectedTower != _tower)
+            {
+                _selectedTower = _tower;
+                TowerSelect.transform.position = _selectedTower.transform.position;
+                TowerSelect.SetActive(true);
+            }
+        }
+
+        private Collider2D GetColider(LayerMask layer)
+        {
+            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, Mathf.Infinity, layer);
+            return hit.collider;
         }
     }
 }

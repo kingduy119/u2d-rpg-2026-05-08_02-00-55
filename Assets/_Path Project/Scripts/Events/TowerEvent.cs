@@ -6,16 +6,16 @@ namespace TDGame
     public static class TowerEvent
     {
         public static event Action<Ability> OnAbilitySelect;
+        public static event Action OnTowerUpdateSelect;
 
         public static void RaiseAbilitySelect(Ability ability)
         {
             OnAbilitySelect?.Invoke(ability);
         }
 
-
-        public static void RaisePointUpOnTower(GameObject tower)
+        public static void TowerUpdateSelect()
         {
-            Debug.Log("RaiseTowerPointerUpEvent");
+            UIManager.Instance.ShowTowerUpdateSelect();
         }
 
         public static void Log(string message)
