@@ -14,5 +14,10 @@ namespace TDGame
         {
             Debug.Log($"Speed: {_attackSpeed} - {_runSpeed}");
         }
+
+        public override void Apply(TowerAbility ability)
+        {
+            ability.ShootInterval -= _attackSpeed;
+        }
     }
 }

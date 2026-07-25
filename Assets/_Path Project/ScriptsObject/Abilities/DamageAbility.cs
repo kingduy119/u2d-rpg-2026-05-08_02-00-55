@@ -12,5 +12,11 @@ namespace TDGame
         {
             Debug.Log($"Damage: {_physicDamage} - {_magicDamage}");
         }
+
+        public override void Apply(TowerAbility ability)
+        {
+            ability.PhysicDamage += _physicDamage;
+            ability.MagicDamage += _magicDamage;
+        }
     }
 }

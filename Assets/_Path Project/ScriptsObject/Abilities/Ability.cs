@@ -9,5 +9,6 @@ namespace TDGame
         public Sprite _image;
 
         public virtual void Use(GameObject gameObject = null) { }
+        public virtual void Apply(TowerAbility ability) { }
     }
 }
