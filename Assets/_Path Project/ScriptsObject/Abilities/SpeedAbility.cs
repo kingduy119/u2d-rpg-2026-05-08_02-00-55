@@ -10,9 +10,13 @@ namespace TDGame
         [SerializeField] private int _attackSpeed;
         [SerializeField] private int _runSpeed;
 
-        public override void Use(GameObject gameObject = null)
+        public override void Apply(GameObject go = null)
         {
-            Debug.Log($"Speed: {_attackSpeed} - {_runSpeed}");
+            if (go != null && go.TryGetComponent<Tower>(out var entity))
+            {
+                entity.Ability.ShootInterval += _attackSpeed;
+                //  entity.Ability._runSpeed += _runSpeed;
+            }
         }
 
         public override void Apply(TowerAbility ability)

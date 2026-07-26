@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,25 +6,24 @@ namespace TDGame
 {
     public class TowerCombat : MonoBehaviour
     {
-        [SerializeField] private TowerBase Tower;
-        private TowerSO _TowerSO;
-        private List<Enemy> m_enemiesInRange = new();
+        private TowerBase Tower;
+        private List<Enemy> _enemiesInRange;
         private ProjectileFactory Factory => GameManager.Instance.FactoryManager.ProjectileFactory;
-        private float m_shootTimer = 0f;
-        private TowerAbility _ability;
+        private float _shootTimer = 0f;
 
         [SerializeField] private GameObject _ProjectilePrefab;
         public GenericPool<Projectile> ProjectilePool;
 
         private void Awake()
         {
-            m_enemiesInRange = new List<Enemy>();
+            _enemiesInRange = new List<Enemy>();
+
+            Tower = GetComponentInParent<Tower>();
 
             if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
             {
-                _TowerSO = Tower.TowerSO;
-                _ability = _TowerSO.Ability;
-                collider.radius = _TowerSO.Ability.ShootRange;
+                // _ability = Tower.Ability;
+                collider.radius = Tower.Ability.ShootRange;
             }
         }
 
@@ -39,11 +39,12 @@ namespace TDGame
 
         private void Update()
         {
-            m_shootTimer -= Time.deltaTime;
-            if (m_shootTimer <= 0)
+            _shootTimer -= Time.deltaTime;
+            if (_shootTimer <= 0)
             {
                 Shoot();
-                m_shootTimer = _ability.ShootInterval;
+                // _shootTimer = _ability.ShootInterval;
+                _shootTimer = Tower.Ability.ShootInterval;
             }
         }
 
@@ -53,7 +54,7 @@ namespace TDGame
             {
                 if (collision.TryGetComponent<Enemy>(out var enemy))
                 {
-                    m_enemiesInRange.Add(enemy);
+                    _enemiesInRange.Add(enemy);
                 }
             }
         }
@@ -64,19 +65,19 @@ namespace TDGame
             {
                 if (collision.TryGetComponent<Enemy>(out var enemy))
                 {
-                    m_enemiesInRange.Remove(enemy);
+                    _enemiesInRange.Remove(enemy);
                 }
             }
         }
 
         private void Shoot()
         {
-            if (m_enemiesInRange.Count > 0)
+            if (_enemiesInRange.Count > 0)
             {
-                Projectile projectile = Factory.GetObject(_TowerSO.projectType);
+                Projectile projectile = Factory.GetObject(Tower.TowerSO.projectType);
                 if (projectile == null) return;
 
-                Vector2 shootDirection = (m_enemiesInRange[0].transform.position - transform.position).normalized;
+                Vector2 shootDirection = (_enemiesInRange[0].transform.position - transform.position).normalized;
 
                 projectile.transform.position = transform.position;
                 projectile.Launch(shootDirection);
@@ -85,8 +86,8 @@ namespace TDGame
 
         private void HandleEnemyDie(Enemy enemy)
         {
-            if (m_enemiesInRange.Contains(enemy))
-                m_enemiesInRange.Remove(enemy);
+            if (_enemiesInRange.Contains(enemy))
+                _enemiesInRange.Remove(enemy);
         }
     }
 

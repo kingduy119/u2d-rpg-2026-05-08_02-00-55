@@ -26,7 +26,29 @@ namespace TDGame
     {
         public float ShootRange;
         public float ShootInterval;
-        public float PhysicDamage;
+        public float PhysicalDamage;
         public float MagicDamage;
+
+        public TowerAbility() { }
+        public TowerAbility(TowerAbility other)
+        {
+            ShootRange = other.ShootRange;
+            ShootInterval = other.ShootInterval;
+            PhysicalDamage = other.PhysicalDamage;
+            MagicDamage = other.MagicDamage;
+        }
+
+        public static TowerAbility operator +(TowerAbility a, TowerAbility b)
+        {
+            if (a == null) return new TowerAbility(b);
+            if (b == null) return new TowerAbility(a);
+            return new TowerAbility
+            {
+                ShootRange = a.ShootRange + b.ShootRange,
+                ShootInterval = a.ShootInterval + b.ShootInterval,
+                PhysicalDamage = a.PhysicalDamage + b.PhysicalDamage,
+                MagicDamage = a.MagicDamage + b.MagicDamage
+            };
+        }
     }
 }

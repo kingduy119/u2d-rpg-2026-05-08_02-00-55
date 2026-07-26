@@ -14,20 +14,13 @@ namespace TDGame
 
         public static void RaiseAbilitySelect(Ability ability)
         {
-            ability.Apply(BonusAbility);
             TowerAbilities.Add(ability);
-
-            Debug.Log($@"
-            ShootRange: {BonusAbility.ShootRange}
-            ShootInterval: {BonusAbility.ShootInterval}
-            PhysicDamage: {BonusAbility.PhysicDamage}
-            ");
             OnAbilitySelect?.Invoke(ability);
         }
 
         public static void TowerUpdateSelect()
         {
-            UIManager.Instance.ShowTowerUpdateSelect();
+            OnTowerUpdateSelect?.Invoke();
         }
 
         public static void Log(string message)

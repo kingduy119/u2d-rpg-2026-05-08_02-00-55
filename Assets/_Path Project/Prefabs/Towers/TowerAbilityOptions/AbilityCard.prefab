@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: -2063420882622074934}
   - component: {fileID: 5045367851910399214}
   m_Layer: 5
-  m_Name: SkillCard
+  m_Name: AbilityCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

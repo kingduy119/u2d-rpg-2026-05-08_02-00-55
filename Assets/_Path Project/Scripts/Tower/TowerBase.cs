@@ -11,21 +11,22 @@ namespace TDGame
         [SerializeField] private SpriteRenderer m_render;
 
         public TowerSO TowerSO;
+        public TowerAbility Ability;
         public IObjectPool<TowerBase> Pool { get; set; }
 
-        private void OnValidate()
+        protected void OnValidate()
         {
-            if (!TowerSO) return;
+            if (TowerSO == null) return;
 
             m_render.sprite = TowerSO.sprite;
         }
 
         protected virtual void Awake()
         {
-            if (TowerSO != null)
-            {
-                m_render.sprite = TowerSO.sprite;
-            }
+            if (TowerSO == null) return;
+
+            m_render.sprite = TowerSO.sprite;
+            Ability = new(TowerSO.Ability);
         }
 
         public virtual void Deactivate() => Pool.Release(this);

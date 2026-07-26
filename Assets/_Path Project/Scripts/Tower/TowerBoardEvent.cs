@@ -1,5 +1,4 @@
 
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -29,6 +28,24 @@ namespace TDGame
         private void Start()
         {
             TowerSelect.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            TowerEvent.OnAbilitySelect += TowerApply;
+        }
+
+        private void OnDisable()
+        {
+            TowerEvent.OnAbilitySelect -= TowerApply;
+        }
+
+        private void TowerApply(Ability ability)
+        {
+            if (_selectedTower != null)
+            {
+                ability.Apply(_selectedTower);
+            }
         }
 
         private void Update()

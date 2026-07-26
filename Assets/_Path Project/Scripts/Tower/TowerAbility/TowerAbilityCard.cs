@@ -5,16 +5,23 @@ using UnityEngine.UI;
 
 namespace TDGame
 {
-    public class TowerSkillCard : MonoBehaviour
+    public class TowerAbilityCard : MonoBehaviour
     {
         [SerializeField] private TMP_Text _titleText;
         [SerializeField] private TMP_Text _descriptionText;
+
         [SerializeField] private Image _thumbnail;
 
-        public Ability _ability;
+        private Ability _ability;
 
         private void OnValidate()
         {
+            Initialize();
+        }
+
+        public void Initialize(Ability ability = null)
+        {
+            _ability = ability;
             if (_ability != null)
             {
                 _thumbnail.sprite = _ability._image;
