@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace TDGame
@@ -13,7 +11,6 @@ namespace TDGame
         [SerializeField] private TowerBoard _towerBoardPrefab;
 
         private AudioController m_Audio;
-
         private LevelManager _levelManager;
         private FactoryManager _factoryManager;
         private SpawnManager _spawnManager;

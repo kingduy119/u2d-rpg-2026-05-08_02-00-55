@@ -23,6 +23,8 @@ namespace TDGame
                 Destroy(child.gameObject);
             }
 
+            if (Abilities.Count <= 0) return;
+
             foreach (var data in Abilities)
             {
                 GameObject go = Instantiate(_abilityCardPrefab, _abilityList.transform);

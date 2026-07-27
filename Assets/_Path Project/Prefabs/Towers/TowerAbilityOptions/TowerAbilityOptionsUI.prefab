@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 5685422314011675080}
   - component: {fileID: 4161880623082215135}
   m_Layer: 5
-  m_Name: TowerAbilityOptions
+  m_Name: TowerAbilityOptionsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +157,9 @@ MonoBehaviour:
   _abilityList: {fileID: 2498933948170862260}
   _abilityCardPrefab: {fileID: 4570310063790985133, guid: 9296140d4717e455ab61310c228a2758, type: 3}
   Abilities:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a5f8679a22d074d598c21d525c54bb41, type: 2}
+  - {fileID: 11400000, guid: 6be84ba71d19a4a84b16bd38adf26668, type: 2}
+  - {fileID: 11400000, guid: a5f8679a22d074d598c21d525c54bb41, type: 2}
 --- !u!1001 &754741209516278468
 PrefabInstance:
   m_ObjectHideFlags: 0

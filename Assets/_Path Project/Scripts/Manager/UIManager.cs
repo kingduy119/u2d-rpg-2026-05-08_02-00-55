@@ -6,8 +6,15 @@ namespace TDGame
     public class UIManager : PersistentSingleton<UIManager>
     {
         [SerializeField] private InGameUI _InGameUI;
-        [SerializeField] private GameObject _missionCompletePanel;
-        [SerializeField] private GameObject _towerSkillsSelect;
+        // [SerializeField] private GameObject _missionCompletePanel;
+        [SerializeField] private TowerAbilityOptionsUI _TowerAbilityOptionsPrefab;
+        [SerializeField] private MissionCompleteUI _MissionCompleteUIPrefab;
+
+        private TowerAbilityOptionsUI _TowerAbilityOptionsUI;
+        public TowerAbilityOptionsUI TowerAbilityOptionsUI => LazyLoad(ref _TowerAbilityOptionsUI, _TowerAbilityOptionsPrefab, gameObject.transform);
+
+        private MissionCompleteUI _MissionCompleteUI;
+        public MissionCompleteUI MissionCompleteUI => LazyLoad(ref _MissionCompleteUI, _MissionCompleteUIPrefab, gameObject.transform);
 
         protected override void Awake()
         {
@@ -31,28 +38,33 @@ namespace TDGame
         public void SetupUIMainMenu()
         {
             _InGameUI.gameObject.SetActive(false);
-            _missionCompletePanel.SetActive(false);
-            _towerSkillsSelect.SetActive(false);
         }
 
         public void SetupUIInGame()
         {
             _InGameUI.gameObject.SetActive(true);
-            _missionCompletePanel.SetActive(false);
         }
 
         private void HandleMissionComplete()
         {
-            _missionCompletePanel.SetActive(true);
+            MissionCompleteUI.gameObject.SetActive(true);
         }
 
         public void ShowTowerUpdateSelect()
         {
-            _towerSkillsSelect.SetActive(true);
+            TowerAbilityOptionsUI.gameObject.SetActive(true);
         }
         public void CloseTowerUpdateSelect(Ability _ = null)
         {
-            _towerSkillsSelect.SetActive(false);
+            TowerAbilityOptionsUI.gameObject.SetActive(false);
+        }
+
+        private T LazyLoad<T>(ref T instance, T prefab, Transform transform = null) where T : MonoBehaviour
+        {
+            if (instance == null)
+                instance = Instantiate(prefab, transform);
+
+            return instance;
         }
     }
 }
