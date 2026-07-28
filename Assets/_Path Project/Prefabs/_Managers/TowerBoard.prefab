@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2778775889358059699}
   - component: {fileID: 3478130024049826426}
-  - component: {fileID: -2656962012197812676}
   m_Layer: 0
   m_Name: TowerBoard
   m_TagString: Untagged
@@ -52,19 +51,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b0fd9569ac6e4186b59b3ef0da1a3d6, type: 2}
   - {fileID: 11400000, guid: ba61442d6a14944029b12e8ef411afed, type: 2}
   - {fileID: 11400000, guid: 046a0429a111248599d75b467269bbf6, type: 2}
---- !u!114 &-2656962012197812676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885078259145477736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70c6206a60dc4fbda305e9f80dd8cd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerBoardEvent
-  _towerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  _selectOptionsPrefab: {fileID: 121090650231406453, guid: e2a520ca4c677404eaeac2aff599daa8, type: 3}

@@ -9,12 +9,16 @@ namespace TDGame
         // [SerializeField] private GameObject _missionCompletePanel;
         [SerializeField] private TowerAbilityOptionsUI _TowerAbilityOptionsPrefab;
         [SerializeField] private MissionCompleteUI _MissionCompleteUIPrefab;
+        // [SerializeField] private TowerSelectCursor _TowerSelectCursorPrefab;
 
         private TowerAbilityOptionsUI _TowerAbilityOptionsUI;
         public TowerAbilityOptionsUI TowerAbilityOptionsUI => LazyLoad(ref _TowerAbilityOptionsUI, _TowerAbilityOptionsPrefab, gameObject.transform);
 
         private MissionCompleteUI _MissionCompleteUI;
         public MissionCompleteUI MissionCompleteUI => LazyLoad(ref _MissionCompleteUI, _MissionCompleteUIPrefab, gameObject.transform);
+
+        // private TowerSelectCursor _TowerSelectCursor;
+        // public TowerSelectCursor TowerSelectCursor => LazyLoad(ref _TowerSelectCursor, _TowerSelectCursorPrefab, gameObject.transform);
 
         protected override void Awake()
         {

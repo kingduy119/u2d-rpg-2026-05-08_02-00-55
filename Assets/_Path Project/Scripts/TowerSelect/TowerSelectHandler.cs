@@ -4,31 +4,31 @@ using UnityEngine.EventSystems;
 
 namespace TDGame
 {
-    public class TowerBoardEvent : MonoBehaviour
+    public class TowerSelectHandler : MonoBehaviour
     {
         [SerializeField] private LayerMask _towerLayer;
-        [SerializeField] private GameObject _selectOptionsPrefab;
+        [SerializeField] private GameObject _TowerSelectCursorPrefab;
 
-        private GameObject _tower;
+        private GameObject _hoverTower;
         private GameObject _selectedTower;
         private GameObject _prevTower;
 
-        private GameObject _towerSelect;
-        public GameObject TowerSelect
+        private GameObject _TowerSelectCursor;
+        public GameObject TowerSelectCursor
         {
             get
             {
-                if (_towerSelect == null)
-                    _towerSelect = Instantiate(_selectOptionsPrefab);
+                if (_TowerSelectCursor == null)
+                    _TowerSelectCursor = Instantiate(_TowerSelectCursorPrefab, gameObject.transform);
 
-                return _towerSelect;
+                return _TowerSelectCursor;
             }
         }
 
-        private void Start()
-        {
-            TowerSelect.SetActive(false);
-        }
+        // private void Start()
+        // {
+        //     TowerSelectCursor.SetActive(false);
+        // }
 
         private void OnEnable()
         {
@@ -66,17 +66,17 @@ namespace TDGame
             Collider2D collider = GetColider(_towerLayer);
             if (collider != null)
             {
-                _tower = collider.gameObject;
-                if (_tower != _prevTower
-                && _tower.TryGetComponent<IHoverable>(out var hoverable))
+                _hoverTower = collider.gameObject;
+                if (_hoverTower != _prevTower
+                && _hoverTower.TryGetComponent<IHoverable>(out var hoverable))
                 {
                     hoverable.SetHover(true);
-                    _prevTower = _tower;
+                    _prevTower = _hoverTower;
                 }
             }
-            else
+            else // Unhover prev tower
             {
-                _tower = null;
+                _hoverTower = null;
                 if (_prevTower != null
                 && _prevTower != _selectedTower
                 && _prevTower.TryGetComponent<IHoverable>(out var hoverable))
@@ -89,44 +89,47 @@ namespace TDGame
 
         private void HandlePointerUp()
         {
-            Collider2D uiColider = GetColider(LayerMask.GetMask("UI"));
+            // Collider2D uiColider = GetColider(LayerMask.GetMask("UI"));
 
-            if (_tower != null)
-            {
+            if (_hoverTower != null)
                 CheckTowerClick();
-            }
-
-            if (uiColider != null && uiColider.gameObject.TryGetComponent<IClickTrigger>(out var button))
+            else
             {
-                button.RaiseEvent(_selectedTower);
-            }
-
-            if (_tower == null && uiColider == null)
-            {
-                TowerSelect.SetActive(false);
+                TowerSelectCursor.SetActive(false);
                 if (_selectedTower != null && _selectedTower.TryGetComponent<IHoverable>(out var hoverable))
                 {
                     hoverable.SetHover(false);
                     _selectedTower = null;
                 }
             }
+
+            // // if (uiColider != null && uiColider.gameObject.TryGetComponent<IClickTrigger>(out var button))
+            // // {
+            // //     button.RaiseEvent(_selectedTower);
+            // // }
+            // if (_hoverTower == null)
+            // {
+
+            // }
         }
 
         private void CheckTowerClick()
         {
+            // Unhover prev tower
             if (_selectedTower != null
-            && _selectedTower != _tower
+            && _selectedTower != _hoverTower
             && _selectedTower.TryGetComponent<IHoverable>(out var hoverable))
             {
                 hoverable.SetHover(false);
-                TowerSelect.SetActive(false);
+                // TowerSelectCursor.SetActive(false);
             }
 
-            if (_selectedTower != _tower)
+            if (_selectedTower != _hoverTower)
             {
-                _selectedTower = _tower;
-                TowerSelect.transform.position = _selectedTower.transform.position;
-                TowerSelect.SetActive(true);
+                _selectedTower = _hoverTower;
+                TowerSelectCursor.transform.position = Camera.main.WorldToScreenPoint(_selectedTower.transform.position);
+                // _selectedTower.transform.position;
+                TowerSelectCursor.SetActive(true);
             }
         }
 
