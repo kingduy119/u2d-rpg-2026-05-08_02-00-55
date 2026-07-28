@@ -10,7 +10,7 @@ namespace TDGame
 
         // InGame
         public static event Action OnLoadLevel;
-        public static event Action<TowerSO> OnTowerSelected;
+        // public static event Action<TowerSO> OnTowerSelected;
 
         // Level
         public static event Action<int> OnPlaynewGame;
@@ -46,10 +46,10 @@ namespace TDGame
         public static void SendMissionComplete() => OnMissionComplete?.Invoke();
 
 
-        public static void HandleTowerSelect(TowerSO data)
-        {
-            OnTowerSelected?.Invoke(data);
-        }
+        // public static void HandleTowerSelect(TowerSO data)
+        // {
+        //     OnTowerSelected?.Invoke(data);
+        // }
 
         public static void PauseGame()
         {

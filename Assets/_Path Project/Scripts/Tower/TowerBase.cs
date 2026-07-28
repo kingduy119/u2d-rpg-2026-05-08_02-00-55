@@ -10,6 +10,7 @@ namespace TDGame
         [SerializeField] private bool m_showDraw;
         [SerializeField] private SpriteRenderer m_render;
 
+
         public TowerSO TowerSO;
         public TowerAbility Ability;
         public IObjectPool<TowerBase> Pool { get; set; }
@@ -28,6 +29,8 @@ namespace TDGame
             m_render.sprite = TowerSO.sprite;
             Ability = new(TowerSO.Ability);
         }
+
+        public virtual void TowerUP() { Debug.Log("TowerBase.TowerUP"); }
 
         public virtual void Deactivate() => Pool.Release(this);
 

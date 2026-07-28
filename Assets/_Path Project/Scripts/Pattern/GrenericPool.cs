@@ -8,7 +8,7 @@ namespace TDGame
     IPoolable<T>
     {
         private readonly IObjectPool<T> _pool;
-        private HashSet<T> _activeObjects = new HashSet<T>();
+        private readonly HashSet<T> _activeObjects = new();
 
         public GenericPool(
             GameObject prefab,

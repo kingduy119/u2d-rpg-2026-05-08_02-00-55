@@ -19,6 +19,11 @@ namespace TDGame
         [Header("Combat")]
         public TowerAbility Ability;
         public ProjectileSO ProjectileSO;
+
+        // public Tower NextTowerLevel;
+        // public TowerType NextTowerLevel;
+        [SerializeField] private TowerSO _NextTowerLevel;
+        public TowerSO NextTowerLevel => _NextTowerLevel;
     }
 
     [Serializable]

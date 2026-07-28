@@ -6,8 +6,13 @@ namespace TDGame
 {
     public static class TowerEvent
     {
+        public static Action OnAcceptBuild;
+        public static Action OnCancelBuild;
+        public static Action<TowerSO> OnTowerCardSelect;
+        public static Action<bool> OnAcceptBuildResult;
+
         public static event Action<Ability> OnAbilitySelect;
-        public static event Action OnTowerUpdateSelect;
+        public static Action OnSelectUpdateTower;
 
         public static List<Ability> TowerAbilities = new();
         public static TowerAbility BonusAbility = new();
@@ -16,11 +21,6 @@ namespace TDGame
         {
             TowerAbilities.Add(ability);
             OnAbilitySelect?.Invoke(ability);
-        }
-
-        public static void TowerUpdateSelect()
-        {
-            OnTowerUpdateSelect?.Invoke();
         }
 
         public static void Log(string message)

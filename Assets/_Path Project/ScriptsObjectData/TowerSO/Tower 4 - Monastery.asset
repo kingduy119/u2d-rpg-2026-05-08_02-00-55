@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   sprite: {fileID: 21300000, guid: a1251424c565649b583fec61e0da204c, type: 3}
   towerName: Fire Tower
-  cost: 20
-  size: {x: 2, y: 2}
   towerType: 3
   projectType: 1
-  ShootRange: 2.5
-  ShootInterval: 1
-  projectileSpeed: 14
-  projectileDuration: 1
-  damage: 2
+  Size: {x: 1, y: 1}
+  cost: 20
+  Ability:
+    ShootRange: 0
+    ShootInterval: 0
+    PhysicalDamage: 0
+    MagicDamage: 0
+  ProjectileSO: {fileID: 0}
+  _NextTowerLevel: {fileID: 11400000, guid: ba61442d6a14944029b12e8ef411afed, type: 2}

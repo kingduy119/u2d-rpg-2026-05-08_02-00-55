@@ -28,15 +28,15 @@ namespace TDGame
         private void OnEnable()
         {
             GameEvent.OnMissionComplete += HandleMissionComplete;
-            TowerEvent.OnTowerUpdateSelect += ShowTowerUpdateSelect;
-            TowerEvent.OnAbilitySelect += CloseTowerUpdateSelect;
+            // TowerEvent.OnSelectUpdateTower += ShowTowerUpdateSelect;
+            // TowerEvent.OnAbilitySelect += CloseTowerUpdateSelect;
         }
 
         private void OnDisable()
         {
             GameEvent.OnMissionComplete -= HandleMissionComplete;
-            TowerEvent.OnTowerUpdateSelect -= ShowTowerUpdateSelect;
-            TowerEvent.OnAbilitySelect -= CloseTowerUpdateSelect;
+            // TowerEvent.OnSelectUpdateTower -= ShowTowerUpdateSelect;
+            // TowerEvent.OnAbilitySelect -= CloseTowerUpdateSelect;
         }
 
         public void SetupUIMainMenu()
@@ -54,14 +54,14 @@ namespace TDGame
             MissionCompleteUI.gameObject.SetActive(true);
         }
 
-        public void ShowTowerUpdateSelect()
-        {
-            TowerAbilityOptionsUI.gameObject.SetActive(true);
-        }
-        public void CloseTowerUpdateSelect(Ability _ = null)
-        {
-            TowerAbilityOptionsUI.gameObject.SetActive(false);
-        }
+        // public void ShowTowerUpdateSelect()
+        // {
+        //     TowerAbilityOptionsUI.gameObject.SetActive(true);
+        // }
+        // public void CloseTowerUpdateSelect(Ability _ = null)
+        // {
+        //     TowerAbilityOptionsUI.gameObject.SetActive(false);
+        // }
 
         private T LazyLoad<T>(ref T instance, T prefab, Transform transform = null) where T : MonoBehaviour
         {

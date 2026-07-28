@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 2518435981126274394}
   - component: {fileID: 5740410833858547009}
   m_Layer: 0
-  m_Name: GameManager (PresenterSingleton)
+  m_Name: _GameManager (PresenterSingleton)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

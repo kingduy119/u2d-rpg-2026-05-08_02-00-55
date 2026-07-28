@@ -20,14 +20,13 @@ namespace TDGame
         [SerializeField] private Tilemap[] blockTilemaps;
 
         private GameState GameState;
+        private TowerFactory TowerFactory => GameManager.Instance.FactoryManager.TowerFactory;
 
         private readonly HashSet<Vector3Int> blockedCells = new();
         private readonly HashSet<Vector3Int> m_previewCells = new();
         private TowerBase m_selectedTower;
         private Vector3 m_wordPos;
         private bool CanBuild = false;
-
-        public static event Action<bool> OnAcceptBuildResult;
 
         private void Awake()
         {
@@ -47,18 +46,16 @@ namespace TDGame
 
         private void OnEnable()
         {
-            GameEvent.OnTowerSelected += HandleTowerSelect;
-
-            TowerSelectUI.OnAcceptBuild += HandleAcceptBuild;
-            TowerSelectUI.OnCancelBuild += HandleCancelBuild;
+            TowerEvent.OnAcceptBuild += HandleAcceptBuild;
+            TowerEvent.OnCancelBuild += HandleCancelBuild;
+            TowerEvent.OnTowerCardSelect += HandleTowerSelect;
         }
 
         private void OnDisable()
         {
-            GameEvent.OnTowerSelected -= HandleTowerSelect;
-
-            TowerSelectUI.OnAcceptBuild -= HandleAcceptBuild;
-            TowerSelectUI.OnCancelBuild -= HandleCancelBuild;
+            TowerEvent.OnAcceptBuild -= HandleAcceptBuild;
+            TowerEvent.OnCancelBuild -= HandleCancelBuild;
+            TowerEvent.OnTowerCardSelect -= HandleTowerSelect;
         }
 
         private void Start()
@@ -90,7 +87,7 @@ namespace TDGame
             {
                 m_selectedTower.Deactivate();
             }
-            m_selectedTower = GameManager.Instance.FactoryManager.TowerFactory.GetObject(data.towerType);
+            m_selectedTower = TowerFactory.GetObject(data.towerType);
 
             ShowTowerAndCellPreview();
         }
@@ -178,7 +175,7 @@ namespace TDGame
                 Debug.Log("Cant Build Tower");
             }
 
-            OnAcceptBuildResult?.Invoke(CanBuild);
+            TowerEvent.OnAcceptBuildResult?.Invoke(CanBuild);
         }
 
         private void HandleCancelBuild()

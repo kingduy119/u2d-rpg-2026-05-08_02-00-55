@@ -8,7 +8,7 @@ namespace TDGame
 
         protected override void HandleClick()
         {
-            TowerEvent.Log("TowerUpdateButton");
+            TowerEvent.OnSelectUpdateTower?.Invoke();
         }
     }
 }

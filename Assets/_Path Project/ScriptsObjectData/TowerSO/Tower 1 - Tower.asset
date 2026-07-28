@@ -21,6 +21,7 @@ MonoBehaviour:
   Ability:
     ShootRange: 2
     ShootInterval: 1.5
-    PhysicDamage: 5
+    PhysicalDamage: 0
     MagicDamage: 0
   ProjectileSO: {fileID: 0}
+  _NextTowerLevel: {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}

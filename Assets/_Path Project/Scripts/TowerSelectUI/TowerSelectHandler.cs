@@ -25,22 +25,28 @@ namespace TDGame
             }
         }
 
-        // private void Start()
-        // {
-        //     TowerSelectCursor.SetActive(false);
-        // }
-
         private void OnEnable()
         {
-            TowerEvent.OnAbilitySelect += TowerApply;
+            TowerEvent.OnAbilitySelect += HandleAbilitySelect;
+            TowerEvent.OnSelectUpdateTower += UpdateSelectedTower;
         }
 
         private void OnDisable()
         {
-            TowerEvent.OnAbilitySelect -= TowerApply;
+            TowerEvent.OnAbilitySelect -= HandleAbilitySelect;
+            TowerEvent.OnSelectUpdateTower -= UpdateSelectedTower;
         }
 
-        private void TowerApply(Ability ability)
+        private void UpdateSelectedTower()
+        {
+            if (_selectedTower != null
+            && _selectedTower.TryGetComponent<Tower>(out var tower))
+            {
+                tower.TowerUP();
+            }
+        }
+
+        private void HandleAbilitySelect(Ability ability)
         {
             if (_selectedTower != null)
             {

@@ -7,5 +7,7 @@ namespace TDGame
         public EnemyFactory EnemyFactory;
         public TowerFactory TowerFactory;
         public ProjectileFactory ProjectileFactory;
+
+        public TestFactory TestFactory;
     }
 }
