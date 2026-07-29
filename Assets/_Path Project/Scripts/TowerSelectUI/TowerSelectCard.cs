@@ -9,9 +9,13 @@ namespace TDGame
         [SerializeField] private Image m_image;
         [SerializeField] private TMP_Text m_priceText;
 
-        private TowerSO TowerSO;
+        public TowerSO TowerSO;
         private GameState GameState;
 
+        private void OnValidate()
+        {
+            UpdateUI();
+        }
         protected override void OnEnable()
         {
             base.OnEnable();

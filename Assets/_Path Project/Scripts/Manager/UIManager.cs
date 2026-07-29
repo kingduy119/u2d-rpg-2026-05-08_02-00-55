@@ -19,6 +19,10 @@ namespace TDGame
 
         // private TowerSelectCursor _TowerSelectCursor;
         // public TowerSelectCursor TowerSelectCursor => LazyLoad(ref _TowerSelectCursor, _TowerSelectCursorPrefab, gameObject.transform);
+        [SerializeField] private GameObject _TowerSelectCursorPrefab;
+        private GameObject _TowerSelectCursor;
+        public GameObject TowerSelectCursor => LazyLoad(ref _TowerSelectCursor, _TowerSelectCursorPrefab, gameObject.transform);
+
 
         protected override void Awake()
         {
@@ -63,7 +67,8 @@ namespace TDGame
         //     TowerAbilityOptionsUI.gameObject.SetActive(false);
         // }
 
-        private T LazyLoad<T>(ref T instance, T prefab, Transform transform = null) where T : MonoBehaviour
+        private T LazyLoad<T>(ref T instance, T prefab, Transform transform = null)
+            where T : UnityEngine.Object
         {
             if (instance == null)
                 instance = Instantiate(prefab, transform);

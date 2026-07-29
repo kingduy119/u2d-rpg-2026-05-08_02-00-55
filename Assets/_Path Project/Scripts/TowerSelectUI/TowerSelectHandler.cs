@@ -56,15 +56,15 @@ namespace TDGame
 
         private void Update()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
+            // if (EventSystem.current.IsPointerOverGameObject())
+            //     return;
 
-            HandlePointerHover();
+            // HandlePointerHover();
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                HandlePointerUp();
-            }
+            // if (Input.GetMouseButtonUp(0))
+            // {
+            //     HandlePointerUp();
+            // }
         }
 
         private void HandlePointerHover()
@@ -80,7 +80,7 @@ namespace TDGame
                     _prevTower = _hoverTower;
                 }
             }
-            else // Unhover prev tower
+            else
             {
                 _hoverTower = null;
                 if (_prevTower != null
@@ -95,8 +95,6 @@ namespace TDGame
 
         private void HandlePointerUp()
         {
-            // Collider2D uiColider = GetColider(LayerMask.GetMask("UI"));
-
             if (_hoverTower != null)
                 CheckTowerClick();
             else
@@ -108,15 +106,6 @@ namespace TDGame
                     _selectedTower = null;
                 }
             }
-
-            // // if (uiColider != null && uiColider.gameObject.TryGetComponent<IClickTrigger>(out var button))
-            // // {
-            // //     button.RaiseEvent(_selectedTower);
-            // // }
-            // if (_hoverTower == null)
-            // {
-
-            // }
         }
 
         private void CheckTowerClick()

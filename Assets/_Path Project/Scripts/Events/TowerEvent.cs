@@ -6,11 +6,13 @@ namespace TDGame
 {
     public static class TowerEvent
     {
+        // Buy and build tower:
         public static Action OnAcceptBuild;
         public static Action OnCancelBuild;
         public static Action<TowerSO> OnTowerCardSelect;
         public static Action<bool> OnAcceptBuildResult;
 
+        // Select Tower:
         public static event Action<Ability> OnAbilitySelect;
         public static Action OnSelectUpdateTower;
 

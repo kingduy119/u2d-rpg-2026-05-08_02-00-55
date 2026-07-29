@@ -50,10 +50,8 @@ namespace TDGame
             return pool.Get();
         }
     }
-    public class TestFactory : NewFactory<TowerSO, TowerBase>
-    {
+    public class TestFactory : Factory<TowerSO, TowerBase> { }
 
-    }
 
-    public class TowerFactory2 : Factory<TowerSO, TowerBase> { }
+    // public class TowerFactory2 : Factory<TowerSO, TowerBase> { }
 }
