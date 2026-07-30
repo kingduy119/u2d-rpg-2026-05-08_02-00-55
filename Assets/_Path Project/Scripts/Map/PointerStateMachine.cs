@@ -49,21 +49,46 @@ namespace TDGame
 
         private void TowerCardSelect(TowerSO towerSO)
         {
-            PointerBuildTowerState.TowerCardSelect(towerSO);
             TransitionTo(PointerBuildTowerState);
+            PointerBuildTowerState.HandleTowerCardSelect(towerSO);
         }
     }
 
     public class PointerBuildTowerState : IState
     {
-        private TowerFactory TowerFactory => GameManager.Instance.FactoryManager.TowerFactory;
+        // private TowerFactory TowerFactory => GameManager.Instance.FactoryManager.TowerFactory;
+        private FactoryManager FactoryManager => GameManager.Instance.FactoryManager;
+
         private readonly WorldMap WorldMap;
 
-        private TowerBase _selectedTower;
+        private TowerBase _SelectedTower;
+        private GameObject TowerPlaceCursor => UIManager.Instance.TowerPlaceCursor;
 
         public PointerBuildTowerState(WorldMap worldmap)
         {
             WorldMap = worldmap;
+        }
+
+        public void Enter()
+        {
+            Debug.Log("PointerBuildTowerState.Enter");
+            TowerEvent.OnAcceptBuild += HandleAcceptBuild;
+            TowerEvent.OnCancelBuild += HandleCancelBuild;
+        }
+
+        public void Exit()
+        {
+            Debug.Log("PointerBuildTowerState.Exit");
+            TowerEvent.OnAcceptBuild -= HandleAcceptBuild;
+            TowerEvent.OnCancelBuild -= HandleCancelBuild;
+
+
+            if (_SelectedTower != null)
+                _SelectedTower.Deactivate();
+
+            _SelectedTower = null;
+            TowerPlaceCursor.SetActive(false);
+            WorldMap.HiddenTilemapPreview();
         }
 
         public void Execute()
@@ -74,19 +99,46 @@ namespace TDGame
             }
         }
 
-        private void HandlePointerClick()
+        public void HandleTowerCardSelect(TowerSO towerSO)
         {
-            Debug.Log("PointerBuildTowerState.Click");
+            if (_SelectedTower != null)
+                _SelectedTower.Deactivate();
+
+            _SelectedTower = FactoryManager.GetTower(towerSO.towerType);
+
+            Vector3 centerWorld = Camera.main.ViewportToWorldPoint(
+                new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
+
+            _SelectedTower.transform.position = centerWorld;
+            TowerEvent.OnTowerPlace?.Invoke(_SelectedTower);
         }
 
-        public void TowerCardSelect(TowerSO towerSO)
+        private void HandlePointerClick()
         {
-            if (_selectedTower != null)
-            {
-                _selectedTower.Deactivate();
-            }
-            _selectedTower = TowerFactory.GetObject(towerSO.towerType);
+            if (_SelectedTower == null) return;
+
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+
+            TowerEvent.OnTowerPlace?.Invoke(_SelectedTower);
+            TowerPlaceCursor.transform.position = mousePosition;
+            TowerPlaceCursor.SetActive(true);
         }
+
+        private void HandleAcceptBuild()
+        {
+            if (WorldMap.CanBuild)
+            {
+                ChangeHoverState();
+            }
+            else
+            {
+                Debug.Log("Can not BUILD");
+            }
+        }
+        private void HandleCancelBuild() => ChangeHoverState();
+
+        private void ChangeHoverState() => WorldMap.PointerStateMachine.TransitionTo(WorldMap.PointerStateMachine.PointerHoverState);
     }
 
     public class PointerHoverState : IState
@@ -101,6 +153,16 @@ namespace TDGame
         public PointerHoverState(WorldMap worldmap)
         {
             WorldMap = worldmap;
+        }
+
+        public void Enter()
+        {
+            Debug.Log("PointerHoverState.Enter");
+        }
+
+        public void Exit()
+        {
+            Debug.Log("PointerHoverState.Exit");
         }
 
         public void Execute()

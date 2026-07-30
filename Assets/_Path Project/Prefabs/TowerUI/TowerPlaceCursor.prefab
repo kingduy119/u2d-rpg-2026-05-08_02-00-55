@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2384831807346597910}
   - component: {fileID: 609616289097447912}
   - component: {fileID: 9008924203289788235}
+  - component: {fileID: 510767617150675754}
   m_Layer: 5
   m_Name: Accept
   m_TagString: Untagged
@@ -120,6 +121,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &510767617150675754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3427441496322999344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 051e270ac619d45fea1063b2fa673efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerBuildButton
 --- !u!1 &3576894018970838221
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +145,7 @@ GameObject:
   - component: {fileID: 8055629878129560684}
   - component: {fileID: 8800367871895019236}
   - component: {fileID: 8493030662644719474}
+  - component: {fileID: 7330489361079468349}
   m_Layer: 5
   m_Name: Cancel
   m_TagString: Untagged
@@ -240,6 +254,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7330489361079468349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3576894018970838221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9575dd17cfa48bea16d183465791ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerCancelBuildButton
 --- !u!1 &3803037702720529425
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +277,7 @@ GameObject:
   - component: {fileID: 3593619437749190197}
   - component: {fileID: 248063400821602755}
   m_Layer: 5
-  m_Name: TowerBuildCursor
+  m_Name: TowerPlaceCursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,10 +299,10 @@ RectTransform:
   - {fileID: 3646909643695884}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -29.066}
-  m_SizeDelta: {x: 0, y: 58.132}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &248063400821602755
 MonoBehaviour:
@@ -293,7 +319,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 60
+    m_Top: 70
     m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0

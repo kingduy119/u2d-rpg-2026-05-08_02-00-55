@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-using System;
 
 
 namespace TDGame
@@ -12,30 +11,26 @@ namespace TDGame
     public class WorldMap : MonoBehaviour
     {
 
-        [SerializeField] private Grid m_grid;
+        [SerializeField] private Grid _Grid;
         [SerializeField] private TileBase blockTile;
         [SerializeField] private TileBase activeTile;
+
         [SerializeField] private Tilemap blockedTilemap;
         [SerializeField] private Tilemap previewTilemap;
         [SerializeField] private Tilemap[] blockTilemaps;
 
-        private GameState GameState;
-        private TowerFactory TowerFactory => GameManager.Instance.FactoryManager.TowerFactory;
-
         private readonly HashSet<Vector3Int> blockedCells = new();
-        private readonly HashSet<Vector3Int> m_previewCells = new();
-        private TowerBase m_selectedTower;
+        private readonly HashSet<Vector3Int> _PreviewCells = new();
 
         public Vector3 WorldPosition { get; private set; }
         public Vector3 MousePosition { get; private set; }
-        private bool CanBuild = false;
+        public bool CanBuild = false;
 
-        private PointerStateMachine _PointerStateMachine;
-        // private PointerHoverState _PointerHoverState;
+        public PointerStateMachine PointerStateMachine { get; private set; }
 
         private void Awake()
         {
-            m_grid = GetComponent<Grid>();
+            _Grid = GetComponent<Grid>();
 
             blockedCells.Clear();
 
@@ -48,79 +43,28 @@ namespace TDGame
             }
             blockedTilemap.gameObject.SetActive(false);
 
-            _PointerStateMachine = new(this);
-            // _PointerHoverState = new(this);
+            PointerStateMachine = new(this);
         }
 
         private void OnEnable()
         {
-            TowerEvent.OnAcceptBuild += HandleAcceptBuild;
-            TowerEvent.OnCancelBuild += HandleCancelBuild;
-            // TowerEvent.OnTowerCardSelect += HandleTowerSelect;
-
-            _PointerStateMachine.Enable();
+            PointerStateMachine.Enable();
+            TowerEvent.OnTowerPlace += HandleTowerPlace;
         }
 
         private void OnDisable()
         {
-            TowerEvent.OnAcceptBuild -= HandleAcceptBuild;
-            TowerEvent.OnCancelBuild -= HandleCancelBuild;
-            // TowerEvent.OnTowerCardSelect -= HandleTowerSelect;
-
-            _PointerStateMachine.Disable();
-        }
-
-        private void Start()
-        {
-            GameState = GameManager.Instance.GameState;
+            PointerStateMachine.Disable();
+            TowerEvent.OnTowerPlace -= HandleTowerPlace;
         }
 
         private void Update()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current.IsPointerOverGameObject() || !Camera.main)
                 return;
 
-            if (!Camera.main) return;
-
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-            WorldPosition = mousePos;
-
-            // if (Input.GetMouseButtonDown(0))
-            // {
-            //     ShowTowerAndCellPreview();
-            // }
-            _PointerStateMachine.Execute();
-        }
-
-        private void HandleTowerSelect(TowerSO data)
-        {
-            if (m_selectedTower != null)
-            {
-                m_selectedTower.Deactivate();
-            }
-            m_selectedTower = TowerFactory.GetObject(data.towerType);
-
-            ShowTowerAndCellPreview();
-        }
-
-        private void ShowTowerAndCellPreview()
-        {
-            if (m_selectedTower == null) return;
-
-            Vector3Int origin = m_grid.WorldToCell(WorldPosition);
-            Vector2Int size = m_selectedTower.TowerSO.Size;
-
-            Vector3 pos = m_grid.CellToWorld(origin);
-
-            pos += new Vector3(
-                size.x * m_grid.cellSize.x * 0.5f,
-                size.y * m_grid.cellSize.y * 0.5f,
-                0);
-
-            m_selectedTower.transform.position = pos;
-
-            HandleTowerSelecting(origin, size);
+            UpdateWorldPosition();
+            PointerStateMachine.Execute();
         }
 
         private void CompressBlockedTile(Tilemap tilemap)
@@ -136,11 +80,49 @@ namespace TDGame
             }
         }
 
-        private void HandleTowerSelecting(Vector3Int origin, Vector2Int size)
+        // private void ShowTowerAndCellPreview()
+        // {
+        //     if (m_selectedTower == null) return;
+
+        //     Vector3Int origin = _Grid.WorldToCell(WorldPosition);
+        //     Vector2Int size = m_selectedTower.TowerSO.Size;
+
+        //     Vector3 pos = _Grid.CellToWorld(origin);
+
+        //     pos += new Vector3(
+        //         size.x * _Grid.cellSize.x * 0.5f,
+        //         size.y * _Grid.cellSize.y * 0.5f,
+        //         0);
+
+        //     m_selectedTower.transform.position = pos;
+        // }
+
+
+
+        public void HandleTowerPlace(TowerBase tower)
+        {
+            Vector2Int size = tower.TowerSO.Size;
+            Vector3Int origin = _Grid.WorldToCell(tower.transform.position);
+
+            Vector3 position = _Grid.CellToWorld(origin);
+
+            position += new Vector3(
+                size.x * _Grid.cellSize.x * 0.5f,
+                size.y * _Grid.cellSize.y * 0.5f,
+                0);
+
+            tower.transform.position = position;
+
+            CheckAndDisplayTile(origin, size);
+        }
+
+
+
+        private void CheckAndDisplayTile(Vector3Int origin, Vector2Int size)
         {
             DisplayTilemapPreview();
             previewTilemap.ClearAllTiles();
-            m_previewCells.Clear();
+            _PreviewCells.Clear();
 
             bool isCanBuild = true;
 
@@ -152,7 +134,7 @@ namespace TDGame
                     bool isBlocked = blockedCells.Contains(cell);
                     var tile = isBlocked ? blockTile : activeTile;
 
-                    m_previewCells.Add(cell);
+                    _PreviewCells.Add(cell);
                     previewTilemap.SetTile(cell, tile);
 
                     if (isCanBuild && isBlocked) isCanBuild = false;
@@ -162,48 +144,15 @@ namespace TDGame
             CanBuild = isCanBuild;
         }
 
-        private void HandleAcceptBuild()
-        {
-            if (CanBuild)
-            {
-                if (!GameState.CheckAndSpendResource(m_selectedTower.TowerSO))
-                {
-                    // Debug.Log("Not Enough Gold");
-                    return;
-                }
 
-                foreach (Vector3Int cell in m_previewCells)
-                {
-                    blockedCells.Add(cell);
-                    blockedTilemap.SetTile(cell, blockTile);
-                }
-                m_selectedTower = null;
-                HiddenTilemapPreview();
-                // GameManager.Audio.PlayTowerPlacedSound();
-            }
-            else
-            {
-                // GameManager.Audio.PlayTowerCantBuild();
-                Debug.Log("Cant Build Tower");
-            }
 
-            TowerEvent.OnAcceptBuildResult?.Invoke(CanBuild);
-        }
-
-        private void HandleCancelBuild()
-        {
-            m_selectedTower.Deactivate();
-            m_selectedTower = null;
-            HiddenTilemapPreview();
-        }
-
-        private void DisplayTilemapPreview()
+        public void DisplayTilemapPreview()
         {
             blockedTilemap.gameObject.SetActive(true);
             previewTilemap.gameObject.SetActive(true);
         }
 
-        private void HiddenTilemapPreview()
+        public void HiddenTilemapPreview()
         {
             blockedTilemap.gameObject.SetActive(false);
             previewTilemap.gameObject.SetActive(false);
@@ -211,9 +160,25 @@ namespace TDGame
 
         public Collider2D GetColider(LayerMask layer)
         {
-            // Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(WorldPosition, Vector2.zero, Mathf.Infinity, layer);
+            Vector3 mousePosition = GetMouseToWorldPoint();
+            RaycastHit2D hit = Physics2D.Raycast(
+                mousePosition,
+                Vector2.zero, Mathf.Infinity, layer);
             return hit.collider;
+        }
+
+        private Vector3 GetMouseToWorldPoint()
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            return mousePosition;
+        }
+
+        private void UpdateWorldPosition()
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            WorldPosition = mousePosition;
         }
     }
 }

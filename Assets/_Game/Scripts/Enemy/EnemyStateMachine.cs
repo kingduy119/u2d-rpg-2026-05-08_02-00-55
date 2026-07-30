@@ -34,7 +34,6 @@ public class EnemyStateMachine
 
     public void Execute()
     {
-        if (CurrentState != null)
-            CurrentState.Execute();
+        CurrentState?.Execute();
     }
 }

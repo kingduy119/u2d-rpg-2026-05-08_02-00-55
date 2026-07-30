@@ -10,6 +10,8 @@ namespace TDGame
         public static Action OnAcceptBuild;
         public static Action OnCancelBuild;
         public static Action<TowerSO> OnTowerCardSelect;
+        public static Action<TowerBase> OnTowerPlace;
+
         public static Action<bool> OnAcceptBuildResult;
 
         // Select Tower:
