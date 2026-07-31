@@ -116,14 +116,12 @@ namespace TDGame
             && _selectedTower.TryGetComponent<IHoverable>(out var hoverable))
             {
                 hoverable.SetHover(false);
-                // TowerSelectCursor.SetActive(false);
             }
 
             if (_selectedTower != _hoverTower)
             {
                 _selectedTower = _hoverTower;
                 TowerSelectCursor.transform.position = Camera.main.WorldToScreenPoint(_selectedTower.transform.position);
-                // _selectedTower.transform.position;
                 TowerSelectCursor.SetActive(true);
             }
         }

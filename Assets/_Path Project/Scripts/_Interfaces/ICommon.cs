@@ -1,27 +1,38 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public interface IPoolable<T> where T : Component
+namespace TDGame
 {
-    IObjectPool<T> Pool { get; set; }
-}
+    public interface IPoolable<T> where T : Component
+    {
+        IObjectPool<T> Pool { get; set; }
+    }
 
-public interface IEffectTrigger
-{
-    void TriggerEffect();
-}
+    public interface IEffectTrigger
+    {
+        void TriggerEffect();
+    }
 
-public interface IDamageable
-{
-    void TakeDamage(float amount);
-}
+    public interface IDamageable
+    {
+        void TakeDamage(float amount);
+    }
 
-public interface IHoverable
-{
-    void SetHover(bool value);
-}
+    public interface IHoverable
+    {
+        void SetHover(bool value);
+    }
 
-public interface IClickTrigger
-{
-    public void RaiseEvent(GameObject go = null);
+    public interface IClickTrigger
+    {
+        public void RaiseEvent(GameObject go = null);
+    }
+
+    public interface IState
+    {
+        public void Enter() { }
+        public void Execute() { }
+        public void Exit() { }
+    }
+
 }

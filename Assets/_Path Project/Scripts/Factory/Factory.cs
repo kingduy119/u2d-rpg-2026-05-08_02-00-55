@@ -14,9 +14,9 @@ namespace TDGame
             public Type type;
             public GameObject prefab;
         }
-        [SerializeField] private List<Config> _configs;
-        private Dictionary<Type, Config> _configMap = new();
 
+        [SerializeField] private List<Config> _configs;
+        private readonly Dictionary<Type, Config> _configMap = new();
 
         private void Awake()
         {
@@ -24,13 +24,6 @@ namespace TDGame
             {
                 _configMap.Add(config.type, config);
             }
-        }
-
-        private GenericPool<T> CreatePool(Config config)
-        {
-            GameObject prefab = config.prefab;
-            var pool = new GenericPool<T>(prefab, transform);
-            return pool;
         }
 
         public T GetObject(Type type)
@@ -45,6 +38,14 @@ namespace TDGame
             }
 
             return pool.Get();
+        }
+
+
+        private GenericPool<T> CreatePool(Config config)
+        {
+            GameObject prefab = config.prefab;
+            var pool = new GenericPool<T>(prefab, transform);
+            return pool;
         }
     }
 

@@ -15,8 +15,11 @@ namespace TDGame
         public static Action<bool> OnAcceptBuildResult;
 
         // Select Tower:
-        public static event Action<Ability> OnAbilitySelect;
+        public static Action OnSellTower;
+        public static Action OnDetailTower;
         public static Action OnSelectUpdateTower;
+
+        public static event Action<Ability> OnAbilitySelect;
 
         public static List<Ability> TowerAbilities = new();
         public static TowerAbility BonusAbility = new();

@@ -2275,6 +2275,7 @@ MonoBehaviour:
   _InGameUI: {fileID: 3872791374998375854}
   _TowerAbilityOptionsPrefab: {fileID: 4161880623082215135, guid: 951cf3793bc254874891779044129522, type: 3}
   _MissionCompleteUIPrefab: {fileID: 2941040141470414202, guid: c95b53dfd21f44101ac0bb1ef846c5c8, type: 3}
+  _TowerPlaceCursorPrefab: {fileID: 1261503707645090363, guid: 46779ecfa4617404ba3bbc29e2bb4fb1, type: 3}
   _TowerSelectCursorPrefab: {fileID: 9055239922964248596, guid: 3d99b6cd1ac33449f89fca4addb20a8f, type: 3}
 --- !u!114 &8012016952863979250
 MonoBehaviour:

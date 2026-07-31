@@ -352,12 +352,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464d6627f51bf4200982184f2f51ff73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.WorldMap
-  m_grid: {fileID: 5662618056091869557}
+  _Grid: {fileID: 0}
   blockTile: {fileID: 11400000, guid: f201c6e2b9e4e4384b248a0c2b94038b, type: 2}
   activeTile: {fileID: 11400000, guid: 858ca8359878b4ee89a5dd7bc1debf90, type: 2}
-  blockedTilemap: {fileID: 9112807085129459021}
-  previewTilemap: {fileID: 2609387923610115966}
-  blockTilemaps: []
+  _blockedTilemap: {fileID: 9112807085129459021}
+  _previewTilemap: {fileID: 2609387923610115966}
+  _blockTilemaps: []
+  CanBuild: 0
 --- !u!1 &6366262201914041209
 GameObject:
   m_ObjectHideFlags: 0

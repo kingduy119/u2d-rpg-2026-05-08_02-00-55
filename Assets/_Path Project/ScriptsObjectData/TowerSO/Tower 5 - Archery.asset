@@ -16,12 +16,12 @@ MonoBehaviour:
   towerName: Normal Tower
   towerType: 4
   projectType: 1
-  Size: {x: 1, y: 1}
-  cost: 15
+  Size: {x: 2, y: 2}
+  cost: 10
   Ability:
-    ShootRange: 0
-    ShootInterval: 0
-    PhysicalDamage: 0
-    MagicDamage: 0
-  ProjectileSO: {fileID: 0}
+    ShootRange: 2
+    ShootInterval: 2
+    PhysicalDamage: 2
+    MagicDamage: 2
+  ProjectileSO: {fileID: 11400000, guid: 242b02395777b4641a8862cb4b022580, type: 2}
   _NextTowerLevel: {fileID: 11400000, guid: 046a0429a111248599d75b467269bbf6, type: 2}

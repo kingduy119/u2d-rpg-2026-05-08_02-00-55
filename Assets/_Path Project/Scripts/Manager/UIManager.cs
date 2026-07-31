@@ -17,12 +17,10 @@ namespace TDGame
         private MissionCompleteUI _MissionCompleteUI;
         public MissionCompleteUI MissionCompleteUI => LazyLoad(ref _MissionCompleteUI, _MissionCompleteUIPrefab, gameObject.transform);
 
-        // private TowerSelectCursor _TowerSelectCursor;
-        // public TowerSelectCursor TowerSelectCursor => LazyLoad(ref _TowerSelectCursor, _TowerSelectCursorPrefab, gameObject.transform);
+
         [SerializeField] private GameObject _TowerPlaceCursorPrefab;
         private GameObject _TowerPlaceCursor;
         public GameObject TowerPlaceCursor => LazyLoad(ref _TowerPlaceCursor, _TowerPlaceCursorPrefab, gameObject.transform);
-
 
         [SerializeField] private GameObject _TowerSelectCursorPrefab;
         private GameObject _TowerSelectCursor;
