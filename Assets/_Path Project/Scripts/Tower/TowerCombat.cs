@@ -9,10 +9,10 @@ namespace TDGame
         private TowerBase Tower;
         private List<Enemy> _enemiesInRange;
         private FactoryManager FactoryManager => GameManager.Instance.FactoryManager;
-        private float _shootTimer = 0f;
 
-        [SerializeField] private GameObject _ProjectilePrefab;
-        public GenericPool<Projectile> ProjectilePool;
+        [SerializeField] private SpriteRenderer _SpriteRenderer;
+
+        private float _shootTimer = 0f;
 
         private void Awake()
         {
@@ -24,7 +24,9 @@ namespace TDGame
             {
                 collider.radius = Tower.Ability.ShootRange;
             }
+            if (_SpriteRenderer != null) _SpriteRenderer.enabled = false;
         }
+
 
         private void OnEnable()
         {
@@ -82,13 +84,14 @@ namespace TDGame
                 _enemiesInRange.Remove(enemy);
         }
 
-        // private void ShowRadar()
-        // {
-        //     if (_Tower.TowerSO == null) return;
+        private void ShowShootRangeArea()
+        {
+            if (Tower.TowerSO == null || _SpriteRenderer == null) return;
 
-        //     float dimeter = _Tower.TowerSO.Ability.ShootRange * 2f;
-        //     transform.localScale = Vector3.one * dimeter;
-        // }
+            float dimeter = Tower.TowerSO.Ability.ShootRange * 2f;
+            transform.localScale = Vector3.one * dimeter;
+            _SpriteRenderer.enabled = true;
+        }
     }
 
 }

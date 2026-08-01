@@ -1,52 +1,36 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace TDGame
 {
-    public class Tower : TowerBase
+    public class Tower : TowerBase,
+    IPoolable<Tower>,
+    ITower
     {
-        private TestFactory TestFactory => GameManager.Instance.FactoryManager.TestFactory;
+        public IObjectPool<Tower> Pool { get; set; }
 
-        // private Transform _ShootRangeRadar;
+        protected TowerStateMachine _StateMachine;
 
-        // protected override void Awake()
-        // {
-        //     base.Awake();
-        //     _ShootRangeRadar = transform.Find("ShootRangeRadar");
-        // }
 
-        // protected override void OnValidate()
-        // {
-        //     base.OnValidate();
-        //     ShowShootRange();
-        // }
-
-        // protected override void Start()
-        // {
-        //     base.Start();
-        //     ShowShootRange();
-        // }
-
-        public override void TowerUP()
+        protected override void Awake()
         {
-            if (TowerSO.NextTowerLevel != null)
-            {
-                TowerBase tower = TestFactory.GetObject(TowerSO.NextTowerLevel);
-                tower.gameObject.transform.position = transform.position;
-
-                // TowerBase tower = TestFactory.GetObject(TowerSO.NextTowerLevel);
-                // tower.gameObject.transform.position = transform.position;
-
-                Deactivate();
-            }
+            base.Awake();
+            _StateMachine = new TowerStateMachine(this);
         }
-
-        // private void ShowShootRange()
+        // public override void TowerUP()
         // {
-        //     if (_ShootRangeRadar != null && TowerSO != null)
+        //     if (TowerSO.NextTowerLevel != null)
         //     {
-        //         float dimeter = TowerSO.Ability.ShootRange * 2f;
-        //         _ShootRangeRadar.localScale = Vector3.one * dimeter;
+        //         TowerBase tower = TestFactory.GetObject(TowerSO.NextTowerLevel);
+        //         tower.gameObject.transform.position = transform.position;
+
+        //         // TowerBase tower = TestFactory.GetObject(TowerSO.NextTowerLevel);
+        //         // tower.gameObject.transform.position = transform.position;
+
+        //         Deactivate();
         //     }
         // }
+
+        public override void Deactivate() => Pool.Release(this);
     }
 }

@@ -8,6 +8,15 @@ namespace TDGame
         IObjectPool<T> Pool { get; set; }
     }
 
+    public interface ITower
+    {
+        // TowerCombat Combat { get; }
+        // TowerHover Hover { get; }
+
+        public void TestFunc() { }
+    }
+
+
     public interface IEffectTrigger
     {
         void TriggerEffect();

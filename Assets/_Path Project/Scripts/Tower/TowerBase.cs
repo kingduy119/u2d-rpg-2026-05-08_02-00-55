@@ -4,19 +4,17 @@ using UnityEngine.Pool;
 
 namespace TDGame
 {
-    public abstract class TowerBase : MonoBehaviour,
-        IPoolable<TowerBase>
+    public abstract class TowerBase : MonoBehaviour
     {
         [SerializeField] private bool _ShowDraw;
         [SerializeField] private SpriteRenderer m_render;
 
         public TowerSO TowerSO;
         public TowerAbility Ability;
-        public IObjectPool<TowerBase> Pool { get; set; }
-        public string State = "IDLE";
+        // public virtual IObjectPool<TowerBase> Pool { get; set; }
 
-        protected TowerCombat _Combat;
-        protected TowerHover _Hover;
+        public TowerCombat Combat;
+        public TowerHover Hover;
 
         protected virtual void OnValidate()
         {
@@ -29,9 +27,9 @@ namespace TDGame
         {
             if (TryGetComponent<TowerHover>(out var hover))
             {
-                _Hover = hover;
+                Hover = hover;
             }
-            _Combat = gameObject.GetComponentInChildren<TowerCombat>();
+            Combat = gameObject.GetComponentInChildren<TowerCombat>();
 
 
             if (TowerSO == null) return;
@@ -42,24 +40,16 @@ namespace TDGame
 
         protected virtual void Start()
         {
-            Init();
+            // if (Hover != null) Hover.enabled = false;
+            // if (Combat != null) Combat.enabled = false;
         }
 
-        public virtual void TowerUP() { }
-        public virtual void Deactivate() => Pool.Release(this);
 
-        public virtual void MarkBuilded()
-        {
-            if (_Hover != null) _Hover.enabled = true;
-            if (_Combat != null) _Combat.enabled = true;
-        }
-
-        protected virtual void Init()
-        {
-            if (_Hover != null) _Hover.enabled = false;
-            if (_Combat != null) _Combat.enabled = false;
-        }
-
+        // public virtual void MarkBuilded()
+        // {
+        //     if (Hover != null) Hover.enabled = true;
+        //     if (Combat != null) Combat.enabled = true;
+        // }
 
         private void OnDrawGizmos()
         {
@@ -69,5 +59,7 @@ namespace TDGame
                 Gizmos.DrawWireSphere(transform.position, TowerSO.Ability.ShootRange);
             }
         }
+
+        public abstract void Deactivate();
     }
 }

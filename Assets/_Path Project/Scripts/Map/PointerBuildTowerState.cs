@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace TDGame
 {
@@ -10,7 +8,7 @@ namespace TDGame
         private GameObject TowerPlaceCursor => UIManager.Instance.TowerPlaceCursor;
 
         private readonly WorldMap WorldMap;
-        private TowerBase _SelectedTower;
+        private Tower _SelectedTower;
 
         public PointerBuildTowerState(WorldMap worldmap)
         {
@@ -50,7 +48,7 @@ namespace TDGame
             if (_SelectedTower != null)
                 _SelectedTower.Deactivate();
 
-            _SelectedTower = FactoryManager.GetTower(towerSO.towerType);
+            _SelectedTower = FactoryManager.GetTower(towerSO);
 
             Vector3 centerWorld = Camera.main.ViewportToWorldPoint(
                 new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
@@ -91,7 +89,7 @@ namespace TDGame
         {
             if (WorldMap.CanBuild)
             {
-                _SelectedTower.State = "BUILDED";
+                // _SelectedTower.State = "BUILDED";
                 _SelectedTower = null;
                 WorldMap.AcceptBuild();
                 ChangeHoverState();

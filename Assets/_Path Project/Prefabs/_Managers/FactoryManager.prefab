@@ -82,7 +82,6 @@ Transform:
   - {fileID: 5625189025208822141}
   - {fileID: 8995692480999589220}
   - {fileID: 4806143197293359454}
-  - {fileID: 839127712935093978}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8259301134455721308
@@ -100,64 +99,7 @@ MonoBehaviour:
   EnemyFactory: {fileID: 1072357619751907027}
   TowerFactory: {fileID: 6600137426610877235}
   ProjectileFactory: {fileID: 8100721673170784428}
-  TestFactory: {fileID: 2838902036065180318}
---- !u!1 &7164903328252642933
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 839127712935093978}
-  - component: {fileID: 2838902036065180318}
-  m_Layer: 0
-  m_Name: TestFactory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &839127712935093978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7164903328252642933}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4725089102036666305}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2838902036065180318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7164903328252642933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a027d1ffd8a848cb98cc9d49b331f5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TDGame.TestFactory
-  _configs:
-  - type: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
-    prefab: {fileID: 85164629013926071, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
-  - type: {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}
-    prefab: {fileID: 574471250621376872, guid: 693ad3468a4c88b4a88378f748a88217, type: 3}
-  - type: {fileID: 11400000, guid: 0acda361f59cd462099fa423368767a6, type: 2}
-    prefab: {fileID: 1661685818584876446, guid: 2e92f822acb1346439295e34931a5dc7, type: 3}
-  - type: {fileID: 11400000, guid: 7b0fd9569ac6e4186b59b3ef0da1a3d6, type: 2}
-    prefab: {fileID: 1661685818584876446, guid: c2a5fb646fdca4a5dbc366ec2b8e3738, type: 3}
-  - type: {fileID: 11400000, guid: ba61442d6a14944029b12e8ef411afed, type: 2}
-    prefab: {fileID: 1661685818584876446, guid: aecceafed9cb6784aae29844c529ef12, type: 3}
-  - type: {fileID: 11400000, guid: 046a0429a111248599d75b467269bbf6, type: 2}
-    prefab: {fileID: 1661685818584876446, guid: b52f95a21aecb9d43bd77bf687ecca5f, type: 3}
+  TestFactory: {fileID: 0}
 --- !u!1 &8521337527811437665
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,15 +192,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerFactory
   _configs:
-  - type: 0
+  - type: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
     prefab: {fileID: 85164629013926071, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
-  - type: 1
+  - type: {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}
     prefab: {fileID: 574471250621376872, guid: 693ad3468a4c88b4a88378f748a88217, type: 3}
-  - type: 2
+  - type: {fileID: 11400000, guid: 0acda361f59cd462099fa423368767a6, type: 2}
     prefab: {fileID: 1661685818584876446, guid: 2e92f822acb1346439295e34931a5dc7, type: 3}
-  - type: 3
+  - type: {fileID: 11400000, guid: 7b0fd9569ac6e4186b59b3ef0da1a3d6, type: 2}
     prefab: {fileID: 1661685818584876446, guid: c2a5fb646fdca4a5dbc366ec2b8e3738, type: 3}
-  - type: 4
+  - type: {fileID: 11400000, guid: ba61442d6a14944029b12e8ef411afed, type: 2}
     prefab: {fileID: 1661685818584876446, guid: aecceafed9cb6784aae29844c529ef12, type: 3}
-  - type: 5
+  - type: {fileID: 11400000, guid: 046a0429a111248599d75b467269bbf6, type: 2}
     prefab: {fileID: 1661685818584876446, guid: b52f95a21aecb9d43bd77bf687ecca5f, type: 3}
