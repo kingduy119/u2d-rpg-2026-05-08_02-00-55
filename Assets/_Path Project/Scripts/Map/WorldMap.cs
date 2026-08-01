@@ -50,14 +50,12 @@ namespace TDGame
         {
             PointerStateMachine.Enable();
             TowerEvent.OnTowerPlace += HandleTowerPlace;
-            // TowerEvent.OnAcceptBuild += HandleAcceptBuild;
         }
 
         private void OnDisable()
         {
             PointerStateMachine.Disable();
             TowerEvent.OnTowerPlace -= HandleTowerPlace;
-            // TowerEvent.OnAcceptBuild -= HandleAcceptBuild;
         }
 
         private void Update()
@@ -82,24 +80,6 @@ namespace TDGame
             }
         }
 
-        // private void ShowTowerAndCellPreview()
-        // {
-        //     if (m_selectedTower == null) return;
-
-        //     Vector3Int origin = _Grid.WorldToCell(WorldPosition);
-        //     Vector2Int size = m_selectedTower.TowerSO.Size;
-
-        //     Vector3 pos = _Grid.CellToWorld(origin);
-
-        //     pos += new Vector3(
-        //         size.x * _Grid.cellSize.x * 0.5f,
-        //         size.y * _Grid.cellSize.y * 0.5f,
-        //         0);
-
-        //     m_selectedTower.transform.position = pos;
-        // }
-
-
 
         public void HandleTowerPlace(TowerBase tower)
         {
@@ -116,8 +96,6 @@ namespace TDGame
 
             CheckAndDisplayTile(origin, size);
         }
-
-
 
         private void CheckAndDisplayTile(Vector3Int origin, Vector2Int size)
         {
@@ -156,8 +134,6 @@ namespace TDGame
             _PreviewCells.Clear();
             _previewTilemap.ClearAllTiles();
         }
-
-
 
         public void DisplayTilemapPreview()
         {

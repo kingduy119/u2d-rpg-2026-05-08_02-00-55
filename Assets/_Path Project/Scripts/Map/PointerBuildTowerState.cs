@@ -91,6 +91,7 @@ namespace TDGame
         {
             if (WorldMap.CanBuild)
             {
+                _SelectedTower.State = "BUILDED";
                 _SelectedTower = null;
                 WorldMap.AcceptBuild();
                 ChangeHoverState();
@@ -98,6 +99,7 @@ namespace TDGame
             else
             {
                 Debug.Log("Can not BUILD");
+                // 1. Play sound
             }
         }
         private void HandleCancelBuild() => ChangeHoverState();

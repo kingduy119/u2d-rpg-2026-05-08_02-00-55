@@ -12,8 +12,6 @@ namespace TDGame
         public static Action<TowerSO> OnTowerCardSelect;
         public static Action<TowerBase> OnTowerPlace;
 
-        public static Action<bool> OnAcceptBuildResult;
-
         // Select Tower:
         public static Action OnSellTower;
         public static Action OnDetailTower;

@@ -8,7 +8,7 @@ namespace TDGame
     {
         private TowerBase Tower;
         private List<Enemy> _enemiesInRange;
-        private ProjectileFactory Factory => GameManager.Instance.FactoryManager.ProjectileFactory;
+        private FactoryManager FactoryManager => GameManager.Instance.FactoryManager;
         private float _shootTimer = 0f;
 
         [SerializeField] private GameObject _ProjectilePrefab;
@@ -22,7 +22,6 @@ namespace TDGame
 
             if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
             {
-                // _ability = Tower.Ability;
                 collider.radius = Tower.Ability.ShootRange;
             }
         }
@@ -43,30 +42,23 @@ namespace TDGame
             if (_shootTimer <= 0)
             {
                 Shoot();
-                // _shootTimer = _ability.ShootInterval;
                 _shootTimer = Tower.Ability.ShootInterval;
             }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Enemy"))
+            if (collision.CompareTag("Enemy") && collision.TryGetComponent<Enemy>(out var enemy))
             {
-                if (collision.TryGetComponent<Enemy>(out var enemy))
-                {
-                    _enemiesInRange.Add(enemy);
-                }
+                _enemiesInRange.Add(enemy);
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.CompareTag("Enemy"))
+            if (collision.CompareTag("Enemy") && collision.TryGetComponent<Enemy>(out var enemy))
             {
-                if (collision.TryGetComponent<Enemy>(out var enemy))
-                {
-                    _enemiesInRange.Remove(enemy);
-                }
+                _enemiesInRange.Remove(enemy);
             }
         }
 
@@ -74,7 +66,7 @@ namespace TDGame
         {
             if (_enemiesInRange.Count > 0)
             {
-                Projectile projectile = Factory.GetObject(Tower.TowerSO.projectType);
+                Projectile projectile = FactoryManager.GetProjectile(Tower.TowerSO.projectType);
                 if (projectile == null) return;
 
                 Vector2 shootDirection = (_enemiesInRange[0].transform.position - transform.position).normalized;
@@ -89,6 +81,14 @@ namespace TDGame
             if (_enemiesInRange.Contains(enemy))
                 _enemiesInRange.Remove(enemy);
         }
+
+        // private void ShowRadar()
+        // {
+        //     if (_Tower.TowerSO == null) return;
+
+        //     float dimeter = _Tower.TowerSO.Ability.ShootRange * 2f;
+        //     transform.localScale = Vector3.one * dimeter;
+        // }
     }
 
 }

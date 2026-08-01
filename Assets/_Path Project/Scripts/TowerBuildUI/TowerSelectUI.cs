@@ -18,22 +18,7 @@ namespace TDGame
             RefreshUI();
         }
 
-        private void OnEnable()
-        {
-            // GameEvent.OnTowerSelected += HandleTowerCardSelect;
-            TowerEvent.OnAcceptBuildResult += HandleBuildResult;
 
-            // m_AcceptButton.onClick.AddListener(HandleAcceptBuildTower);
-            // m_CancelButton.onClick.AddListener(HandleCancelBuildTower);
-        }
-        private void OnDisable()
-        {
-            // GameEvent.OnTowerSelected -= HandleTowerCardSelect;
-            TowerEvent.OnAcceptBuildResult -= HandleBuildResult;
-
-            // m_AcceptButton.onClick.RemoveListener(HandleAcceptBuildTower);
-            // m_CancelButton.onClick.RemoveListener(HandleCancelBuildTower);
-        }
 
         private void RefreshUI()
         {
@@ -50,33 +35,8 @@ namespace TDGame
                     card.Initialize(data);
 
                 }
-                // TowerSelectCard card = go.GetComponent<TowerSelectCard>();
-                // card.Initialize(data);
             }
 
-            // m_ButtonContain.SetActive(false);
-        }
-
-        // private void HandleTowerCardSelect(TowerSO data) => m_ButtonContain.SetActive(true);
-
-        // public void HandleAcceptBuildTower() => OnAcceptBuild?.Invoke();
-
-        // public void HandleCancelBuildTower()
-        // {
-        //     m_ButtonContain.SetActive(false);
-        //     OnCancelBuild?.Invoke();
-        // }
-
-        private void HandleBuildResult(bool isSuccess)
-        {
-            // if (isSuccess)
-            // {
-            //     // m_ButtonContain.SetActive(false);
-            // }
-            // else
-            // {
-            //     Debug.Log("Play sound cant build");
-            // }
         }
 
     }

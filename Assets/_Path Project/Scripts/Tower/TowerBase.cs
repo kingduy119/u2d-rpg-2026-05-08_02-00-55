@@ -13,6 +13,7 @@ namespace TDGame
         public TowerSO TowerSO;
         public TowerAbility Ability;
         public IObjectPool<TowerBase> Pool { get; set; }
+        public string State = "IDLE";
 
         protected TowerCombat _Combat;
         protected TowerHover _Hover;
