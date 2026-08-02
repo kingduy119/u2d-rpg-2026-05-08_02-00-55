@@ -5,6 +5,9 @@ namespace TDGame
 {
     public static class InGameEvent
     {
+        public static Action OnPathwayRaise;
+        public static Action OnSpawnerRaise;
+
         public static Action OnStartWave;
         public static Action OnEndWave;
         public static Action OnPauseGame;

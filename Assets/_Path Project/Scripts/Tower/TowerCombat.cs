@@ -24,13 +24,11 @@ namespace TDGame
 
         private void OnEnable()
         {
-            // Debug.Log("TowerCombat.OnEnable");
             GameEvent.OnEnemyDie += HandleEnemyDie;
         }
 
         private void OnDisable()
         {
-            // Debug.Log("TowerCombat.OnDisable");
             GameEvent.OnEnemyDie -= HandleEnemyDie;
         }
 
@@ -42,7 +40,6 @@ namespace TDGame
                 Debug.Log($"collider.radius: {collider.radius}");
             }
             SetShootRangeArea();
-            // if (ShootRanageArea != null) ShootRanageArea.enabled = false;
         }
 
         private void Update()

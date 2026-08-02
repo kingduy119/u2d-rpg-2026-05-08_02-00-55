@@ -8,11 +8,16 @@ namespace TDGame
     {
         public LevelState LevelState;
 
+        private int _Spawners = 0;
+        private int _PathwaySpawners = 0;
+
+
         private void OnEnable()
         {
             GameEvent.OnPlayAgain += PlayCurrentLevel;
             GameEvent.OnPlaynewGame += LoadLevel;
-
+            InGameEvent.OnPathwayRaise += HandlePathwayRaise;
+            InGameEvent.OnSpawnerRaise += HandleSpawnerRaise;
             InGameEvent.OnMissionComplete += HandleMissionComplete;
         }
 
@@ -20,8 +25,23 @@ namespace TDGame
         {
             GameEvent.OnPlayAgain -= PlayCurrentLevel;
             GameEvent.OnPlaynewGame -= LoadLevel;
-
+            InGameEvent.OnPathwayRaise -= HandlePathwayRaise;
+            InGameEvent.OnSpawnerRaise -= HandleSpawnerRaise;
             InGameEvent.OnMissionComplete -= HandleMissionComplete;
+        }
+
+        private void HandlePathwayRaise()
+        {
+            _PathwaySpawners++;
+            // CheckAllSpawnersRaised();
+            Debug.Log($"_PathwaySpawners: {_PathwaySpawners}");
+        }
+
+        private void HandleSpawnerRaise()
+        {
+            _Spawners++;
+            // CheckAllSpawnersRaised();
+            Debug.Log($"_Spawners: {_Spawners}");
         }
 
         private void Start()

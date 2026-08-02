@@ -26,7 +26,6 @@ namespace TDGame
         private void Awake()
         {
             settingsPanel.SetActive(false);
-
             GameState = GameManager.Instance.GameState;
         }
 

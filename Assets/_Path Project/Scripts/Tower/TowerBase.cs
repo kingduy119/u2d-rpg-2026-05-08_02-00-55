@@ -11,7 +11,6 @@ namespace TDGame
 
         public TowerSO TowerSO;
         public TowerAbility Ability;
-        // public virtual IObjectPool<TowerBase> Pool { get; set; }
 
         public TowerCombat Combat;
         public TowerHover Hover;
@@ -38,18 +37,7 @@ namespace TDGame
             Ability = new(TowerSO.Ability);
         }
 
-        protected virtual void Start()
-        {
-            // if (Hover != null) Hover.enabled = false;
-            // if (Combat != null) Combat.enabled = false;
-        }
-
-
-        // public virtual void MarkBuilded()
-        // {
-        //     if (Hover != null) Hover.enabled = true;
-        //     if (Combat != null) Combat.enabled = true;
-        // }
+        protected virtual void Start() { }
 
         private void OnDrawGizmos()
         {

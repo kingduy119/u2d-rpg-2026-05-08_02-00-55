@@ -27,18 +27,6 @@ namespace TDGame
             set => SetValue(ref _maxGameSpeed, value);
         }
 
-        // private float _gameSpeed = 1f;
-        // public float GameSpeed
-        // {
-        //     get => _gameSpeed;
-        //     set
-        //     {
-        //         SetValue(ref _gameSpeed, value);
-        //         _gameSpeed = Mathf.Clamp(_gameSpeed % _maxGameSpeed, 1, _maxGameSpeed);
-        //         Time.timeScale = _gameSpeed;
-        //     }
-        // }
-
         private int _lives = 0;
         public int Lives
         {
@@ -105,6 +93,7 @@ namespace TDGame
             }
         }
 
+
         public GameState() { }
 
         public void OnEnable()
@@ -115,7 +104,6 @@ namespace TDGame
 
             InGameEvent.OnStartWave += StartWave;
             InGameEvent.OnEndWave += EndWave;
-            // InGameEvent.OnGameSpeedChanged += ChangeGameSpeed;
         }
 
         public void OnDisable()
@@ -126,7 +114,6 @@ namespace TDGame
 
             InGameEvent.OnStartWave -= StartWave;
             InGameEvent.OnEndWave -= EndWave;
-            // InGameEvent.OnGameSpeedChanged -= ChangeGameSpeed;
         }
 
         private void StartWave()

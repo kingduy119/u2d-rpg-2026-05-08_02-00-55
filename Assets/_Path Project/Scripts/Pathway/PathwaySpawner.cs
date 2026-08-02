@@ -30,6 +30,11 @@ namespace TDGame
             }
         }
 
+        private void Start()
+        {
+            InGameEvent.OnPathwayRaise?.Invoke();
+        }
+
         private void OnEnable()
         {
             InGameEvent.OnStartWave += HandleStartWave;
@@ -49,13 +54,12 @@ namespace TDGame
                     Spawner spawnerInstance = Instantiate(SpawnerPrefab);
                     spawnerInstance.Init(spawnConfig, Pathway);
                 }
-            }
-            else
-            {
-                Debug.LogWarning($"No spawn configuration found for wave {WaveNumber}.");
-            }
 
-            // WaveNumber++;
+                // if (_spawnConfigMap.Remove(WaveNumber) && _spawnConfigMap.Count == 0)
+                // {
+                //     Destroy(gameObject);
+                // }
+            }
         }
 
         private void OnDrawGizmos()
