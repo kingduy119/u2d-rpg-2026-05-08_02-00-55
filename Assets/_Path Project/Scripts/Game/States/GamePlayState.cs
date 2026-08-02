@@ -1,19 +1,15 @@
-using System;
-using UnityEngine;
 
 namespace TDGame
 {
-    public class GameState : DirtyState
+    public class GamePlayState :
+        DirtyState,
+        IState
     {
         private bool _isStarted = false;
         public bool IsStarted
         {
             get => _isStarted;
-            set
-            {
-                _isStarted = value;
-                IsDirty = true;
-            }
+            set => SetValue(ref _isStarted, value);
         }
 
         private int _lives = 0;
@@ -58,10 +54,9 @@ namespace TDGame
             set => SetValue(ref _enemies, value);
         }
 
+        public GamePlayState() { }
 
-        public GameState() { }
-
-        public void OnEnable()
+        public void Enter()
         {
             GameEvent.OnEnemyDie += HandleEnemyDie;
             GameEvent.OnGetEnemyReward += HandleGetEnemyReward;
@@ -72,7 +67,7 @@ namespace TDGame
             InGameEvent.OnEnemySpawn += EnemySpawn;
         }
 
-        public void OnDisable()
+        public void Exit()
         {
             GameEvent.OnEnemyDie -= HandleEnemyDie;
             GameEvent.OnGetEnemyReward -= HandleGetEnemyReward;
@@ -112,15 +107,5 @@ namespace TDGame
 
         public void HandleEnemyDie(Enemy _) => Enemies--;
         public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.Data.goldReward;
-
-        public bool CheckAndSpendResource(TowerSO towerData)
-        {
-            if (Golds >= towerData.cost)
-            {
-                Golds -= towerData.cost;
-                return true;
-            }
-            return false;
-        }
     }
 }

@@ -11,7 +11,6 @@ namespace TDGame
         private int _Spawners = 0;
         private int _PathwaySpawners = 0;
 
-
         private void OnEnable()
         {
             GameEvent.OnPlayAgain += PlayCurrentLevel;
@@ -33,15 +32,11 @@ namespace TDGame
         private void HandlePathwayRaise()
         {
             _PathwaySpawners++;
-            // CheckAllSpawnersRaised();
-            Debug.Log($"_PathwaySpawners: {_PathwaySpawners}");
         }
 
         private void HandleSpawnerRaise()
         {
             _Spawners++;
-            // CheckAllSpawnersRaised();
-            Debug.Log($"_Spawners: {_Spawners}");
         }
 
         private void Start()

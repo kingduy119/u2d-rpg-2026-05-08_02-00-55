@@ -38,12 +38,6 @@ namespace TDGame
             float distance = Vector2.Distance(transform.position, _targetPosition);
             if (distance < 0.05f)
             {
-                // Next waypoint or end
-                // if (_pathIndex < Path.wayPoints.Length - 1)
-                // {
-                //     _pathIndex++;
-                //     _targetPosition = Path.GetPointPosition(_pathIndex);
-                // }
                 if (_pathIndex < _Pathway.Length - 1)
                 {
                     _pathIndex++;
@@ -51,7 +45,8 @@ namespace TDGame
                 }
                 else
                 {
-                    GameEvent.SendEnemyReachedEnd(this);
+                    // GameEvent.SendEnemyReachedEnd(this);
+                    InGameEvent.OnEnemyReachedEnd?.Invoke(this);
                     Deactivate();
                 }
             }

@@ -4,8 +4,7 @@ using UnityEngine.Pool;
 namespace TDGame
 {
     public class Tower : TowerBase,
-    IPoolable<Tower>,
-    ITower
+    IPoolable<Tower>
     {
         public IObjectPool<Tower> Pool { get; set; }
 

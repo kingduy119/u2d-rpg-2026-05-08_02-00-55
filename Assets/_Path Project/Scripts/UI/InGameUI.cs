@@ -21,12 +21,12 @@ namespace TDGame
         [Header("UI Pannels")]
         [SerializeField] private GameObject settingsPanel;
 
-        private GameState GameState;
+        // private GameState GameState;
 
         private void Awake()
         {
             settingsPanel.SetActive(false);
-            GameState = GameManager.Instance.GameState;
+            // GameState = GameManager.Instance.GameState;
         }
 
         private void OnEnable()
@@ -45,15 +45,15 @@ namespace TDGame
 
         private void Update()
         {
-            if (GameState.IsDirty)
-            {
-                UpdateInGameUI();
-                GameState.Clearn();
-            }
+            // if (GameState.IsDirty)
+            // {
+            //     UpdateInGameUI();
+            //     GameState.Clearn();
+            // }
 
         }
 
-        private void UpdateInGameUI()
+        private void UpdateInGameUI(GamePlayState GameState)
         {
             goldText.SetText("{0}", GameState.Golds);
             rockText.SetText("{0}", GameState.Rocks);
@@ -67,9 +67,9 @@ namespace TDGame
 
         private void LoadLevelResource()
         {
-            LevelSO level = GameManager.Instance.LevelManager.LevelState.CurrentLevel;
-            GameState.Golds = level.startingGold;
-            GameState.Lives = level.startingLives;
+            // LevelSO level = GameManager.Instance.LevelManager.LevelState.CurrentLevel;
+            // GameState.Golds = level.startingGold;
+            // GameState.Lives = level.startingLives;
         }
 
         public void OnCloseSettingsClick() => ResumeGame();

@@ -58,6 +58,7 @@ namespace TDGame
             Enemy enemy = FactoryManager.GetEnemy(_SpawnConfig.EnemyType);
             enemy.SetPathway(Pathway);
             enemy.gameObject.transform.position = Pathway[0].transform.position;
+            InGameEvent.OnEnemySpawn?.Invoke();
         }
     }
 }
