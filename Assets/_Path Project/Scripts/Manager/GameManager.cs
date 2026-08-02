@@ -7,19 +7,16 @@ namespace TDGame
     {
         [SerializeField] private LevelManager _levelManagerPrefab;
         [SerializeField] private FactoryManager _factoryManagerPrefab;
-        [SerializeField] private SpawnManager _spawnManagerPrefab;
         [SerializeField] private TowerBoard _towerBoardPrefab;
 
         private AudioController m_Audio;
         private LevelManager _levelManager;
         private FactoryManager _factoryManager;
-        private SpawnManager _spawnManager;
         private TowerBoard _towerBoard;
 
-        public LevelManager LevelManager => LazyLoad(ref _levelManager, _levelManagerPrefab);
-        public FactoryManager FactoryManager => LazyLoad(ref _factoryManager, _factoryManagerPrefab);
-        public SpawnManager SpawnManager => LazyLoad(ref _spawnManager, _spawnManagerPrefab);
-        public TowerBoard TowerBoard => LazyLoad(ref _towerBoard, _towerBoardPrefab);
+        public LevelManager LevelManager => LazyLoad(ref _levelManager, _levelManagerPrefab, gameObject.transform);
+        public FactoryManager FactoryManager => LazyLoad(ref _factoryManager, _factoryManagerPrefab, gameObject.transform);
+        public TowerBoard TowerBoard => LazyLoad(ref _towerBoard, _towerBoardPrefab, gameObject.transform);
 
         public AudioController Audio => m_Audio;
         public GameState GameState;
@@ -60,10 +57,11 @@ namespace TDGame
             GameEvent.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        private T LazyLoad<T>(ref T instance, T prefab) where T : MonoBehaviour
+        private T LazyLoad<T>(ref T instance, T prefab, Transform transform = null)
+            where T : Object
         {
             if (instance == null)
-                instance = Instantiate(prefab);
+                instance = Instantiate(prefab, transform);
 
             return instance;
         }

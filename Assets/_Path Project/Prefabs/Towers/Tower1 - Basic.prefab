@@ -57,7 +57,8 @@ MonoBehaviour:
     ShootInterval: 0
     PhysicalDamage: 0
     MagicDamage: 0
-  State: IDLE
+  Combat: {fileID: 0}
+  Hover: {fileID: 0}
 --- !u!114 &2113019744678147035
 MonoBehaviour:
   m_ObjectHideFlags: 0

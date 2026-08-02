@@ -10,8 +10,6 @@ namespace TDGame
         public string sceneName;
         public int startingLives;
         public int startingGold;
-
-        public WaveData[] waves;
     }
 
 

@@ -34,14 +34,14 @@ namespace TDGame
 
         private void OnEnable()
         {
-            GameEvent.OnMissionComplete += HandleMissionComplete;
+            InGameEvent.OnMissionComplete += HandleMissionComplete;
             // TowerEvent.OnSelectUpdateTower += ShowTowerUpdateSelect;
             // TowerEvent.OnAbilitySelect += CloseTowerUpdateSelect;
         }
 
         private void OnDisable()
         {
-            GameEvent.OnMissionComplete -= HandleMissionComplete;
+            InGameEvent.OnMissionComplete -= HandleMissionComplete;
             // TowerEvent.OnSelectUpdateTower -= ShowTowerUpdateSelect;
             // TowerEvent.OnAbilitySelect -= CloseTowerUpdateSelect;
         }

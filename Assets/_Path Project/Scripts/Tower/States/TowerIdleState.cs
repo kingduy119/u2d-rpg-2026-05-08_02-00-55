@@ -13,8 +13,9 @@ namespace TDGame
 
         public void Enter()
         {
-            Tower.Combat.enabled = false;
             Tower.Hover.enabled = false;
+            Tower.Combat.enabled = false;
+            Tower.Combat.ShootRanageArea.enabled = true;
         }
     }
 
@@ -32,6 +33,7 @@ namespace TDGame
         {
             Tower.Combat.enabled = true;
             Tower.Hover.enabled = true;
+            Tower.Combat.ShootRanageArea.enabled = false;
         }
     }
 

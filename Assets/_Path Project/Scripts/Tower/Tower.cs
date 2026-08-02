@@ -9,27 +9,17 @@ namespace TDGame
     {
         public IObjectPool<Tower> Pool { get; set; }
 
-        protected TowerStateMachine _StateMachine;
+        protected TowerStateMachine _TowerState;
 
 
         protected override void Awake()
         {
             base.Awake();
-            _StateMachine = new TowerStateMachine(this);
+            _TowerState = new TowerStateMachine(this);
         }
-        // public override void TowerUP()
-        // {
-        //     if (TowerSO.NextTowerLevel != null)
-        //     {
-        //         TowerBase tower = TestFactory.GetObject(TowerSO.NextTowerLevel);
-        //         tower.gameObject.transform.position = transform.position;
 
-        //         // TowerBase tower = TestFactory.GetObject(TowerSO.NextTowerLevel);
-        //         // tower.gameObject.transform.position = transform.position;
-
-        //         Deactivate();
-        //     }
-        // }
+        public void MarkBuildedState() => _TowerState.TransitionTo(_TowerState.TowerBuildedState);
+        public void MarkIdleState() => _TowerState.TransitionTo(_TowerState.TowerIdleState);
 
         public override void Deactivate() => Pool.Release(this);
     }

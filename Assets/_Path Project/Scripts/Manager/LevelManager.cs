@@ -12,14 +12,16 @@ namespace TDGame
         {
             GameEvent.OnPlayAgain += PlayCurrentLevel;
             GameEvent.OnPlaynewGame += LoadLevel;
-            GameEvent.OnMissionComplete += HandleMissionComplete;
+
+            InGameEvent.OnMissionComplete += HandleMissionComplete;
         }
 
         private void OnDisable()
         {
             GameEvent.OnPlayAgain -= PlayCurrentLevel;
             GameEvent.OnPlaynewGame -= LoadLevel;
-            GameEvent.OnMissionComplete -= HandleMissionComplete;
+
+            InGameEvent.OnMissionComplete -= HandleMissionComplete;
         }
 
         private void Start()

@@ -49,6 +49,7 @@ namespace TDGame
                 _SelectedTower.Deactivate();
 
             _SelectedTower = FactoryManager.GetTower(towerSO);
+            _SelectedTower.MarkIdleState();
 
             Vector3 centerWorld = Camera.main.ViewportToWorldPoint(
                 new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
@@ -72,7 +73,7 @@ namespace TDGame
             }
             else
             {
-                _SelectedTower.transform.position = WorldMap.WorldPosition;
+                _SelectedTower.transform.position = WorldMap.MouseWorldPosition;
                 TowerEvent.OnTowerPlace?.Invoke(_SelectedTower);
                 EnablePlaceCursor();
             }
@@ -90,6 +91,7 @@ namespace TDGame
             if (WorldMap.CanBuild)
             {
                 // _SelectedTower.State = "BUILDED";
+                _SelectedTower.MarkBuildedState();
                 _SelectedTower = null;
                 WorldMap.AcceptBuild();
                 ChangeHoverState();

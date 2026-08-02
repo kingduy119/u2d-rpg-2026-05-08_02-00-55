@@ -12,13 +12,11 @@ namespace TDGame
         public EnemySO Data;
         public EnemySound Sound;
 
-        #region Private Fields
-        // private EnemyHealth _health;
-        private CharacterMovement _movement;
-        private Path PathWay => GameManager.Instance.SpawnManager.MapPath;
-        private Vector3 _targetPosition;
+
         private int _pathIndex = 0;
-        #endregion
+        private CharacterMovement _movement;
+        private Vector3 _targetPosition;
+        private GameObject[] _Pathway;
 
         public IObjectPool<Enemy> Pool { get; set; }
 
@@ -41,10 +39,15 @@ namespace TDGame
             if (distance < 0.05f)
             {
                 // Next waypoint or end
-                if (_pathIndex < PathWay.wayPoints.Length - 1)
+                // if (_pathIndex < Path.wayPoints.Length - 1)
+                // {
+                //     _pathIndex++;
+                //     _targetPosition = Path.GetPointPosition(_pathIndex);
+                // }
+                if (_pathIndex < _Pathway.Length - 1)
                 {
                     _pathIndex++;
-                    _targetPosition = PathWay.GetPointPosition(_pathIndex);
+                    _targetPosition = _Pathway[_pathIndex].transform.position;
                 }
                 else
                 {
@@ -58,7 +61,12 @@ namespace TDGame
         {
             _movement.Init(Data.moveSpeed, Data.moveSpeed + 3);
             _pathIndex = 0;
-            _targetPosition = PathWay.GetPointPosition(_pathIndex);
+            _targetPosition = _Pathway[_pathIndex].transform.position;
+        }
+
+        public void SetPathway(GameObject[] pathway)
+        {
+            _Pathway = pathway;
         }
 
         public void Deactivate()

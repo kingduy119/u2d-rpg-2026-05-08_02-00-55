@@ -22,7 +22,7 @@ namespace TDGame
         private readonly HashSet<Vector3Int> _blockedCells = new();
         private readonly HashSet<Vector3Int> _PreviewCells = new();
 
-        public Vector3 WorldPosition { get; private set; }
+        public Vector3 MouseWorldPosition { get; private set; }
         public Vector3 MousePosition { get; private set; }
         public bool CanBuild = false;
 
@@ -150,7 +150,7 @@ namespace TDGame
         public Collider2D GetColider(LayerMask layer)
         {
             RaycastHit2D hit = Physics2D.Raycast(
-                WorldPosition,
+                MouseWorldPosition,
                 Vector2.zero, Mathf.Infinity, layer);
             return hit.collider;
         }
@@ -159,7 +159,7 @@ namespace TDGame
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
-            WorldPosition = mousePosition;
+            MouseWorldPosition = mousePosition;
         }
     }
 }

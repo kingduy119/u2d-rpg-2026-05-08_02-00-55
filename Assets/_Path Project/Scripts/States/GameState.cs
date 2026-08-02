@@ -27,17 +27,17 @@ namespace TDGame
             set => SetValue(ref _maxGameSpeed, value);
         }
 
-        private float _gameSpeed = 1f;
-        public float GameSpeed
-        {
-            get => _gameSpeed;
-            set
-            {
-                SetValue(ref _gameSpeed, value);
-                _gameSpeed = Mathf.Clamp(_gameSpeed % _maxGameSpeed, 1, _maxGameSpeed);
-                Time.timeScale = _gameSpeed;
-            }
-        }
+        // private float _gameSpeed = 1f;
+        // public float GameSpeed
+        // {
+        //     get => _gameSpeed;
+        //     set
+        //     {
+        //         SetValue(ref _gameSpeed, value);
+        //         _gameSpeed = Mathf.Clamp(_gameSpeed % _maxGameSpeed, 1, _maxGameSpeed);
+        //         Time.timeScale = _gameSpeed;
+        //     }
+        // }
 
         private int _lives = 0;
         public int Lives
@@ -112,6 +112,10 @@ namespace TDGame
             GameEvent.OnEnemyReachedEnd += HandlePointReachedEnd;
             GameEvent.OnEnemyDie += HandleEnemyDie;
             GameEvent.OnGetEnemyReward += HandleGetEnemyReward;
+
+            InGameEvent.OnStartWave += StartWave;
+            InGameEvent.OnEndWave += EndWave;
+            // InGameEvent.OnGameSpeedChanged += ChangeGameSpeed;
         }
 
         public void OnDisable()
@@ -119,15 +123,19 @@ namespace TDGame
             GameEvent.OnEnemyReachedEnd -= HandlePointReachedEnd;
             GameEvent.OnEnemyDie -= HandleEnemyDie;
             GameEvent.OnGetEnemyReward -= HandleGetEnemyReward;
+
+            InGameEvent.OnStartWave -= StartWave;
+            InGameEvent.OnEndWave -= EndWave;
+            // InGameEvent.OnGameSpeedChanged -= ChangeGameSpeed;
         }
 
-        public void StartWave()
+        private void StartWave()
         {
             IsStarted = true;
-            OnStartWave?.Invoke();
+            // InGameEvent.OnActiveStartWaveButton?.Invoke(!IsStarted);
         }
 
-        public void NextWave()
+        private void EndWave()
         {
             IsStarted = false;
             WaveCount++;
@@ -147,7 +155,7 @@ namespace TDGame
             WaveCount = 0;
         }
 
-        public void ChangeGameSpeed() => GameSpeed++;
+        // public void ChangeGameSpeed() => GameSpeed++;
         public void HandleEnemyDie(Enemy _) => Enemies--;
         public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.Data.goldReward;
 

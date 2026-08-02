@@ -9,7 +9,7 @@ namespace TDGame
         public ProjectileFactory ProjectileFactory;
 
 
-        public Enemy GetEnemy(EnemyType type) => EnemyFactory.GetObject(type);
+        public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type);
         public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type);
         public Projectile GetProjectile(ProjectileType type) => ProjectileFactory.GetObject(type);
     }

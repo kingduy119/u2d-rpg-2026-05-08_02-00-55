@@ -99,7 +99,6 @@ MonoBehaviour:
   EnemyFactory: {fileID: 1072357619751907027}
   TowerFactory: {fileID: 6600137426610877235}
   ProjectileFactory: {fileID: 8100721673170784428}
-  TestFactory: {fileID: 0}
 --- !u!1 &8521337527811437665
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.EnemyFactory
   _configs:
-  - type: 0
+  - type: {fileID: 11400000, guid: 8d9c14b98d97c40a28b7468693fcff7b, type: 2}
     prefab: {fileID: 1775246570579743652, guid: 3fd90b07682074ccb943f8459a307326, type: 3}
 --- !u!1 &8676562436094594643
 GameObject:

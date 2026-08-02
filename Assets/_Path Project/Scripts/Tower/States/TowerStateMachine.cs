@@ -29,7 +29,7 @@ namespace TDGame
             TowerIdleState = new TowerIdleState(tower);
             TowerBuildedState = new TowerBuildedState(tower);
 
-            CurrentState = TowerIdleState;
+            CurrentState = TowerBuildedState;
         }
     }
 }

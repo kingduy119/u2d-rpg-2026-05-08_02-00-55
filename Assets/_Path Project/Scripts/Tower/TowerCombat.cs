@@ -1,41 +1,48 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace TDGame
 {
+    [RequireComponent(typeof(SpriteRenderer))]
     public class TowerCombat : MonoBehaviour
     {
         private TowerBase Tower;
         private List<Enemy> _enemiesInRange;
         private FactoryManager FactoryManager => GameManager.Instance.FactoryManager;
 
-        [SerializeField] private SpriteRenderer _SpriteRenderer;
+        public SpriteRenderer ShootRanageArea;
 
         private float _shootTimer = 0f;
 
         private void Awake()
         {
             _enemiesInRange = new List<Enemy>();
-
             Tower = GetComponentInParent<Tower>();
-
-            if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
-            {
-                collider.radius = Tower.Ability.ShootRange;
-            }
-            if (_SpriteRenderer != null) _SpriteRenderer.enabled = false;
+            ShootRanageArea = GetComponent<SpriteRenderer>();
         }
 
 
         private void OnEnable()
         {
+            // Debug.Log("TowerCombat.OnEnable");
             GameEvent.OnEnemyDie += HandleEnemyDie;
         }
 
         private void OnDisable()
         {
+            // Debug.Log("TowerCombat.OnDisable");
             GameEvent.OnEnemyDie -= HandleEnemyDie;
+        }
+
+        private void Start()
+        {
+            if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
+            {
+                collider.radius = Tower.Ability.ShootRange;
+                Debug.Log($"collider.radius: {collider.radius}");
+            }
+            SetShootRangeArea();
+            // if (ShootRanageArea != null) ShootRanageArea.enabled = false;
         }
 
         private void Update()
@@ -84,13 +91,12 @@ namespace TDGame
                 _enemiesInRange.Remove(enemy);
         }
 
-        private void ShowShootRangeArea()
+        private void SetShootRangeArea()
         {
-            if (Tower.TowerSO == null || _SpriteRenderer == null) return;
+            if (Tower.TowerSO == null) return;
 
             float dimeter = Tower.TowerSO.Ability.ShootRange * 2f;
             transform.localScale = Vector3.one * dimeter;
-            _SpriteRenderer.enabled = true;
         }
     }
 

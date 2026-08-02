@@ -19,7 +19,7 @@ MonoBehaviour:
   Size: {x: 2, y: 2}
   cost: 10
   Ability:
-    ShootRange: 2.07
+    ShootRange: 2
     ShootInterval: 1.5
     PhysicalDamage: 10
     MagicDamage: 0

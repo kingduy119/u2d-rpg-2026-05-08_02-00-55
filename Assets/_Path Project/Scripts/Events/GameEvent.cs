@@ -15,7 +15,7 @@ namespace TDGame
         // Level
         public static event Action<int> OnPlaynewGame;
         public static event Action OnPlayAgain;
-        public static event Action OnMissionComplete;
+        // public static event Action OnMissionComplete;
 
         public static AudioController Audio { get; set; }
 
@@ -43,7 +43,7 @@ namespace TDGame
         public static void SendPlayNewgame() => OnPlaynewGame?.Invoke(0);
         public static void SendPlayAgain() => OnPlayAgain?.Invoke();
         public static void SendRestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        public static void SendMissionComplete() => OnMissionComplete?.Invoke();
+        // public static void SendMissionComplete() => OnMissionComplete?.Invoke();
 
 
         // public static void HandleTowerSelect(TowerSO data)

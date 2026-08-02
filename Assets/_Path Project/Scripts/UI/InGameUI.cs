@@ -17,9 +17,6 @@ namespace TDGame
 
         [Header("UI Buttons")]
         [SerializeField] private Button settingsButton;
-        [SerializeField] private Button startWaveButton;
-        [SerializeField] private Button gameSpeedButton;
-        private TMP_Text gameSpeedText;
 
         [Header("UI Pannels")]
         [SerializeField] private GameObject settingsPanel;
@@ -29,7 +26,6 @@ namespace TDGame
         private void Awake()
         {
             settingsPanel.SetActive(false);
-            gameSpeedText = gameSpeedButton.GetComponentInChildren<TMP_Text>();
 
             GameState = GameManager.Instance.GameState;
         }
@@ -37,8 +33,6 @@ namespace TDGame
         private void OnEnable()
         {
             settingsButton.onClick.AddListener(HandleSettingsClick);
-            startWaveButton.onClick.AddListener(GameState.StartWave);
-            gameSpeedButton.onClick.AddListener(GameState.ChangeGameSpeed);
 
             GameEvent.OnLoadLevel += LoadLevelResource;
         }
@@ -46,8 +40,6 @@ namespace TDGame
         private void OnDisable()
         {
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
-            startWaveButton.onClick.RemoveListener(GameState.StartWave);
-            gameSpeedButton.onClick.RemoveListener(GameState.ChangeGameSpeed);
 
             GameEvent.OnLoadLevel -= LoadLevelResource;
         }
@@ -71,8 +63,7 @@ namespace TDGame
             waveText.SetText("{0}", GameState.WaveCount + 1);
             enemiesText.SetText("{0}", GameState.Enemies);
 
-            gameSpeedText.SetText($"x{GameState.GameSpeed}");
-            startWaveButton.interactable = !GameState.IsStarted;
+            InGameEvent.OnActiveStartWaveButton?.Invoke(!GameState.IsStarted);
         }
 
         private void LoadLevelResource()
