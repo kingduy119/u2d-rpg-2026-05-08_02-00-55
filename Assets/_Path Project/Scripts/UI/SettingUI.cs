@@ -41,7 +41,7 @@ namespace TDGame
 
         private void ResetLevelClick()
         {
-            GameEvent.SendRestartGame();
+            // GameEvent.SendRestartGame();
         }
 
         private void MainMenuClick()

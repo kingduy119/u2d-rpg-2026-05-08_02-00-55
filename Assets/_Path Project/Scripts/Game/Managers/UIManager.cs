@@ -3,19 +3,18 @@ using UnityEngine;
 
 namespace TDGame
 {
+
     public class UIManager : PersistentSingleton<UIManager>
     {
         [SerializeField] private InGameUI _InGameUI;
-        // [SerializeField] private GameObject _missionCompletePanel;
         [SerializeField] private TowerAbilityOptionsUI _TowerAbilityOptionsPrefab;
-        [SerializeField] private MissionCompleteUI _MissionCompleteUIPrefab;
-        // [SerializeField] private TowerSelectCursor _TowerSelectCursorPrefab;
+        [SerializeField] private GameObject _MissionCompleteUIPrefab;
 
         private TowerAbilityOptionsUI _TowerAbilityOptionsUI;
         public TowerAbilityOptionsUI TowerAbilityOptionsUI => LazyLoad(ref _TowerAbilityOptionsUI, _TowerAbilityOptionsPrefab, gameObject.transform);
 
-        private MissionCompleteUI _MissionCompleteUI;
-        public MissionCompleteUI MissionCompleteUI => LazyLoad(ref _MissionCompleteUI, _MissionCompleteUIPrefab, gameObject.transform);
+        private GameObject _MissionCompleteUI;
+        public GameObject MissionCompleteUI => LazyLoad(ref _MissionCompleteUI, _MissionCompleteUIPrefab, gameObject.transform);
 
 
         [SerializeField] private GameObject _TowerPlaceCursorPrefab;
@@ -26,6 +25,8 @@ namespace TDGame
         private GameObject _TowerSelectCursor;
         public GameObject TowerSelectCursor => LazyLoad(ref _TowerSelectCursor, _TowerSelectCursorPrefab, gameObject.transform);
 
+
+        public InGameUI InGameUI => _InGameUI;
 
         protected override void Awake()
         {
@@ -58,7 +59,7 @@ namespace TDGame
 
         private void HandleMissionComplete()
         {
-            MissionCompleteUI.gameObject.SetActive(true);
+            MissionCompleteUI.SetActive(true);
         }
 
         // public void ShowTowerUpdateSelect()

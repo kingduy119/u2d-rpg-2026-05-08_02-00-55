@@ -21,36 +21,24 @@ namespace TDGame
         [Header("UI Pannels")]
         [SerializeField] private GameObject settingsPanel;
 
-        // private GameState GameState;
 
         private void Awake()
         {
             settingsPanel.SetActive(false);
-            // GameState = GameManager.Instance.GameState;
         }
 
         private void OnEnable()
         {
             settingsButton.onClick.AddListener(HandleSettingsClick);
 
-            GameEvent.OnLoadLevel += LoadLevelResource;
+            InGameEvent.OnUpdateUI += UpdateInGameUI;
         }
 
         private void OnDisable()
         {
             settingsButton.onClick.RemoveListener(HandleSettingsClick);
 
-            GameEvent.OnLoadLevel -= LoadLevelResource;
-        }
-
-        private void Update()
-        {
-            // if (GameState.IsDirty)
-            // {
-            //     UpdateInGameUI();
-            //     GameState.Clearn();
-            // }
-
+            InGameEvent.OnUpdateUI -= UpdateInGameUI;
         }
 
         private void UpdateInGameUI(GamePlayState GameState)
@@ -63,13 +51,6 @@ namespace TDGame
             enemiesText.SetText("{0}", GameState.Enemies);
 
             InGameEvent.OnActiveStartWaveButton?.Invoke(!GameState.IsStarted);
-        }
-
-        private void LoadLevelResource()
-        {
-            // LevelSO level = GameManager.Instance.LevelManager.LevelState.CurrentLevel;
-            // GameState.Golds = level.startingGold;
-            // GameState.Lives = level.startingLives;
         }
 
         public void OnCloseSettingsClick() => ResumeGame();

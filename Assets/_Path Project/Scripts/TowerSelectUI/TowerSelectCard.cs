@@ -10,7 +10,7 @@ namespace TDGame
         [SerializeField] private TMP_Text m_priceText;
 
         public TowerSO TowerSO;
-        private GameState GameState;
+        // private GameState GameState;
 
         private void OnValidate()
         {
@@ -22,16 +22,17 @@ namespace TDGame
             UpdateUI();
         }
 
-        private void Start()
-        {
-            GameState = GameManager.Instance.GameState;
-        }
+        // private void Start()
+        // {
+        //     GameState = GameManager.Instance.GameState;
+        // }
 
         private void Update()
         {
             if (TowerSO != null)
             {
-                _Button.interactable = GameState.Golds >= TowerSO.cost;
+                // _Button.interactable = GameState.Golds >= TowerSO.cost;
+                _Button.interactable = GameManager.Instance.GameStates.GamePlayState.Golds >= TowerSO.cost;
             }
         }
 

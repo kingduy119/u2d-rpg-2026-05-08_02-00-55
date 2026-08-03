@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7813342116839017182
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34,9 +34,9 @@ RectTransform:
   - {fileID: 6720003915052467623}
   m_Father: {fileID: 7387880135154483637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 151, y: -198}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1341277074070403003
@@ -120,19 +120,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7001722286015030419}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &687175312854586320
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +270,6 @@ GameObject:
   - component: {fileID: 2367721030999973746}
   - component: {fileID: 3281398083561502819}
   - component: {fileID: 2295956198252466553}
-  - component: {fileID: 7646000320137262314}
   m_Layer: 5
   m_Name: MainMenuUI
   m_TagString: Untagged
@@ -376,19 +363,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7646000320137262314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1196471099732789053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 892bc12a2f77c7b4190166e19a7a2c7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TDGame.MainMenuController
-  txtLevel: {fileID: 4361787220970504582}
 --- !u!1 &1416982151336367220
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +512,7 @@ GameObject:
   - component: {fileID: 8280785978102920388}
   - component: {fileID: 8814463300676037995}
   - component: {fileID: 7698696067590725826}
+  - component: {fileID: 8184329953676157000}
   m_Layer: 5
   m_Name: Play Button
   m_TagString: Untagged
@@ -646,19 +621,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8814463300676037995}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7646000320137262314}
-        m_TargetAssemblyTypeName: TDGame.MainMenuController, Assembly-CSharp
-        m_MethodName: PlayContinue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &8184329953676157000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885351774697492720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af79da8be106c415cb1ea4f8c2624dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.PlayNewButtonUI
 --- !u!1 &2053640318583166208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,6 +1062,7 @@ GameObject:
   - component: {fileID: 3881245852413200020}
   - component: {fileID: 2049524992464994223}
   - component: {fileID: 8936265773427748845}
+  - component: {fileID: 7297401959823710898}
   m_Layer: 5
   m_Name: New Game Button
   m_TagString: Untagged
@@ -1195,19 +1171,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2049524992464994223}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7646000320137262314}
-        m_TargetAssemblyTypeName: TDGame.MainMenuController, Assembly-CSharp
-        m_MethodName: StartNewGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &7297401959823710898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6202684043309137624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d94f5c8a68fc4c3aa7d3711d0ea5d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.PlayContinueButtonUI
 --- !u!1 &6223802869379556457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1333,7 @@ GameObject:
   - component: {fileID: 4100581413220084955}
   - component: {fileID: 2424669517763765916}
   - component: {fileID: 80836320919056248}
+  - component: {fileID: 1184662886745283987}
   m_Layer: 5
   m_Name: 'Quit Button '
   m_TagString: Untagged
@@ -1465,19 +1442,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2424669517763765916}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7646000320137262314}
-        m_TargetAssemblyTypeName: TDGame.MainMenuController, Assembly-CSharp
-        m_MethodName: QuitGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &1184662886745283987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6284653056398595099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4910e66f9ac0f4e02bbbbadeffe6bd47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.QuitGameButtonUI
 --- !u!1 &8413456509994866542
 GameObject:
   m_ObjectHideFlags: 0

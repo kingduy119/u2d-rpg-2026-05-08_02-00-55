@@ -13,8 +13,6 @@ namespace TDGame
 
         private void OnEnable()
         {
-            GameEvent.OnPlayAgain += PlayCurrentLevel;
-            GameEvent.OnPlaynewGame += LoadLevel;
             InGameEvent.OnPathwayRaise += HandlePathwayRaise;
             InGameEvent.OnSpawnerRaise += HandleSpawnerRaise;
             InGameEvent.OnMissionComplete += HandleMissionComplete;
@@ -22,8 +20,6 @@ namespace TDGame
 
         private void OnDisable()
         {
-            GameEvent.OnPlayAgain -= PlayCurrentLevel;
-            GameEvent.OnPlaynewGame -= LoadLevel;
             InGameEvent.OnPathwayRaise -= HandlePathwayRaise;
             InGameEvent.OnSpawnerRaise -= HandleSpawnerRaise;
             InGameEvent.OnMissionComplete -= HandleMissionComplete;
@@ -48,11 +44,13 @@ namespace TDGame
         public void LoadLevel(int level)
         {
             LevelState.Level = level;
+            InGameEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
             SceneManager.LoadScene(LevelState.CurrentLevel.sceneName);
         }
 
-        public void PlayCurrentLevel()
+        public void PlayContinueLevel()
         {
+            InGameEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
             SceneManager.LoadScene(LevelState.CurrentLevel.sceneName);
         }
 

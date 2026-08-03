@@ -9,12 +9,12 @@ namespace TDGame
         public static event Action OnUpdateUI;
 
         // InGame
-        public static event Action OnLoadLevel;
+        // public static event Action OnLoadLevel;
         // public static event Action<TowerSO> OnTowerSelected;
 
         // Level
-        public static event Action<int> OnPlaynewGame;
-        public static event Action OnPlayAgain;
+        public static Action OnPlayContinue;
+        public static Action<int> OnPlayNewGame;
         // public static event Action OnMissionComplete;
 
         public static AudioController Audio { get; set; }
@@ -25,24 +25,24 @@ namespace TDGame
             OnUpdateUI?.Invoke();
         }
 
-        public static void LoadScene(string name)
-        {
-            if (name == "TD_MainMenu")
-            {
-                UIManager.Instance.SetupUIMainMenu();
-                Audio.PlayMainMenuMusic();
-            }
-            else
-            {
-                UIManager.Instance.SetupUIInGame();
-                Audio.PlayGameplayMusic();
-                OnLoadLevel?.Invoke();
-            }
-        }
+        // public static void LoadScene(string name)
+        // {
+        //     if (name == "TD_MainMenu")
+        //     {
+        //         UIManager.Instance.SetupUIMainMenu();
+        //         Audio.PlayMainMenuMusic();
+        //     }
+        //     else
+        //     {
+        //         UIManager.Instance.SetupUIInGame();
+        //         Audio.PlayGameplayMusic();
+        //         // OnLoadLevel?.Invoke();
+        //     }
+        // }
 
-        public static void SendPlayNewgame() => OnPlaynewGame?.Invoke(0);
-        public static void SendPlayAgain() => OnPlayAgain?.Invoke();
-        public static void SendRestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // public static void SendPlayNewgame() => OnPlaynewGame?.Invoke(0);
+        // public static void SendPlayAgain() => OnPlayAgain?.Invoke();
+        // public static void SendRestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         // public static void SendMissionComplete() => OnMissionComplete?.Invoke();
 
 

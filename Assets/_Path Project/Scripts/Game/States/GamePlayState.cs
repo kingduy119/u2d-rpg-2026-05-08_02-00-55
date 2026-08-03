@@ -1,4 +1,8 @@
 
+
+
+using UnityEngine;
+
 namespace TDGame
 {
     public class GamePlayState :
@@ -63,8 +67,10 @@ namespace TDGame
 
             InGameEvent.OnStartWave += StartWave;
             InGameEvent.OnEndWave += EndWave;
-            InGameEvent.OnEnemyReachedEnd += EnemyReachedEnd;
+            InGameEvent.OnLevelLoaded += LoadLevelResource;
+
             InGameEvent.OnEnemySpawn += EnemySpawn;
+            InGameEvent.OnEnemyReachedEnd += EnemyReachedEnd;
         }
 
         public void Exit()
@@ -74,8 +80,21 @@ namespace TDGame
 
             InGameEvent.OnStartWave -= StartWave;
             InGameEvent.OnEndWave -= EndWave;
-            InGameEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
+            InGameEvent.OnLevelLoaded -= LoadLevelResource;
+
             InGameEvent.OnEnemySpawn -= EnemySpawn;
+            InGameEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
+        }
+
+        public void Execute()
+        {
+            if (IsDirty)
+            {
+                InGameEvent.OnUpdateUI?.Invoke(this);
+                IsDirty = false;
+
+                Debug.Log("GamePlay.OnUpdateUI");
+            }
         }
 
         private void StartWave()
@@ -87,6 +106,13 @@ namespace TDGame
         {
             IsStarted = false;
             WaveCount++;
+        }
+
+        private void LoadLevelResource(LevelSO level)
+        {
+            Debug.Log("GamePlay.LoadLevelResource");
+            Golds = level.startingGold;
+            Lives = level.startingLives;
         }
 
         private void EnemySpawn() => Enemies++;

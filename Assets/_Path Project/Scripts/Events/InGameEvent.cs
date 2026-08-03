@@ -7,6 +7,7 @@ namespace TDGame
     {
         public static Action OnPathwayRaise;
         public static Action OnSpawnerRaise;
+        public static Action<LevelSO> OnLevelLoaded;
 
         public static Action OnEnemySpawn;
         public static Action<Enemy> OnEnemyReachedEnd;
@@ -16,6 +17,7 @@ namespace TDGame
         public static Action OnEndWave;
         public static Action OnPauseGame;
         public static Action OnGameSpeedChanged;
+        public static Action<GamePlayState> OnUpdateUI;
 
         public static Action<bool> OnActiveStartWaveButton;
 
