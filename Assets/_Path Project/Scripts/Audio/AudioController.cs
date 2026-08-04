@@ -19,6 +19,16 @@ namespace TDGame
         [SerializeField] private AudioClip missionComplete;
         [SerializeField] private AudioClip gameOver;
 
+        private void OnEnable()
+        {
+            AudioEvent.OnPlaySFX += PlaySoundEffect;
+        }
+
+        private void OnDisable()
+        {
+            AudioEvent.OnPlaySFX -= PlaySoundEffect;
+        }
+
         public void PlayMusic(AudioClip clip)
         {
             if (musicSource.clip == clip && musicSource.isPlaying) return;

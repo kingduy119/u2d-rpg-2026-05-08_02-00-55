@@ -62,28 +62,28 @@ namespace TDGame
 
         public void Enter()
         {
-            GameEvent.OnEnemyDie += HandleEnemyDie;
-            GameEvent.OnGetEnemyReward += HandleGetEnemyReward;
-
-            InGameEvent.OnStartWave += StartWave;
+            // InGameEvent.StartWave += StartWave;
             InGameEvent.OnEndWave += EndWave;
             InGameEvent.OnLevelLoaded += LoadLevelResource;
 
-            InGameEvent.OnEnemySpawn += EnemySpawn;
-            InGameEvent.OnEnemyReachedEnd += EnemyReachedEnd;
+            EnemyEvent.OnEnemyDie += HandleEnemyDie;
+            EnemyEvent.OnGetEnemyReward += HandleGetEnemyReward;
+            EnemyEvent.OnEnemyReachedEnd += EnemyReachedEnd;
+
+            EnemyEvent.EnemySpawn += EnemySpawn;
         }
 
         public void Exit()
         {
-            GameEvent.OnEnemyDie -= HandleEnemyDie;
-            GameEvent.OnGetEnemyReward -= HandleGetEnemyReward;
-
-            InGameEvent.OnStartWave -= StartWave;
+            // InGameEvent.StartWave -= StartWave;
             InGameEvent.OnEndWave -= EndWave;
             InGameEvent.OnLevelLoaded -= LoadLevelResource;
 
-            InGameEvent.OnEnemySpawn -= EnemySpawn;
-            InGameEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
+            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
+            EnemyEvent.OnGetEnemyReward -= HandleGetEnemyReward;
+            EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
+
+            EnemyEvent.EnemySpawn -= EnemySpawn;
         }
 
         public void Execute()
@@ -92,8 +92,6 @@ namespace TDGame
             {
                 InGameEvent.OnUpdateUI?.Invoke(this);
                 IsDirty = false;
-
-                Debug.Log("GamePlay.OnUpdateUI");
             }
         }
 
@@ -122,7 +120,7 @@ namespace TDGame
             Lives -= enemy.Data.damage;
             if (Lives <= 0)
             {
-                InGameEvent.OnGameOver?.Invoke();
+                InGameEvent.GameOver?.Invoke();
             }
         }
 

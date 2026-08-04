@@ -3,11 +3,11 @@
 
 namespace TDGame
 {
-    public class PlayContinueButtonUI : ButtonBase
+    public class PlayNewButtonUI : ButtonBase
     {
         protected override void HandleClick()
         {
-            GameEvent.OnPlayContinue?.Invoke();
+            GameEvent.PlayNewGame?.Invoke(0);
         }
     }
 }

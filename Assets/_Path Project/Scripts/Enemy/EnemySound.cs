@@ -10,7 +10,7 @@ namespace TDGame
         [SerializeField] public AudioClip TakeDamgeSFX;
         [SerializeField] public AudioClip DestroySFX;
 
-        public void PlayTakeDamage() => GameEvent.PlaySFX(TakeDamgeSFX);
-        public void PlayDestroy() => GameEvent.PlaySFX(DestroySFX);
+        public void PlayTakeDamage() => AudioEvent.OnPlaySFX?.Invoke(TakeDamgeSFX);
+        public void PlayDestroy() => AudioEvent.OnPlaySFX?.Invoke(DestroySFX);
     }
 }

@@ -20,7 +20,6 @@ namespace TDGame
         public Config[] configs;
         public GameObject[] Pathway;
         private Dictionary<int, SpawnConfig[]> _spawnConfigMap = new();
-        private int WaveNumber = 1;
 
         private void Awake()
         {
@@ -32,21 +31,23 @@ namespace TDGame
 
         private void Start()
         {
-            InGameEvent.OnPathwayRaise?.Invoke();
+            InGameEvent.PathwayStart?.Invoke();
         }
 
         private void OnEnable()
         {
-            InGameEvent.OnStartWave += HandleStartWave;
+            InGameEvent.StartWave += HandleStartWave;
         }
 
         private void OnDisable()
         {
-            InGameEvent.OnStartWave -= HandleStartWave;
+            InGameEvent.StartWave -= HandleStartWave;
         }
 
-        public void HandleStartWave()
+        public void HandleStartWave(int WaveNumber)
         {
+            if (_spawnConfigMap.Count <= 0) return;
+
             if (_spawnConfigMap.TryGetValue(WaveNumber, out var spawnConfigs))
             {
                 foreach (var spawnConfig in spawnConfigs)
@@ -55,10 +56,10 @@ namespace TDGame
                     spawnerInstance.Init(spawnConfig, Pathway);
                 }
 
-                // if (_spawnConfigMap.Remove(WaveNumber) && _spawnConfigMap.Count == 0)
-                // {
-                //     Destroy(gameObject);
-                // }
+                if (_spawnConfigMap.Remove(WaveNumber) && _spawnConfigMap.Count == 0)
+                {
+                    InGameEvent.PathwayEnd?.Invoke();
+                }
             }
         }
 

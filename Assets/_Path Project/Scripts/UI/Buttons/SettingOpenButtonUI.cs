@@ -3,11 +3,12 @@
 
 namespace TDGame
 {
-    public class SettingButtonUI : ButtonBase
+    public class SettingOpenButtonUI : ButtonBase
     {
         protected override void HandleClick()
         {
             // GameEvent.OnPlayNewGame?.Invoke(0);
+            GameEvent.SettingOpen?.Invoke();
         }
     }
 }

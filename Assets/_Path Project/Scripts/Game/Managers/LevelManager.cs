@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,31 +12,47 @@ namespace TDGame
 
         private void OnEnable()
         {
-            InGameEvent.OnPathwayRaise += HandlePathwayRaise;
-            InGameEvent.OnSpawnerRaise += HandleSpawnerRaise;
-            InGameEvent.OnMissionComplete += HandleMissionComplete;
+            InGameEvent.PathwayStart += PathwayStart;
+            InGameEvent.PathwayEnd += PathwayEnd;
+            InGameEvent.SpawnerStart += SpawnStart;
+            InGameEvent.SpawnerEnd += SpawnerEnd;
         }
 
         private void OnDisable()
         {
-            InGameEvent.OnPathwayRaise -= HandlePathwayRaise;
-            InGameEvent.OnSpawnerRaise -= HandleSpawnerRaise;
-            InGameEvent.OnMissionComplete -= HandleMissionComplete;
+            InGameEvent.PathwayStart -= PathwayStart;
+            InGameEvent.PathwayEnd -= PathwayEnd;
+            InGameEvent.SpawnerStart -= SpawnStart;
+            InGameEvent.SpawnerEnd -= SpawnerEnd;
         }
 
-        private void HandlePathwayRaise()
+        private void PathwayStart() { _PathwaySpawners++; }
+        private void SpawnStart() { _Spawners++; }
+        private void PathwayEnd()
         {
-            _PathwaySpawners++;
+            _PathwaySpawners--;
+            CheckComplete();
         }
-
-        private void HandleSpawnerRaise()
+        private void SpawnerEnd()
         {
-            _Spawners++;
+            _Spawners--;
+            CheckComplete();
+        }
+        private void CheckComplete()
+        {
+            if (_Spawners <= 0 && _PathwaySpawners <= 0)
+            {
+                HandleMissionComplete();
+                InGameEvent.MissionComplete?.Invoke();
+            }
+            else if (_Spawners <= 0)
+            {
+                InGameEvent.WaveCompleted?.Invoke();
+            }
         }
 
         private void Start()
         {
-            GameEvent.UpdateUI();
             LevelState.LoadLevelData();
         }
 

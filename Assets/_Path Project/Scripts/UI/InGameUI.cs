@@ -4,6 +4,20 @@ using UnityEngine.UI;
 
 namespace TDGame
 {
+    public static class Lazy
+    {
+        public static T Load<T>(ref T instance, T prefab, Transform parent = null)
+            where T : Object
+        {
+            if (instance == null)
+            {
+                instance = Object.Instantiate(prefab, parent);
+            }
+
+            return instance;
+        }
+    }
+
     public class InGameUI : MonoBehaviour
     {
         [Header("UI Text")]
@@ -15,51 +29,51 @@ namespace TDGame
         [SerializeField] private TMP_Text livesText;
         [SerializeField] private TMP_Text enemiesText;
 
-        [Header("UI Buttons")]
-        [SerializeField] private Button settingsButton;
 
-        [Header("UI Pannels")]
-        [SerializeField] private GameObject settingsPanel;
+        [SerializeField] private SettingUI _SettingUIPrefab;
+        private SettingUI _SettingUI;
+        public SettingUI SettingUI => Lazy.Load(ref _SettingUI, _SettingUIPrefab);
 
 
         private void Awake()
         {
-            settingsPanel.SetActive(false);
+            SettingUI.gameObject.SetActive(false);
         }
 
         private void OnEnable()
         {
-            settingsButton.onClick.AddListener(HandleSettingsClick);
-
             InGameEvent.OnUpdateUI += UpdateInGameUI;
+            GameEvent.SettingOpen += OpenSettingUI;
+            GameEvent.SettingClose += CloseSettingUI;
         }
 
         private void OnDisable()
         {
-            settingsButton.onClick.RemoveListener(HandleSettingsClick);
-
             InGameEvent.OnUpdateUI -= UpdateInGameUI;
+            GameEvent.SettingOpen -= OpenSettingUI;
+            GameEvent.SettingClose -= CloseSettingUI;
         }
 
-        private void UpdateInGameUI(GamePlayState GameState)
+        private void UpdateInGameUI(GamePlayState state)
         {
-            goldText.SetText("{0}", GameState.Golds);
-            rockText.SetText("{0}", GameState.Rocks);
-            woodText.SetText("{0}", GameState.Woods);
-            livesText.SetText("{0}", GameState.Lives);
-            waveText.SetText("{0}", GameState.WaveCount + 1);
-            enemiesText.SetText("{0}", GameState.Enemies);
-
-            InGameEvent.OnActiveStartWaveButton?.Invoke(!GameState.IsStarted);
+            goldText.SetText("{0}", state.Golds);
+            rockText.SetText("{0}", state.Rocks);
+            woodText.SetText("{0}", state.Woods);
+            livesText.SetText("{0}", state.Lives);
+            waveText.SetText("{0}", state.WaveCount + 1);
+            enemiesText.SetText("{0}", state.Enemies);
         }
 
-        public void OnCloseSettingsClick() => ResumeGame();
-        private void HandleSettingsClick()
+        // public void OnCloseSettingsClick() => ResumeGame();
+        private void OpenSettingUI()
         {
-            GameEvent.PauseGame();
-            settingsPanel.SetActive(true);
+            SettingUI.gameObject.SetActive(true);
+            GameEvent.PauseGame?.Invoke();
         }
-        public void PauseGame() => GameEvent.PauseGame();
-        public void ResumeGame() => GameEvent.ResumeGame();
+        private void CloseSettingUI()
+        {
+            SettingUI.gameObject.SetActive(false);
+            GameEvent.ResumeGame?.Invoke();
+        }
     }
 }

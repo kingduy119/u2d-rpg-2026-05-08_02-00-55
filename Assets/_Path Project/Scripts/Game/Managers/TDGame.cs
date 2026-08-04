@@ -8,8 +8,8 @@ namespace TDGame
         [SerializeField] protected LevelManager _levelManagerPrefab;
         [SerializeField] protected FactoryManager _factoryManagerPrefab;
         [SerializeField] protected TowerBoard _towerBoardPrefab;
+        [SerializeField] protected AudioController AudioController;
 
-        protected AudioController m_Audio;
         protected LevelManager _levelManager;
         protected FactoryManager _factoryManager;
         protected TowerBoard _towerBoard;

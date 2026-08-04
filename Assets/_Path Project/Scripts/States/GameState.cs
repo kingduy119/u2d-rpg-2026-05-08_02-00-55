@@ -63,30 +63,30 @@ namespace TDGame
 
         public void OnEnable()
         {
-            GameEvent.OnEnemyDie += HandleEnemyDie;
-            GameEvent.OnGetEnemyReward += HandleGetEnemyReward;
+            EnemyEvent.EnemySpawn += EnemySpawn;
+            EnemyEvent.OnEnemyDie += HandleEnemyDie;
+            EnemyEvent.OnGetEnemyReward += HandleGetEnemyReward;
+            EnemyEvent.OnEnemyReachedEnd += EnemyReachedEnd;
 
-            InGameEvent.OnStartWave += StartWave;
+            // InGameEvent.OnStartWave += StartWave;
             InGameEvent.OnEndWave += EndWave;
-            InGameEvent.OnEnemyReachedEnd += EnemyReachedEnd;
-            InGameEvent.OnEnemySpawn += EnemySpawn;
         }
 
         public void OnDisable()
         {
-            GameEvent.OnEnemyDie -= HandleEnemyDie;
-            GameEvent.OnGetEnemyReward -= HandleGetEnemyReward;
+            EnemyEvent.EnemySpawn -= EnemySpawn;
+            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
+            EnemyEvent.OnGetEnemyReward -= HandleGetEnemyReward;
+            EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
 
-            InGameEvent.OnStartWave -= StartWave;
+            // InGameEvent.OnStartWave -= StartWave;
             InGameEvent.OnEndWave -= EndWave;
-            InGameEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
-            InGameEvent.OnEnemySpawn -= EnemySpawn;
         }
 
-        private void StartWave()
-        {
-            IsStarted = true;
-        }
+        // private void StartWave()
+        // {
+        //     IsStarted = true;
+        // }
 
         private void EndWave()
         {
@@ -101,7 +101,7 @@ namespace TDGame
             Lives -= enemy.Data.damage;
             if (Lives <= 0)
             {
-                InGameEvent.OnGameOver?.Invoke();
+                InGameEvent.GameOver?.Invoke();
             }
         }
 

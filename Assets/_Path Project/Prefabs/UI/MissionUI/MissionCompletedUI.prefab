@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5625551877840813939}
   - component: {fileID: 3278853212617545092}
   - component: {fileID: 1126305055152425883}
+  - component: {fileID: 2331118291174291585}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2941040141470414202}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TDGame.MissionCompleteUI, Assembly-CSharp
         m_MethodName: SendPlayContinue
         m_Mode: 1
@@ -133,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2331118291174291585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621364017989269279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42dc11d176e1443f88f5a28f5e8ae11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.MissionCompleteButtonUI
 --- !u!1 &2668404895974425969
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +468,6 @@ GameObject:
   - component: {fileID: 4080591404327958513}
   - component: {fileID: 5216362811296927804}
   - component: {fileID: 7894921915010125786}
-  - component: {fileID: 2941040141470414202}
   m_Layer: 5
   m_Name: MissionCompletedUI
   m_TagString: Untagged
@@ -521,15 +533,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2941040141470414202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8072097329912192163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 480b651e6da234ec083d688c2f41aa60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TDGame.MissionCompleteUI

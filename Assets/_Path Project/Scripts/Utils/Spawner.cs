@@ -1,7 +1,6 @@
 
 
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TDGame
@@ -29,7 +28,7 @@ namespace TDGame
         public void Start()
         {
             FactoryManager = GameManager.Instance.FactoryManager;
-            InGameEvent.OnSpawnerRaise?.Invoke();
+            InGameEvent.SpawnerStart?.Invoke();
         }
 
         private void Update()
@@ -43,6 +42,11 @@ namespace TDGame
             {
                 SpawnEnemy();
                 _spawnTimer = _SpawnConfig.Interval;
+            }
+
+            if (_SpawnConfig.Timer >= _SpawnConfig.Duration)
+            {
+                InGameEvent.SpawnerEnd?.Invoke();
             }
         }
 
@@ -58,7 +62,8 @@ namespace TDGame
             Enemy enemy = FactoryManager.GetEnemy(_SpawnConfig.EnemyType);
             enemy.SetPathway(Pathway);
             enemy.gameObject.transform.position = Pathway[0].transform.position;
-            InGameEvent.OnEnemySpawn?.Invoke();
+
+            EnemyEvent.EnemySpawn?.Invoke();
         }
     }
 }

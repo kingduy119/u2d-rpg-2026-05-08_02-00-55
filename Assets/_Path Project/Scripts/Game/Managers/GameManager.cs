@@ -1,9 +1,7 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
-    // public class GameManager : PersistentSingleton<GameManager>
     public class GameManager : TDGame<GameManager>
     {
 
@@ -11,7 +9,6 @@ namespace TDGame
         public FactoryManager FactoryManager => LazyLoad(ref _factoryManager, _factoryManagerPrefab, gameObject.transform);
         public TowerBoard TowerBoard => LazyLoad(ref _towerBoard, _towerBoardPrefab, gameObject.transform);
 
-        public AudioController Audio => m_Audio;
         public GameState GameState;
         public GameStates GameStates;
 
@@ -20,28 +17,32 @@ namespace TDGame
             base.Awake();
             GameState = new();
             GameStates = new();
+        }
 
-            var audio = transform.Find("AudioController");
-            if (audio && audio.TryGetComponent<AudioController>(out var instance))
+        private void Start()
+        {
+            if (AudioController != null)
             {
-                m_Audio = instance;
-                m_Audio.PlayMainMenuMusic();
-                GameEvent.Audio = m_Audio;
+                AudioController.PlayMainMenuMusic();
             }
         }
 
         protected void OnEnable()
         {
-            GameEvent.OnPlayNewGame += PlayNewGame;
-            GameEvent.OnPlayContinue += PlayContinueGame;
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            GameEvent.PlayNewGame += GameEvent_PlayNewGame;
+            GameEvent.PlayContinue += GameEvent_PlayContinue;
+
+            GameEvent.NavigateTo += NavigateTo;
+            SceneManager.sceneLoaded += SceneManager_SceneLoaded;
         }
 
         protected void OnDisable()
         {
-            GameEvent.OnPlayNewGame -= PlayNewGame;
-            GameEvent.OnPlayContinue -= PlayContinueGame;
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            GameEvent.PlayNewGame -= GameEvent_PlayNewGame;
+            GameEvent.PlayContinue -= GameEvent_PlayContinue;
+
+            GameEvent.NavigateTo -= NavigateTo;
+            SceneManager.sceneLoaded -= SceneManager_SceneLoaded;
         }
 
         private void Update()
@@ -49,17 +50,18 @@ namespace TDGame
             GameStates.Execute();
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void NavigateTo(string name)
         {
-            // GameState.ResetOnLoadScene();
-
-            if (FactoryManager != null)
-                Destroy(FactoryManager.gameObject);
-
-            // GameEvent.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(name);
         }
 
-        public void PlayNewGame(int level)
+        private void SceneManager_SceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (FactoryManager != null)
+                Destroy(FactoryManager.gameObject);
+        }
+
+        public void GameEvent_PlayNewGame(int level)
         {
             UIManager.Instance.InGameUI.gameObject.SetActive(true);
             GameStates.TransitionTo(GameStates.GamePlayState);
@@ -67,7 +69,7 @@ namespace TDGame
             LevelManager.LoadLevel(level);
         }
 
-        public void PlayContinueGame()
+        public void GameEvent_PlayContinue()
         {
             UIManager.Instance.InGameUI.gameObject.SetActive(true);
             GameStates.TransitionTo(GameStates.GamePlayState);

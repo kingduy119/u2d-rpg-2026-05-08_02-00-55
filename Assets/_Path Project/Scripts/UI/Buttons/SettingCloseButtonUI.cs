@@ -6,7 +6,7 @@ namespace TDGame
     {
         protected override void HandleClick()
         {
-            // GameEvent.OnPlayNewGame?.Invoke(0);
+            GameEvent.SettingClose?.Invoke();
         }
     }
 }

@@ -2273,7 +2273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.UIManager
   _InGameUI: {fileID: 3872791374998375854}
   _TowerAbilityOptionsPrefab: {fileID: 4161880623082215135, guid: 951cf3793bc254874891779044129522, type: 3}
-  _MissionCompleteUIPrefab: {fileID: 2941040141470414202, guid: c95b53dfd21f44101ac0bb1ef846c5c8, type: 3}
+  _MissionCompleteUIPrefab: {fileID: 8072097329912192163, guid: c95b53dfd21f44101ac0bb1ef846c5c8, type: 3}
   _TowerPlaceCursorPrefab: {fileID: 1261503707645090363, guid: 46779ecfa4617404ba3bbc29e2bb4fb1, type: 3}
   _TowerSelectCursorPrefab: {fileID: 1261503707645090363, guid: 6240b1fdc7dc242c09ae80dfda164674, type: 3}
 --- !u!114 &8012016952863979250
@@ -2289,9 +2289,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSettings
   mixer: {fileID: 24100000, guid: 85370b6f9dfcf4a29a9f2cd3539b75b2, type: 2}
-  masterSlider: {fileID: 2677662736327706822}
-  musicSlider: {fileID: 5219521959544385856}
-  sfxSlider: {fileID: 3873876790262835990}
+  masterSlider: {fileID: 0}
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!1 &6913222584161713849
 GameObject:
   m_ObjectHideFlags: 0
@@ -3453,17 +3453,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 882e7288556b84587840b03225728a65, type: 3}
---- !u!114 &2677662736327706822 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5786240987005488627, guid: 882e7288556b84587840b03225728a65, type: 3}
-  m_PrefabInstance: {fileID: 8458925132433950005}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!114 &3872791374998375854 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4673268202927556763, guid: 882e7288556b84587840b03225728a65, type: 3}
@@ -3475,30 +3464,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc37177912f0e7549a34e362d7e0c970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InGameController
---- !u!114 &3873876790262835990 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4658663742427803171, guid: 882e7288556b84587840b03225728a65, type: 3}
-  m_PrefabInstance: {fileID: 8458925132433950005}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!224 &4724773789913422730 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3816210442603470527, guid: 882e7288556b84587840b03225728a65, type: 3}
   m_PrefabInstance: {fileID: 8458925132433950005}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5219521959544385856 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4398701847207474293, guid: 882e7288556b84587840b03225728a65, type: 3}
-  m_PrefabInstance: {fileID: 8458925132433950005}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider

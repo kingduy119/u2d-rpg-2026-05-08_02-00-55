@@ -24,12 +24,12 @@ namespace TDGame
 
         private void OnEnable()
         {
-            GameEvent.OnEnemyDie += HandleEnemyDie;
+            EnemyEvent.OnEnemyDie += HandleEnemyDie;
         }
 
         private void OnDisable()
         {
-            GameEvent.OnEnemyDie -= HandleEnemyDie;
+            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
         }
 
         private void Start()

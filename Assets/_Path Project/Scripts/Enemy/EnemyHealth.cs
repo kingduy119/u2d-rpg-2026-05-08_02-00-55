@@ -37,7 +37,7 @@ namespace TDGame
             _healthState.Health -= amount;
             if (_healthState.Health <= 0)
             {
-                GameEvent.SendEnemyDie(_enemy);
+                EnemyEvent.OnEnemyDie?.Invoke(_enemy);
                 _enemy.Deactivate();
                 _enemy.Sound.PlayDestroy();
                 return;
