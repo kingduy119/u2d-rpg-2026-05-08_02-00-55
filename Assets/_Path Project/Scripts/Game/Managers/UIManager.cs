@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+// using UnityEngine.AddressableAssets;
+
 
 namespace TDGame
 {
@@ -63,14 +65,5 @@ namespace TDGame
             if (MissionCompleteUI != null) Destroy(MissionCompleteUI);
 
         }
-
-        // private T LazyLoad<T>(ref T instance, T prefab, Transform transform = null)
-        //     where T : UnityEngine.Object
-        // {
-        //     if (instance == null)
-        //         instance = Instantiate(prefab, transform);
-
-        //     return instance;
-        // }
     }
 }

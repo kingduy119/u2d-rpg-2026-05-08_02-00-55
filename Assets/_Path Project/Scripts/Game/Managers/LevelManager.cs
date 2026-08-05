@@ -60,7 +60,9 @@ namespace TDGame
         {
             LevelState.Level = level;
             InGameEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
-            SceneManager.LoadScene(LevelState.CurrentLevel.sceneName);
+            // SceneManager.LoadScene(LevelState.CurrentLevel.sceneName);
+            GameManager.Instance.LoadingScreen.gameObject.SetActive(true);
+            GameManager.Instance.LoadingScreen.LoadScene(LevelState.CurrentLevel.sceneName);
         }
 
         public void PlayContinueLevel()

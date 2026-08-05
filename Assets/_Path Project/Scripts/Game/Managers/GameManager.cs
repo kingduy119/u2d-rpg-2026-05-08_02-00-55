@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using NUnit.Framework.Internal;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace TDGame
@@ -9,22 +12,46 @@ namespace TDGame
         public FactoryManager FactoryManager => LazyLoad(ref _factoryManager, _factoryManagerPrefab, gameObject.transform);
         public TowerBoard TowerBoard => LazyLoad(ref _towerBoard, _towerBoardPrefab, gameObject.transform);
 
-        public GameState GameState;
+        // public GameState GameState;
         public GameStates GameStates;
+
+        public static IAssetLoader AssetLoader { get; private set; }
+
+        // private LoadingScreen _LoadingScreen;
+        public LoadingScreen LoadingScreen;
+        // {
+        //     get
+        //     {
+        //         TestLoad();
+        //         return _LoadingScreen;
+        //     }
+        // }
 
         protected override void Awake()
         {
             base.Awake();
-            GameState = new();
+            // GameState = new();
             GameStates = new();
+            AssetLoader = new AddressableLoader();
         }
 
-        private void Start()
+        private async void Start()
         {
             if (AudioController != null)
             {
                 AudioController.PlayMainMenuMusic();
             }
+            TestLoad();
+            // GameObject loading = await AssetLoader.InstantiateAsync("Game/LoadingUI");
+            // LoadingScreen = loading.GetComponent<LoadingScreen>();
+            // LoadingScreen.gameObject.SetActive(false);
+        }
+
+        private async void TestLoad()
+        {
+            GameObject loading = await AssetLoader.InstantiateAsync("Game/LoadingUI");
+            LoadingScreen = loading.GetComponent<LoadingScreen>();
+            LoadingScreen.gameObject.SetActive(false);
         }
 
         protected void OnEnable()
@@ -65,7 +92,6 @@ namespace TDGame
         {
             UIManager.Instance.InGameUI.gameObject.SetActive(true);
             GameStates.TransitionTo(GameStates.GamePlayState);
-
             LevelManager.LoadLevel(level);
         }
 

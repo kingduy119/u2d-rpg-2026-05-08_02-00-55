@@ -32,7 +32,7 @@ namespace TDGame
 
         [SerializeField] private SettingUI _SettingUIPrefab;
         private SettingUI _SettingUI;
-        public SettingUI SettingUI => Lazy.Load(ref _SettingUI, _SettingUIPrefab);
+        public SettingUI SettingUI => Lazy.Load(ref _SettingUI, _SettingUIPrefab, gameObject.transform);
 
 
         private void Awake()
@@ -67,6 +67,7 @@ namespace TDGame
         // public void OnCloseSettingsClick() => ResumeGame();
         private void OpenSettingUI()
         {
+            Debug.Log("OPenSetingg");
             SettingUI.gameObject.SetActive(true);
             GameEvent.PauseGame?.Invoke();
         }

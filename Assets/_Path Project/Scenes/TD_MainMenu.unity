@@ -1013,6 +1013,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &904674231 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6964883949045534984, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
+  m_PrefabInstance: {fileID: 2101836741}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449042201045a4ad2a454df1fa970bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.AudioController
 --- !u!1 &2014680642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,7 +1035,7 @@ GameObject:
   - component: {fileID: 2014680644}
   - component: {fileID: 2014680643}
   m_Layer: 0
-  m_Name: MenuTilemap
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4386,6 +4397,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6416304065245925452, guid: 2f3ca21cac40b4eaca61d5f368e461a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6496922424000631291, guid: 2f3ca21cac40b4eaca61d5f368e461a6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4836,6 +4851,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5740410833858547009, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
+      propertyPath: AudioController
+      value: 
+      objectReference: {fileID: 904674231}
+    - target: {fileID: 5740410833858547009, guid: 4217e8703758a447d8de135e5cd00024, type: 3}
       propertyPath: _towers.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -5029,8 +5048,8 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 876408406}
   - {fileID: 4272822782353207354}
   - {fileID: 2083303714}
-  - {fileID: 876408406}
   - {fileID: 2014680644}
   - {fileID: 2101836741}

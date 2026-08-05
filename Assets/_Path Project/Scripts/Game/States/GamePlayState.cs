@@ -108,7 +108,6 @@ namespace TDGame
 
         private void LoadLevelResource(LevelSO level)
         {
-            Debug.Log("GamePlay.LoadLevelResource");
             Golds = level.startingGold;
             Lives = level.startingLives;
         }
