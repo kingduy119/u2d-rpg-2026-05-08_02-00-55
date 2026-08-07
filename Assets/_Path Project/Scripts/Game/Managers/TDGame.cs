@@ -36,14 +36,14 @@ namespace TDGame
         // }
 
 
-        protected T LazyLoad<T>(ref T instance, T prefab, Transform transform = null)
-            where T : Object
-        {
-            if (instance == null)
-                instance = Instantiate(prefab, transform);
+        // protected T LazyLoad<T>(ref T instance, T prefab, Transform transform = null)
+        //     where T : Object
+        // {
+        //     if (instance == null)
+        //         instance = Instantiate(prefab, transform);
 
-            return instance;
-        }
+        //     return instance;
+        // }
 
     }
 }

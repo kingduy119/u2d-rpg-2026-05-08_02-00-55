@@ -3,16 +3,30 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+
+
 
 namespace TDGame
 {
     public class LoadingScreen : MonoBehaviour
     {
+        private static AsyncOperationHandle<SceneInstance> m_SceneLoadOpHandle;
+
+
+
         [SerializeField] private Slider progressBar;
 
-        void Start()
+        // void Start()
+        // {
+        //     progressBar.value = 0;
+        // }
+
+        private void Awake()
         {
-            progressBar.value = 0;
+            StartCoroutine(LoadNextLevel("TD_Level_1"));
         }
 
         public void LoadScene(string sceneName)
@@ -22,13 +36,12 @@ namespace TDGame
 
         private IEnumerator LoadScenceAsync(string sceneName)
         {
-            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+            AsyncOperation m_SceneOperation = SceneManager.LoadSceneAsync(sceneName);
+            m_SceneOperation.allowSceneActivation = false;
 
-            operation.allowSceneActivation = false;
-
-            while (!operation.isDone)
+            while (!m_SceneOperation.isDone)
             {
-                float progress = Mathf.Clamp01(operation.progress / 0.9f);
+                float progress = Mathf.Clamp01(m_SceneOperation.progress / 0.9f);
 
                 progressBar.value = progress;
 
@@ -37,7 +50,29 @@ namespace TDGame
                     // Có thể chờ animation hoặc người chơi nhấn nút
                     yield return new WaitForSeconds(0.5f);
 
-                    operation.allowSceneActivation = true;
+                    m_SceneOperation.allowSceneActivation = true;
+                }
+
+                yield return null;
+            }
+        }
+
+        private IEnumerator LoadNextLevel(string sceneName)
+        {
+            // m_SceneOperation = SceneManager.LoadSceneAsync(level);
+            // m_SceneOperation.allowSceneActivation = false;
+            m_SceneLoadOpHandle = Addressables.LoadSceneAsync(sceneName, activateOnLoad: true);
+            while (!m_SceneLoadOpHandle.IsDone)
+            {
+                float progress = Mathf.Clamp01(m_SceneLoadOpHandle.PercentComplete / 0.9f);
+
+                progressBar.value = progress;
+
+                if (progress >= 1f)
+                {
+                    // Có thể chờ animation hoặc người chơi nhấn nút
+                    yield return new WaitForSeconds(0.5f);
+                    // m_SceneLoadOpHandle.allowSceneActivation = true;
                 }
 
                 yield return null;

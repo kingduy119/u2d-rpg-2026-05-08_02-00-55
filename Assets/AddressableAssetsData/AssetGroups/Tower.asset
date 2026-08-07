@@ -15,10 +15,26 @@ MonoBehaviour:
   m_GroupName: Tower
   m_GUID: 23de1599c667e4932bf47bd64d5cc8c4
   m_SerializeEntries:
+  - m_GUID: 2e92f822acb1346439295e34931a5dc7
+    m_Address: Tower/Barracks
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Pack_1
+    - Tower
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5832198145d84bb4898256bb8f5fe86b
     m_Address: Tower/Basic
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Pack_1
+    - Tower
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 693ad3468a4c88b4a88378f748a88217
+    m_Address: Tower/House
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Pack_1
+    - Tower
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}

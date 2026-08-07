@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace TDGame
 {
@@ -49,4 +51,59 @@ namespace TDGame
         }
     }
 
+    public abstract class NewFactory<Type, T> where T : Component,
+        IPoolable<T>
+    {
+        protected readonly Dictionary<Type, GameObject> prefabs = new();
+        protected readonly Dictionary<Type, GenericPool<T>> _PoolDictionary = new();
+        protected AsyncOperationHandle<IList<GameObject>> handle;
+        protected List<string> loadKeys;
+
+
+        public async void LoadPrefabs()
+        {
+            handle = Addressables.LoadAssetsAsync<GameObject>(loadKeys, null, Addressables.MergeMode.Union);
+            await handle.Task;
+
+            handle.Completed += OnLoadCompelete;
+        }
+
+        private void OnLoadCompelete(AsyncOperationHandle<IList<GameObject>> asyncHandle)
+        {
+            if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                IList<GameObject> results = asyncHandle.Result;
+                for (int i = 0; i < results.Count; i++)
+                {
+                    MapGameObject(results[i]);
+                }
+
+            }
+        }
+
+        protected abstract void MapGameObject(GameObject go);
+
+        public T GetObject(Type type, Transform transform)
+        {
+            if (!prefabs.TryGetValue(type, out var prefab))
+                return null;
+
+            if (!_PoolDictionary.TryGetValue(type, out var pool))
+            {
+                pool = new GenericPool<T>(prefab, transform);
+                _PoolDictionary.Add(type, pool);
+            }
+            return pool.Get();
+        }
+
+        public void Destroy()
+        {
+            if (handle.IsValid())
+            {
+                Debug.Log("OnDestroy.handle.IsValid");
+                handle.Completed -= OnLoadCompelete;
+                Addressables.Release(handle);
+            }
+        }
+    }
 }

@@ -95,11 +95,6 @@ namespace TDGame
             }
         }
 
-        private void StartWave()
-        {
-            IsStarted = true;
-        }
-
         private void EndWave()
         {
             IsStarted = false;

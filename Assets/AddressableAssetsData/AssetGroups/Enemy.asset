@@ -18,7 +18,9 @@ MonoBehaviour:
   - m_GUID: 3fd90b07682074ccb943f8459a307326
     m_Address: Enemy/mummy_orce
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Enemy
+    - Pack_1
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}

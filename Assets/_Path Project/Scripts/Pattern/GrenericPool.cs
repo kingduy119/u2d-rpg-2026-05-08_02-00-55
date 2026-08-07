@@ -8,7 +8,6 @@ namespace TDGame
     IPoolable<T>
     {
         private readonly IObjectPool<T> _pool;
-        private readonly HashSet<T> _activeObjects = new();
 
         public GenericPool(
             GameObject prefab,
@@ -36,12 +35,10 @@ namespace TDGame
 
         private void OnGet(T item)
         {
-            _activeObjects.Add(item);
             item.gameObject.SetActive(true);
         }
         private void OnRelease(T item)
         {
-            _activeObjects.Remove(item);
             item.gameObject.SetActive(false);
         }
         private void OnDestroy(T item)

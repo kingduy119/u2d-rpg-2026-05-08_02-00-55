@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,50 +6,29 @@ namespace TDGame
     public class GameManager : TDGame<GameManager>
     {
 
-        public LevelManager LevelManager => LazyLoad(ref _levelManager, _levelManagerPrefab, gameObject.transform);
-        public FactoryManager FactoryManager => LazyLoad(ref _factoryManager, _factoryManagerPrefab, gameObject.transform);
-        public TowerBoard TowerBoard => LazyLoad(ref _towerBoard, _towerBoardPrefab, gameObject.transform);
+        public LevelManager LevelManager => Lazy.Load(ref _levelManager, _levelManagerPrefab, gameObject.transform);
+        public FactoryManager FactoryManager => Lazy.Load(ref _factoryManager, _factoryManagerPrefab, gameObject.transform);
+        public TowerBoard TowerBoard => Lazy.Load(ref _towerBoard, _towerBoardPrefab, gameObject.transform);
 
-        // public GameState GameState;
+        // public NewFactoryManager NewFactoryManager;
         public GameStates GameStates;
-
-        public static IAssetLoader AssetLoader { get; private set; }
-
-        // private LoadingScreen _LoadingScreen;
-        public LoadingScreen LoadingScreen;
-        // {
-        //     get
-        //     {
-        //         TestLoad();
-        //         return _LoadingScreen;
-        //     }
-        // }
 
         protected override void Awake()
         {
             base.Awake();
-            // GameState = new();
             GameStates = new();
-            AssetLoader = new AddressableLoader();
+            // NewFactoryManager = new();
         }
 
-        private async void Start()
+        private void Start()
         {
             if (AudioController != null)
             {
                 AudioController.PlayMainMenuMusic();
             }
-            TestLoad();
-            // GameObject loading = await AssetLoader.InstantiateAsync("Game/LoadingUI");
-            // LoadingScreen = loading.GetComponent<LoadingScreen>();
-            // LoadingScreen.gameObject.SetActive(false);
-        }
 
-        private async void TestLoad()
-        {
-            GameObject loading = await AssetLoader.InstantiateAsync("Game/LoadingUI");
-            LoadingScreen = loading.GetComponent<LoadingScreen>();
-            LoadingScreen.gameObject.SetActive(false);
+            // NewFactoryManager.LoadPrefabs();
+            FactoryManager.LoadPrefabs();
         }
 
         protected void OnEnable()
@@ -103,6 +80,11 @@ namespace TDGame
             LevelManager.PlayContinueLevel();
         }
 
+        private void OnDestroy()
+        {
+            // Debug.Log("GameManager.Destroy");
+            // NewFactoryManager.Destroy();
+        }
     }
 }
 

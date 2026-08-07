@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
 namespace TDGame
@@ -61,8 +62,9 @@ namespace TDGame
             LevelState.Level = level;
             InGameEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
             // SceneManager.LoadScene(LevelState.CurrentLevel.sceneName);
-            GameManager.Instance.LoadingScreen.gameObject.SetActive(true);
-            GameManager.Instance.LoadingScreen.LoadScene(LevelState.CurrentLevel.sceneName);
+            // GameManager.Instance.LoadingScreen.gameObject.SetActive(true);
+            // GameManager.Instance.LoadingScreen.LoadScene(LevelState.CurrentLevel.sceneName);
+            Addressables.LoadSceneAsync("LoadingScene", activateOnLoad: true);
         }
 
         public void PlayContinueLevel()
