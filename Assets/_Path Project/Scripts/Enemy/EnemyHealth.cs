@@ -18,8 +18,8 @@ namespace TDGame
             if (TryGetComponent<Enemy>(out var enemy))
             {
                 _enemy = enemy;
-                _healthState.Health = enemy.Data.health;
-                _healthState.MaxHealth = enemy.Data.maxHealth;
+                _healthState.Health = enemy.SO.health;
+                _healthState.MaxHealth = enemy.SO.maxHealth;
             }
         }
 

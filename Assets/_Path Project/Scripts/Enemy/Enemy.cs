@@ -9,7 +9,7 @@ namespace TDGame
     public class Enemy : MonoBehaviour,
         IPoolable<Enemy>
     {
-        public EnemySO Data;
+        public EnemySO SO;
         public EnemySound Sound;
 
 
@@ -54,7 +54,7 @@ namespace TDGame
 
         private void Reset()
         {
-            _movement.Init(Data.moveSpeed, Data.moveSpeed + 3);
+            _movement.Init(SO.moveSpeed, SO.moveSpeed + 3);
             _pathIndex = 0;
             _targetPosition = _Pathway[_pathIndex].transform.position;
         }

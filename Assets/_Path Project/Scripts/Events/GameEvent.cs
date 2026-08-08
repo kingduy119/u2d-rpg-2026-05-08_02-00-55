@@ -25,4 +25,9 @@ namespace TDGame
         public static Action<Enemy> OnEnemyReachedEnd;
     }
 
+    public class PrefabEvent
+    {
+        public static Action<Tower> LoadTower;
+    }
+
 }

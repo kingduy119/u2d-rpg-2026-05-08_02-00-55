@@ -2,7 +2,7 @@
 namespace TDGame
 {
 
-    public class EnemyFactory : Factory<EnemySO, Enemy>
-    { }
+    // public class EnemyFactory : Factory<EnemySO, Enemy>
+    // { }
 
 }

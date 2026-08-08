@@ -83,7 +83,7 @@ namespace TDGame
 
         public void HandleTowerPlace(TowerBase tower)
         {
-            Vector2Int size = tower.TowerSO.Size;
+            Vector2Int size = tower.SO.Size;
             Vector3Int origin = _Grid.WorldToCell(tower.transform.position);
             Vector3 position = _Grid.CellToWorld(origin);
 

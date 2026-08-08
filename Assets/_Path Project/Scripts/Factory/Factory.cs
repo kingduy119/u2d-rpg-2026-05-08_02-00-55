@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace TDGame
 {
@@ -56,32 +54,8 @@ namespace TDGame
     {
         protected readonly Dictionary<Type, GameObject> prefabs = new();
         protected readonly Dictionary<Type, GenericPool<T>> _PoolDictionary = new();
-        protected AsyncOperationHandle<IList<GameObject>> handle;
-        protected List<string> loadKeys;
 
-
-        public async void LoadPrefabs()
-        {
-            handle = Addressables.LoadAssetsAsync<GameObject>(loadKeys, null, Addressables.MergeMode.Union);
-            await handle.Task;
-
-            handle.Completed += OnLoadCompelete;
-        }
-
-        private void OnLoadCompelete(AsyncOperationHandle<IList<GameObject>> asyncHandle)
-        {
-            if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
-            {
-                IList<GameObject> results = asyncHandle.Result;
-                for (int i = 0; i < results.Count; i++)
-                {
-                    MapGameObject(results[i]);
-                }
-
-            }
-        }
-
-        protected abstract void MapGameObject(GameObject go);
+        public abstract void AddPrefab(T prefab);
 
         public T GetObject(Type type, Transform transform)
         {
@@ -95,14 +69,37 @@ namespace TDGame
             }
             return pool.Get();
         }
+    }
 
-        public void Destroy()
+    public class TowerFactory : NewFactory<TowerSO, Tower>
+    {
+        public override void AddPrefab(Tower entity)
         {
-            if (handle.IsValid())
+            if (!prefabs.ContainsKey(entity.SO))
             {
-                Debug.Log("OnDestroy.handle.IsValid");
-                handle.Completed -= OnLoadCompelete;
-                Addressables.Release(handle);
+                prefabs.Add(entity.SO, entity.gameObject);
+            }
+        }
+    }
+
+    public class EnemyFactory : NewFactory<EnemySO, Enemy>
+    {
+        public override void AddPrefab(Enemy entity)
+        {
+            if (!prefabs.ContainsKey(entity.SO))
+            {
+                prefabs.Add(entity.SO, entity.gameObject);
+            }
+        }
+    }
+
+    public class ProjectileFactory : NewFactory<ProjectileSO, Projectile>
+    {
+        public override void AddPrefab(Projectile entity)
+        {
+            if (!prefabs.ContainsKey(entity.SO))
+            {
+                prefabs.Add(entity.SO, entity.gameObject);
             }
         }
     }

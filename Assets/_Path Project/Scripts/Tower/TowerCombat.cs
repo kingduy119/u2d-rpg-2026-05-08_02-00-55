@@ -6,9 +6,10 @@ namespace TDGame
     [RequireComponent(typeof(SpriteRenderer))]
     public class TowerCombat : MonoBehaviour
     {
+        private GameManager GameManager => GameManager.Instance;
         private TowerBase Tower;
         private List<Enemy> _enemiesInRange;
-        private FactoryManager FactoryManager => GameManager.Instance.FactoryManager;
+        // private FactoryManager FactoryManager => GameManager.Instance.FactoryManager;
 
         public SpriteRenderer ShootRanageArea;
 
@@ -37,7 +38,6 @@ namespace TDGame
             if (Tower != null && TryGetComponent<CircleCollider2D>(out var collider))
             {
                 collider.radius = Tower.Ability.ShootRange;
-                Debug.Log($"collider.radius: {collider.radius}");
             }
             SetShootRangeArea();
         }
@@ -72,7 +72,7 @@ namespace TDGame
         {
             if (_enemiesInRange.Count > 0)
             {
-                Projectile projectile = FactoryManager.GetProjectile(Tower.TowerSO.projectType);
+                Projectile projectile = GameManager.FactoryManager.GetProjectile(Tower.SO.projectSO);
                 if (projectile == null) return;
 
                 Vector2 shootDirection = (_enemiesInRange[0].transform.position - transform.position).normalized;
@@ -90,9 +90,9 @@ namespace TDGame
 
         private void SetShootRangeArea()
         {
-            if (Tower.TowerSO == null) return;
+            if (Tower.SO == null) return;
 
-            float dimeter = Tower.TowerSO.Ability.ShootRange * 2f;
+            float dimeter = Tower.SO.Ability.ShootRange * 2f;
             transform.localScale = Vector3.one * dimeter;
         }
     }

@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Game
   m_GUID: 2bc3b53421da04cc2a8320397acddf65
   m_SerializeEntries:
+  - m_GUID: a58d39414d4bd1045b09439f7c72399a
+    m_Address: Game/FactoryManager
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e9eb588d7923e4724ad518c1b4670e4a
     m_Address: Game/LoadingUI
     m_ReadOnly: 0

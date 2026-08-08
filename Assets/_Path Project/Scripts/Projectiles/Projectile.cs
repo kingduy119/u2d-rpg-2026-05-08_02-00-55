@@ -9,7 +9,7 @@ namespace TDGame
         public virtual ProjectileType Type => ProjectileType.Default;
         public IObjectPool<Projectile> Pool { get; set; }
 
-        public ProjectileSO ShareData;
+        public ProjectileSO SO;
         protected ProjectileData Data;
 
 
@@ -21,7 +21,7 @@ namespace TDGame
         public virtual void Launch(Vector3 shootDirection)
         {
 
-            Data = ShareData.Data.Clone();
+            Data = SO.Data.Clone();
             Data.Direction = shootDirection;
         }
 

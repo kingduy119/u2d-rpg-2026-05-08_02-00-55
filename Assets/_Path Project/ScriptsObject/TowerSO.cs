@@ -11,8 +11,7 @@ namespace TDGame
         public string towerName;
 
         [Header("Detail")]
-        public TowerType towerType;
-        public ProjectileType projectType;
+        public ProjectileSO projectSO;
         public Vector2Int Size = new(1, 1);
         public int cost;
 
@@ -20,8 +19,6 @@ namespace TDGame
         public TowerAbility Ability;
         public ProjectileSO ProjectileSO;
 
-        // public Tower NextTowerLevel;
-        // public TowerType NextTowerLevel;
         [SerializeField] private TowerSO _NextTowerLevel;
         public TowerSO NextTowerLevel => _NextTowerLevel;
     }

@@ -9,7 +9,7 @@ namespace TDGame
         [SerializeField] private bool _ShowDraw;
         [SerializeField] private SpriteRenderer m_render;
 
-        public TowerSO TowerSO;
+        public TowerSO SO;
         public TowerAbility Ability;
 
         public TowerCombat Combat;
@@ -17,9 +17,9 @@ namespace TDGame
 
         protected virtual void OnValidate()
         {
-            if (TowerSO == null) return;
+            if (SO == null) return;
 
-            m_render.sprite = TowerSO.sprite;
+            m_render.sprite = SO.sprite;
         }
 
         protected virtual void Awake()
@@ -31,10 +31,10 @@ namespace TDGame
             Combat = gameObject.GetComponentInChildren<TowerCombat>();
 
 
-            if (TowerSO == null) return;
+            if (SO == null) return;
 
-            m_render.sprite = TowerSO.sprite;
-            Ability = new(TowerSO.Ability);
+            m_render.sprite = SO.sprite;
+            Ability = new(SO.Ability);
         }
 
         protected virtual void Start() { }
@@ -44,7 +44,7 @@ namespace TDGame
             if (_ShowDraw)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(transform.position, TowerSO.Ability.ShootRange);
+                Gizmos.DrawWireSphere(transform.position, SO.Ability.ShootRange);
             }
         }
 

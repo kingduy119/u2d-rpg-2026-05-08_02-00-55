@@ -111,7 +111,7 @@ namespace TDGame
         public void EnemyReachedEnd(Enemy enemy)
         {
             Enemies--;
-            Lives -= enemy.Data.damage;
+            Lives -= enemy.SO.damage;
             if (Lives <= 0)
             {
                 InGameEvent.GameOver?.Invoke();
@@ -124,6 +124,6 @@ namespace TDGame
         }
 
         public void HandleEnemyDie(Enemy _) => Enemies--;
-        public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.Data.goldReward;
+        public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.SO.goldReward;
     }
 }

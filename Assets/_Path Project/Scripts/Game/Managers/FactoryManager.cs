@@ -1,53 +1,74 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace TDGame
 {
-    public class FactoryManager : MonoBehaviour
+    public class FactoryManager
     {
-        public EnemyFactory EnemyFactory;
-        public TowerFactory TowerFactory;
-        public ProjectileFactory ProjectileFactory;
+        private GameManager _GameManager;
+        private AddressableLoader loader = new();
+        private AsyncOperationHandle<IList<GameObject>> handle = new();
+        private List<string> labels = new() { "Pack_1" };
 
-        private NewTowerFactory NewTowerFactory;
+        private readonly TowerFactory TowerFactory = new();
+        private readonly EnemyFactory EnemyFactory = new();
+        private readonly ProjectileFactory ProjectileFactory = new();
 
-        private void Awake()
+
+        private GameObject factory = new("FactoryManager");
+
+        public FactoryManager(GameManager GameManager)
         {
-            NewTowerFactory = new();
+            _GameManager = GameManager;
+            factory.transform.SetParent(GameManager.transform);
+
+            handle = loader.LoadPrefabsAsync(labels);
+            handle.Completed += OnCompeleted;
         }
 
-        public void LoadPrefabs()
+        private void OnCompeleted(AsyncOperationHandle<IList<GameObject>> asyncHandle)
         {
-            NewTowerFactory.LoadPrefabs();
-        }
-
-        private void OnDestroy()
-        {
-            NewTowerFactory.Destroy();
-        }
-
-        public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type);
-        // public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type);
-        public Tower GetTower(TowerSO type) => NewTowerFactory.GetObject(type, transform);
-        public Projectile GetProjectile(ProjectileType type) => ProjectileFactory.GetObject(type);
-    }
-
-    public class NewTowerFactory : NewFactory<TowerSO, Tower>
-    {
-        public NewTowerFactory()
-        {
-            loadKeys = new() { "Tower" };
-        }
-
-        protected override void MapGameObject(GameObject go)
-        {
-            Debug.Log($"MapGameObject: {go.name}");
-            if (!go.TryGetComponent<Tower>(out var tower))
-                return;
-
-            if (!prefabs.ContainsKey(tower.TowerSO))
+            if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
             {
-                prefabs.Add(tower.TowerSO, go);
+                IList<GameObject> results = asyncHandle.Result;
+                for (int i = 0; i < results.Count; i++)
+                {
+                    var go = results[i];
+                    if (go.TryGetComponent<Tower>(out var tower))
+                    {
+                        TowerFactory.AddPrefab(tower);
+                    }
+                    else if (go.TryGetComponent<Enemy>(out var enemy))
+                    {
+                        EnemyFactory.AddPrefab(enemy);
+                    }
+                    else if (go.TryGetComponent<Projectile>(out var projectile))
+                    {
+                        ProjectileFactory.AddPrefab(projectile);
+                    }
+                }
             }
         }
+
+        public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type, factory.transform);
+        public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type, factory.transform);
+        public Projectile GetProjectile(ProjectileSO type) => ProjectileFactory.GetObject(type, factory.transform);
     }
+    // public class TestFactory : MonoBehaviour
+    // {
+
+    //     public EnemyFactory EnemyFactory;
+    //     // public TowerFactory TowerFactory;
+    //     public ProjectileFactory ProjectileFactory;
+
+
+
+    //     public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type);
+    //     // public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type);
+    //     public Projectile GetProjectile(ProjectileType type) => ProjectileFactory.GetObject(type);
+
+    // }
+
+
 }

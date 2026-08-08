@@ -2,15 +2,15 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public enum TowerType
-    {
-        Tower,
-        House,
-        Barrack,
-        Monastery,
-        Archery,
-        Castle,
-    }
+    // public enum TowerType
+    // {
+    //     Tower,
+    //     House,
+    //     Barrack,
+    //     Monastery,
+    //     Archery,
+    //     Castle,
+    // }
     public enum ProjectileType
     {
         Default,

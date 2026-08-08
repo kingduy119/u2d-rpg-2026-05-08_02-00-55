@@ -4,6 +4,7 @@ namespace TDGame
 {
     public class PointerBuildTowerState : IState
     {
+        private GameManager GameManager => GameManager.Instance;
         private FactoryManager FactoryManager => GameManager.Instance.FactoryManager;
         private GameObject TowerPlaceCursor => UIManager.Instance.TowerPlaceCursor;
 
@@ -48,7 +49,8 @@ namespace TDGame
             if (_SelectedTower != null)
                 _SelectedTower.Deactivate();
 
-            _SelectedTower = FactoryManager.GetTower(towerSO);
+            // _SelectedTower = FactoryManager.GetTower(towerSO);
+            _SelectedTower = GameManager.FactoryManager.GetTower(towerSO);
             _SelectedTower.MarkIdleState();
 
             Vector3 centerWorld = Camera.main.ViewportToWorldPoint(

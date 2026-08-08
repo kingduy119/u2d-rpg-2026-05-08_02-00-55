@@ -7,17 +7,22 @@ namespace TDGame
     {
 
         public LevelManager LevelManager => Lazy.Load(ref _levelManager, _levelManagerPrefab, gameObject.transform);
-        public FactoryManager FactoryManager => Lazy.Load(ref _factoryManager, _factoryManagerPrefab, gameObject.transform);
+        // public FactoryManager FactoryManager => Lazy.Load(ref _factoryManager, _factoryManagerPrefab, gameObject.transform);
         public TowerBoard TowerBoard => Lazy.Load(ref _towerBoard, _towerBoardPrefab, gameObject.transform);
 
         // public NewFactoryManager NewFactoryManager;
         public GameStates GameStates;
+        // private PrefabManager prefabsManager;
+        public FactoryManager FactoryManager;
 
         protected override void Awake()
         {
             base.Awake();
             GameStates = new();
-            // NewFactoryManager = new();
+            FactoryManager = new(this);
+            // prefabsManager = new();
+
+            // PrefabEvent.LoadTower += OnLoadTower;
         }
 
         private void Start()
@@ -27,9 +32,14 @@ namespace TDGame
                 AudioController.PlayMainMenuMusic();
             }
 
-            // NewFactoryManager.LoadPrefabs();
-            FactoryManager.LoadPrefabs();
+            // FactoryManager.LoadPrefabs();
+            // prefabsManager.LoadPrefabs();
         }
+
+        // private void OnLoadTower(Tower tower)
+        // {
+        //     Debug.Log($"tower.name: {tower.name}");
+        // }
 
         protected void OnEnable()
         {
@@ -37,7 +47,7 @@ namespace TDGame
             GameEvent.PlayContinue += GameEvent_PlayContinue;
 
             GameEvent.NavigateTo += NavigateTo;
-            SceneManager.sceneLoaded += SceneManager_SceneLoaded;
+            // SceneManager.sceneLoaded += SceneManager_SceneLoaded;
         }
 
         protected void OnDisable()
@@ -46,7 +56,7 @@ namespace TDGame
             GameEvent.PlayContinue -= GameEvent_PlayContinue;
 
             GameEvent.NavigateTo -= NavigateTo;
-            SceneManager.sceneLoaded -= SceneManager_SceneLoaded;
+            // SceneManager.sceneLoaded -= SceneManager_SceneLoaded;
         }
 
         private void Update()
@@ -59,11 +69,11 @@ namespace TDGame
             SceneManager.LoadScene(name);
         }
 
-        private void SceneManager_SceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            if (FactoryManager != null)
-                Destroy(FactoryManager.gameObject);
-        }
+        // private void SceneManager_SceneLoaded(Scene scene, LoadSceneMode mode)
+        // {
+        //     // if (FactoryManager != null)
+        //     //     Destroy(FactoryManager.gameObject);
+        // }
 
         public void GameEvent_PlayNewGame(int level)
         {
@@ -80,11 +90,11 @@ namespace TDGame
             LevelManager.PlayContinueLevel();
         }
 
-        private void OnDestroy()
-        {
-            // Debug.Log("GameManager.Destroy");
-            // NewFactoryManager.Destroy();
-        }
+        // private void OnDestroy()
+        // {
+        //     // Debug.Log("GameManager.Destroy");
+        //     // NewFactoryManager.Destroy();
+        // }
     }
 }
 

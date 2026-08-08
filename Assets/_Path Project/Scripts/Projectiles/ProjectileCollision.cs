@@ -34,7 +34,7 @@ namespace TDGame
         {
             if (monoBehaviour is IDamageable damageable)
             {
-                damageable.TakeDamage(m_Projectile.ShareData.Data.Damage);
+                damageable.TakeDamage(m_Projectile.SO.Data.Damage);
             }
         }
 

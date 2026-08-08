@@ -6,8 +6,8 @@ namespace TDGame
     [CreateAssetMenu(fileName = "EnemySO", menuName = "Game TD/EnemySO")]
     public class EnemySO : ScriptableObject
     {
-        public EnemyType type;
-        public Enemy prefab;
+        // public EnemyType type;
+        // public Enemy prefab;
 
 
         [Header("Health")]
