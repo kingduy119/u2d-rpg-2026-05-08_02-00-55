@@ -57,6 +57,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3550209037226374788, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
+      propertyPath: SO
+      value: 
+      objectReference: {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}
+    - target: {fileID: 3550209037226374788, guid: 5832198145d84bb4898256bb8f5fe86b, type: 3}
       propertyPath: m_data
       value: 
       objectReference: {fileID: 11400000, guid: 147c829a18bce425ebe42f7e684faaef, type: 2}

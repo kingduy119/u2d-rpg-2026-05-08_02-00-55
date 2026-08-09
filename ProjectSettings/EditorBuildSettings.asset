@@ -5,16 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Path Project/Scenes/TD_MainMenu.unity
     guid: 510dc2b7d20126f49b055ddedd0a0a8e
   - enabled: 0
     path: Assets/_Path Project/Scenes/GreenMap/TD_Level_1.unity
     guid: 6545f8cf63da44a0496e063562f5fac2
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Path Project/Scenes/GreenMap/TD_Level_2.unity
     guid: b9dcbcfde18ea477fbe90fec7853e0da
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Path Project/Scenes/GreenMap/TD_Level_3.unity
     guid: fd3be2ae705f944f38a93244db85bfc8
   - enabled: 0

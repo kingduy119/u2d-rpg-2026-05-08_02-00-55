@@ -12,8 +12,9 @@ namespace TDGame
         public TowerSO SO;
         public TowerAbility Ability;
 
-        public TowerCombat Combat;
-        public TowerHover Hover;
+
+        [NonSerialized] public TowerCombat Combat;
+        [NonSerialized] public TowerHover Hover;
 
         protected virtual void OnValidate()
         {

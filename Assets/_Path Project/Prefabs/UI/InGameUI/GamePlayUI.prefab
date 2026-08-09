@@ -2859,7 +2859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1666824113761100221, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
       propertyPath: m_Name
-      value: TowerSelectUI
+      value: TowerBuildingUI
       objectReference: {fileID: 0}
     - target: {fileID: 3240490884918676570, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2876,6 +2876,14 @@ PrefabInstance:
     - target: {fileID: 3240490884918676570, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304200857301738712, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
+      propertyPath: _CardList
+      value: 
+      objectReference: {fileID: 4354647468122438791}
+    - target: {fileID: 4304200857301738712, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
+      propertyPath: _CardRef.m_AssetGUID
+      value: b6f1c4b094551447babdd1d732aeac9d
       objectReference: {fileID: 0}
     - target: {fileID: 4609414918855333549, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3005,6 +3013,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7363561087205506121, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
+      propertyPath: m_Name
+      value: CardList
+      objectReference: {fileID: 0}
     - target: {fileID: 7742868684771367379, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3061,5 +3073,10 @@ PrefabInstance:
 --- !u!224 &1395791321024620533 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5260371253399054139, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
+  m_PrefabInstance: {fileID: 6511729004447793358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4354647468122438791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7363561087205506121, guid: 366340d6718cb4cc3be5039d1519ab52, type: 3}
   m_PrefabInstance: {fileID: 6511729004447793358}
   m_PrefabAsset: {fileID: 0}

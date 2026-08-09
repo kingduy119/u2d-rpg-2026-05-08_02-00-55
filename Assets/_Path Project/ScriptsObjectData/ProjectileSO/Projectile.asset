@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8c007e3ee6404608ac1fad35605767f, type: 3}
-  m_Name: ProjectileDefault
+  m_Name: Projectile
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.ProjectileSO
   Sprite: {fileID: 0}
   Type: 0

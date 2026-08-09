@@ -11,21 +11,21 @@ namespace TDGame
     //     Archery,
     //     Castle,
     // }
-    public enum ProjectileType
-    {
-        Default,
-        Arrow,
-        Bullet
-    }
+    // public enum ProjectileType
+    // {
+    //     Default,
+    //     Arrow,
+    //     Bullet
+    // }
 
-    public enum EnemyType
-    {
-        MummyOrc,
-        Basic,
-        Normal,
-        Fast,
-        Tank,
-        Boss
-    }
+    // public enum EnemyType
+    // {
+    //     MummyOrc,
+    //     Basic,
+    //     Normal,
+    //     Fast,
+    //     Tank,
+    //     Boss
+    // }
 
 }

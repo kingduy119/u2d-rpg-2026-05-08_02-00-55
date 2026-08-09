@@ -10,24 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Game
+  m_Name: Projectile
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Game
-  m_GUID: 2bc3b53421da04cc2a8320397acddf65
+  m_GroupName: Projectile
+  m_GUID: 998b147c50c77403e82ec7391d4c3ebd
   m_SerializeEntries:
-  - m_GUID: a58d39414d4bd1045b09439f7c72399a
-    m_Address: Game/FactoryManager
+  - m_GUID: 2560d9671c22747d7a2e04975c0e95a2
+    m_Address: Projectile/Arrow
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Pack_1
+    - Projectile
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e9eb588d7923e4724ad518c1b4670e4a
-    m_Address: Game/LoadingUI
+  - m_GUID: 84a4fd2c8a7844d02bcf076f950840db
+    m_Address: Projectile/Default
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Pack_1
+    - Projectile
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: a65af909a278a46c0a2c5a20dccab98d, type: 2}
-    - {fileID: 11400000, guid: 7e3add1f08ce045ccba6248480a657d6, type: 2}
+    - {fileID: 11400000, guid: 0b1c06829a0664307be6ccc1ee3c39e2, type: 2}
+    - {fileID: 11400000, guid: de1997c6a6a784c0aaaf3a32c616cd66, type: 2}

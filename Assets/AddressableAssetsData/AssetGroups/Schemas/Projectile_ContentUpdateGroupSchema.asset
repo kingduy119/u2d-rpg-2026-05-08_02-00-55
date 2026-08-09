@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
-  m_Name: Game_ContentUpdateGroupSchema
+  m_Name: Projectile_ContentUpdateGroupSchema
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.GroupSchemas.ContentUpdateGroupSchema
-  m_Group: {fileID: 11400000, guid: fe0633be48adf4077adb2bc5d5935922, type: 2}
+  m_Group: {fileID: 11400000, guid: ebe3d4ea0f6304b24924922359ff9475, type: 2}
   m_StaticContent: 0

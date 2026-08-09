@@ -10,33 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: GameUI
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Default Local Group
-  m_GUID: 1ec7da210542c47a6904095454dfcd31
+  m_GroupName: GameUI
+  m_GUID: 2bc3b53421da04cc2a8320397acddf65
   m_SerializeEntries:
-  - m_GUID: 510dc2b7d20126f49b055ddedd0a0a8e
-    m_Address: TD_MainMenu
+  - m_GUID: 882e7288556b84587840b03225728a65
+    m_Address: Game/GamePlay
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6545f8cf63da44a0496e063562f5fac2
-    m_Address: TD_Level_1
+  - m_GUID: b6f1c4b094551447babdd1d732aeac9d
+    m_Address: Card/TowerBuildingCard
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 70bb410f8c3034014a273aff11303980
-    m_Address: LoadingScene
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b9dcbcfde18ea477fbe90fec7853e0da
-    m_Address: TD_Level_2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fd3be2ae705f944f38a93244db85bfc8
-    m_Address: TD_Level_3
+  - m_GUID: e9eb588d7923e4724ad518c1b4670e4a
+    m_Address: Game/Loading
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -44,6 +34,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: ae3771853335942a9a957c34068dc0d6, type: 2}
-    - {fileID: 11400000, guid: 859bceea621b349f5b87ff7f4e0afcbe, type: 2}
-    - {fileID: 11400000, guid: 97b0c1922cbbd4746bcb4bc7a4570978, type: 2}
+    - {fileID: 11400000, guid: a65af909a278a46c0a2c5a20dccab98d, type: 2}
+    - {fileID: 11400000, guid: 7e3add1f08ce045ccba6248480a657d6, type: 2}

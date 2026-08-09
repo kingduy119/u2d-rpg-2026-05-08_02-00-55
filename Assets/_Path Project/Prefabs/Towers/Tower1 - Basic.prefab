@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.Tower
   _ShowDraw: 0
   m_render: {fileID: 5025079926833231070}
-  TowerSO: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
+  SO: {fileID: 11400000, guid: 950f173671b735a47a7e0ed43dd7cd20, type: 2}
   Ability:
     ShootRange: 0
     ShootInterval: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973753d10450a4970a4761682192016c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerCombat
-  _SpriteRenderer: {fileID: 741013718014488777}
+  ShootRanageArea: {fileID: 0}
 --- !u!58 &2048195686988012393
 CircleCollider2D:
   m_ObjectHideFlags: 0

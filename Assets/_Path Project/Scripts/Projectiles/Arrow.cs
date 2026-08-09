@@ -5,8 +5,6 @@ namespace TDGame
 {
     public class Arrow : Projectile
     {
-        public override ProjectileType Type => ProjectileType.Arrow;
-
         public override void Launch(Vector3 shotDirection)
         {
             base.Launch(shotDirection);

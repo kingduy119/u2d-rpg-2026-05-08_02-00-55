@@ -36,6 +36,27 @@ MonoBehaviour:
     - Pack_1
     - Tower
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aecceafed9cb6784aae29844c529ef12
+    m_Address: Tower/Archery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Pack_1
+    - Tower
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b52f95a21aecb9d43bd77bf687ecca5f
+    m_Address: Tower/Castle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Pack_1
+    - Tower
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2a5fb646fdca4a5dbc366ec2b8e3738
+    m_Address: Tower/Monastery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Pack_1
+    - Tower
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
   m_SchemaSet:

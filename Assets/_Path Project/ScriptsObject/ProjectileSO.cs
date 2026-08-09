@@ -9,7 +9,7 @@ namespace TDGame
     public class ProjectileSO : ScriptableObject
     {
         public Sprite Sprite;
-        public ProjectileType Type;
+        // public ProjectileType Type;
         public ProjectileData Data;
     }
 

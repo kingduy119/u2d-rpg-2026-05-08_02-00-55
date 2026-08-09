@@ -29,6 +29,11 @@ namespace TDGame
             AudioEvent.OnPlaySFX -= PlaySoundEffect;
         }
 
+        private void Start()
+        {
+            PlayMainMenuMusic();
+        }
+
         public void PlayMusic(AudioClip clip)
         {
             if (musicSource.clip == clip && musicSource.isPlaying) return;

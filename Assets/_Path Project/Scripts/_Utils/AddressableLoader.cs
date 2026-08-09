@@ -45,44 +45,4 @@ namespace TDGame
         }
     }
 
-    public class PrefabManager
-    {
-        private readonly List<string> labels;
-        private AsyncOperationHandle<IList<GameObject>> handle;
-        private AddressableLoader loader;
-
-        public PrefabManager()
-        {
-            loader = new();
-            labels = new() { "Pack_1" };
-        }
-
-        public void LoadPrefabs()
-        {
-            handle = loader.LoadPrefabsAsync(labels);
-            handle.Completed += OnCompeleted;
-        }
-
-        private void OnCompeleted(AsyncOperationHandle<IList<GameObject>> asyncHandle)
-        {
-            if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
-            {
-                IList<GameObject> results = asyncHandle.Result;
-                for (int i = 0; i < results.Count; i++)
-                {
-                    var go = results[i];
-                    if (go.TryGetComponent<Tower>(out var tower))
-                    {
-                        PrefabEvent.LoadTower?.Invoke(tower);
-                    }
-                    else if (go.TryGetComponent<Enemy>(out var enemy))
-                    {
-                        Debug.Log($"enemy.name: {enemy.name}");
-                    }
-                    // Debug.Log($"results[i].name: {results[i].name}");
-                }
-
-            }
-        }
-    }
 }

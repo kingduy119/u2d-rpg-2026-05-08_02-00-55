@@ -231,9 +231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGameManager
   _levelManagerPrefab: {fileID: 7616976324835436790, guid: fbf9a1e0f852648fd96dbb545b037abb, type: 3}
-  _factoryManagerPrefab: {fileID: 8259301134455721308, guid: a58d39414d4bd1045b09439f7c72399a, type: 3}
-  _spawnManagerPrefab: {fileID: 6680820017466012895, guid: 82af327edd38a4cc583e0cdae33d394a, type: 3}
   _towerBoardPrefab: {fileID: 3478130024049826426, guid: daf31e952ce6f437c97ab8401783afcc, type: 3}
+  AudioController: {fileID: 6964883949045534984}
 --- !u!1 &2993940278361101031
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +262,7 @@ Transform:
   m_GameObject: {fileID: 2993940278361101031}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.17082, y: -0.09316, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

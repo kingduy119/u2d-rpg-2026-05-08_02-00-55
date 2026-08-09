@@ -14,6 +14,7 @@ namespace TDGame
         public float health = 1;
         public float maxHealth = 10;
 
+
         [Header("Combat")]
         public int damage = 1;
         public float moveSpeed = 1;

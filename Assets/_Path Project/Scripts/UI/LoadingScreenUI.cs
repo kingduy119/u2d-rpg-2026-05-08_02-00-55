@@ -15,14 +15,8 @@ namespace TDGame
     {
         private static AsyncOperationHandle<SceneInstance> m_SceneLoadOpHandle;
 
-
-
         [SerializeField] private Slider progressBar;
 
-        // void Start()
-        // {
-        //     progressBar.value = 0;
-        // }
 
         private void Awake()
         {
@@ -59,8 +53,6 @@ namespace TDGame
 
         private IEnumerator LoadNextLevel(string sceneName)
         {
-            // m_SceneOperation = SceneManager.LoadSceneAsync(level);
-            // m_SceneOperation.allowSceneActivation = false;
             m_SceneLoadOpHandle = Addressables.LoadSceneAsync(sceneName, activateOnLoad: true);
             while (!m_SceneLoadOpHandle.IsDone)
             {

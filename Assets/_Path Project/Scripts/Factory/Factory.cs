@@ -52,8 +52,8 @@ namespace TDGame
     public abstract class NewFactory<Type, T> where T : Component,
         IPoolable<T>
     {
-        protected readonly Dictionary<Type, GameObject> prefabs = new();
-        protected readonly Dictionary<Type, GenericPool<T>> _PoolDictionary = new();
+        protected Dictionary<Type, GameObject> prefabs = new();
+        protected Dictionary<Type, GenericPool<T>> _PoolDictionary = new();
 
         public abstract void AddPrefab(T prefab);
 

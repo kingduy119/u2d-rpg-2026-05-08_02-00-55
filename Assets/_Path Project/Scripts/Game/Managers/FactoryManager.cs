@@ -15,14 +15,23 @@ namespace TDGame
         private readonly EnemyFactory EnemyFactory = new();
         private readonly ProjectileFactory ProjectileFactory = new();
 
-
-        private GameObject factory = new("FactoryManager");
+        private GameObject _objectList;
+        private GameObject ObjectList
+        {
+            get
+            {
+                if (_objectList == null)
+                {
+                    _objectList = new("FactoryManager");
+                    _objectList.transform.SetParent(_GameManager.transform);
+                }
+                return _objectList;
+            }
+        }
 
         public FactoryManager(GameManager GameManager)
         {
             _GameManager = GameManager;
-            factory.transform.SetParent(GameManager.transform);
-
             handle = loader.LoadPrefabsAsync(labels);
             handle.Completed += OnCompeleted;
         }
@@ -51,24 +60,13 @@ namespace TDGame
             }
         }
 
-        public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type, factory.transform);
-        public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type, factory.transform);
-        public Projectile GetProjectile(ProjectileSO type) => ProjectileFactory.GetObject(type, factory.transform);
+        public void ResetObjects()
+        {
+            if (_objectList != null) Object.Destroy(_objectList);
+        }
+
+        public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type, ObjectList.transform);
+        public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type, ObjectList.transform);
+        public Projectile GetProjectile(ProjectileSO type) => ProjectileFactory.GetObject(type, ObjectList.transform);
     }
-    // public class TestFactory : MonoBehaviour
-    // {
-
-    //     public EnemyFactory EnemyFactory;
-    //     // public TowerFactory TowerFactory;
-    //     public ProjectileFactory ProjectileFactory;
-
-
-
-    //     public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type);
-    //     // public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type);
-    //     public Projectile GetProjectile(ProjectileType type) => ProjectileFactory.GetObject(type);
-
-    // }
-
-
 }

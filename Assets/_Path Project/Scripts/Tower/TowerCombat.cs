@@ -72,7 +72,7 @@ namespace TDGame
         {
             if (_enemiesInRange.Count > 0)
             {
-                Projectile projectile = GameManager.FactoryManager.GetProjectile(Tower.SO.projectSO);
+                Projectile projectile = GameManager.FactoryManager.GetProjectile(Tower.SO.ProjectileSO);
                 if (projectile == null) return;
 
                 Vector2 shootDirection = (_enemiesInRange[0].transform.position - transform.position).normalized;

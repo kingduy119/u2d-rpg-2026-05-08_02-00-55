@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2362069334041848749}
   - component: {fileID: 1958835160419267379}
   - component: {fileID: -4834817975960342485}
-  - component: {fileID: -5725259633414423538}
   - component: {fileID: 5291786693924668431}
+  - component: {fileID: 7759208441687516351}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.06998095, b: 0.06132078, a: 1}
+  m_Color: {r: 0.066037714, g: 0.063875474, b: 0.06385723, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -130,23 +130,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &-5725259633414423538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395881598276135404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79606b98f56c11847b0f662b411eea0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TDGame.Bullet
-  ShareData: {fileID: 11400000, guid: 242b02395777b4641a8862cb4b022580, type: 2}
-  ProjectileData:
-    m_Damage: 0
-    m_Speed: 0
-    m_LifeTime: 0
 --- !u!114 &5291786693924668431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,3 +142,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1a8101453bc40198143328129aafe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.ProjectileCollision
+--- !u!114 &7759208441687516351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395881598276135404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3cd8042d94ed540bc21c11bb3f7f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TDGame.Projectile
+  SO: {fileID: 11400000, guid: 435616a12326b4beabde5239ecc499b1, type: 2}
