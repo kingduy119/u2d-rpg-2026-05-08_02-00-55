@@ -1,7 +1,10 @@
 
 
 
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace TDGame
 {
@@ -58,13 +61,42 @@ namespace TDGame
             set => SetValue(ref _enemies, value);
         }
 
-        public GamePlayState() { }
+        // Assets:
+        // private GameObject _GamePlayUI;
+        // private AsyncOperationHandle<GameObject> _handle;
+        private GameManager _GameManager;
+
+        public GamePlayState(GameManager gm)
+        {
+            _GameManager = gm;
+            // Coroutines.StartCoroutine(LoadAsset());
+        }
+
+        // IEnumerator LoadAsset()
+        // {
+        //     _handle = Addressables.InstantiateAsync("Game/GamePlayUI");
+        //     yield return _handle;
+
+        //     if (_handle.Status == AsyncOperationStatus.Succeeded)
+        //     {
+        //         _GamePlayUI = _handle.Result;
+        //         _GamePlayUI.SetActive(false);
+        //     }
+        // }
+
+        // public void Destroy()
+        // {
+        //     Addressables.Release(_handle);
+        // }
 
         public void Enter()
         {
+            // if (_GamePlayUI != null) _GamePlayUI.SetActive(true);
+
             // InGameEvent.StartWave += StartWave;
             InGameEvent.OnEndWave += EndWave;
             InGameEvent.OnLevelLoaded += LoadLevelResource;
+            InGameEvent.MissionCompleteClick += OnMissionCompleteClick;
 
             EnemyEvent.OnEnemyDie += HandleEnemyDie;
             EnemyEvent.OnGetEnemyReward += HandleGetEnemyReward;
@@ -75,15 +107,23 @@ namespace TDGame
 
         public void Exit()
         {
+            // if (_GamePlayUI != null) _GamePlayUI.SetActive(false);
+
             // InGameEvent.StartWave -= StartWave;
             InGameEvent.OnEndWave -= EndWave;
             InGameEvent.OnLevelLoaded -= LoadLevelResource;
+            InGameEvent.MissionCompleteClick -= OnMissionCompleteClick;
 
             EnemyEvent.OnEnemyDie -= HandleEnemyDie;
             EnemyEvent.OnGetEnemyReward -= HandleGetEnemyReward;
             EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
 
             EnemyEvent.EnemySpawn -= EnemySpawn;
+        }
+
+        private void OnMissionCompleteClick()
+        {
+            _GameManager.GameStates.TransitionTo(_GameManager.GameStates.GameMenuState);
         }
 
         public void Execute()

@@ -1,23 +1,32 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 // using UnityEngine.AddressableAssets;
 
 
 namespace TDGame
 {
+    public enum Game
+    {
+        GamePlayUI
+    }
 
     public class UIManager : PersistentSingleton<UIManager>
     {
-        [SerializeField] private InGameUI _InGameUI;
+        // private string[] _Keys = [Game.GamePlayUI.ToString()];
+        // [SerializeField] private InGameUI _InGameUI;
         [SerializeField] private TowerAbilityOptionsUI _TowerAbilityOptionsPrefab;
-        [SerializeField] private GameObject _MissionCompleteUIPrefab;
+        // [SerializeField] private GameObject _MissionCompleteUIPrefab;
 
-        private TowerAbilityOptionsUI _TowerAbilityOptionsUI;
-        public TowerAbilityOptionsUI TowerAbilityOptionsUI => Lazy.Load(ref _TowerAbilityOptionsUI, _TowerAbilityOptionsPrefab, gameObject.transform);
+        // private TowerAbilityOptionsUI _TowerAbilityOptionsUI;
+        // public TowerAbilityOptionsUI TowerAbilityOptionsUI => Lazy.Load(ref _TowerAbilityOptionsUI, _TowerAbilityOptionsPrefab, gameObject.transform);
 
-        private GameObject _MissionCompleteUI;
-        public GameObject MissionCompleteUI => Lazy.Load(ref _MissionCompleteUI, _MissionCompleteUIPrefab, gameObject.transform);
+        // private GameObject _MissionCompleteUI;
+        // public GameObject MissionCompleteUI => Lazy.Load(ref _MissionCompleteUI, _MissionCompleteUIPrefab, gameObject.transform);
 
 
         [SerializeField] private GameObject _TowerPlaceCursorPrefab;
@@ -29,41 +38,87 @@ namespace TDGame
         public GameObject TowerSelectCursor => Lazy.Load(ref _TowerSelectCursor, _TowerSelectCursorPrefab, gameObject.transform);
 
 
-        public InGameUI InGameUI => _InGameUI;
+        // public InGameUI InGameUI => _InGameUI;
+
+        private readonly List<AsyncOperationHandle<GameObject>> _handles = new();
+        private readonly List<GameObject> _objects = new();
+
 
         protected override void Awake()
         {
             base.Awake();
         }
 
+        private void Start()
+        {
+            Coroutines.StartCoroutine(LoadAssets());
+        }
+
+        private IEnumerator LoadAssets()
+        {
+            string[] keys =
+            {
+                "Game/GamePlayUI",
+                // "Game/SelectTowerCursorUI",
+                // "Game/PlaceTowerCursorUI"
+                // "Game/TowerPlaceCursorUI",
+            };
+
+            foreach (var key in keys)
+            {
+                var handle = Addressables.InstantiateAsync(key);
+                yield return handle;
+
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    Debug.Log($"UIManager: {handle.Result.name}");
+                    var go = handle.Result;
+                    go.SetActive(false);
+                    _objects.Add(go);
+                }
+                _handles.Add(handle);
+                // _handles.Add(Addressables.InstantiateAsync(key));
+            }
+
+            // foreach (var handle in _handles)
+            // {
+            //     yield return handle;
+
+            //     if (handle.Status == AsyncOperationStatus.Succeeded)
+            //     {
+            //         _objects.Add(handle.Result);
+            //     }
+            // }
+        }
+
         private void OnEnable()
         {
-            InGameEvent.MissionComplete += MissionComplete;
-            SceneManager.sceneUnloaded += SceneManager_SceneUnloaded;
+            // InGameEvent.MissionComplete += MissionComplete;
+            // SceneManager.sceneUnloaded += SceneManager_SceneUnloaded;
         }
 
         private void OnDisable()
         {
-            InGameEvent.MissionComplete -= MissionComplete;
-            SceneManager.sceneUnloaded -= SceneManager_SceneUnloaded;
+            // InGameEvent.MissionComplete -= MissionComplete;
+            // SceneManager.sceneUnloaded -= SceneManager_SceneUnloaded;
         }
 
-        public void SetupUIMainMenu()
-        {
-            _InGameUI.gameObject.SetActive(false);
-        }
+        // public void SetupUIMainMenu()
+        // {
+        //     _InGameUI.gameObject.SetActive(false);
+        // }
 
-        public void SetupUIInGame()
-        {
-            _InGameUI.gameObject.SetActive(true);
-        }
+        // public void SetupUIInGame()
+        // {
+        //     _InGameUI.gameObject.SetActive(true);
+        // }
 
-        private void MissionComplete() { MissionCompleteUI.SetActive(true); }
+        // private void MissionComplete() { MissionCompleteUI.SetActive(true); }
 
-        private void SceneManager_SceneUnloaded(Scene scene)
-        {
-            if (MissionCompleteUI != null) Destroy(MissionCompleteUI);
+        // private void SceneManager_SceneUnloaded(Scene scene)
+        // {
+        //     if (MissionCompleteUI != null) Destroy(MissionCompleteUI);
 
-        }
+        // }
     }
 }

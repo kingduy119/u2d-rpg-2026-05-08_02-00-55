@@ -6,10 +6,10 @@ namespace TDGame
         public GameMenuState GameMenuState { get; private set; }
         public GamePlayState GamePlayState { get; private set; }
 
-        public GameStates()
+        public GameStates(GameManager gm)
         {
-            GameMenuState = new GameMenuState();
-            GamePlayState = new GamePlayState();
+            GameMenuState = new GameMenuState(gm);
+            GamePlayState = new GamePlayState(gm);
 
             CurrentState = GameMenuState;
         }

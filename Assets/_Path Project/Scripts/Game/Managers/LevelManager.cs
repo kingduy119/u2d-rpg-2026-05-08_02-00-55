@@ -4,41 +4,48 @@ using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager
     {
-        public LevelState LevelState;
+        public LevelState LevelState = new();
 
         private int _Spawners = 0;
         private int _PathwaySpawners = 0;
 
-        private void OnEnable()
+        public LevelManager()
         {
-            InGameEvent.PathwayStart += PathwayStart;
-            InGameEvent.PathwayEnd += PathwayEnd;
-            InGameEvent.SpawnerStart += SpawnStart;
-            InGameEvent.SpawnerEnd += SpawnerEnd;
+            LevelState.LoadLevelData();
         }
 
-        private void OnDisable()
+        public void Enable()
         {
-            InGameEvent.PathwayStart -= PathwayStart;
-            InGameEvent.PathwayEnd -= PathwayEnd;
-            InGameEvent.SpawnerStart -= SpawnStart;
-            InGameEvent.SpawnerEnd -= SpawnerEnd;
+            InGameEvent.PathwayStart += OnPathwayStart;
+            InGameEvent.PathwayEnd += OnPathwayEnd;
+            InGameEvent.SpawnerStart += OnSpawnStart;
+            InGameEvent.SpawnerEnd += OnSpawnerEnd;
         }
 
-        private void PathwayStart() { _PathwaySpawners++; }
-        private void SpawnStart() { _Spawners++; }
-        private void PathwayEnd()
+        public void Disable()
+        {
+            InGameEvent.PathwayStart -= OnPathwayStart;
+            InGameEvent.PathwayEnd -= OnPathwayEnd;
+            InGameEvent.SpawnerStart -= OnSpawnStart;
+            InGameEvent.SpawnerEnd -= OnSpawnerEnd;
+        }
+
+        private void OnPathwayStart() { _PathwaySpawners++; }
+        private void OnSpawnStart() { _Spawners++; }
+        private void OnPathwayEnd()
         {
             _PathwaySpawners--;
             CheckComplete();
         }
-        private void SpawnerEnd()
+
+        private void OnSpawnerEnd()
         {
             _Spawners--;
             CheckComplete();
         }
+
         private void CheckComplete()
         {
             if (_Spawners <= 0 && _PathwaySpawners <= 0)
@@ -52,15 +59,10 @@ namespace TDGame
             }
         }
 
-        private void Start()
-        {
-            LevelState.LoadLevelData();
-        }
-
         public void LoadLevel(int level)
         {
             LevelState.Level = level;
-            InGameEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
+            // InGameEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
             Addressables.LoadSceneAsync("LoadingScene", activateOnLoad: true);
         }
 

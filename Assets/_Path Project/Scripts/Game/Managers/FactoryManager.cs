@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace TDGame
@@ -8,7 +9,7 @@ namespace TDGame
     {
         private GameManager _GameManager;
         private AddressableLoader loader = new();
-        private AsyncOperationHandle<IList<GameObject>> handle = new();
+        private AsyncOperationHandle<IList<GameObject>> handle;
         private List<string> labels = new() { "Pack_1" };
 
         private readonly TowerFactory TowerFactory = new();
@@ -35,6 +36,10 @@ namespace TDGame
             handle = loader.LoadPrefabsAsync(labels);
             handle.Completed += OnCompeleted;
         }
+
+        public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type, ObjectList.transform);
+        public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type, ObjectList.transform);
+        public Projectile GetProjectile(ProjectileSO type) => ProjectileFactory.GetObject(type, ObjectList.transform);
 
         private void OnCompeleted(AsyncOperationHandle<IList<GameObject>> asyncHandle)
         {
@@ -65,8 +70,9 @@ namespace TDGame
             if (_objectList != null) Object.Destroy(_objectList);
         }
 
-        public Tower GetTower(TowerSO type) => TowerFactory.GetObject(type, ObjectList.transform);
-        public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type, ObjectList.transform);
-        public Projectile GetProjectile(ProjectileSO type) => ProjectileFactory.GetObject(type, ObjectList.transform);
+        public void Destroy()
+        {
+            Addressables.Release(handle);
+        }
     }
 }

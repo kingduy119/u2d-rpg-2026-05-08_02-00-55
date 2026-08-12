@@ -15,13 +15,33 @@ MonoBehaviour:
   m_GroupName: GameUI
   m_GUID: 2bc3b53421da04cc2a8320397acddf65
   m_SerializeEntries:
+  - m_GUID: 4035da6610dfb4d37a6a95db26d9e20c
+    m_Address: Game/MainMenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46779ecfa4617404ba3bbc29e2bb4fb1
+    m_Address: Game/PlaceTowerCursorUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6240b1fdc7dc242c09ae80dfda164674
+    m_Address: Game/SelectTowerCursorUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 882e7288556b84587840b03225728a65
-    m_Address: Game/GamePlay
+    m_Address: Game/GamePlayUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b6f1c4b094551447babdd1d732aeac9d
     m_Address: Card/TowerBuildingCard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c95b53dfd21f44101ac0bb1ef846c5c8
+    m_Address: Game/MissionCompletedUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

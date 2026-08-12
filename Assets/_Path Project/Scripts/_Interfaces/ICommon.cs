@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -30,9 +31,28 @@ namespace TDGame
 
     public interface IState
     {
-        public void Enter() { }
-        public void Execute() { }
-        public void Exit() { }
+        void Enter() { }
+        void Execute() { }
+        void Exit() { }
+    }
+
+    public interface IState2
+    {
+        IEnumerator Execute();
+        void Enter();
+        void Exit();
+        void AddLink(ILink link);
+        void RemoveLink(ILink link);
+        bool ValidateLinks(out IState2 nextState);
+        void EnableLinks();
+        void DisableLinks();
+    }
+
+    public interface ILink
+    {
+        bool Validate(out IState2 nextState);
+        void Enable() { }
+        void Disable() { }
     }
 
 }

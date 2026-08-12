@@ -9,7 +9,8 @@ namespace TDGame
 
     public interface IAssetLoader
     {
-        Task<GameObject> LoadPrefabAsync(string key);
+        AsyncOperationHandle<GameObject> LoadPrefabAsync(string key);
+        AsyncOperationHandle<IList<GameObject>> LoadPrefabsAsync(List<string> keys, Addressables.MergeMode mode);
 
         Task<GameObject> InstantiateAsync(string key);
 
@@ -18,11 +19,10 @@ namespace TDGame
 
     public class AddressableLoader : IAssetLoader
     {
-        public async Task<GameObject> LoadPrefabAsync(string key)
+        public AsyncOperationHandle<GameObject> LoadPrefabAsync(string key)
         {
-            return await Addressables
-                .LoadAssetAsync<GameObject>(key)
-                .Task;
+            return Addressables
+                .LoadAssetAsync<GameObject>(key);
         }
 
         public AsyncOperationHandle<IList<GameObject>> LoadPrefabsAsync(

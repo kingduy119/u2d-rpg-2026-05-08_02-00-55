@@ -67,7 +67,6 @@ namespace TDGame
         // public void OnCloseSettingsClick() => ResumeGame();
         private void OpenSettingUI()
         {
-            Debug.Log("OPenSetingg");
             SettingUI.gameObject.SetActive(true);
             GameEvent.PauseGame?.Invoke();
         }
