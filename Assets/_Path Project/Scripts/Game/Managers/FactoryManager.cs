@@ -24,7 +24,7 @@ namespace TDGame
                 if (_objectList == null)
                 {
                     _objectList = new("FactoryManager");
-                    _objectList.transform.SetParent(_GameManager.transform);
+                    // _objectList.transform.SetParent(_GameManager.transform);
                 }
                 return _objectList;
             }

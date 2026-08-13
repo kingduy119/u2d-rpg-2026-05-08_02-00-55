@@ -10,26 +10,28 @@ namespace TDGame
     {
         private GameObject _MainMenuUI;
         private AsyncOperationHandle<GameObject> handle;
-        private GameManager _GameManager;
+        private readonly GameManager GM;
 
         public GameMenuState(GameManager gm)
         {
-            _GameManager = gm;
+            GM = gm;
             Coroutines.StartCoroutine(LoadAsset());
         }
 
         public void Enter()
         {
-            GameEvent.PlayNewGame += OnPlayNewGame;
             GameEvent.PlayContinue += OnPlayContinue;
-            _MainMenuUI.SetActive(true);
+            GameEvent.PlayNewGame += OnPlayNewGame;
+
+            if (_MainMenuUI != null) _MainMenuUI.SetActive(true);
         }
 
         public void Exit()
         {
-            GameEvent.PlayNewGame -= OnPlayNewGame;
             GameEvent.PlayContinue -= OnPlayContinue;
-            _MainMenuUI.SetActive(false);
+            GameEvent.PlayNewGame -= OnPlayNewGame;
+
+            if (_MainMenuUI != null) _MainMenuUI.SetActive(false);
         }
 
         IEnumerator LoadAsset()
@@ -45,20 +47,15 @@ namespace TDGame
 
         private void OnPlayNewGame(int level)
         {
-            // UIManager.Instance.InGameUI.gameObject.SetActive(true);
-            // GameStates.TransitionTo(GameStates.GamePlayState);
-            // LevelManager.LoadLevel(level);
-            _GameManager.GameStates.TransitionTo(_GameManager.GameStates.GamePlayState);
+            GM.GameStates.TransitionTo(GM.GameStates.GamePlayState);
+            GM.LevelManager.LoadLevel(0);
         }
 
         public void OnPlayContinue()
         {
-            // UIManager.Instance.InGameUI.gameObject.SetActive(true);
-            // GameStates.TransitionTo(GameStates.GamePlayState);
-            // LevelManager.PlayContinueLevel();
-            _GameManager.GameStates.TransitionTo(_GameManager.GameStates.GamePlayState);
+            GM.GameStates.TransitionTo(GM.GameStates.GamePlayState);
+            GM.LevelManager.PlayContinueLevel();
         }
-
     }
 
 }

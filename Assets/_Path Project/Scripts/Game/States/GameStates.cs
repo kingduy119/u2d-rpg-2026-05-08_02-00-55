@@ -11,6 +11,7 @@ namespace TDGame
             GameMenuState = new GameMenuState(gm);
             GamePlayState = new GamePlayState(gm);
 
+            GameMenuState.Enter();
             CurrentState = GameMenuState;
         }
     }

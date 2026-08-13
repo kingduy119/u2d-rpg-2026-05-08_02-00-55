@@ -4,16 +4,15 @@ namespace TDGame
 {
     public static class GameEvent
     {
-        public static Action<string> NavigateTo;
+        public static Action LoadingDone;
+
+        public static Action<string> LoadScene;
 
         public static Action PlayContinue;
         public static Action<int> PlayNewGame;
 
         public static Action PauseGame;
         public static Action ResumeGame;
-
-        public static Action SettingOpen;
-        public static Action SettingClose;
     }
 
     public class EnemyEvent

@@ -17,58 +17,51 @@ namespace TDGame
 
         [SerializeField] private Slider progressBar;
 
-
-        private void Awake()
+        private IEnumerator Start()
         {
-            StartCoroutine(LoadNextLevel("TD_Level_1"));
+            Debug.Log("LoadingStart");
+            yield return LoadGameScene(GameManager.SceneName);
         }
 
-        public void LoadScene(string sceneName)
+        private IEnumerator LoadGameScene(string sceneName)
         {
-            StartCoroutine(LoadScenceAsync(sceneName));
-        }
+            AsyncOperationHandle<SceneInstance> handle =
+                Addressables.LoadSceneAsync(
+                    sceneName,
+                    LoadSceneMode.Single,
+                    activateOnLoad: false
+                );
 
-        private IEnumerator LoadScenceAsync(string sceneName)
-        {
-            AsyncOperation m_SceneOperation = SceneManager.LoadSceneAsync(sceneName);
-            m_SceneOperation.allowSceneActivation = false;
-
-            while (!m_SceneOperation.isDone)
+            // Loading
+            while (!handle.IsDone)
             {
-                float progress = Mathf.Clamp01(m_SceneOperation.progress / 0.9f);
+                float progress = handle.PercentComplete;
 
                 progressBar.value = progress;
 
-                if (progress >= 1f)
-                {
-                    // Có thể chờ animation hoặc người chơi nhấn nút
-                    yield return new WaitForSeconds(0.5f);
-
-                    m_SceneOperation.allowSceneActivation = true;
-                }
-
                 yield return null;
             }
-        }
 
-        private IEnumerator LoadNextLevel(string sceneName)
-        {
-            m_SceneLoadOpHandle = Addressables.LoadSceneAsync(sceneName, activateOnLoad: true);
-            while (!m_SceneLoadOpHandle.IsDone)
+            // Kiểm tra load có thành công không
+            if (handle.Status != AsyncOperationStatus.Succeeded)
             {
-                float progress = Mathf.Clamp01(m_SceneLoadOpHandle.PercentComplete / 0.9f);
-
-                progressBar.value = progress;
-
-                if (progress >= 1f)
-                {
-                    // Có thể chờ animation hoặc người chơi nhấn nút
-                    yield return new WaitForSeconds(0.5f);
-                    // m_SceneLoadOpHandle.allowSceneActivation = true;
-                }
-
-                yield return null;
+                Debug.LogError($"Failed to load {sceneName}");
+                yield break;
             }
+
+            Debug.Log($"{sceneName} loaded!");
+
+            // Loading bar đã đạt 100%
+            progressBar.value = 1f;
+
+            // Có thể chờ một chút để người chơi thấy loading bar 100%
+            yield return new WaitForSeconds(0.5f);
+
+            GameEvent.LoadingDone?.Invoke();
+
+            // Activate scene
+            yield return handle.Result.ActivateAsync();
+
         }
     }
 

@@ -30,8 +30,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 882e7288556b84587840b03225728a65
-    m_Address: Game/GamePlayUI
+  - m_GUID: 733ce917d131746ccb31048df63ad664
+    m_Address: Game/LevelManager
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e58e74e617a94b629fb6b4bef727ae1
+    m_Address: Game/SettingsUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -47,6 +52,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e9eb588d7923e4724ad518c1b4670e4a
     m_Address: Game/Loading
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f77b7a2ad6ec94d27b500d355ae7cb54
+    m_Address: Game/GamePlayUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -1,36 +1,40 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
-    public class LevelManager
+    public class LevelManager : MonoBehaviour
     {
         public LevelState LevelState = new();
 
         private int _Spawners = 0;
         private int _PathwaySpawners = 0;
 
-        public LevelManager()
+        public LevelManager(GameManager gm)
         {
             LevelState.LoadLevelData();
         }
 
-        public void Enable()
+        public void OnEnable()
         {
-            InGameEvent.PathwayStart += OnPathwayStart;
-            InGameEvent.PathwayEnd += OnPathwayEnd;
-            InGameEvent.SpawnerStart += OnSpawnStart;
-            InGameEvent.SpawnerEnd += OnSpawnerEnd;
+            GamePlayEvent.PathwayStart += OnPathwayStart;
+            GamePlayEvent.PathwayEnd += OnPathwayEnd;
+            GamePlayEvent.SpawnerStart += OnSpawnStart;
+            GamePlayEvent.SpawnerEnd += OnSpawnerEnd;
+
+            GamePlayEvent.RequestLevelResource += OnRequestLevelResource;
         }
 
-        public void Disable()
+        public void OnDisable()
         {
-            InGameEvent.PathwayStart -= OnPathwayStart;
-            InGameEvent.PathwayEnd -= OnPathwayEnd;
-            InGameEvent.SpawnerStart -= OnSpawnStart;
-            InGameEvent.SpawnerEnd -= OnSpawnerEnd;
+            GamePlayEvent.PathwayStart -= OnPathwayStart;
+            GamePlayEvent.PathwayEnd -= OnPathwayEnd;
+            GamePlayEvent.SpawnerStart -= OnSpawnStart;
+            GamePlayEvent.SpawnerEnd -= OnSpawnerEnd;
+
+            GamePlayEvent.RequestLevelResource -= OnRequestLevelResource;
         }
+
+        private void OnRequestLevelResource() => GamePlayEvent.ResponseLevelResource?.Invoke(LevelState.CurrentLevel);
 
         private void OnPathwayStart() { _PathwaySpawners++; }
         private void OnSpawnStart() { _Spawners++; }
@@ -51,25 +55,25 @@ namespace TDGame
             if (_Spawners <= 0 && _PathwaySpawners <= 0)
             {
                 HandleMissionComplete();
-                InGameEvent.MissionComplete?.Invoke();
+                GamePlayEvent.MissionComplete?.Invoke();
             }
             else if (_Spawners <= 0)
             {
-                InGameEvent.WaveCompleted?.Invoke();
+                GamePlayEvent.WaveCompleted?.Invoke();
             }
         }
 
         public void LoadLevel(int level)
         {
             LevelState.Level = level;
-            // InGameEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
-            Addressables.LoadSceneAsync("LoadingScene", activateOnLoad: true);
+            GameEvent.LoadScene?.Invoke(LevelState.CurrentLevel.sceneName);
+
         }
 
         public void PlayContinueLevel()
         {
-            InGameEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
-            SceneManager.LoadScene(LevelState.CurrentLevel.sceneName);
+            // GamePlayEvent.OnLevelLoaded?.Invoke(LevelState.CurrentLevel);
+            GameEvent.LoadScene?.Invoke(LevelState.CurrentLevel.sceneName);
         }
 
         public void HandleMissionComplete()

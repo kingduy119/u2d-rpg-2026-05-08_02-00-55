@@ -6,7 +6,7 @@ namespace TDGame
 
         protected override void HandleClick()
         {
-            InGameEvent.OnPauseGame?.Invoke();
+            GamePlayEvent.OnPauseGame?.Invoke();
         }
     }
 }

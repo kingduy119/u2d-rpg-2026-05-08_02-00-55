@@ -18,7 +18,7 @@ namespace TDGame
     public class UIManager : PersistentSingleton<UIManager>
     {
         // private string[] _Keys = [Game.GamePlayUI.ToString()];
-        // [SerializeField] private InGameUI _InGameUI;
+        // [SerializeField] private GamePlayUI _GamePlayUI;
         [SerializeField] private TowerAbilityOptionsUI _TowerAbilityOptionsPrefab;
         // [SerializeField] private GameObject _MissionCompleteUIPrefab;
 
@@ -31,17 +31,19 @@ namespace TDGame
 
         [SerializeField] private GameObject _TowerPlaceCursorPrefab;
         private GameObject _TowerPlaceCursor;
-        public GameObject TowerPlaceCursor => Lazy.Load(ref _TowerPlaceCursor, _TowerPlaceCursorPrefab, gameObject.transform);
+        public GameObject TowerPlaceCursor => Lazy.Load(ref _TowerPlaceCursor, _TowerPlaceCursorPrefab, transform);
 
         [SerializeField] private GameObject _TowerSelectCursorPrefab;
         private GameObject _TowerSelectCursor;
-        public GameObject TowerSelectCursor => Lazy.Load(ref _TowerSelectCursor, _TowerSelectCursorPrefab, gameObject.transform);
+        public GameObject TowerSelectCursor => Lazy.Load(ref _TowerSelectCursor, _TowerSelectCursorPrefab, transform);
 
 
-        // public InGameUI InGameUI => _InGameUI;
+        // public GamePlayUI GamePlayUI => _GamePlayUI;
 
         private readonly List<AsyncOperationHandle<GameObject>> _handles = new();
         private readonly List<GameObject> _objects = new();
+
+        private GamePlayUI _GamePlayUI;
 
 
         protected override void Awake()
@@ -58,7 +60,7 @@ namespace TDGame
         {
             string[] keys =
             {
-                "Game/GamePlayUI",
+                // "Game/GamePlayUI",
                 // "Game/SelectTowerCursorUI",
                 // "Game/PlaceTowerCursorUI"
                 // "Game/TowerPlaceCursorUI",
@@ -71,8 +73,12 @@ namespace TDGame
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    Debug.Log($"UIManager: {handle.Result.name}");
+                    // Debug.Log($"UIManager: {handle.Result.name}");
                     var go = handle.Result;
+                    if (go.TryGetComponent<GamePlayUI>(out var GamePlayUI))
+                    {
+                        _GamePlayUI = GamePlayUI;
+                    }
                     go.SetActive(false);
                     _objects.Add(go);
                 }
@@ -93,24 +99,24 @@ namespace TDGame
 
         private void OnEnable()
         {
-            // InGameEvent.MissionComplete += MissionComplete;
+            // GamePlayEvent.MissionComplete += MissionComplete;
             // SceneManager.sceneUnloaded += SceneManager_SceneUnloaded;
         }
 
         private void OnDisable()
         {
-            // InGameEvent.MissionComplete -= MissionComplete;
+            // GamePlayEvent.MissionComplete -= MissionComplete;
             // SceneManager.sceneUnloaded -= SceneManager_SceneUnloaded;
         }
 
         // public void SetupUIMainMenu()
         // {
-        //     _InGameUI.gameObject.SetActive(false);
+        //     _GamePlayUI.gameObject.SetActive(false);
         // }
 
         // public void SetupUIInGame()
         // {
-        //     _InGameUI.gameObject.SetActive(true);
+        //     _GamePlayUI.gameObject.SetActive(true);
         // }
 
         // private void MissionComplete() { MissionCompleteUI.SetActive(true); }

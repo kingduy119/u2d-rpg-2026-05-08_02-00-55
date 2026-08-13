@@ -28,7 +28,7 @@ namespace TDGame
         public void Start()
         {
             FactoryManager = GameManager.Instance.FactoryManager;
-            InGameEvent.SpawnerStart?.Invoke();
+            GamePlayEvent.SpawnerStart?.Invoke();
         }
 
         private void Update()
@@ -46,7 +46,7 @@ namespace TDGame
 
             if (_SpawnConfig.Timer >= _SpawnConfig.Duration)
             {
-                InGameEvent.SpawnerEnd?.Invoke();
+                GamePlayEvent.SpawnerEnd?.Invoke();
             }
         }
 

@@ -62,89 +62,114 @@ namespace TDGame
         }
 
         // Assets:
-        // private GameObject _GamePlayUI;
-        // private AsyncOperationHandle<GameObject> _handle;
-        private GameManager _GameManager;
+        private GameObject _GamePlayUI;
+        private AsyncOperationHandle<GameObject> _handle;
+        private readonly GameManager GM;
 
         public GamePlayState(GameManager gm)
         {
-            _GameManager = gm;
-            // Coroutines.StartCoroutine(LoadAsset());
+            GM = gm;
         }
 
-        // IEnumerator LoadAsset()
-        // {
-        //     _handle = Addressables.InstantiateAsync("Game/GamePlayUI");
-        //     yield return _handle;
 
-        //     if (_handle.Status == AsyncOperationStatus.Succeeded)
-        //     {
-        //         _GamePlayUI = _handle.Result;
-        //         _GamePlayUI.SetActive(false);
-        //     }
-        // }
 
-        // public void Destroy()
-        // {
-        //     Addressables.Release(_handle);
-        // }
+        public void Active()
+        {
+            if (_GamePlayUI == null)
+                Coroutines.StartCoroutine(LoadAsset());
+
+            if (_GamePlayUI != null)
+            {
+                _GamePlayUI.SetActive(true);
+            }
+        }
+
+        IEnumerator LoadAsset()
+        {
+            _handle = Addressables.InstantiateAsync("Game/GamePlayUI");
+            yield return _handle;
+
+            if (_handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                _GamePlayUI = _handle.Result;
+            }
+        }
+
+        public void OnLoadingDone() => Active();
+        public void Deactivate()
+        {
+            if (_GamePlayUI != null) _GamePlayUI.SetActive(false);
+        }
+
+        public void Destroy()
+        {
+            Addressables.Release(_handle);
+        }
 
         public void Enter()
         {
-            // if (_GamePlayUI != null) _GamePlayUI.SetActive(true);
+            GameEvent.LoadingDone += OnLoadingDone;
+            GamePlayEvent.RequestUpdateUI += OnRequestUpdateUI;
+            GamePlayEvent.ResponseLevelResource += OnResponseLevelResource;
 
-            // InGameEvent.StartWave += StartWave;
-            InGameEvent.OnEndWave += EndWave;
-            InGameEvent.OnLevelLoaded += LoadLevelResource;
-            InGameEvent.MissionCompleteClick += OnMissionCompleteClick;
+            GamePlayEvent.OnEndWave += EndWave;
+            GamePlayEvent.MissionCompleteClick += OnMissionCompleteClick;
 
             EnemyEvent.OnEnemyDie += HandleEnemyDie;
             EnemyEvent.OnGetEnemyReward += HandleGetEnemyReward;
             EnemyEvent.OnEnemyReachedEnd += EnemyReachedEnd;
 
             EnemyEvent.EnemySpawn += EnemySpawn;
-        }
 
-        public void Exit()
-        {
-            // if (_GamePlayUI != null) _GamePlayUI.SetActive(false);
 
-            // InGameEvent.StartWave -= StartWave;
-            InGameEvent.OnEndWave -= EndWave;
-            InGameEvent.OnLevelLoaded -= LoadLevelResource;
-            InGameEvent.MissionCompleteClick -= OnMissionCompleteClick;
-
-            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
-            EnemyEvent.OnGetEnemyReward -= HandleGetEnemyReward;
-            EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
-
-            EnemyEvent.EnemySpawn -= EnemySpawn;
-        }
-
-        private void OnMissionCompleteClick()
-        {
-            _GameManager.GameStates.TransitionTo(_GameManager.GameStates.GameMenuState);
+            GamePlayEvent.RequestLevelResource?.Invoke();
         }
 
         public void Execute()
         {
             if (IsDirty)
             {
-                InGameEvent.OnUpdateUI?.Invoke(this);
+                GamePlayEvent.ResponseUpdateUI?.Invoke(this);
                 IsDirty = false;
             }
+        }
+
+        public void Exit()
+        {
+            GameEvent.LoadingDone -= OnLoadingDone;
+            GamePlayEvent.RequestUpdateUI -= OnRequestUpdateUI;
+            GamePlayEvent.ResponseLevelResource -= OnResponseLevelResource;
+
+            GamePlayEvent.OnEndWave -= EndWave;
+            GamePlayEvent.MissionCompleteClick -= OnMissionCompleteClick;
+
+            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
+            EnemyEvent.OnGetEnemyReward -= HandleGetEnemyReward;
+            EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
+
+            EnemyEvent.EnemySpawn -= EnemySpawn;
+
+
+            Deactivate();
+        }
+
+        private void OnResponseLevelResource(LevelSO level)
+        {
+            Golds = level.startingGold;
+            Lives = level.startingLives;
+        }
+
+        private void OnRequestUpdateUI() => GamePlayEvent.ResponseUpdateUI?.Invoke(this);
+
+        private void OnMissionCompleteClick()
+        {
+            GM.GameStates.TransitionTo(GM.GameStates.GameMenuState);
         }
 
         private void EndWave()
         {
             IsStarted = false;
             WaveCount++;
-        }
-
-        private void LoadLevelResource(LevelSO level)
-        {
-            Golds = level.startingGold;
-            Lives = level.startingLives;
         }
 
         private void EnemySpawn() => Enemies++;
@@ -154,7 +179,7 @@ namespace TDGame
             Lives -= enemy.SO.damage;
             if (Lives <= 0)
             {
-                InGameEvent.GameOver?.Invoke();
+                GamePlayEvent.GameOver?.Invoke();
             }
         }
 
@@ -166,4 +191,8 @@ namespace TDGame
         public void HandleEnemyDie(Enemy _) => Enemies--;
         public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.SO.goldReward;
     }
+
+
+
+
 }

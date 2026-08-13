@@ -31,17 +31,17 @@ namespace TDGame
 
         private void Start()
         {
-            InGameEvent.PathwayStart?.Invoke();
+            GamePlayEvent.PathwayStart?.Invoke();
         }
 
         private void OnEnable()
         {
-            InGameEvent.StartWave += HandleStartWave;
+            GamePlayEvent.StartWave += HandleStartWave;
         }
 
         private void OnDisable()
         {
-            InGameEvent.StartWave -= HandleStartWave;
+            GamePlayEvent.StartWave -= HandleStartWave;
         }
 
         public void HandleStartWave(int WaveNumber)
@@ -58,7 +58,7 @@ namespace TDGame
 
                 if (_spawnConfigMap.Remove(WaveNumber) && _spawnConfigMap.Count == 0)
                 {
-                    InGameEvent.PathwayEnd?.Invoke();
+                    GamePlayEvent.PathwayEnd?.Invoke();
                 }
             }
         }
