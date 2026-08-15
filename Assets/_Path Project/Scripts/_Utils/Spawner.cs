@@ -28,7 +28,7 @@ namespace TDGame
         public void Start()
         {
             FactoryManager = GameManager.Instance.FactoryManager;
-            GamePlayEvent.SpawnerStart?.Invoke();
+            GamePlayEvent.SpawnerCount?.Invoke();
         }
 
         private void Update()

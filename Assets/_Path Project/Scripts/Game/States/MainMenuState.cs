@@ -1,21 +1,41 @@
 
-using System.Collections;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
+    public class GameSetupState :
+        DirtyState,
+        IState
+    {
+        private GameManager GM;
+        public GameSetupState(GameManager gm)
+        {
+            GM = gm;
+        }
+
+        public void Enter()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        public void Exit()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            GM.StateMachine.TransitionTo(GM.MenuState);
+            GameEvent.LoadScene?.Invoke("TD_MainMenu");
+        }
+    }
+
     public class GameMenuState : IState
     {
-        private GameObject _MainMenuUI;
-        private AsyncOperationHandle<GameObject> handle;
-        private readonly GameManager GM;
-
+        readonly GameManager GM;
         public GameMenuState(GameManager gm)
         {
             GM = gm;
-            Coroutines.StartCoroutine(LoadAsset());
         }
 
         public void Enter()
@@ -23,7 +43,6 @@ namespace TDGame
             GameEvent.PlayContinue += OnPlayContinue;
             GameEvent.PlayNewGame += OnPlayNewGame;
 
-            if (_MainMenuUI != null) _MainMenuUI.SetActive(true);
         }
 
         public void Exit()
@@ -31,30 +50,18 @@ namespace TDGame
             GameEvent.PlayContinue -= OnPlayContinue;
             GameEvent.PlayNewGame -= OnPlayNewGame;
 
-            if (_MainMenuUI != null) _MainMenuUI.SetActive(false);
-        }
-
-        IEnumerator LoadAsset()
-        {
-            handle = Addressables.InstantiateAsync("Game/MainMenu");
-            yield return handle;
-
-            if (handle.Status == AsyncOperationStatus.Succeeded)
-            {
-                _MainMenuUI = handle.Result;
-            }
         }
 
         private void OnPlayNewGame(int level)
         {
-            GM.GameStates.TransitionTo(GM.GameStates.GamePlayState);
-            GM.LevelManager.LoadLevel(0);
+            GM.StateMachine.TransitionTo(GM.GamePlayState);
+
         }
 
         public void OnPlayContinue()
         {
-            GM.GameStates.TransitionTo(GM.GameStates.GamePlayState);
-            GM.LevelManager.PlayContinueLevel();
+            GM.StateMachine.TransitionTo(GM.GamePlayState);
+
         }
     }
 

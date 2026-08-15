@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: GameUI
+  m_Name: UI
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: GameUI
+  m_GroupName: UI
   m_GUID: 2bc3b53421da04cc2a8320397acddf65
   m_SerializeEntries:
+  - m_GUID: 2f3ca21cac40b4eaca61d5f368e461a6
+    m_Address: Game/UIManager
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4035da6610dfb4d37a6a95db26d9e20c
-    m_Address: Game/MainMenu
+    m_Address: Game/MainMenuUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -27,11 +32,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6240b1fdc7dc242c09ae80dfda164674
     m_Address: Game/SelectTowerCursorUI
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 733ce917d131746ccb31048df63ad664
-    m_Address: Game/LevelManager
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

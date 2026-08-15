@@ -15,23 +15,25 @@ namespace TDGame
         public static Action SettingClick;
         public static Action SettingClose;
 
-        public static Action PathwayStart;
-        public static Action PathwayEnd;
-        public static Action SpawnerStart;
-        public static Action SpawnerEnd;
+        public static Action<int> WaveStart;
+        public static Action WaveEnd;
         public static Action WaveCompleted;
-        public static Action<LevelSO> OnLevelLoaded;
 
-        public static Action<int> StartWave;
-        public static Action OnEndWave;
+        public static Action PathwayCount;
+        public static Action PathwayEnd;
+        public static Action SpawnerCount;
+        public static Action SpawnerEnd;
+
+        public static Action<LevelSO> OnLevelLoaded;
         public static Action OnPauseGame;
         public static Action OnGameSpeedChanged;
 
-        // public static Action<bool> OnActiveStartWaveButton;
-
+        // #
         public static Action MissionComplete;
-        public static Action GameOver;
         public static Action MissionCompleteClick;
+        public static Action GameOver;
+
+        public static Action MainMenuClick;
     }
 }
 

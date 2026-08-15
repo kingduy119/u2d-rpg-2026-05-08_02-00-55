@@ -9,7 +9,8 @@ namespace TDGame
     {
         protected override void HandleClick()
         {
-            // GameEvent.NavigateTo?.Invoke("TD_MainMenu");
+            // GameEvent.LoadScene("TD_MainMenu");
+            GamePlayEvent.MainMenuClick?.Invoke();
         }
     }
 }

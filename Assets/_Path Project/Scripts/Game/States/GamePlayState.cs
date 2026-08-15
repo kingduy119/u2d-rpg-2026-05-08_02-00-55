@@ -5,9 +5,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 
 namespace TDGame
 {
+
+
     public class GamePlayState :
         DirtyState,
         IState
@@ -61,68 +64,60 @@ namespace TDGame
             set => SetValue(ref _enemies, value);
         }
 
-        // Assets:
-        private GameObject _GamePlayUI;
-        private AsyncOperationHandle<GameObject> _handle;
         private readonly GameManager GM;
+        readonly AssetLoader _GamePlayLoader;
+        // GameObject GamePlayUI => _GamePlayLoader.Instantiate();
 
         public GamePlayState(GameManager gm)
         {
             GM = gm;
+            _GamePlayLoader = new("Game/GamePlayUI");
         }
 
-
-
-        public void Active()
-        {
-            if (_GamePlayUI == null)
-                Coroutines.StartCoroutine(LoadAsset());
-
-            if (_GamePlayUI != null)
-            {
-                _GamePlayUI.SetActive(true);
-            }
-        }
-
-        IEnumerator LoadAsset()
-        {
-            _handle = Addressables.InstantiateAsync("Game/GamePlayUI");
-            yield return _handle;
-
-            if (_handle.Status == AsyncOperationStatus.Succeeded)
-            {
-                _GamePlayUI = _handle.Result;
-            }
-        }
-
-        public void OnLoadingDone() => Active();
-        public void Deactivate()
-        {
-            if (_GamePlayUI != null) _GamePlayUI.SetActive(false);
-        }
-
-        public void Destroy()
-        {
-            Addressables.Release(_handle);
-        }
 
         public void Enter()
         {
+            _GamePlayLoader.LoadAsset();
+
             GameEvent.LoadingDone += OnLoadingDone;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
             GamePlayEvent.RequestUpdateUI += OnRequestUpdateUI;
             GamePlayEvent.ResponseLevelResource += OnResponseLevelResource;
 
-            GamePlayEvent.OnEndWave += EndWave;
+            GamePlayEvent.WaveEnd += OnWaveEnd;
             GamePlayEvent.MissionCompleteClick += OnMissionCompleteClick;
+
+            GamePlayEvent.RequestLevelResource?.Invoke();
+            GamePlayEvent.MainMenuClick += OnMainMenuClick;
 
             EnemyEvent.OnEnemyDie += HandleEnemyDie;
             EnemyEvent.OnGetEnemyReward += HandleGetEnemyReward;
             EnemyEvent.OnEnemyReachedEnd += EnemyReachedEnd;
 
-            EnemyEvent.EnemySpawn += EnemySpawn;
+            EnemyEvent.EnemySpawn += OnEnemySpawn;
+
+        }
+
+        public void Exit()
+        {
+            GameEvent.LoadingDone -= OnLoadingDone;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+
+            GamePlayEvent.RequestUpdateUI -= OnRequestUpdateUI;
+
+            GamePlayEvent.WaveEnd -= OnWaveEnd;
+            GamePlayEvent.MissionCompleteClick -= OnMissionCompleteClick;
+            GamePlayEvent.ResponseLevelResource -= OnResponseLevelResource;
+            GamePlayEvent.MainMenuClick -= OnMainMenuClick;
+
+            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
+            EnemyEvent.OnGetEnemyReward -= HandleGetEnemyReward;
+            EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
+            EnemyEvent.EnemySpawn -= OnEnemySpawn;
 
 
-            GamePlayEvent.RequestLevelResource?.Invoke();
+            Deactivate();
         }
 
         public void Execute()
@@ -134,24 +129,29 @@ namespace TDGame
             }
         }
 
-        public void Exit()
+        private bool IsLoading;
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            GameEvent.LoadingDone -= OnLoadingDone;
-            GamePlayEvent.RequestUpdateUI -= OnRequestUpdateUI;
-            GamePlayEvent.ResponseLevelResource -= OnResponseLevelResource;
-
-            GamePlayEvent.OnEndWave -= EndWave;
-            GamePlayEvent.MissionCompleteClick -= OnMissionCompleteClick;
-
-            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
-            EnemyEvent.OnGetEnemyReward -= HandleGetEnemyReward;
-            EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
-
-            EnemyEvent.EnemySpawn -= EnemySpawn;
-
-
-            Deactivate();
+            if (IsLoading)
+            {
+                _GamePlayLoader.Instantiate();
+            }
         }
+        public void OnLoadingDone() => IsLoading = true;
+        public void Deactivate() => IsLoading = false;
+
+        public void Destroy()
+        {
+            _GamePlayLoader.Release();
+        }
+
+
+        private void OnMainMenuClick()
+        {
+            GM.StateMachine.TransitionTo(GM.MenuState);
+            GameEvent.LoadScene?.Invoke("TD_MainMenu");
+        }
+
 
         private void OnResponseLevelResource(LevelSO level)
         {
@@ -163,16 +163,17 @@ namespace TDGame
 
         private void OnMissionCompleteClick()
         {
-            GM.GameStates.TransitionTo(GM.GameStates.GameMenuState);
+            GM.StateMachine.TransitionTo(GM.MenuState);
+            GameEvent.LoadScene?.Invoke("TD_MainMenu");
         }
 
-        private void EndWave()
+        private void OnWaveEnd()
         {
             IsStarted = false;
             WaveCount++;
         }
 
-        private void EnemySpawn() => Enemies++;
+        private void OnEnemySpawn() => Enemies++;
         public void EnemyReachedEnd(Enemy enemy)
         {
             Enemies--;
@@ -191,7 +192,6 @@ namespace TDGame
         public void HandleEnemyDie(Enemy _) => Enemies--;
         public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.SO.goldReward;
     }
-
 
 
 

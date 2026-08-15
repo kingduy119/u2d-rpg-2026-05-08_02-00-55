@@ -7,7 +7,6 @@ namespace TDGame
 {
     public class FactoryManager
     {
-        private GameManager _GameManager;
         private AddressableLoader loader = new();
         private AsyncOperationHandle<IList<GameObject>> handle;
         private List<string> labels = new() { "Pack_1" };
@@ -24,7 +23,6 @@ namespace TDGame
                 if (_objectList == null)
                 {
                     _objectList = new("FactoryManager");
-                    // _objectList.transform.SetParent(_GameManager.transform);
                 }
                 return _objectList;
             }
@@ -32,7 +30,6 @@ namespace TDGame
 
         public FactoryManager(GameManager GameManager)
         {
-            _GameManager = GameManager;
             handle = loader.LoadPrefabsAsync(labels);
             handle.Completed += OnCompeleted;
         }

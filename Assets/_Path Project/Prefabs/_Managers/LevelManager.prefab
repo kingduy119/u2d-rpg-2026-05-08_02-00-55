@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5290fead541b8e4f870edb26920c46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.LevelManager
+  AllLevels:
+  - {fileID: 11400000, guid: f95eac0c80fa74e0b9488e5ca29f89d3, type: 2}
+  - {fileID: 11400000, guid: 52840071c687c45adb9222a1bbc2b08e, type: 2}
+  - {fileID: 11400000, guid: 4953d5b004f9f46da9cd14675da7ccd7, type: 2}
   LevelState:
-    allLevels:
-    - {fileID: 11400000, guid: f95eac0c80fa74e0b9488e5ca29f89d3, type: 2}
-    - {fileID: 11400000, guid: 52840071c687c45adb9222a1bbc2b08e, type: 2}
+    CompletedLevel: 0
+    MaxLevel: 0

@@ -49,8 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f055c5841b1948efb7531c234aa1658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TDGame.TowerSelectUI
-  m_TowerCardPrefab: {fileID: 129237343827826408, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
-  m_TowerSelectList: {fileID: 7363561087205506121}
+  _CardList: {fileID: 7363561087205506121}
+  _CardRef:
+    m_AssetGUID: b6f1c4b094551447babdd1d732aeac9d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
 --- !u!1 &7363561087205506121
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1740530212691902700, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_text
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3074961491920882477, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_Sprite
@@ -285,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1740530212691902700, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_text
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3074961491920882477, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_Sprite
@@ -399,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1740530212691902700, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_text
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3074961491920882477, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_Sprite
@@ -511,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerCardSelect (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1740530212691902700, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
+      propertyPath: m_text
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3074961491920882477, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -620,6 +629,10 @@ PrefabInstance:
     - target: {fileID: 129237343827826408, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_Name
       value: TowerCardSelect (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740530212691902700, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
+      propertyPath: m_text
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3074961491920882477, guid: b6f1c4b094551447babdd1d732aeac9d, type: 3}
       propertyPath: m_Sprite

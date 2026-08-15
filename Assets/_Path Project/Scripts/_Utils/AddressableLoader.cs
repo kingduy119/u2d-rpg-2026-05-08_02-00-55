@@ -3,9 +3,81 @@ using UnityEngine.AddressableAssets;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Collections;
 
 namespace TDGame
 {
+    public static class Lazy
+    {
+        public static T Load<T>(ref T instance, T prefab, Transform parent = null)
+            where T : Object
+        {
+            if (instance == null)
+            {
+                instance = Object.Instantiate(prefab, parent);
+            }
+
+            return instance;
+        }
+    }
+
+    public class AssetLoader
+    {
+        readonly string _AssetKey;
+        GameObject _gameObject;
+        AsyncOperationHandle<GameObject> _handle;
+        public bool IsLoaded { get; private set; }
+
+
+        public AssetLoader(string key, bool autoload = false)
+        {
+            _AssetKey = key;
+            if (autoload) LoadAsset();
+        }
+
+        public void LoadAsset()
+        {
+            Coroutines.StartCoroutine(LoadAssetCoroutine());
+        }
+
+        IEnumerator LoadAssetCoroutine()
+        {
+            _handle = Addressables.LoadAssetAsync<GameObject>(_AssetKey);
+            yield return _handle;
+
+            IsLoaded = _handle.Status == AsyncOperationStatus.Succeeded;
+        }
+
+        public GameObject Instantiate(Transform parent = null)
+        {
+            if (!IsLoaded) return null;
+
+            if (_gameObject != null) return _gameObject;
+
+            _gameObject = Object.Instantiate(_handle.Result, parent);
+
+            return _gameObject;
+        }
+
+
+        public void Release()
+        {
+            Debug.Log("AssetsLoader.Realease");
+            if (_gameObject != null)
+            {
+                Object.Destroy(_gameObject);
+                _gameObject = null;
+            }
+
+            if (_handle.IsValid())
+            {
+                Addressables.Release(_handle);
+                _handle = default;
+            }
+        }
+
+    }
+
 
     public interface IAssetLoader
     {

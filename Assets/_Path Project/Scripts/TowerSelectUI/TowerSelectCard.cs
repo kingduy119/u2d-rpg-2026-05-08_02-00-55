@@ -23,10 +23,10 @@ namespace TDGame
 
         private void Update()
         {
-            if (TowerSO != null)
-            {
-                _Button.interactable = GameManager.Instance.GameStates.GamePlayState.Golds >= TowerSO.cost;
-            }
+            // if (TowerSO != null)
+            // {
+            //     _Button.interactable = GameManager.Instance.GameStates.GamePlayState.Golds >= TowerSO.cost;
+            // }
         }
 
         protected override void HandleClick()

@@ -31,20 +31,20 @@ namespace TDGame
 
         private void Start()
         {
-            GamePlayEvent.PathwayStart?.Invoke();
+            GamePlayEvent.PathwayCount?.Invoke();
         }
 
         private void OnEnable()
         {
-            GamePlayEvent.StartWave += HandleStartWave;
+            GamePlayEvent.WaveStart += HandleWaveStart;
         }
 
         private void OnDisable()
         {
-            GamePlayEvent.StartWave -= HandleStartWave;
+            GamePlayEvent.WaveStart -= HandleWaveStart;
         }
 
-        public void HandleStartWave(int WaveNumber)
+        public void HandleWaveStart(int WaveNumber)
         {
             if (_spawnConfigMap.Count <= 0) return;
 
@@ -52,11 +52,12 @@ namespace TDGame
             {
                 foreach (var spawnConfig in spawnConfigs)
                 {
-                    Spawner spawnerInstance = Instantiate(SpawnerPrefab);
-                    spawnerInstance.Init(spawnConfig, Pathway);
+                    Spawner spawner = Instantiate(SpawnerPrefab);
+                    spawner.Init(spawnConfig, Pathway);
                 }
 
-                if (_spawnConfigMap.Remove(WaveNumber) && _spawnConfigMap.Count == 0)
+                _spawnConfigMap.Remove(WaveNumber);
+                if (_spawnConfigMap.Count == 0)
                 {
                     GamePlayEvent.PathwayEnd?.Invoke();
                 }
