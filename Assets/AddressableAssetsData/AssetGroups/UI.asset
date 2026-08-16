@@ -31,7 +31,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6240b1fdc7dc242c09ae80dfda164674
-    m_Address: Game/SelectTowerCursorUI
+    m_Address: Tower/TowerSelectCursorUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -4,7 +4,6 @@ namespace TDGame
 {
     public class PointerHoverState : IState
     {
-        private GameObject TowerSelectCursor => UIManager.Instance.TowerSelectCursor;
         private readonly WorldMap WorldMap;
 
         private GameObject _hoverTower;
@@ -35,7 +34,7 @@ namespace TDGame
 
         public void Exit()
         {
-            TowerSelectCursor.SetActive(false);
+            GamePlayEvent.HideSelectCursor?.Invoke();
             UnhoverSelectedTower();
         }
 
@@ -74,7 +73,7 @@ namespace TDGame
             }
             else
             {
-                TowerSelectCursor.SetActive(false);
+                GamePlayEvent.HideSelectCursor?.Invoke();
                 if (_selectedTower != null && _selectedTower.TryGetComponent<IHoverable>(out var hoverable))
                 {
                     hoverable.SetHover(false);
@@ -88,7 +87,7 @@ namespace TDGame
             if (_selectedTower != _hoverTower)
             {
                 _selectedTower = _hoverTower;
-                EnablePlaceCursor();
+                GamePlayEvent.ShowSelectCursor?.Invoke(_selectedTower.transform.position);
             }
         }
 
@@ -100,12 +99,6 @@ namespace TDGame
             {
                 hoverable.SetHover(false);
             }
-        }
-
-        private void EnablePlaceCursor()
-        {
-            TowerSelectCursor.transform.position = _selectedTower.transform.position;
-            TowerSelectCursor.SetActive(true);
         }
     }
 

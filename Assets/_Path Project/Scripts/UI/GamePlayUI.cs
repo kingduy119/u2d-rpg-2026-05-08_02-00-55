@@ -22,6 +22,7 @@ namespace TDGame
 
         private void Awake()
         {
+            Coroutines.Initialize(this);
             _SettingLoader = new("Game/SettingsUI", true);
             _MissionCompleteLoader = new("Game/MissionCompletedUI", true);
         }
@@ -33,7 +34,6 @@ namespace TDGame
             GamePlayEvent.SettingClick += OnSettingClick;
             GamePlayEvent.SettingClose += OnSettingClose;
             GamePlayEvent.MissionComplete += OnMissionComplete;
-            // GamePlayEvent.MissionCompleteClick += OnMissionCompleteClick;
 
 
             GamePlayEvent.RequestUpdateUI?.Invoke();
@@ -46,7 +46,6 @@ namespace TDGame
             GamePlayEvent.SettingClick -= OnSettingClick;
             GamePlayEvent.SettingClose -= OnSettingClose;
             GamePlayEvent.MissionComplete -= OnMissionComplete;
-            // GamePlayEvent.MissionCompleteClick -= OnMissionCompleteClick;
         }
 
         private void OnDestroy()
@@ -68,7 +67,5 @@ namespace TDGame
         private void OnSettingClose() => SettingUI.SetActive(false);
 
         private void OnMissionComplete() => MissionCompleteUI.SetActive(true);
-        // private void OnMissionCompleteClick() => GameEvent.LoadScene("TD_MainMenu");
-
     }
 }

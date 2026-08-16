@@ -59,7 +59,6 @@ namespace TDGame
             return _gameObject;
         }
 
-
         public void Release()
         {
             Debug.Log("AssetsLoader.Realease");

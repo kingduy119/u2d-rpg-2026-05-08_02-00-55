@@ -5,7 +5,6 @@ namespace TDGame
     public class PointerBuildTowerState : IState
     {
         private GameManager GameManager => GameManager.Instance;
-        private FactoryManager FactoryManager => GameManager.Instance.FactoryManager;
         private GameObject TowerPlaceCursor => UIManager.Instance.TowerPlaceCursor;
 
         private readonly WorldMap WorldMap;

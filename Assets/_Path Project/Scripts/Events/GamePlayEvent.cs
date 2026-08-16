@@ -1,4 +1,5 @@
 
+using UnityEngine;
 using System;
 
 namespace TDGame
@@ -34,6 +35,11 @@ namespace TDGame
         public static Action GameOver;
 
         public static Action MainMenuClick;
+
+
+        // Tower Cursor Event
+        public static Action<Vector3> ShowSelectCursor;
+        public static Action HideSelectCursor;
     }
 }
 

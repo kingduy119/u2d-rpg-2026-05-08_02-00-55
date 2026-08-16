@@ -359,7 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8672376689450792468}
   m_Layer: 0
-  m_Name: SelectTowerCursorUI
+  m_Name: TowerSelectCursorUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,7 +6,6 @@ namespace TDGame
     {
         protected override void HandleClick()
         {
-            // GameEvent.NavigateTo?.Invoke("TD_MainMenu");
             GamePlayEvent.MissionCompleteClick?.Invoke();
         }
     }

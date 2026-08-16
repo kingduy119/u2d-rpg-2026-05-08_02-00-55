@@ -15,6 +15,7 @@ namespace TDGame
         }
 
         [SerializeField] private Spawner SpawnerPrefab;
+        [SerializeField] private bool Draw;
 
 
         public Config[] configs;
@@ -64,19 +65,21 @@ namespace TDGame
             }
         }
 
-        // private void OnDrawGizmos()
-        // {
-        //     Gizmos.color = Color.red;
-        //     for (int i = 0; i < Pathway.Length - 1; i++)
-        //     {
-        //         GUIStyle style = new();
-        //         style.normal.textColor = Color.white;
-        //         style.alignment = TextAnchor.MiddleCenter;
+        private void OnDrawGizmos()
+        {
+            if (!Draw) return;
 
-        //         Handles.Label(Pathway[i].transform.position, Pathway[i].name, style);
-        //         Gizmos.DrawLine(Pathway[i].transform.position, Pathway[i + 1].transform.position);
-        //     }
-        // }
+            Gizmos.color = Color.red;
+            for (int i = 0; i < Pathway.Length - 1; i++)
+            {
+                GUIStyle style = new();
+                style.normal.textColor = Color.white;
+                style.alignment = TextAnchor.MiddleCenter;
+
+                Handles.Label(Pathway[i].transform.position, Pathway[i].name, style);
+                Gizmos.DrawLine(Pathway[i].transform.position, Pathway[i + 1].transform.position);
+            }
+        }
 
     }
 }

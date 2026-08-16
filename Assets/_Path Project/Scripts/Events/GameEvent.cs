@@ -2,6 +2,14 @@ using System;
 
 namespace TDGame
 {
+    public static class GameMode
+    {
+#if UNITY_EDITOR
+        public static bool IsDev = true;
+#else
+        public static  bool IsDev = false;
+#endif
+    }
     public static class GameEvent
     {
         public static Action LoadingDone;

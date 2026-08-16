@@ -39,7 +39,14 @@ namespace TDGame
             Coroutines.Initialize(this);
 
             FactoryManager = new(this);
-            LevelManagerLoader = new("Game/LevelManager", true);
+            if (GameMode.IsDev)
+            {
+                LevelManagerLoader = new("Dev/LevelManager", true);
+            }
+            else
+            {
+                LevelManagerLoader = new("Game/LevelManager", true);
+            }
 
             StateMachine = new();
             SetupState = new GameSetupState(this);

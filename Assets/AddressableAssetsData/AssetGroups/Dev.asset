@@ -10,23 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Game
+  m_Name: Dev
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Game
-  m_GUID: 42d89c84ab0324b15bf69aef1ad60ed0
+  m_GroupName: Dev
+  m_GUID: e4d12d2e491294e059877d3109602aa3
   m_SerializeEntries:
-  - m_GUID: 3aac89a5a37854314b4a85aa4478343b
-    m_Address: Scene/TD_Boostrap
+  - m_GUID: 480ce9f2a29134427960b3fee179c5a9
+    m_Address: Dev/LevelManager
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4217e8703758a447d8de135e5cd00024
-    m_Address: Game/GameManager
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 733ce917d131746ccb31048df63ad664
-    m_Address: Game/LevelManager
+  - m_GUID: 6c5cf645de3b04fbaab10a5d7c710abe
+    m_Address: Scene/TD_Test_Level
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -34,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: d1dd8d152d88547f68da585a17c9617c, type: 2}
-    - {fileID: 11400000, guid: cfdd1d7143aca4f8795f417a289de966, type: 2}
+    - {fileID: 11400000, guid: 68e130aac7b03454d9297f1da0a4990c, type: 2}
+    - {fileID: 11400000, guid: 84fa42d4608564eff9af49c06af3976d, type: 2}
