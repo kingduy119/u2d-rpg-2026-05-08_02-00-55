@@ -5,54 +5,73 @@ namespace TDGame
     public class UIManager : PersistentSingleton<UIManager>
     {
 
-        [SerializeField] private TowerAbilityOptionsUI _TowerAbilityOptionsPrefab;
+        // AssetLoader TowerBuildLoader;
+        // GameObject _TowerBuildCursor;
+        // public GameObject TowerBuildCursor
+        // {
+        //     get
+        //     {
+        //         if (_TowerBuildCursor == null) _TowerBuildCursor = TowerBuildLoader.Instantiate();
+        //         return _TowerBuildCursor;
+        //     }
+        // }
 
-        [SerializeField] private GameObject _TowerPlaceCursorPrefab;
-        private GameObject _TowerPlaceCursor;
-        public GameObject TowerPlaceCursor => Lazy.Load(ref _TowerPlaceCursor, _TowerPlaceCursorPrefab, transform);
+        // AssetLoader TowerSelectLoader;
+        // GameObject _TowerSelectCursor;
+        // public GameObject TowerSelectCursor
+        // {
+        //     get
+        //     {
+        //         if (_TowerSelectCursor == null) _TowerSelectCursor = TowerSelectLoader.Instantiate();
+        //         return _TowerSelectCursor;
+        //     }
+        // }
 
-        [SerializeField] private GameObject _TowerSelectCursorPrefab;
-        private GameObject _TowerSelectCursor;
-        public GameObject TowerSelectCursor => Lazy.Load(ref _TowerSelectCursor, _TowerSelectCursorPrefab, transform);
 
-
-        AssetLoader TowerSelectLoader;
-        GameObject _TowerSelectCursorUI;
-        public GameObject TowerSelectCursorUI
-        {
-            get
-            {
-                if (_TowerSelectCursorUI == null) _TowerSelectCursorUI = TowerSelectLoader.Instantiate(transform);
-                return _TowerSelectCursorUI;
-            }
-        }
 
 
         protected override void Awake()
         {
             base.Awake();
-            Coroutines.Initialize(this);
-            TowerSelectLoader = new("Tower/TowerSelectCursorUI", true);
+            // Coroutines.Initialize(this);
+            // TowerSelectLoader = new("Tower/TowerSelectCursor", true);
+            // TowerBuildLoader = new("Tower/TowerBuiildCursor", true);
         }
 
 
         void OnEnable()
         {
-            GamePlayEvent.ShowSelectCursor += OnShowSelectCursor;
-            GamePlayEvent.HideSelectCursor += OnHideSelectCursor;
+            // GamePlayEvent.ShowSelectCursor += OnShowSelectCursor;
+            // GamePlayEvent.HideSelectCursor += OnHideSelectCursor;
+            // GamePlayEvent.ShowBuildCursor += OnShowBuildCursor;
+            // GamePlayEvent.HideBuildCursor += OnHideBuildCursor;
         }
 
         void OnDisable()
         {
-            GamePlayEvent.ShowSelectCursor -= OnShowSelectCursor;
-            GamePlayEvent.HideSelectCursor -= OnHideSelectCursor;
+            // GamePlayEvent.ShowSelectCursor -= OnShowSelectCursor;
+            // GamePlayEvent.HideSelectCursor -= OnHideSelectCursor;
+            // GamePlayEvent.ShowBuildCursor -= OnShowBuildCursor;
+            // GamePlayEvent.HideBuildCursor -= OnHideBuildCursor;
         }
 
-        private void OnHideSelectCursor() => TowerSelectCursorUI.SetActive(false);
-        private void OnShowSelectCursor(Vector3 position)
+        void OnDestroy()
         {
-            TowerSelectCursorUI.transform.position = position;
-            TowerSelectCursorUI.SetActive(true);
+
         }
+
+        // private void OnHideSelectCursor() => TowerSelectCursor.SetActive(false);
+        // private void OnShowSelectCursor(Vector3 position)
+        // {
+        //     TowerSelectCursor.transform.position = position;
+        //     TowerSelectCursor.SetActive(true);
+        // }
+
+        // private void OnHideBuildCursor() => TowerBuildCursor.SetActive(false);
+        // private void OnShowBuildCursor(Vector3 position)
+        // {
+        //     TowerBuildCursor.transform.position = position;
+        //     TowerBuildCursor.SetActive(true);
+        // }
     }
 }

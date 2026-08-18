@@ -53,7 +53,7 @@ namespace TDGame
             // Có thể chờ một chút để người chơi thấy loading bar 100%
             yield return new WaitForSeconds(1f);
 
-            GameEvent.LoadingDone?.Invoke();
+            GameEvent.LoadingSceneDone?.Invoke();
 
             yield return handle.Result.ActivateAsync();
         }

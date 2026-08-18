@@ -12,7 +12,7 @@ namespace TDGame
     }
     public static class GameEvent
     {
-        public static Action LoadingDone;
+        public static Action LoadingSceneDone;
 
         public static Action<string> LoadScene;
 

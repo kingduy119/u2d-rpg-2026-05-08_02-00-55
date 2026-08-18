@@ -7,20 +7,6 @@ using System.Collections;
 
 namespace TDGame
 {
-    public static class Lazy
-    {
-        public static T Load<T>(ref T instance, T prefab, Transform parent = null)
-            where T : Object
-        {
-            if (instance == null)
-            {
-                instance = Object.Instantiate(prefab, parent);
-            }
-
-            return instance;
-        }
-    }
-
     public class AssetLoader
     {
         readonly string _AssetKey;
@@ -61,13 +47,6 @@ namespace TDGame
 
         public void Release()
         {
-            Debug.Log("AssetsLoader.Realease");
-            if (_gameObject != null)
-            {
-                Object.Destroy(_gameObject);
-                _gameObject = null;
-            }
-
             if (_handle.IsValid())
             {
                 Addressables.Release(_handle);

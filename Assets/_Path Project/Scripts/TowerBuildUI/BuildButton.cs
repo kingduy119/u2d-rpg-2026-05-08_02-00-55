@@ -8,7 +8,7 @@ namespace TDGame
     {
         public void RaiseEvent(GameObject go = null)
         {
-            TowerEvent.OnAcceptBuild?.Invoke();
+            TowerEvent.AcceptBuild?.Invoke();
         }
     }
 }

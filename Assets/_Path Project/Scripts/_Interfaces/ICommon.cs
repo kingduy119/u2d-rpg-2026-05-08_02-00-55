@@ -36,24 +36,8 @@ namespace TDGame
         void Exit() { }
     }
 
-    public interface IState2
-    {
-        IEnumerator Execute();
-        void Enter();
-        void Exit();
-        void AddLink(ILink link);
-        void RemoveLink(ILink link);
-        bool ValidateLinks(out IState2 nextState);
-        void EnableLinks();
-        void DisableLinks();
-    }
 
-    public interface ILink
-    {
-        bool Validate(out IState2 nextState);
-        void Enable() { }
-        void Disable() { }
-    }
+
 
 
 

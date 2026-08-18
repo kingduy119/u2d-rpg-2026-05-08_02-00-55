@@ -1,4 +1,5 @@
 
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace TDGame
@@ -54,6 +55,7 @@ namespace TDGame
 
         private void OnPlayNewGame(int level)
         {
+            Debug.Log("OnPlayNewGame");
             GM.StateMachine.TransitionTo(GM.GamePlayState);
 
         }

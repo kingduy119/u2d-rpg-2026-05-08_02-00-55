@@ -25,23 +25,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 46779ecfa4617404ba3bbc29e2bb4fb1
-    m_Address: Game/PlaceTowerCursorUI
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6240b1fdc7dc242c09ae80dfda164674
-    m_Address: Tower/TowerSelectCursorUI
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e58e74e617a94b629fb6b4bef727ae1
     m_Address: Game/SettingsUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b6f1c4b094551447babdd1d732aeac9d
-    m_Address: Card/TowerBuildingCard
+    m_Address: Tower/TowerSelectSlotUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

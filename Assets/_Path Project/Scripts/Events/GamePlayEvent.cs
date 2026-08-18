@@ -40,6 +40,8 @@ namespace TDGame
         // Tower Cursor Event
         public static Action<Vector3> ShowSelectCursor;
         public static Action HideSelectCursor;
+        public static Action<Vector3> ShowBuildCursor;
+        public static Action HideBuildCursor;
     }
 }
 

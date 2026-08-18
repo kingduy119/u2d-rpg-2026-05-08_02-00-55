@@ -26,7 +26,11 @@ namespace TDGame
         public Vector3 MousePosition { get; private set; }
         public bool CanBuild = false;
 
-        public PointerStateMachine PointerStateMachine { get; private set; }
+
+        public StateMachine States;
+        public State TowerHoverState;
+        public State TowerBuildState;
+
 
         private void Awake()
         {
@@ -43,19 +47,24 @@ namespace TDGame
             }
             _blockedTilemap.gameObject.SetActive(false);
 
-            PointerStateMachine = new(this);
+            States = new();
+            TowerHoverState = new TowerHoverState(this);
+            TowerBuildState = new TowerBuildState(this);
+        }
+
+        private void Start()
+        {
+            States.Initialize(TowerHoverState);
         }
 
         private void OnEnable()
         {
-            PointerStateMachine.Enable();
-            TowerEvent.OnTowerPlace += HandleTowerPlace;
+            TowerEvent.TowerPlace += OnTowerPlace;
         }
 
         private void OnDisable()
         {
-            PointerStateMachine.Disable();
-            TowerEvent.OnTowerPlace -= HandleTowerPlace;
+            TowerEvent.TowerPlace -= OnTowerPlace;
         }
 
         private void Update()
@@ -64,7 +73,13 @@ namespace TDGame
                 return;
 
             UpdateWorldPosition();
-            PointerStateMachine.Execute();
+
+            States.Execute();
+        }
+
+        private void OnDestroy()
+        {
+            States.TransitionTo(new State());
         }
 
         private void CompressBlockedTile(Tilemap tilemap)
@@ -81,7 +96,7 @@ namespace TDGame
         }
 
 
-        public void HandleTowerPlace(TowerBase tower)
+        public void OnTowerPlace(TowerBase tower)
         {
             Vector2Int size = tower.SO.Size;
             Vector3Int origin = _Grid.WorldToCell(tower.transform.position);

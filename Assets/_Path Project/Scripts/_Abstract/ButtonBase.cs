@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace TDGame
 {
     [RequireComponent(typeof(Button))]
-    public class ButtonBase : MonoBehaviour
+    public abstract class ButtonBase : MonoBehaviour
     {
         protected Button _Button;
 
@@ -29,9 +29,7 @@ namespace TDGame
         }
 
 
-        protected virtual void HandleClick()
-        {
-            TowerEvent.Log("TowerSellButton");
-        }
+        protected abstract void HandleClick();
+
     }
 }

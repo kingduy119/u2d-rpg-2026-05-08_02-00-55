@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public class PointerHoverState : IState
+    public class TowerHoverState : State
     {
         private readonly WorldMap WorldMap;
 
@@ -10,19 +10,17 @@ namespace TDGame
         private GameObject _selectedTower;
         private GameObject _prevTower;
 
-        public PointerHoverState(WorldMap worldmap)
+        public TowerHoverState(WorldMap worldmap)
         {
             WorldMap = worldmap;
         }
 
-        public void Enter()
+        public override void Enter()
         {
-            _hoverTower = null;
-            _selectedTower = null;
-            _prevTower = null;
+            TowerEvent.TowerBuildSlotClick += OnTowerBuildSlotClick;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             HandlePointerHover();
 
@@ -32,10 +30,20 @@ namespace TDGame
             }
         }
 
-        public void Exit()
+        public override void Exit()
         {
+            TowerEvent.TowerBuildSlotClick -= OnTowerBuildSlotClick;
+
             GamePlayEvent.HideSelectCursor?.Invoke();
             UnhoverSelectedTower();
+            Debug.Log("TowerHoverState.Exit");
+        }
+
+        private void OnTowerBuildSlotClick(TowerSO towerSO)
+        {
+            WorldMap.States.TransitionTo(WorldMap.TowerBuildState);
+            TowerEvent.ShowTowerBuild?.Invoke(towerSO);
+
         }
 
         private void HandlePointerHover()
@@ -99,6 +107,10 @@ namespace TDGame
             {
                 hoverable.SetHover(false);
             }
+
+            _hoverTower = null;
+            _selectedTower = null;
+            _prevTower = null;
         }
     }
 

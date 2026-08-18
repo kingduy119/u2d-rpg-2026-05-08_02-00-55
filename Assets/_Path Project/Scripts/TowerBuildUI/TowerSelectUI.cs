@@ -48,7 +48,7 @@ namespace TDGame
             foreach (var data in TowerBoard.Towers)
             {
                 GameObject go = Instantiate(_cardPrefab, _CardList.transform);
-                if (go.TryGetComponent<TowerSelectCard>(out var card))
+                if (go.TryGetComponent<TowerSelectSlot>(out var card))
                 {
                     card.Initialize(data);
 

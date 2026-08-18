@@ -7,10 +7,12 @@ namespace TDGame
     public static class TowerEvent
     {
         // Buy and build tower:
-        public static Action OnAcceptBuild;
+        public static Action AcceptBuild;
         public static Action OnCancelBuild;
-        public static Action<TowerSO> OnTowerCardSelect;
-        public static Action<TowerBase> OnTowerPlace;
+        public static Action<TowerSO> TowerCardClick;
+        public static Action<TowerSO> TowerBuildSlotClick;
+        public static Action<TowerSO> ShowTowerBuild;
+        public static Action<TowerBase> TowerPlace;
 
         // Select Tower:
         public static Action OnSellTower;
@@ -26,11 +28,6 @@ namespace TDGame
         {
             TowerAbilities.Add(ability);
             OnAbilitySelect?.Invoke(ability);
-        }
-
-        public static void Log(string message)
-        {
-            Debug.Log(message);
         }
     }
 

@@ -5,6 +5,20 @@ using System.Collections;
 namespace TDGame
 {
 
+    public static class Lazy
+    {
+        public static T Load<T>(ref T instance, T prefab, Transform parent = null)
+            where T : Object
+        {
+            if (instance == null)
+            {
+                instance = Object.Instantiate(prefab, parent);
+            }
+
+            return instance;
+        }
+    }
+
     public class GameManager : PersistentSingleton<GameManager>
     {
 

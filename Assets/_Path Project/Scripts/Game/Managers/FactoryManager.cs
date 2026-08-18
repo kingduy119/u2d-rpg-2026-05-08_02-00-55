@@ -7,7 +7,7 @@ namespace TDGame
 {
     public class FactoryManager
     {
-        private AddressableLoader loader = new();
+        private readonly AddressableLoader loader = new();
         private AsyncOperationHandle<IList<GameObject>> handle;
         private List<string> labels = new() { "Pack_1" };
 

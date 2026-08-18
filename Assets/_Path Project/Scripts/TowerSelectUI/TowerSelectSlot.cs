@@ -1,10 +1,11 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace TDGame
 {
-    public class TowerSelectCard : ButtonBase//MonoBehaviour
+    public class TowerSelectSlot : ButtonBase
     {
         [SerializeField] private Image m_image;
         [SerializeField] private TMP_Text m_priceText;
@@ -15,23 +16,16 @@ namespace TDGame
         {
             UpdateUI();
         }
-        protected override void OnEnable()
+
+        private void Start()
         {
-            base.OnEnable();
             UpdateUI();
         }
 
-        private void Update()
-        {
-            // if (TowerSO != null)
-            // {
-            //     _Button.interactable = GameManager.Instance.GameStates.GamePlayState.Golds >= TowerSO.cost;
-            // }
-        }
 
         protected override void HandleClick()
         {
-            TowerEvent.OnTowerCardSelect?.Invoke(TowerSO);
+            TowerEvent.TowerBuildSlotClick?.Invoke(TowerSO);
         }
 
         public void Initialize(TowerSO data)

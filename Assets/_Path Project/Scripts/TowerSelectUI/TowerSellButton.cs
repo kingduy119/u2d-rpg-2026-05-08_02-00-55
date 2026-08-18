@@ -1,5 +1,7 @@
 
 
+using UnityEngine;
+
 namespace TDGame
 {
 
@@ -8,7 +10,7 @@ namespace TDGame
 
         protected override void HandleClick()
         {
-            TowerEvent.Log("TowerSellButton");
+            Debug.Log("TowerSellButton");
         }
     }
 }

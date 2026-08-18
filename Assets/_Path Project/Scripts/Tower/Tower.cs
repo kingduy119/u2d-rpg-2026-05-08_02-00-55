@@ -6,9 +6,7 @@ namespace TDGame
     IPoolable<Tower>
     {
         public IObjectPool<Tower> Pool { get; set; }
-
         protected TowerStateMachine _TowerState;
-
 
         protected override void Awake()
         {

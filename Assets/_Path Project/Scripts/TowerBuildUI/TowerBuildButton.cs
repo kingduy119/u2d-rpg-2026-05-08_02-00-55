@@ -6,7 +6,7 @@ namespace TDGame
     {
         protected override void HandleClick()
         {
-            TowerEvent.OnAcceptBuild?.Invoke();
+            TowerEvent.AcceptBuild?.Invoke();
         }
 
     }

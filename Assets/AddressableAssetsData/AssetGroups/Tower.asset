@@ -22,12 +22,22 @@ MonoBehaviour:
     - Pack_1
     - Tower
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46779ecfa4617404ba3bbc29e2bb4fb1
+    m_Address: Tower/TowerBuildCursor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5832198145d84bb4898256bb8f5fe86b
     m_Address: Tower/Basic
     m_ReadOnly: 0
     m_SerializedLabels:
     - Pack_1
     - Tower
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6240b1fdc7dc242c09ae80dfda164674
+    m_Address: Tower/TowerSelectCursor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 693ad3468a4c88b4a88378f748a88217
     m_Address: Tower/House

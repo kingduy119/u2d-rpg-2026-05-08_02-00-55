@@ -64,22 +64,22 @@ namespace TDGame
             set => SetValue(ref _enemies, value);
         }
 
+        private bool IsLoading;
+
         private readonly GameManager GM;
-        readonly AssetLoader _GamePlayLoader;
-        // GameObject GamePlayUI => _GamePlayLoader.Instantiate();
+        readonly AssetLoader _GamePlayUILoader;
 
         public GamePlayState(GameManager gm)
         {
             GM = gm;
-            _GamePlayLoader = new("Game/GamePlayUI");
+            _GamePlayUILoader = new("Game/GamePlayUI", true);
         }
 
 
         public void Enter()
         {
-            _GamePlayLoader.LoadAsset();
-
-            GameEvent.LoadingDone += OnLoadingDone;
+            // _GamePlayUILoader.LoadAsset();
+            GameEvent.LoadingSceneDone += OnLoadingSceneDone;
             SceneManager.sceneLoaded += OnSceneLoaded;
 
             GamePlayEvent.RequestUpdateUI += OnRequestUpdateUI;
@@ -96,12 +96,11 @@ namespace TDGame
             EnemyEvent.OnEnemyReachedEnd += EnemyReachedEnd;
 
             EnemyEvent.EnemySpawn += OnEnemySpawn;
-
         }
 
         public void Exit()
         {
-            GameEvent.LoadingDone -= OnLoadingDone;
+            GameEvent.LoadingSceneDone -= OnLoadingSceneDone;
             SceneManager.sceneLoaded -= OnSceneLoaded;
 
             GamePlayEvent.RequestUpdateUI -= OnRequestUpdateUI;
@@ -116,9 +115,9 @@ namespace TDGame
             EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
             EnemyEvent.EnemySpawn -= OnEnemySpawn;
 
-
-            Deactivate();
+            IsLoading = false;
         }
+
 
         public void Execute()
         {
@@ -129,20 +128,19 @@ namespace TDGame
             }
         }
 
-        private bool IsLoading;
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (IsLoading)
             {
-                _GamePlayLoader.Instantiate();
+                _GamePlayUILoader.Instantiate();
             }
         }
-        public void OnLoadingDone() => IsLoading = true;
-        public void Deactivate() => IsLoading = false;
+        public void OnLoadingSceneDone() => IsLoading = true;
+
 
         public void Destroy()
         {
-            _GamePlayLoader.Release();
+            _GamePlayUILoader.Release();
         }
 
 

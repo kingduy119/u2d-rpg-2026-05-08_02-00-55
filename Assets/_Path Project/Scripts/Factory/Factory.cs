@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TDGame
 {
-    public abstract class Factory<Type, T> : MonoBehaviour
+    public abstract class OldFactory<Type, T> : MonoBehaviour
         where T : MonoBehaviour, IPoolable<T>
     {
         private readonly Dictionary<Type, GenericPool<T>> _PoolDictionary = new();
@@ -49,7 +49,7 @@ namespace TDGame
         }
     }
 
-    public abstract class NewFactory<Type, T> where T : Component,
+    public abstract class Factory<Type, T> where T : Component,
         IPoolable<T>
     {
         protected Dictionary<Type, GameObject> prefabs = new();
@@ -62,6 +62,7 @@ namespace TDGame
             if (!prefabs.TryGetValue(type, out var prefab))
                 return null;
 
+            // Create new pool with type if not exists
             if (!_PoolDictionary.TryGetValue(type, out var pool))
             {
                 pool = new GenericPool<T>(prefab, transform);
@@ -71,7 +72,7 @@ namespace TDGame
         }
     }
 
-    public class TowerFactory : NewFactory<TowerSO, Tower>
+    public class TowerFactory : Factory<TowerSO, Tower>
     {
         public override void AddPrefab(Tower entity)
         {
@@ -82,7 +83,7 @@ namespace TDGame
         }
     }
 
-    public class EnemyFactory : NewFactory<EnemySO, Enemy>
+    public class EnemyFactory : Factory<EnemySO, Enemy>
     {
         public override void AddPrefab(Enemy entity)
         {
@@ -93,7 +94,7 @@ namespace TDGame
         }
     }
 
-    public class ProjectileFactory : NewFactory<ProjectileSO, Projectile>
+    public class ProjectileFactory : Factory<ProjectileSO, Projectile>
     {
         public override void AddPrefab(Projectile entity)
         {
