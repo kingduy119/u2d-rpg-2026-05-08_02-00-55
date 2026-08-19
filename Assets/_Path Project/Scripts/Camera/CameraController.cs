@@ -40,9 +40,6 @@ namespace TDGame
                     Move(delta);
                     _prevMouse = _currentMouse;
                 }
-
-                // Move(delta);
-                // _prevMouse = _currentMouse;
             }
         }
 
@@ -142,7 +139,6 @@ namespace TDGame
 
         public void Move(Vector2 delta)
         {
-            // _rigidbody.linearVelocity = delta * dragSpeed;
             _rigidbody.MovePosition(_rigidbody.position + delta);
         }
     }

@@ -40,9 +40,6 @@ namespace TDGame
                 s_Instance = this as T;
                 DontDestroyOnLoad(this.gameObject);
 
-                // string typeName = typeof(T).Name;
-                // Debug.Log("[Awake] " + typeName + " instance already created: " +
-                //           s_Instance.gameObject.name);
             }
             else if (s_Instance != this)
             {

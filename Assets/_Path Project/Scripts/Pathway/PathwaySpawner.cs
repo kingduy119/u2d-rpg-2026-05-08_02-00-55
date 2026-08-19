@@ -40,16 +40,17 @@ namespace TDGame
 
         private void OnEnable()
         {
-            GamePlayEvent.WaveStart += HandleWaveStart;
+            GamePlayEvent.WaveStart += OnWaveStart;
         }
 
         private void OnDisable()
         {
-            GamePlayEvent.WaveStart -= HandleWaveStart;
+            GamePlayEvent.WaveStart -= OnWaveStart;
         }
 
-        public void HandleWaveStart(int WaveNumber)
+        public void OnWaveStart(int WaveNumber)
         {
+            Debug.Log($"_spawnConfigMap.Count: {_spawnConfigMap.Count}");
             if (_spawnConfigMap.Count <= 0) return;
 
             if (_spawnConfigMap.TryGetValue(WaveNumber, out var spawnConfigs))
@@ -61,7 +62,7 @@ namespace TDGame
                 }
 
                 _spawnConfigMap.Remove(WaveNumber);
-                if (_spawnConfigMap.Count == 0)
+                if (_spawnConfigMap.Count <= 0)
                 {
                     GamePlayEvent.PathwayEnd?.Invoke();
                 }

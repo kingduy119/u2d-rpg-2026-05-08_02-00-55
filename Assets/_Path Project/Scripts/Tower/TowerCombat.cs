@@ -25,12 +25,12 @@ namespace TDGame
 
         private void OnEnable()
         {
-            EnemyEvent.OnEnemyDie += HandleEnemyDie;
+            EnemyEvent.EnemyDie += EnemyEvent_EnemyDie;
         }
 
         private void OnDisable()
         {
-            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
+            EnemyEvent.EnemyDie -= EnemyEvent_EnemyDie;
         }
 
         private void Start()
@@ -82,7 +82,7 @@ namespace TDGame
             }
         }
 
-        private void HandleEnemyDie(Enemy enemy)
+        private void EnemyEvent_EnemyDie(Enemy enemy)
         {
             if (_enemiesInRange.Contains(enemy))
                 _enemiesInRange.Remove(enemy);

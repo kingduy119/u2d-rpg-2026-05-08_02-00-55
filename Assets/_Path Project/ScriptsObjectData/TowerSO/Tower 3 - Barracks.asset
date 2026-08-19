@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   sprite: {fileID: 21300000, guid: a98814ce5a7284320ad2ab3a16a1070f, type: 3}
   towerName: Normal Tower
-  towerType: 2
-  projectType: 1
   Size: {x: 2, y: 2}
-  cost: 10
+  Value:
+    Gold: 20
+    Rock: 0
+    Wood: 0
   Ability:
     ShootRange: 2.5
     ShootInterval: 15
     PhysicalDamage: 0
     MagicDamage: 0
   ProjectileSO: {fileID: 11400000, guid: 242b02395777b4641a8862cb4b022580, type: 2}
-  _NextTowerLevel: {fileID: 11400000, guid: 7b0fd9569ac6e4186b59b3ef0da1a3d6, type: 2}
+  NextTowerLevel: {fileID: 0}

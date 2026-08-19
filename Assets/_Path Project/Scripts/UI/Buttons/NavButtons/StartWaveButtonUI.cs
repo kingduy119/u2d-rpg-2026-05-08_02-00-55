@@ -9,14 +9,12 @@ namespace TDGame
         protected override void OnEnable()
         {
             base.OnEnable();
-            // GamePlayEvent.OnActiveStartWaveButton += SetInteractable;
             GamePlayEvent.WaveCompleted += OnWaveCompleted;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            // GamePlayEvent.OnActiveStartWaveButton -= SetInteractable;
             GamePlayEvent.WaveCompleted -= OnWaveCompleted;
         }
 

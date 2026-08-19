@@ -33,10 +33,11 @@ namespace TDGame
         public override void Exit()
         {
             TowerEvent.TowerBuildSlotClick -= OnTowerBuildSlotClick;
-
             GamePlayEvent.HideSelectCursor?.Invoke();
-            UnhoverSelectedTower();
-            Debug.Log("TowerHoverState.Exit");
+
+            _prevTower = null;
+            _hoverTower = null;
+            _selectedTower = null;
         }
 
         private void OnTowerBuildSlotClick(TowerSO towerSO)
@@ -76,8 +77,8 @@ namespace TDGame
         {
             if (_hoverTower != null)
             {
-                UnhoverSelectedTower();
-                SelectTower();
+                UnhoverPreviousSelect();
+                SelectCurrentHover();
             }
             else
             {
@@ -90,7 +91,7 @@ namespace TDGame
             }
         }
 
-        private void SelectTower()
+        private void SelectCurrentHover()
         {
             if (_selectedTower != _hoverTower)
             {
@@ -99,7 +100,7 @@ namespace TDGame
             }
         }
 
-        private void UnhoverSelectedTower()
+        private void UnhoverPreviousSelect()
         {
             if (_selectedTower != null
             && _selectedTower != _hoverTower
@@ -107,10 +108,6 @@ namespace TDGame
             {
                 hoverable.SetHover(false);
             }
-
-            _hoverTower = null;
-            _selectedTower = null;
-            _prevTower = null;
         }
     }
 

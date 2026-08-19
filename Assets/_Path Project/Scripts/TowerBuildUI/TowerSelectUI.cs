@@ -1,6 +1,5 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace TDGame
@@ -8,37 +7,35 @@ namespace TDGame
 
     public class TowerSelectUI : MonoBehaviour
     {
-        // [SerializeField] private GameObject m_TowerCardPrefab;
         [SerializeField] private GameObject _CardList;
-        [SerializeField] private AssetReference _CardRef;
-
-        private AsyncOperationHandle<GameObject> _handle;
-        private GameObject _cardPrefab;
 
         private TowerBoard TowerBoard => GameManager.Instance.TowerBoard;
 
+        AssetLoader SlotLoader;
+        List<TowerSelectSlot> AllSlots = new();
+
+        void OnEnable()
+        {
+            GamePlayEvent.ResponseUpdateUI += GamePlayEvent_ResponseUpdateUI;
+        }
+
+        void OnDisable()
+        {
+            GamePlayEvent.ResponseUpdateUI -= GamePlayEvent_ResponseUpdateUI;
+        }
+
         private void Start()
         {
-            AsyncOperationHandle<GameObject> _handle = _CardRef.LoadAssetAsync<GameObject>();
-            _handle.Completed += Handle_Completed;
-
+            SlotLoader = new("Tower/TowerSelectSlotUI", OnCompleted);
         }
 
-        private void Handle_Completed(AsyncOperationHandle<GameObject> handle)
+        private void OnCompleted(GameObject prefab)
         {
-
-            if (handle.Status != AsyncOperationStatus.Succeeded)
-            {
-                Debug.LogError($"AssetReference {_CardRef.RuntimeKey} failed to load.");
-                return;
-            }
-
-            _cardPrefab = handle.Result;
-            RefreshUI();
+            RefreshUI(prefab);
+            GamePlayEvent.RequestUpdateUI?.Invoke();
         }
 
-
-        private void RefreshUI()
+        private void RefreshUI(GameObject prefab)
         {
             foreach (Transform child in _CardList.transform)
             {
@@ -47,25 +44,26 @@ namespace TDGame
 
             foreach (var data in TowerBoard.Towers)
             {
-                GameObject go = Instantiate(_cardPrefab, _CardList.transform);
-                if (go.TryGetComponent<TowerSelectSlot>(out var card))
+                GameObject go = Instantiate(prefab, _CardList.transform);
+                if (go.TryGetComponent<TowerSelectSlot>(out var slot))
                 {
-                    card.Initialize(data);
-
+                    slot.Initialize(data);
+                    AllSlots.Add(slot);
                 }
             }
+        }
 
+        private void GamePlayEvent_ResponseUpdateUI(GamePlayState state)
+        {
+            foreach (var slot in AllSlots)
+            {
+                slot.CheckActivve(state);
+            }
         }
 
         private void OnDestroy()
         {
-            if (_handle.IsValid())
-            {
-                _handle.Completed -= Handle_Completed;
-                Addressables.Release(_handle);
-            }
+            SlotLoader.Release();
         }
-
-
     }
 }

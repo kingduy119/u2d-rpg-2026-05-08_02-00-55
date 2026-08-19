@@ -27,9 +27,9 @@ namespace TDGame
     {
         public static Action EnemySpawn;
 
-        public static Action<Enemy> OnEnemyDie;
-        public static Action<Enemy> OnGetEnemyReward;
-        public static Action<Enemy> OnEnemyReachedEnd;
+        public static Action<Enemy> EnemyDie;
+        public static Action<Enemy> ReceiveReward;
+        public static Action<Enemy> ReachedEnd;
     }
 
     public class PrefabEvent

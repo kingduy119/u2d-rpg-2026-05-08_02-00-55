@@ -7,6 +7,7 @@ namespace TDGame
     // public static class InGameEvent
     public static class GamePlayEvent
     {
+        public static int Golds = 10;
         public static Action RequestLevelResource;
         public static Action<LevelSO> ResponseLevelResource;
 
@@ -42,6 +43,9 @@ namespace TDGame
         public static Action HideSelectCursor;
         public static Action<Vector3> ShowBuildCursor;
         public static Action HideBuildCursor;
+
+        // Tower UI
+        // public static Action 
     }
 }
 

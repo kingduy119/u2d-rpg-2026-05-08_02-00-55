@@ -11,6 +11,7 @@ namespace TDGame
 
         private int _Spawners = 0;
         private int _PathwaySpawners = 0;
+        private int _Enemies = 0;
 
         public int Level { get; set; } = 0;
         public int CompletedLevel = 0;
@@ -23,42 +24,46 @@ namespace TDGame
 
         public void OnEnable()
         {
-            GamePlayEvent.PathwayCount += OnPathwayCount;
-            GamePlayEvent.PathwayEnd += OnPathwayEnd;
+            GamePlayEvent.PathwayCount += GamePlayEvent_PathwayCount;
+            GamePlayEvent.PathwayEnd += GamePlayEvent_PathwayEnd;
             GamePlayEvent.SpawnerCount += OnSpawnerCount;
             GamePlayEvent.SpawnerEnd += OnSpawnerEnd;
+
+            EnemyEvent.EnemySpawn += EnemyEvent_EnemySpawn;
+            EnemyEvent.EnemyDie += EnemyEvent_EnemyDie;
+            EnemyEvent.ReachedEnd += EnemyEvent_ReachedEnd;
         }
 
         public void OnDisable()
         {
-            GamePlayEvent.PathwayCount -= OnPathwayCount;
-            GamePlayEvent.PathwayEnd -= OnPathwayEnd;
+            GamePlayEvent.PathwayCount -= GamePlayEvent_PathwayCount;
+            GamePlayEvent.PathwayEnd -= GamePlayEvent_PathwayEnd;
             GamePlayEvent.SpawnerCount -= OnSpawnerCount;
             GamePlayEvent.SpawnerEnd -= OnSpawnerEnd;
+
+            EnemyEvent.EnemySpawn -= EnemyEvent_EnemySpawn;
+            EnemyEvent.EnemyDie -= EnemyEvent_EnemyDie;
+            EnemyEvent.ReachedEnd -= EnemyEvent_ReachedEnd;
         }
 
-        private void OnPathwayCount() { _PathwaySpawners++; }
+        private void EnemyEvent_EnemyDie(Enemy _) => CheckWaveAndMissionComplete();
+        private void EnemyEvent_ReachedEnd(Enemy _) => CheckWaveAndMissionComplete();
+        private void GamePlayEvent_PathwayCount() { _PathwaySpawners++; }
+        private void GamePlayEvent_PathwayEnd() { _PathwaySpawners--; }
         private void OnSpawnerCount() { _Spawners++; }
-        private void OnPathwayEnd()
-        {
-            _PathwaySpawners--;
-            CheckWaveAndMissionComplete();
-        }
-
-        private void OnSpawnerEnd()
-        {
-            _Spawners--;
-            CheckWaveAndMissionComplete();
-        }
+        private void OnSpawnerEnd() { _Spawners--; }
+        private void EnemyEvent_EnemySpawn() => _Enemies++;
 
         private void CheckWaveAndMissionComplete()
         {
-            if (_Spawners <= 0 && _PathwaySpawners <= 0)
+            _Enemies--;
+            Debug.Log($"_PathwaySpawners: {_PathwaySpawners} _Spawners: {_Spawners} _Enemies: {_Enemies}");
+            if (_Spawners <= 0 && _Enemies <= 0 && _PathwaySpawners <= 0)
             {
                 HandleMissionComplete();
                 GamePlayEvent.MissionComplete?.Invoke();
             }
-            else if (_Spawners <= 0)
+            else if (_Spawners <= 0 && _Enemies <= 0)
             {
                 GamePlayEvent.WaveCompleted?.Invoke();
             }

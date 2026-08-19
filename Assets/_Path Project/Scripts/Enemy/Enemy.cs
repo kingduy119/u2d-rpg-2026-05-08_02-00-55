@@ -45,8 +45,7 @@ namespace TDGame
                 }
                 else
                 {
-                    // GameEvent.SendEnemyReachedEnd(this);
-                    EnemyEvent.OnEnemyReachedEnd?.Invoke(this);
+                    EnemyEvent.ReachedEnd?.Invoke(this);
                     Deactivate();
                 }
             }

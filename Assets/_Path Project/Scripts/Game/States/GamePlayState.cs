@@ -1,10 +1,3 @@
-
-
-
-using System.Collections;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 namespace TDGame
@@ -78,24 +71,22 @@ namespace TDGame
 
         public void Enter()
         {
-            // _GamePlayUILoader.LoadAsset();
             GameEvent.LoadingSceneDone += OnLoadingSceneDone;
             SceneManager.sceneLoaded += OnSceneLoaded;
 
             GamePlayEvent.RequestUpdateUI += OnRequestUpdateUI;
             GamePlayEvent.ResponseLevelResource += OnResponseLevelResource;
+            GamePlayEvent.MainMenuClick += OnMainMenuClick;
 
             GamePlayEvent.WaveEnd += OnWaveEnd;
             GamePlayEvent.MissionCompleteClick += OnMissionCompleteClick;
 
+            EnemyEvent.EnemySpawn += EnemyEvent_EnemySpawn;
+            EnemyEvent.EnemyDie += EnemyEvent_EnemyDie;
+            EnemyEvent.ReachedEnd += EnemyEvent_ReachedEnd;
+            EnemyEvent.ReceiveReward += EnemyEvent_ReceiveReward;
+
             GamePlayEvent.RequestLevelResource?.Invoke();
-            GamePlayEvent.MainMenuClick += OnMainMenuClick;
-
-            EnemyEvent.OnEnemyDie += HandleEnemyDie;
-            EnemyEvent.OnGetEnemyReward += HandleGetEnemyReward;
-            EnemyEvent.OnEnemyReachedEnd += EnemyReachedEnd;
-
-            EnemyEvent.EnemySpawn += OnEnemySpawn;
         }
 
         public void Exit()
@@ -104,20 +95,19 @@ namespace TDGame
             SceneManager.sceneLoaded -= OnSceneLoaded;
 
             GamePlayEvent.RequestUpdateUI -= OnRequestUpdateUI;
-
-            GamePlayEvent.WaveEnd -= OnWaveEnd;
-            GamePlayEvent.MissionCompleteClick -= OnMissionCompleteClick;
             GamePlayEvent.ResponseLevelResource -= OnResponseLevelResource;
             GamePlayEvent.MainMenuClick -= OnMainMenuClick;
 
-            EnemyEvent.OnEnemyDie -= HandleEnemyDie;
-            EnemyEvent.OnGetEnemyReward -= HandleGetEnemyReward;
-            EnemyEvent.OnEnemyReachedEnd -= EnemyReachedEnd;
-            EnemyEvent.EnemySpawn -= OnEnemySpawn;
+            GamePlayEvent.WaveEnd -= OnWaveEnd;
+            GamePlayEvent.MissionCompleteClick -= OnMissionCompleteClick;
+
+            EnemyEvent.EnemySpawn -= EnemyEvent_EnemySpawn;
+            EnemyEvent.EnemyDie -= EnemyEvent_EnemyDie;
+            EnemyEvent.ReachedEnd -= EnemyEvent_ReachedEnd;
+            EnemyEvent.ReceiveReward -= EnemyEvent_ReceiveReward;
 
             IsLoading = false;
         }
-
 
         public void Execute()
         {
@@ -171,8 +161,8 @@ namespace TDGame
             WaveCount++;
         }
 
-        private void OnEnemySpawn() => Enemies++;
-        public void EnemyReachedEnd(Enemy enemy)
+        private void EnemyEvent_EnemySpawn() => Enemies++;
+        public void EnemyEvent_ReachedEnd(Enemy enemy)
         {
             Enemies--;
             Lives -= enemy.SO.damage;
@@ -187,8 +177,12 @@ namespace TDGame
             WaveCount = 0;
         }
 
-        public void HandleEnemyDie(Enemy _) => Enemies--;
-        public void HandleGetEnemyReward(Enemy enemy) => Golds += enemy.SO.goldReward;
+        public void EnemyEvent_EnemyDie(Enemy enemy)
+        {
+            Enemies--;
+            Golds += enemy.SO.goldReward;
+        }
+        public void EnemyEvent_ReceiveReward(Enemy enemy) => Golds += enemy.SO.goldReward;
     }
 
 

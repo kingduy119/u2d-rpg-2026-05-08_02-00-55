@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Collections;
+using System;
 
 namespace TDGame
 {
@@ -21,6 +22,20 @@ namespace TDGame
             if (autoload) LoadAsset();
         }
 
+        public AssetLoader(string key, Action<GameObject> completed = null)
+        {
+            _AssetKey = key;
+            _handle = Addressables.LoadAssetAsync<GameObject>(key);
+            _handle.Completed += handle =>
+            {
+                if (_handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    _gameObject = handle.Result;
+                    completed?.Invoke(_gameObject);
+                }
+            };
+        }
+
         public void LoadAsset()
         {
             Coroutines.StartCoroutine(LoadAssetCoroutine());
@@ -34,13 +49,19 @@ namespace TDGame
             IsLoaded = _handle.Status == AsyncOperationStatus.Succeeded;
         }
 
+        public GameObject GetPrefab()
+        {
+            if (!IsLoaded) return null;
+            return _handle.Result;
+        }
+
         public GameObject Instantiate(Transform parent = null)
         {
             if (!IsLoaded) return null;
 
             if (_gameObject != null) return _gameObject;
 
-            _gameObject = Object.Instantiate(_handle.Result, parent);
+            _gameObject = UnityEngine.Object.Instantiate(_handle.Result, parent);
 
             return _gameObject;
         }
@@ -56,6 +77,9 @@ namespace TDGame
 
     }
 
+    public class TObject
+    {
+    }
 
     public interface IAssetLoader
     {

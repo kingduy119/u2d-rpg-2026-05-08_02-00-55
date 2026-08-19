@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,12 +33,18 @@ namespace TDGame
             UpdateUI();
         }
 
+        public void CheckActivve(GamePlayState state)
+        {
+            bool enable = state.Golds >= TowerSO.Value.Gold;
+            _Button.interactable = enable;
+        }
+
         private void UpdateUI()
         {
             if (TowerSO)
             {
                 m_image.sprite = TowerSO.sprite;
-                m_priceText.text = $"{TowerSO.cost}";
+                m_priceText.text = $"{TowerSO.Value.Gold}";
             }
         }
     }

@@ -12,13 +12,21 @@ namespace TDGame
 
         [Header("Detail")]
         public Vector2Int Size = new(1, 1);
-        public int cost;
+        public Value Value;
 
         [Header("Combat")]
         public TowerAbility Ability;
         public ProjectileSO ProjectileSO;
 
         public TowerSO NextTowerLevel;
+    }
+
+    [Serializable]
+    public class Value
+    {
+        public int Gold;
+        public int Rock;
+        public int Wood;
     }
 
     [Serializable]

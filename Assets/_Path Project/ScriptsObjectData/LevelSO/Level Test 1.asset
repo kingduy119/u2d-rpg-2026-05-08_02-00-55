@@ -15,4 +15,4 @@ MonoBehaviour:
   levelName: Test LEVEL 1
   sceneName: Scene/TD_Test_Level
   startingLives: 100
-  startingGold: 200
+  startingGold: 10
