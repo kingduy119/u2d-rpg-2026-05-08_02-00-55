@@ -12,7 +12,7 @@ namespace TDGame
 
         [Header("Detail")]
         public Vector2Int Size = new(1, 1);
-        public Value Value;
+        public Price Price;
 
         [Header("Combat")]
         public TowerAbility Ability;
@@ -22,11 +22,42 @@ namespace TDGame
     }
 
     [Serializable]
-    public class Value
+    public class Price
     {
         public int Gold;
         public int Rock;
         public int Wood;
+
+        public Price(int gold = 0, int rock = 0, int wood = 0)
+        {
+            Gold = gold;
+            Rock = rock;
+            Wood = wood;
+        }
+
+        public static Price operator +(Price p1, Price p2)
+        {
+            if (p1 == null) return p2;
+            if (p2 == null) return p1;
+
+            return new Price(
+                p1.Gold + p2.Gold,
+                p1.Rock + p2.Rock,
+                p1.Wood + p2.Wood
+            );
+        }
+
+        public static Price operator -(Price p1, Price p2)
+        {
+            if (p1 == null) return new Price();
+            if (p2 == null) return p1;
+
+            return new Price(
+                p1.Gold - p2.Gold,
+                p1.Rock - p2.Rock,
+                p1.Wood - p2.Wood
+            );
+        }
     }
 
     [Serializable]

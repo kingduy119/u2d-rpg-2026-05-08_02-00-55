@@ -30,6 +30,5 @@ namespace TDGame
 
 
         protected abstract void HandleClick();
-
     }
 }

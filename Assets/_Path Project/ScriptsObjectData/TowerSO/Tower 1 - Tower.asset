@@ -15,8 +15,8 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 4f4d52f9c667d4205b750b68030da40c, type: 3}
   towerName: Basic Tower
   Size: {x: 2, y: 2}
-  Value:
-    Gold: 10
+  Price:
+    Gold: 5
     Rock: 0
     Wood: 0
   Ability:

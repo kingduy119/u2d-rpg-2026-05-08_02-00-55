@@ -57,6 +57,8 @@ namespace TDGame
             set => SetValue(ref _enemies, value);
         }
 
+        private Price Price;
+
         private bool IsLoading;
 
         private readonly GameManager GM;
@@ -76,10 +78,10 @@ namespace TDGame
 
             GamePlayEvent.RequestUpdateUI += OnRequestUpdateUI;
             GamePlayEvent.ResponseLevelResource += OnResponseLevelResource;
-            GamePlayEvent.MainMenuClick += OnMainMenuClick;
-
-            GamePlayEvent.WaveEnd += OnWaveEnd;
             GamePlayEvent.MissionCompleteClick += OnMissionCompleteClick;
+            GamePlayEvent.MainMenuClick += OnMainMenuClick;
+            GamePlayEvent.WaveEnd += OnWaveEnd;
+            GamePlayEvent.BuyTower += GamePlayEvent_BuyTower;
 
             EnemyEvent.EnemySpawn += EnemyEvent_EnemySpawn;
             EnemyEvent.EnemyDie += EnemyEvent_EnemyDie;
@@ -96,10 +98,10 @@ namespace TDGame
 
             GamePlayEvent.RequestUpdateUI -= OnRequestUpdateUI;
             GamePlayEvent.ResponseLevelResource -= OnResponseLevelResource;
-            GamePlayEvent.MainMenuClick -= OnMainMenuClick;
-
-            GamePlayEvent.WaveEnd -= OnWaveEnd;
             GamePlayEvent.MissionCompleteClick -= OnMissionCompleteClick;
+            GamePlayEvent.MainMenuClick -= OnMainMenuClick;
+            GamePlayEvent.WaveEnd -= OnWaveEnd;
+            GamePlayEvent.BuyTower += GamePlayEvent_BuyTower;
 
             EnemyEvent.EnemySpawn -= EnemyEvent_EnemySpawn;
             EnemyEvent.EnemyDie -= EnemyEvent_EnemyDie;
@@ -162,7 +164,7 @@ namespace TDGame
         }
 
         private void EnemyEvent_EnemySpawn() => Enemies++;
-        public void EnemyEvent_ReachedEnd(Enemy enemy)
+        private void EnemyEvent_ReachedEnd(Enemy enemy)
         {
             Enemies--;
             Lives -= enemy.SO.damage;
@@ -172,10 +174,15 @@ namespace TDGame
             }
         }
 
-        public void ResetOnLoadScene()
+        private void GamePlayEvent_BuyTower(Tower tower)
         {
-            WaveCount = 0;
+            Price -= tower.SO.Price;
         }
+
+        // public void ResetOnLoadScene()
+        // {
+        //     WaveCount = 0;
+        // }
 
         public void EnemyEvent_EnemyDie(Enemy enemy)
         {
@@ -183,8 +190,7 @@ namespace TDGame
             Golds += enemy.SO.goldReward;
         }
         public void EnemyEvent_ReceiveReward(Enemy enemy) => Golds += enemy.SO.goldReward;
+
     }
-
-
 
 }

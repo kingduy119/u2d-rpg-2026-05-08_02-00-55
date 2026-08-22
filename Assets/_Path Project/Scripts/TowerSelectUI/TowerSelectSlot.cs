@@ -35,7 +35,7 @@ namespace TDGame
 
         public void CheckActivve(GamePlayState state)
         {
-            bool enable = state.Golds >= TowerSO.Value.Gold;
+            bool enable = state.Golds >= TowerSO.Price.Gold;
             _Button.interactable = enable;
         }
 
@@ -44,7 +44,7 @@ namespace TDGame
             if (TowerSO)
             {
                 m_image.sprite = TowerSO.sprite;
-                m_priceText.text = $"{TowerSO.Value.Gold}";
+                m_priceText.text = $"{TowerSO.Price.Gold}";
             }
         }
     }

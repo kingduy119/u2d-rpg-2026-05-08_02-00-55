@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace TDGame
 {
@@ -12,7 +11,7 @@ namespace TDGame
         private TowerBoard TowerBoard => GameManager.Instance.TowerBoard;
 
         AssetLoader SlotLoader;
-        List<TowerSelectSlot> AllSlots = new();
+        readonly List<TowerSelectSlot> AllSlots = new();
 
         void OnEnable()
         {

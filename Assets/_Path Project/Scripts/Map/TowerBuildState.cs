@@ -112,6 +112,7 @@ namespace TDGame
                 _SelectedTower = null;
                 WorldMap.AcceptBuild();
                 ChangeHoverState();
+                GamePlayEvent.BuyTower?.Invoke(_SelectedTower);
             }
             else
             {

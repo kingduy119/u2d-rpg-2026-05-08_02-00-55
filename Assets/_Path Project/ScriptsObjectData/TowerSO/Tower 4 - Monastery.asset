@@ -15,8 +15,8 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: a1251424c565649b583fec61e0da204c, type: 3}
   towerName: Fire Tower
   Size: {x: 2, y: 2}
-  Value:
-    Gold: 25
+  Price:
+    Gold: 20
     Rock: 0
     Wood: 0
   Ability:
