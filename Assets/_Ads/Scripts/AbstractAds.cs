@@ -1,68 +1,65 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Advertisements;
-using UnityEngine.UI;
 
-public class AbstractAds : MonoBehaviour
+public interface IAdvertise
+{
+    // void LoadAd(string adUnitId);
+    void Show();
+}
+
+// Interstitial & Rewarded
+public class Advertise : IAdvertise
 , IUnityAdsLoadListener
 , IUnityAdsShowListener
 {
-    [SerializeField] string _androidAdUnitId = "Interstitial_Android";
-    [SerializeField] string _iOSAdUnitId = "Interstitial_iOS";
-    protected string _adUnitId;
-    public bool IsLoaded { get; private set; }
+    bool IsDebug = false;
+    private readonly string AdUnitId;
 
-    protected void Start()
+    public Advertise(string adUnitId, bool isDebug = false)
     {
-        _adUnitId = (Application.platform == RuntimePlatform.IPhonePlayer)
-        ? _iOSAdUnitId
-        : _androidAdUnitId;
-
-        StartCoroutine(LoadAd());
+        AdUnitId = adUnitId;
+        IsDebug = isDebug;
+        Advertisement.Load(AdUnitId, this);
     }
 
-    protected IEnumerator LoadAd()
-    {
-        Debug.Log("LoadAd: " + _adUnitId);
-        yield return new WaitForSeconds(1f);
-        Advertisement.Load(_adUnitId, this);
-    }
+    public void Show() => Advertisement.Show(AdUnitId, this);
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
-        IsLoaded = true;
-        Debug.Log($"OnUnityAdsAdLoaded: {placementId}");
+        if (IsDebug) Debug.Log($"OnUnityAdsAdLoaded: {placementId}");
     }
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
-        IsLoaded = false;
-        Debug.Log($"OnUnityAdsFailedToLoad: {placementId} - {message}");
-    }
-
-
-    // InterstitialAds
-    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
-    {
-        IsLoaded = false;
-        Debug.Log($"OnUnityAdsShowFailure: {placementId}");
-    }
-
-    public void OnUnityAdsShowStart(string placementId)
-    {
-        Debug.Log($"OnUnityAdsShowStart: {placementId}");
+        if (IsDebug) Debug.Log($"OnUnityAdsFailedToLoad: {placementId} - {message}");
     }
 
     public void OnUnityAdsShowClick(string placementId)
     {
-        Debug.Log($"OnUnityAdsShowClick: {placementId}");
+        if (IsDebug) Debug.Log($"OnUnityAdsShowClick: {placementId}");
+        AdsEvent.ShowAdsClick?.Invoke(placementId);
     }
 
     public virtual void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        // throw new System.NotImplementedException();
-        if (placementId.Equals(_adUnitId) && showCompletionState == UnityAdsShowCompletionState.COMPLETED)
+        if (placementId.Equals(AdUnitId) && showCompletionState == UnityAdsShowCompletionState.COMPLETED)
         {
-            Debug.Log("Payouts to players here");
+            if (IsDebug) Debug.Log($" {placementId} Payouts to players here");
+
+            AdsEvent.GiveAdsReward?.Invoke(placementId);
         }
     }
+
+    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+    {
+        if (IsDebug) Debug.Log($"OnUnityAdsShowFailure: {placementId}");
+        AdsEvent.ShowAdsFailure?.Invoke(placementId);
+    }
+
+    public void OnUnityAdsShowStart(string placementId)
+    {
+        if (IsDebug) Debug.Log($"OnUnityAdsShowStart: {placementId}");
+        AdsEvent.ShowAdsStart?.Invoke(placementId);
+    }
 }
+

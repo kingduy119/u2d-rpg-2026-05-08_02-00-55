@@ -1,38 +1,48 @@
 using UnityEngine;
-using UnityEngine.Advertisements;
 
+
+
+[RequireComponent(typeof(AdsConfigView))]
 public class AdsManager : MonoBehaviour
-, IUnityAdsInitializationListener
-// , IUnityAdsLoadListener
-// , IUnityAdsShowListener
 {
-    [SerializeField] string _androidGameId;
-    [SerializeField] string _iOSGameId;
-    [SerializeField] bool _testMode = true;
-    private string _gameId;
 
-    [SerializeField] string _adUnitId = "Rewarded_Android";
+    public AdsConfigView Configs { get; private set; }
+    private AdsInitializer _AdsInitializer;
+    private IBanner _banner;
+    private IAdvertise _rewardedAds;
+    private IAdvertise _interstitialAds;
 
-    void Awake()
+    private void Awake()
     {
-        InitializeAds();
-    }
-
-    public void InitializeAds()
-    {
-        _gameId = (Application.platform == RuntimePlatform.IPhonePlayer) ? _iOSGameId : _androidGameId;
-        if (!Advertisement.isInitialized && Advertisement.isSupported)
+        if (TryGetComponent(out AdsConfigView configs))
         {
-            Advertisement.Initialize(_gameId, _testMode, this);
+            Configs = configs;
+            _AdsInitializer = new AdsInitializer(Configs.GameID, Configs.TestMode);
+
+            _interstitialAds = new Advertise(Configs.InterstitialAdUnitId, true);
+            _rewardedAds = new Advertise(Configs.RewardedAdUnitId, true);
+            _banner = new Banner(Configs.BannerPosition, Configs.BannerAdUnitId);
+        }
+        else
+        {
+            Debug.LogError("[AdsManager] AdsConfigView component is missing.");
         }
     }
 
-    public void OnInitializationComplete()
+    void OnEnable()
     {
-        Debug.Log("[AdsManager] Unity Ads initialization complete.");
+        Debug.Log("AdsManager.OnEnable");
+        AdsEvent.ShowInterstitial += _interstitialAds.Show;
+        AdsEvent.ShowRewardAds += _rewardedAds.Show;
+        AdsEvent.ShowBanner += _banner.Show;
+        AdsEvent.HideBanner += _banner.Hide;
     }
-    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+
+    void OnDisable()
     {
-        Debug.Log($"[AdsManager] OnInitializationFailed: {message}");
+        AdsEvent.ShowInterstitial -= _interstitialAds.Show;
+        AdsEvent.ShowRewardAds -= _rewardedAds.Show;
+        AdsEvent.ShowBanner -= _banner.Show;
+        AdsEvent.HideBanner -= _banner.Hide;
     }
 }

@@ -77,9 +77,9 @@ namespace TDGame
 
     }
 
-    public class TObject
-    {
-    }
+    // public class TObject
+    // {
+    // }
 
     public interface IAssetLoader
     {
