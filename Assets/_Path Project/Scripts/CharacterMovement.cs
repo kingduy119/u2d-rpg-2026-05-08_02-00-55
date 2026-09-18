@@ -17,8 +17,8 @@ namespace TDGame
 
         public void Move(Vector2 direction)
         {
-            direction = direction.normalized;
-            _rigidbody.linearVelocity = direction * _moveSpeed;
+            // direction = direction.normalized;
+            _rigidbody.linearVelocity = direction.normalized * _moveSpeed;
             _animator.SetFloat("moveX", direction.x);
             _animator.SetFloat("moveY", direction.y);
             _animator.SetFloat("Speed", _rigidbody.linearVelocity.magnitude);

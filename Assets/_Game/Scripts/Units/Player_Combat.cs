@@ -62,7 +62,6 @@ public class Player_Combat : MonoBehaviour
         if (attackPoint == null || !m_ShowDrawGizmo)
             return;
 
-
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
     }

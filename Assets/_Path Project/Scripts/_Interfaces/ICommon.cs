@@ -29,16 +29,4 @@ namespace TDGame
         public void RaiseEvent(GameObject go = null);
     }
 
-    public interface IState
-    {
-        void Enter() { }
-        void Execute() { }
-        void Exit() { }
-    }
-
-
-
-
-
-
 }

@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
 
         moveX = Mathf.Abs(joystickX) > 0.1f ? joystickX : keyboardX;
         moveY = Mathf.Abs(joystickY) > 0.1f ? joystickY : keyboardY;
+        // moveX = moveInput.x;
+        // moveY = moveInput.y;
 
         if (moveX > 0 && transform.localScale.x < 0 ||
             moveX < 0 && transform.localScale.x > 0)
@@ -66,7 +68,7 @@ public class Player : MonoBehaviour
         anim.SetFloat("moveX", Mathf.Abs(moveX));
         anim.SetFloat("moveY", Mathf.Abs(moveY));
 
-        rb.linearVelocity = new Vector2(moveX, moveY) * StateManager.Instance.speed;
+        rb.linearVelocity = new Vector2(moveX, moveY) * 6;//* StateManager.Instance.speed;
     }
 
     void Flip()
