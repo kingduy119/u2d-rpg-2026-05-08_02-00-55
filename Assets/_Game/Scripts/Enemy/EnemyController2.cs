@@ -11,27 +11,29 @@ public class EnemyController2 : MonoBehaviour
     public Vector2 Direction { get; private set; } = Vector2.zero;
 
     private Character _character;
-    private CircleCollider2D _attackRange;
+    private CircleCollider2D _detectColider;
 
     public LayerMask _targetLayer;
+    public float DetectRange = 3f;
 
     private void Awake()
     {
         _character = GetComponent<Character>();
-        _attackRange = GetComponent<CircleCollider2D>();
+        _detectColider = GetComponent<CircleCollider2D>();
     }
 
     private void Start()
     {
         if (_character != null)
         {
-            _attackRange.radius = _character.ShareData.Combat.AttackRange;
+            // _detectColider.radius = _character.ShareData.Combat.AttackRange;
+            _detectColider.radius = DetectRange;
         }
     }
 
     private void Update()
     {
-        CheckTargetInRange();
+        CheckTarget();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,7 +53,7 @@ public class EnemyController2 : MonoBehaviour
         }
     }
 
-    private void CheckTargetInRange()
+    private void CheckTarget()
     {
         if (Target != null)
         {
@@ -60,20 +62,12 @@ public class EnemyController2 : MonoBehaviour
         else Direction = Vector2.zero;
 
         _character.Move(Direction);
-
-
-        //     if (Direction.x > 0 && transform.localScale.x < 0 ||
-        //    Direction.x < 0 && transform.localScale.x > 0)
-        //     {
-        //         Flip();
-        //     }
     }
 
 
-    public void CheckPlayerInAttackRange()
+    public void CheckTargetInAttackRange()
     {
         float detectRange = _character.ShareData.Combat.AttackRange;
-
         Collider2D[] colliders = Physics2D.OverlapCircleAll(
             _character.AttackPoint.position,
             detectRange,
@@ -81,12 +75,18 @@ public class EnemyController2 : MonoBehaviour
 
         if (colliders.Length > 0)
         {
-            Target = colliders[0].transform;
-            float distance = Vector2.Distance(transform.position, Target.position);
+            Transform target = colliders[0].transform;
+            float distance = Vector2.Distance(transform.position, target.position);
             // IsPlayerInAttackRange = distance <= detectRange;
+            if (distance <= detectRange)
+            {
+                _character.Attack();
+                Debug.Log("Chrat attack");
+            }
         }
         else
         {
+            Debug.Log("Target not in range");
             // IsPlayerInAttackRange = false;
         }
     }
