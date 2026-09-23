@@ -2,7 +2,7 @@
 namespace TDGame
 {
 
-    public class TowerIdleState : IState
+    public class TowerIdleState : State
     {
         private readonly Tower Tower;
 
@@ -11,7 +11,7 @@ namespace TDGame
             Tower = tower;
         }
 
-        public void Enter()
+        public override void Enter()
         {
             Tower.Hover.enabled = false;
             Tower.Combat.enabled = false;
@@ -20,7 +20,7 @@ namespace TDGame
     }
 
 
-    public class TowerBuildedState : IState
+    public class TowerBuildedState : State
     {
         private readonly Tower Tower;
 
@@ -29,7 +29,7 @@ namespace TDGame
             Tower = tower;
         }
 
-        public void Enter()
+        public override void Enter()
         {
             Tower.Combat.enabled = true;
             Tower.Hover.enabled = true;

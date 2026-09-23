@@ -1,5 +1,5 @@
 
-public class IdleState : IState
+public class IdleState : State
 {
     private EnemyController m_enemy;
 
@@ -8,7 +8,7 @@ public class IdleState : IState
         m_enemy = enemy;
     }
 
-    public void Execute()
+    public override void Execute()
     {
         if (m_enemy.Combat.CanAttack)
         {
@@ -23,7 +23,7 @@ public class IdleState : IState
     }
 }
 
-public class ChaseState : IState
+public class ChaseState : State
 {
     private EnemyController m_enemy;
     public ChaseState(EnemyController enemy)
@@ -31,7 +31,7 @@ public class ChaseState : IState
         m_enemy = enemy;
     }
 
-    public void Execute()
+    public override void Execute()
     {
         if (m_enemy.Target == null || m_enemy.Target && m_enemy.Combat.IsPlayerInAttackRange)
         {
@@ -48,13 +48,13 @@ public class ChaseState : IState
         m_enemy.Movement.Chase();
     }
 
-    public void Exit()
+    public override void Exit()
     {
         m_enemy.Movement.Stop();
     }
 }
 
-public class CombatState : IState
+public class CombatState : State
 {
     private EnemyController m_enemy;
     public CombatState(EnemyController enemy)
@@ -63,7 +63,7 @@ public class CombatState : IState
     }
 
 
-    public void Execute()
+    public override void Execute()
     {
         if (m_enemy.Combat.CanAttack)
         {

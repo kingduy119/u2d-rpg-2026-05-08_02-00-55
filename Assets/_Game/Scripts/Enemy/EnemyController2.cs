@@ -22,7 +22,11 @@ public class EnemyController2 : MonoBehaviour
 
     private void Awake()
     {
-        _character = GetComponent<Character>();
+        if (TryGetComponent<Character>(out var character))
+        {
+            _character = character;
+            _character.SetTargetLayer(TargetLayer);
+        }
         if (TryGetComponent<CircleCollider2D>(out var colider))
         {
             colider.radius = DetectRange;

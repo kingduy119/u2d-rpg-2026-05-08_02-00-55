@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Characters
@@ -7,33 +8,44 @@ namespace Characters
     {
         [SerializeField] protected Rigidbody2D _rigidbody;
         [SerializeField] protected Animator _animator;
-        [SerializeField] protected Combat _Combat;
         [SerializeField] protected CharacterSO Data;
+
+        public LayerMask TargetLayer { get; private set; }
+        public void SetTargetLayer(LayerMask layer) => TargetLayer = layer;
 
         public Rigidbody2D Rb => _rigidbody;
         public Animator Anim => _animator;
-        public Combat Combat => _Combat;
         public CharacterSO ShareData => Data;
 
         public Vector2 Direction { get; private set; }
         public Transform AttackPoint;
 
         public StateMachine States = new();
-        public IState nextState;
-        public IState idleState;
-        public IState moveState;
-        public IState combatState;
+        public ICterState nextState;
+        public ICterState idleState;
+        public ICterState moveState;
+        public ICterState combatState;
+
+        private List<ICterState> _states = new();
 
         protected virtual void Start()
         {
-            _Combat.SetData(Data);
-
             idleState = new IdleState(this);
             moveState = new MovementSate(this);
             combatState = new CombatState(this);
 
+            _states.Add(combatState);
+
             nextState = idleState;
             States.Initialize(idleState);
+        }
+
+        protected virtual void Update()
+        {
+            foreach (var state in _states)
+            {
+                state.Tick(Time.deltaTime);
+            }
         }
 
         protected virtual void FixedUpdate()
@@ -49,7 +61,7 @@ namespace Characters
 
         public void Move(Vector2 input)
         {
-            if (nextState is CombatState) return;
+            if (States.CurrentState is CombatState || nextState is CombatState) return;
 
             Direction = input;
             if (Direction == Vector2.zero)
@@ -60,7 +72,8 @@ namespace Characters
 
         public void Attack()
         {
-            if (!Combat.Attacking)
+            // if (!Combat.Attacking)
+            if (States.CurrentState is not CombatState)
                 nextState = combatState;
         }
 

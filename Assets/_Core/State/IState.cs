@@ -1,9 +1,9 @@
 
 public interface IState
 {
-    void Enter() { }
-    void Execute() { }
-    void Exit() { }
+    void Enter();
+    void Execute();
+    void Exit();
 }
 
 public abstract class State : IState

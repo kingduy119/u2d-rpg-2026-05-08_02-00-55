@@ -26,7 +26,10 @@ public class EnemyChaseState : EnemyState
 
     public override void Enter()
     {
-        Debug.Log("EnemeyChaseState.Enter");
+        if (_EnemyCtl.gameObject.name == "Archer Red")
+        {
+            Debug.Log("EnemeyChaseState.Enter");
+        }
     }
 
     public override void Execute()
@@ -99,6 +102,10 @@ public class EnemyWanderState : EnemyState
     public override void Enter()
     {
         _EnemyCtl.StartCoroutine(PauseAndPickNewDestination());
+        if (_EnemyCtl.gameObject.name == "Archer Red")
+        {
+            Debug.Log("EnemyWanderState.Enter");
+        }
     }
 
     public override void Execute()

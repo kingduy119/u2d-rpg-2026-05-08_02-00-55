@@ -3,7 +3,12 @@ using Cysharp.Threading.Tasks;
 
 namespace Characters
 {
-    public abstract class CharacterState : IState
+    public interface ICterState : IState
+    {
+        void Tick(float deltaTime);
+    }
+
+    public abstract class CharacterState : ICterState
     {
         protected readonly Character _Character;
         public CharacterState(Character character)
@@ -14,6 +19,8 @@ namespace Characters
         public virtual void Execute() { }
         public virtual void Enter() { }
         public virtual void Exit() { }
+
+        public virtual void Tick(float deltaTime) { }
     }
 
     public class IdleState : CharacterState
@@ -37,7 +44,7 @@ namespace Characters
 
         public override void Execute()
         {
-            if (_Character.Combat.Attacking) return;
+            // if (_Character.Combat.Attacking) return;
 
             HandleMovement(_Character.Direction);
 
@@ -69,7 +76,16 @@ namespace Characters
     public class CombatState : CharacterState
     {
         private static readonly int IsAttacking1Hash = Animator.StringToHash("isAttacking1");
-        public CombatState(Character character) : base(character) { }
+        private CombatData _combatData;
+        private bool _attacking;
+        private float _attackCooldown = 0f;
+        private bool AttackActive => _attackCooldown <= 0;
+
+
+        public CombatState(Character character) : base(character)
+        {
+            _combatData = character.ShareData.Combat;
+        }
 
         public override void Enter()
         {
@@ -78,7 +94,7 @@ namespace Characters
 
         public override void Execute()
         {
-            if (!_Character.Combat.Attacking)
+            if (!_attacking)
             {
                 _Character.nextState = _Character.idleState;
                 _Character.States.TransitionTo(_Character.nextState);
@@ -90,26 +106,42 @@ namespace Characters
             _Character.Anim.SetBool(IsAttacking1Hash, false);
         }
 
+        public override void Tick(float deltaTime)
+        {
+            if (_attackCooldown > 0) _attackCooldown -= deltaTime;
+        }
+
         private async UniTask Attack()
         {
-            if (!_Character.Combat.CanAttack) return;
+            // if (!_Character.Combat.CanAttack) return;
+            if (!AttackActive) return;
 
-            _Character.Combat.Attack_Start();
+            // _Character.Combat.Attack_Start();
+            _attacking = true;
             _Character.Anim.SetBool(IsAttacking1Hash, true);
 
             await UniTask.Delay(200);
-            _Character.Combat.Deal_Damge();
+            CheckAttackCollision2D();
 
             await UniTask.Delay(100);
-            _Character.Combat.Attack_Done();
+            _attacking = false;
+            _attackCooldown = _combatData.AttackSpeed;
 
         }
-    }
 
-    public class PatrolState : CharacterState
-    {
-        public PatrolState(Character character) : base(character)
+        private void CheckAttackCollision2D()
         {
+            Collider2D[] targets = Physics2D.OverlapCircleAll(
+                _Character.AttackPoint.position,
+                _combatData.AttackRange,
+                _Character.TargetLayer
+            );
+
+            if (targets.Length > 0)
+            {
+                Debug.Log("CheckAttackCollision2D");
+            }
         }
+
     }
 }

@@ -19,6 +19,11 @@ namespace TDGame
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
+        public void Execute()
+        {
+            // throw new System.NotImplementedException();
+        }
+
         public void Exit()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -31,7 +36,7 @@ namespace TDGame
         }
     }
 
-    public class GameMenuState : IState
+    public class GameMenuState : State
     {
         readonly GameManager GM;
         public GameMenuState(GameManager gm)
@@ -39,14 +44,14 @@ namespace TDGame
             GM = gm;
         }
 
-        public void Enter()
+        public override void Enter()
         {
             GameEvent.PlayContinue += OnPlayContinue;
             GameEvent.PlayNewGame += OnPlayNewGame;
 
         }
 
-        public void Exit()
+        public override void Exit()
         {
             GameEvent.PlayContinue -= OnPlayContinue;
             GameEvent.PlayNewGame -= OnPlayNewGame;
