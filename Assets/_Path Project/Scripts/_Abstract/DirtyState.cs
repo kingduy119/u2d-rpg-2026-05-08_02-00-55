@@ -19,16 +19,6 @@ namespace TDGame
             IsDirty = true;
         }
     }
-
-    public class State : IState
-    {
-        public virtual void Enter() { }
-        public virtual void Execute() { }
-        public virtual void Exit() { }
-    }
-
-
-
     // public interface IState2
     // {
     //     IEnumerator Execute();

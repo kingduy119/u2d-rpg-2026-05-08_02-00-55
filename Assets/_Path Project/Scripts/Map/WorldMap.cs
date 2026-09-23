@@ -77,10 +77,10 @@ namespace TDGame
             States.Execute();
         }
 
-        private void OnDestroy()
-        {
-            States.TransitionTo(new State());
-        }
+        // private void OnDestroy()
+        // {
+        //     States.TransitionTo(new State());
+        // }
 
         private void CompressBlockedTile(Tilemap tilemap)
         {

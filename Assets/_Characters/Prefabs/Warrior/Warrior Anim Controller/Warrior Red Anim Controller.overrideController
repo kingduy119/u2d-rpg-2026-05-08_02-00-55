@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Warrior Red Anim Controller
+  m_Controller: {fileID: 9100000, guid: 553437c2fa8684fcfaaa4b80e935273d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 426c7c1eb35ee40948111ffa561e573d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 508c32652f13046059ce651bd1dbf56a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0f88fb16a436e422a8834e08f902bb13, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9c3e33f36c49b421aa08b4151dd698b1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ef35be526c89c4019a8314d5f8ccacf5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 943e7c3f6041545a6ace7152923cc1e9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0ffe491d13556944fa62fd72ce6d9a80, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 80e5a5e43c5454bed844b3756a3b4bfb, type: 2}

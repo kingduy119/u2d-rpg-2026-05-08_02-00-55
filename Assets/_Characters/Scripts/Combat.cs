@@ -20,6 +20,8 @@ namespace Characters
         public float WeaponRange { get; private set; } = 0.5f;
         public bool Attacking { get; private set; }
 
+        public bool CanAttack => AttackCoolDown <= 0 && !Attacking;
+
         void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -31,21 +33,15 @@ namespace Characters
                 AttackCoolDown -= Time.deltaTime;
         }
 
-        public void Attack()
+        public void Attack_Start()
         {
-            if (AttackCoolDown <= 0)
-            {
-                Attacking = true;
-                _animator.SetBool("isAttacking1", Attacking);
-                AttackCoolDown = Data.AttackSpeed;
-            }
+            Attacking = true;
         }
 
         public void Attack_Done()
         {
             Attacking = false;
-            _animator.SetBool("isAttacking1", Attacking);
-            Debug.Log("Attack_Done");
+            AttackCoolDown = Data.AttackSpeed;
         }
 
         public void Deal_Damge()

@@ -22,16 +22,16 @@ public class Enemy_Movement : ObjectMovement
 
     private void Update()
     {
-        if (state == State.KnockBack)
+        if (state == StateEnum.KnockBack)
             return;
 
         CheckForPlayer();
 
-        if (state == State.Chasing)
+        if (state == StateEnum.Chasing)
         {
             Chase();
         }
-        else if (state == State.Attacking)
+        else if (state == StateEnum.Attacking)
         {
             rb.linearVelocity = Vector2.zero;
 
@@ -55,7 +55,7 @@ public class Enemy_Movement : ObjectMovement
     {
         if (collision.CompareTag("Player"))
         {
-            ChangeState(State.Idle);
+            ChangeState(StateEnum.Idle);
         }
     }
 
@@ -68,19 +68,19 @@ public class Enemy_Movement : ObjectMovement
             float distance = Vector2.Distance(transform.position, target.position);
 
             if (distance <= attackRange && attackCountDown <= 0)
-                ChangeState(State.Attacking);
+                ChangeState(StateEnum.Attacking);
             else if (distance > attackRange)
             {
-                ChangeState(State.Chasing);
+                ChangeState(StateEnum.Chasing);
             }
             else
             {
-                ChangeState(State.Idle);
+                ChangeState(StateEnum.Idle);
             }
         }
         else
         {
-            ChangeState(State.Idle);
+            ChangeState(StateEnum.Idle);
         }
     }
 

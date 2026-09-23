@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BaseMovement : MonoBehaviour
 {
-    public State state = State.Idle;
+    public StateEnum state = StateEnum.Idle;
 
     public float m_MoveSpeed = 2f;
     public float m_MaxSpeed = 2f;
@@ -34,22 +34,22 @@ public class BaseMovement : MonoBehaviour
     {
         switch (state)
         {
-            case State.Idle:
+            case StateEnum.Idle:
                 Stop();
                 break;
-            case State.Moving:
+            case StateEnum.Moving:
                 Move();
                 break;
-            case State.Chasing:
+            case StateEnum.Chasing:
                 // Handle chasing behavior
                 break;
-            case State.Attacking:
+            case StateEnum.Attacking:
                 // Handle attacking behavior
                 break;
-            case State.KnockBack:
+            case StateEnum.KnockBack:
                 // Handle knockback behavior
                 break;
-            case State.Dead:
+            case StateEnum.Dead:
                 // Handle death behavior
                 break;
         }
@@ -60,7 +60,7 @@ public class BaseMovement : MonoBehaviour
         m_Direction = direction.normalized;
     }
 
-    public void SetState(State newState)
+    public void SetState(StateEnum newState)
     {
         state = newState;
     }

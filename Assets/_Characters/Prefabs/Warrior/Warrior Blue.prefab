@@ -14,13 +14,12 @@ GameObject:
   - component: {fileID: 2946495498309881766}
   - component: {fileID: 279603037010245003}
   - component: {fileID: 5072719489056575716}
-  - component: {fileID: -7664273658533228068}
   - component: {fileID: 9040044880874741232}
-  - component: {fileID: 8577391832950040994}
+  - component: {fileID: -7664273658533228068}
   - component: {fileID: 7684348707754375932}
-  m_Layer: 6
-  m_Name: Blue Warrior
-  m_TagString: Player
+  m_Layer: 0
+  m_Name: Warrior Blue
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +90,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 11
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7384290322352760091, guid: fceedda1d163e4c31a738218cb308e71, type: 3}
+  m_Sprite: {fileID: 7384290322352760091, guid: 63555c658eb534f48acbb1ba682fbec3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,7 +116,7 @@ Rigidbody2D:
   m_LinearDamping: 1.5
   m_AngularDamping: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 293c20340629dd74bacd592fde14b35e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -223,23 +222,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-7664273658533228068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895144261635010806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74ae41486f3a419785b26bdfd6273a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Character
-  _rigidbody: {fileID: 8528324673246645706}
-  _animator: {fileID: 5072719489056575716}
-  Data: {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
-  _Combat: {fileID: 7684348707754375932}
-  _Movement: {fileID: 8577391832950040994}
 --- !u!114 &9040044880874741232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +237,7 @@ MonoBehaviour:
   ShowRadius: 0
   AttackPoint: {fileID: 6270334013524779447}
   AttackRange: 2.1
---- !u!114 &8577391832950040994
+--- !u!114 &-7664273658533228068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,11 +246,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 895144261635010806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c79ba9280894001a618cbf15b74f64, type: 3}
+  m_Script: {fileID: 11500000, guid: e74ae41486f3a419785b26bdfd6273a3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Characters.Movement
+  m_EditorClassIdentifier: Assembly-CSharp::Character
   _rigidbody: {fileID: 8528324673246645706}
   _animator: {fileID: 5072719489056575716}
+  _Combat: {fileID: 7684348707754375932}
+  Data: {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
+  AttackPoint: {fileID: 6270334013524779447}
 --- !u!114 &7684348707754375932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6270334013524779447}
   m_Layer: 6
-  m_Name: attackPoint
+  m_Name: attack_point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

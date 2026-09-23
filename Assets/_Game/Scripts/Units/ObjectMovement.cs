@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum State
+public enum StateEnum
 {
     Idle,
     Moving,
@@ -13,7 +13,7 @@ public enum State
 
 public class ObjectMovement : MonoBehaviour
 {
-    protected State state = State.Idle;
+    protected StateEnum state = StateEnum.Idle;
     public float m_MoveSpeed = 2f;
     public float m_MaxSpeed = 2f;
     private Vector2 m_MoveDirection = Vector2.zero;
@@ -74,15 +74,15 @@ public class ObjectMovement : MonoBehaviour
         transform.localScale = scale;
     }
 
-    public void ChangeState(State newState)
+    public void ChangeState(StateEnum newState)
     {
-        if (state == State.Moving || state == State.Chasing)
+        if (state == StateEnum.Moving || state == StateEnum.Chasing)
             anim.SetBool("isMoving", false);
 
         state = newState;
-        if (state == State.Moving || state == State.Chasing)
+        if (state == StateEnum.Moving || state == StateEnum.Chasing)
             anim.SetBool("isMoving", true);
-        else if (state == State.Attacking)
+        else if (state == StateEnum.Attacking)
             anim.SetTrigger("isAttack1");
     }
 

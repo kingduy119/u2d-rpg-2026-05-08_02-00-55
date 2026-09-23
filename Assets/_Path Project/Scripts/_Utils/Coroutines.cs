@@ -2,45 +2,42 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace TDGame
+
+public static class Coroutines
 {
+    private static MonoBehaviour s_CoroutineRunner;
 
-    public static class Coroutines
+    public static bool IsInitialized => s_CoroutineRunner != null;
+
+    public static void Initialize(MonoBehaviour runner)
     {
-        private static MonoBehaviour s_CoroutineRunner;
+        s_CoroutineRunner = runner;
+    }
 
-        public static bool IsInitialized => s_CoroutineRunner != null;
-
-        public static void Initialize(MonoBehaviour runner)
+    public static Coroutine StartCoroutine(IEnumerator coroutine)
+    {
+        if (s_CoroutineRunner == null)
         {
-            s_CoroutineRunner = runner;
+            throw new InvalidOperationException("CoroutineRunner is not initialized.");
         }
 
-        public static Coroutine StartCoroutine(IEnumerator coroutine)
-        {
-            if (s_CoroutineRunner == null)
-            {
-                throw new InvalidOperationException("CoroutineRunner is not initialized.");
-            }
+        return s_CoroutineRunner.StartCoroutine(coroutine);
+    }
 
-            return s_CoroutineRunner.StartCoroutine(coroutine);
+    public static void StopCoroutine(Coroutine coroutine)
+    {
+        if (s_CoroutineRunner != null)
+        {
+            s_CoroutineRunner.StopCoroutine(coroutine);
         }
+    }
 
-        public static void StopCoroutine(Coroutine coroutine)
+    public static void StopCoroutine(ref Coroutine coroutine)
+    {
+        if (s_CoroutineRunner != null && coroutine != null)
         {
-            if (s_CoroutineRunner != null)
-            {
-                s_CoroutineRunner.StopCoroutine(coroutine);
-            }
-        }
-
-        public static void StopCoroutine(ref Coroutine coroutine)
-        {
-            if (s_CoroutineRunner != null && coroutine != null)
-            {
-                s_CoroutineRunner.StopCoroutine(coroutine);
-                coroutine = null;
-            }
+            s_CoroutineRunner.StopCoroutine(coroutine);
+            coroutine = null;
         }
     }
 }

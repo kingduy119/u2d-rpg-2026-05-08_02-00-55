@@ -18,7 +18,7 @@ public class Enemy_Knockback : MonoBehaviour
         isKnockedBack = true;
         Vector2 direction = (transform.position - player.position).normalized;
         rb.linearVelocity = direction * force;
-        enemy_Movement.ChangeState(State.KnockBack);
+        enemy_Movement.ChangeState(StateEnum.KnockBack);
         StartCoroutine(KnockBackCoroutine(duration));
     }
 
@@ -27,6 +27,6 @@ public class Enemy_Knockback : MonoBehaviour
         yield return new WaitForSeconds(duration);
         rb.linearVelocity = Vector2.zero;
         isKnockedBack = false;
-        enemy_Movement.ChangeState(State.Idle);
+        enemy_Movement.ChangeState(StateEnum.Idle);
     }
 }

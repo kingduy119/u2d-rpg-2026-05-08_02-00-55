@@ -23,7 +23,7 @@ public class Archer_Move : MonoBehaviour
     {
         if (isPaused)
         {
-            m_BaseMovement.SetState(State.Idle);
+            m_BaseMovement.SetState(StateEnum.Idle);
             return;
         }
 
@@ -36,7 +36,7 @@ public class Archer_Move : MonoBehaviour
     IEnumerator PauseAndPickNewDestination()
     {
         isPaused = true;
-        m_BaseMovement.SetState(State.Idle);
+        m_BaseMovement.SetState(StateEnum.Idle);
 
 
         yield return new WaitForSeconds(pauseDuration);
@@ -48,7 +48,7 @@ public class Archer_Move : MonoBehaviour
     void Move()
     {
         m_BaseMovement.SetDirection(target - (Vector2)transform.position);
-        m_BaseMovement.SetState(State.Moving);
+        m_BaseMovement.SetState(StateEnum.Moving);
     }
 
     private Vector2 GetRandomTarget()
