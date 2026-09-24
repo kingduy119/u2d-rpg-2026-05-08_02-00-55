@@ -1,14 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Colors
+{
+    Blue,
+    Red,
+}
+
 namespace Characters
 {
 
+    [RequireComponent(typeof(CharacterColor))]
     public class Character : MonoBehaviour
     {
         [SerializeField] protected Rigidbody2D _rigidbody;
         [SerializeField] protected Animator _animator;
         [SerializeField] protected CharacterSO Data;
+
 
         public LayerMask TargetLayer { get; private set; }
         public void SetTargetLayer(LayerMask layer) => TargetLayer = layer;
@@ -38,6 +46,8 @@ namespace Characters
 
             nextState = idleState;
             States.Initialize(idleState);
+
+
         }
 
         protected virtual void Update()
@@ -83,6 +93,7 @@ namespace Characters
             scale.x *= -1;
             transform.localScale = scale;
         }
+
     }
 
 }

@@ -78,8 +78,9 @@ GameObject:
   - component: {fileID: 4837512618309524616}
   - component: {fileID: 14242581468485720}
   - component: {fileID: 102697656217055125}
+  - component: {fileID: 6282478407789202689}
   m_Layer: 0
-  m_Name: Archer Blue
+  m_Name: Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +172,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.92, y: 1.92}
+  m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -314,3 +315,18 @@ MonoBehaviour:
   _animator: {fileID: 14242581468485720}
   Data: {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
   AttackPoint: {fileID: 7008702837299981824}
+--- !u!114 &6282478407789202689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952176792834153605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79fecee81b425477ba2d97e1c0b62c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterColor
+  _color: 0
+  _spriteRender: {fileID: 7682893477901254411}
+  _Data: {fileID: 11400000, guid: 0fcbd4149145d41078048b18bf4538be, type: 2}

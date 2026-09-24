@@ -16,8 +16,9 @@ GameObject:
   - component: {fileID: 5072719489056575716}
   - component: {fileID: 9040044880874741232}
   - component: {fileID: -7664273658533228068}
+  - component: {fileID: 6828370373715339174}
   m_Layer: 0
-  m_Name: Warrior Blue
+  m_Name: Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,9 +251,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   _rigidbody: {fileID: 8528324673246645706}
   _animator: {fileID: 5072719489056575716}
-  _Combat: {fileID: 0}
   Data: {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
   AttackPoint: {fileID: 6270334013524779447}
+--- !u!114 &6828370373715339174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895144261635010806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79fecee81b425477ba2d97e1c0b62c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterColor
+  _color: 0
+  _blueController: {fileID: 9100000, guid: 553437c2fa8684fcfaaa4b80e935273d, type: 2}
+  _redController: {fileID: 22100000, guid: 80313aca34d0846289abde9d271e91a9, type: 2}
+  _Data: {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
+  _spriteRender: {fileID: 5769629493382312384}
 --- !u!1 &3784444233140420291
 GameObject:
   m_ObjectHideFlags: 0

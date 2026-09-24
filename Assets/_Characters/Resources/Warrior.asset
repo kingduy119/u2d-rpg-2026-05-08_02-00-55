@@ -10,12 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 570a66109ec1d48a28b0917be0feabe9, type: 3}
-  m_Name: Archer
+  m_Name: Warrior
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterSO
   Move:
     Speed: 3
     MaxSpeed: 6
   Combat:
     AttackDamage: 1
-    AttackRange: 3
+    AttackRange: 1
     AttackSpeed: 1
+  CharacterColors:
+    BlueSprite: {fileID: 7384290322352760091, guid: 63555c658eb534f48acbb1ba682fbec3, type: 3}
+    RedSprite: {fileID: 7384290322352760091, guid: f9330e5de94a14c6ba6583d83d65ef08, type: 3}
+    BlueAnimController: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
+    RedAnimController: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
