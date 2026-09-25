@@ -2,7 +2,7 @@
 
 namespace Characters
 {
-    public class Archer : Character
+    public class Warrior : Character
     {
     }
 }

@@ -19,7 +19,6 @@ namespace Characters
         public virtual void Execute() { }
         public virtual void Enter() { }
         public virtual void Exit() { }
-
         public virtual void Tick(float deltaTime) { }
     }
 
@@ -44,8 +43,6 @@ namespace Characters
 
         public override void Execute()
         {
-            // if (_Character.Combat.Attacking) return;
-
             HandleMovement(_Character.Direction);
 
             if (_Character.nextState is CombatState)
@@ -79,7 +76,7 @@ namespace Characters
         private CombatData _combatData;
         private bool _attacking;
         private float _attackCooldown = 0f;
-        private bool AttackActive => _attackCooldown <= 0;
+        private bool AttackActive => _attackCooldown <= 0 && !_attacking;
 
 
         public CombatState(Character character) : base(character)
@@ -94,16 +91,11 @@ namespace Characters
 
         public override void Execute()
         {
-            if (!_attacking)
+            if (AttackActive)
             {
                 _Character.nextState = _Character.idleState;
                 _Character.States.TransitionTo(_Character.nextState);
             }
-        }
-
-        public override void Exit()
-        {
-            _Character.Anim.SetBool(IsAttacking1Hash, false);
         }
 
         public override void Tick(float deltaTime)
@@ -113,10 +105,8 @@ namespace Characters
 
         private async UniTask Attack()
         {
-            // if (!_Character.Combat.CanAttack) return;
             if (!AttackActive) return;
 
-            // _Character.Combat.Attack_Start();
             _attacking = true;
             _Character.Anim.SetBool(IsAttacking1Hash, true);
 
@@ -124,9 +114,11 @@ namespace Characters
             CheckAttackCollision2D();
 
             await UniTask.Delay(100);
+            _Character.Anim.SetBool(IsAttacking1Hash, false);
+
+            await UniTask.Delay(200);
             _attacking = false;
             _attackCooldown = _combatData.AttackSpeed;
-
         }
 
         private void CheckAttackCollision2D()

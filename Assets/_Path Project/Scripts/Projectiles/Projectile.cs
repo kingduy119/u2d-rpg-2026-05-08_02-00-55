@@ -7,7 +7,6 @@ namespace TDGame
     public class Projectile : MonoBehaviour,
         IPoolable<Projectile>
     {
-        // public virtual ProjectileType Type => ProjectileType.Default;
         public IObjectPool<Projectile> Pool { get; set; }
 
         public ProjectileSO SO;

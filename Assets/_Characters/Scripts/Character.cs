@@ -10,23 +10,40 @@ public enum Colors
 namespace Characters
 {
 
-    [RequireComponent(typeof(CharacterColor))]
-    public class Character : MonoBehaviour
+    public interface ICterAttribute
     {
-        [SerializeField] protected Rigidbody2D _rigidbody;
-        [SerializeField] protected Animator _animator;
-        [SerializeField] protected CharacterSO Data;
+        Transform GetAttackPoint();
+        CharacterSO GetData();
+    }
 
+    public interface ICter : ICterAttribute
+    {
+        void Idle();
+        void Move(Vector2 input);
+        void Attack();
+        void Flip();
+    }
+
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(CharacterColor))]
+    public class Character : MonoBehaviour,
+        ICter
+    {
+        [SerializeField] protected CharacterSO Data;
 
         public LayerMask TargetLayer { get; private set; }
         public void SetTargetLayer(LayerMask layer) => TargetLayer = layer;
 
-        public Rigidbody2D Rb => _rigidbody;
-        public Animator Anim => _animator;
+        public Rigidbody2D Rb { get; private set; }
+        public Animator Anim { get; private set; }
         public CharacterSO ShareData => Data;
+        public CharacterSO GetData() => Data;
 
         public Vector2 Direction { get; private set; }
         public Transform AttackPoint;
+        public Transform GetAttackPoint() => AttackPoint;
+
 
         public StateMachine States = new();
         public ICterState nextState;
@@ -36,18 +53,22 @@ namespace Characters
 
         private List<ICterState> _states = new();
 
+        protected virtual void Awake()
+        {
+            Anim = GetComponent<Animator>();
+            Rb = GetComponent<Rigidbody2D>();
+        }
+
         protected virtual void Start()
         {
             idleState = new IdleState(this);
             moveState = new MovementSate(this);
             combatState = new CombatState(this);
 
-            _states.Add(combatState);
-
             nextState = idleState;
             States.Initialize(idleState);
 
-
+            _states.Add(combatState); // For state can call Tick() in Update 
         }
 
         protected virtual void Update()
@@ -82,7 +103,6 @@ namespace Characters
 
         public void Attack()
         {
-            // if (!Combat.Attacking)
             if (States.CurrentState is not CombatState)
                 nextState = combatState;
         }

@@ -17,10 +17,10 @@ MonoBehaviour:
     MaxSpeed: 6
   Combat:
     AttackDamage: 1
-    AttackRange: 1
-    AttackSpeed: 1
+    AttackRange: 1.5
+    AttackSpeed: 1.5
   CharacterColors:
     BlueSprite: {fileID: -594197781322936934, guid: 2307ce0d618cb4ea2be2cb2a4148cbde, type: 3}
-    RedSprite: {fileID: -594197781322936934, guid: 2307ce0d618cb4ea2be2cb2a4148cbde, type: 3}
-    BlueAnimController: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
-    RedAnimController: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
+    RedSprite: {fileID: -594197781322936934, guid: fba04cf817a7246ec99f9c85cf9ef600, type: 3}
+    BlueAnimController: {fileID: 22100000, guid: 127e60917d2ab4958b4597233bc8adca, type: 2}
+    RedAnimController: {fileID: 22100000, guid: d103b799156cb42c8869d1c9a5d8d36a, type: 2}

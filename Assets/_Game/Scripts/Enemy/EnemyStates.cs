@@ -14,7 +14,8 @@ public class EnemyState : State
 
 public class EnemyChaseState : EnemyState
 {
-    readonly Character _character;
+    // readonly Character _character;
+    readonly ICter _character;
     Vector3 _startPos;
     bool _GoingBack;
 
@@ -68,9 +69,10 @@ public class EnemyChaseState : EnemyState
 
     private bool HasTargetInAttackRange()
     {
-        float detectRange = _character.ShareData.Combat.AttackRange;
+        float detectRange = _character.GetData().Combat.AttackRange;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(
-            _character.AttackPoint.position,
+            // _character.AttackPoint.position,
+            _character.GetAttackPoint().position,
             detectRange,
             _EnemyCtl.TargetLayer);
 

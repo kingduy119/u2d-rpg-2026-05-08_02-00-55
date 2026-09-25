@@ -22,5 +22,5 @@ MonoBehaviour:
   CharacterColors:
     BlueSprite: {fileID: 7384290322352760091, guid: 63555c658eb534f48acbb1ba682fbec3, type: 3}
     RedSprite: {fileID: 7384290322352760091, guid: f9330e5de94a14c6ba6583d83d65ef08, type: 3}
-    BlueAnimController: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
-    RedAnimController: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
+    BlueAnimController: {fileID: 9100000, guid: 553437c2fa8684fcfaaa4b80e935273d, type: 2}
+    RedAnimController: {fileID: 22100000, guid: 80313aca34d0846289abde9d271e91a9, type: 2}
