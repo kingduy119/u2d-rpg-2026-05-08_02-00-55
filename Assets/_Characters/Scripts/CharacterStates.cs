@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System;
 
 namespace Characters
 {
@@ -38,7 +39,7 @@ namespace Characters
         private static readonly int RunSpeedHash = Animator.StringToHash("RunSpeed");
         public MovementSate(Character character) : base(character)
         {
-            Data = _Character.ShareData.Move;
+            Data = _Character.GetData().Move;
         }
 
         public override void Execute()
@@ -72,16 +73,16 @@ namespace Characters
 
     public class CombatState : CharacterState
     {
-        private static readonly int IsAttacking1Hash = Animator.StringToHash("isAttacking1");
-        private CombatData _combatData;
-        private bool _attacking;
-        private float _attackCooldown = 0f;
-        private bool AttackActive => _attackCooldown <= 0 && !_attacking;
+        protected static readonly int IsAttacking1Hash = Animator.StringToHash("isAttacking1");
+        protected CombatData _combatData;
+        protected bool _attacking;
+        protected float _attackCooldown = 0f;
+        protected bool AttackActive => _attackCooldown <= 0 && !_attacking;
 
 
         public CombatState(Character character) : base(character)
         {
-            _combatData = character.ShareData.Combat;
+            _combatData = character.GetData().Combat;
         }
 
         public override void Enter()
@@ -103,7 +104,7 @@ namespace Characters
             if (_attackCooldown > 0) _attackCooldown -= deltaTime;
         }
 
-        private async UniTask Attack()
+        protected virtual async UniTask Attack()
         {
             if (!AttackActive) return;
 
@@ -134,6 +135,35 @@ namespace Characters
                 Debug.Log("CheckAttackCollision2D");
             }
         }
+    }
 
+    public class ArcherCombatState : CombatState
+    {
+        public ArcherCombatState(Character character) : base(character)
+        { }
+
+        protected override async UniTask Attack()
+        {
+            if (!AttackActive) return;
+
+            _attacking = true;
+            _Character.Anim.SetBool(IsAttacking1Hash, true);
+
+            await UniTask.Delay(200);
+            CterEvent.Shoot?.Invoke(_Character);
+
+            await UniTask.Delay(100);
+            _Character.Anim.SetBool(IsAttacking1Hash, false);
+
+            await UniTask.Delay(200);
+            _attacking = false;
+            _attackCooldown = _combatData.AttackSpeed;
+        }
+    }
+
+    public static class CterEvent
+    {
+        // public static Action Shoot;
+        public static Action<Character> Shoot;
     }
 }

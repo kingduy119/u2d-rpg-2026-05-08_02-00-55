@@ -526,7 +526,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _character: {fileID: 1899856269}
+  _characterData: {fileID: 11400000, guid: a31de56aa0978444d932af6a5e4702c2, type: 2}
   _KeyBoardHandler: {fileID: 846696435}
+--- !u!1 &1037153933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1037153935}
+  - component: {fileID: 1037153934}
+  m_Layer: 0
+  m_Name: GameManagerView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1037153934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037153933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d537d3acbb3d4cb8a70a01c279418bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.GameManagerView
+  projectilePrefab: {fileID: 1447171813455009458, guid: 181af78c862fe409ea7759b7b7c011f8, type: 3}
+  projectSO: {fileID: 11400000, guid: 5905931cbe9b7432b9692780faa8df99, type: 2}
+--- !u!4 &1037153935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037153933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.57, y: -0.16, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1057777698 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 895144261635010806, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
@@ -807,3 +854,4 @@ SceneRoots:
   - {fileID: 846696436}
   - {fileID: 1814519061}
   - {fileID: 50864189}
+  - {fileID: 1037153935}

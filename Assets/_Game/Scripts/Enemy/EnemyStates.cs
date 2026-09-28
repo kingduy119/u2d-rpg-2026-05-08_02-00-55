@@ -1,6 +1,7 @@
 using UnityEngine;
 using Characters;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 
 public class EnemyState : State
 {
@@ -38,7 +39,7 @@ public class EnemyChaseState : EnemyState
         if (_EnemyCtl.Target != null)
         {
             if (HasTargetInAttackRange())
-                _character.Attack();
+                _character.Attack(_EnemyCtl.Target);
             else
             {
                 Vector2 direction = _EnemyCtl.Target.position - _EnemyCtl.transform.position;
@@ -90,7 +91,6 @@ public class EnemyChaseState : EnemyState
 public class EnemyWanderState : EnemyState
 {
     private bool _Paused;
-    private float _PauseDuration = 2f;
     private float width = 6f;
     private float height = 6f;
     private Vector3 target;
@@ -103,7 +103,9 @@ public class EnemyWanderState : EnemyState
 
     public override void Enter()
     {
-        _EnemyCtl.StartCoroutine(PauseAndPickNewDestination());
+        // _EnemyCtl.StartCoroutine(PauseAndPickNewDestination());
+        PauseAndPickNewDestination().Forget();
+
         if (_EnemyCtl.gameObject.name == "Archer Red")
         {
             Debug.Log("EnemyWanderState.Enter");
@@ -118,8 +120,9 @@ public class EnemyWanderState : EnemyState
         Vector2 offset = target - position;
         if (offset.sqrMagnitude < .1f) // distance
         {
-            _EnemyCtl.StartCoroutine(PauseAndPickNewDestination());
-            return;
+            // _EnemyCtl.StartCoroutine(PauseAndPickNewDestination());
+            PauseAndPickNewDestination().Forget();
+            // return;
         }
 
         offset = target - position;
@@ -128,11 +131,13 @@ public class EnemyWanderState : EnemyState
         if (_EnemyCtl.Target) _EnemyCtl.States.TransitionTo(_EnemyCtl.ChaseState);
     }
 
-    private IEnumerator PauseAndPickNewDestination()
+    // private IEnumerator PauseAndPickNewDestination()
+    private async UniTask PauseAndPickNewDestination()
     {
         _Paused = true;
         _EnemyCtl.Character.Idle();
-        yield return new WaitForSeconds(_PauseDuration);
+        await UniTask.Delay(2000); // 2s
+        // yield return new WaitForSeconds(_PauseDuration);
 
         target = GetRandomTarget();
         _Paused = false;

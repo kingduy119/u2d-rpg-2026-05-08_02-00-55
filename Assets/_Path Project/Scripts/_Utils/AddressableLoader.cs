@@ -36,11 +36,7 @@ namespace TDGame
             };
         }
 
-        public void LoadAsset()
-        {
-            Coroutines.StartCoroutine(LoadAssetCoroutine());
-        }
-
+        public void LoadAsset() => Coroutines.StartCoroutine(LoadAssetCoroutine());
         IEnumerator LoadAssetCoroutine()
         {
             _handle = Addressables.LoadAssetAsync<GameObject>(_AssetKey);

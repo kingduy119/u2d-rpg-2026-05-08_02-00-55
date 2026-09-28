@@ -6,17 +6,12 @@ using Characters;
 [RequireComponent(typeof(CircleCollider2D))]
 public class EnemyController2 : MonoBehaviour
 {
-
-    public Transform Target { get; set; }
-    private Character _character;
-    // public Character Character => _character;
-
-    public ICter Character { get; private set; }
-
     public LayerMask TargetLayer;
     public Transform StartPosition;
     public float DetectRange = 3f;
 
+    public Transform Target { get; set; }
+    public ICter Character { get; private set; }
 
     public StateMachine States = new();
     public IState ChaseState;
@@ -26,12 +21,8 @@ public class EnemyController2 : MonoBehaviour
     {
         if (TryGetComponent<Character>(out var character))
         {
-            // Character2 = character;
             character.SetTargetLayer(TargetLayer);
             Character = character;
-
-            // _character = character;
-            // _character.SetTargetLayer(TargetLayer);
         }
         if (TryGetComponent<CircleCollider2D>(out var colider))
         {

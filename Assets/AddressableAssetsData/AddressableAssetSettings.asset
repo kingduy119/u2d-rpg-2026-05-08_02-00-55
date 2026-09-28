@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 1ec7da210542c47a6904095454dfcd31
   m_currentHash:
     serializedVersion: 2
-    Hash: 09d720b2d596992b0eae545567dbf9e4
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -61,10 +61,12 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
+  - {fileID: 11400000, guid: bb19ce6577c464cdcb91b9c072412ab9, type: 2}
   - {fileID: 11400000, guid: 06ea0e1cdeef0419686aa2fdf17c201d, type: 2}
   - {fileID: 11400000, guid: 2f88b31db3b53413389936785851398b, type: 2}
   - {fileID: 11400000, guid: fe0633be48adf4077adb2bc5d5935922, type: 2}
   - {fileID: 11400000, guid: 64e2c95843fc542ebaf00213575bc531, type: 2}
+  - {fileID: 11400000, guid: 9a871889aa76b470aafeac2dcb4e8d3b, type: 2}
   - {fileID: 11400000, guid: ebe3d4ea0f6304b24924922359ff9475, type: 2}
   - {fileID: 11400000, guid: 7bee65cb1e82348d180c6af2225a4a3a, type: 2}
   - {fileID: 11400000, guid: 7d26c8a06136e466aa056731338a6306, type: 2}
@@ -139,6 +141,8 @@ MonoBehaviour:
     - Tower
     - Enemy
     - Projectile
+    - inventory_projectile
+    - character_pack
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: b34e86b4346074a5293cb342fcef1529, type: 2}

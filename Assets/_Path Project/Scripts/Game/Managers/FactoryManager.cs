@@ -38,8 +38,6 @@ namespace TDGame
         public Enemy GetEnemy(EnemySO type) => EnemyFactory.GetObject(type, ObjectList.transform);
         public Projectile GetProjectile(ProjectileSO type) => ProjectileFactory.GetObject(type, ObjectList.transform);
 
-
-
         private void OnCompeleted(AsyncOperationHandle<IList<GameObject>> asyncHandle)
         {
             if (asyncHandle.Status == AsyncOperationStatus.Succeeded)

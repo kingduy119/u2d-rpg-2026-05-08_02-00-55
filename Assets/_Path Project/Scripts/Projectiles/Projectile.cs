@@ -20,7 +20,6 @@ namespace TDGame
 
         public virtual void Launch(Vector3 shootDirection)
         {
-
             Data = SO.Data.Clone();
             Data.Direction = shootDirection;
         }
