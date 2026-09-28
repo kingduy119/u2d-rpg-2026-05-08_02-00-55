@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Address: Projectile/Arrow
     m_ReadOnly: 0
     m_SerializedLabels:
-    - inventory_projectile
+    - inventory_pack
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}

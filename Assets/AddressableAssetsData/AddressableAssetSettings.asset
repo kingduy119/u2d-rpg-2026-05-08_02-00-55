@@ -141,7 +141,7 @@ MonoBehaviour:
     - Tower
     - Enemy
     - Projectile
-    - inventory_projectile
+    - inventory_pack
     - character_pack
   m_SchemaTemplates: []
   m_GroupTemplateObjects:

@@ -269,6 +269,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1057777700}
   m_SourcePrefab: {fileID: 100100000, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
+--- !u!1 &177594715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 895144261635010806, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
+  m_PrefabInstance: {fileID: 630195265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &337118117
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,69 +470,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 895144261635010806, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1899856278}
   m_SourcePrefab: {fileID: 100100000, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
---- !u!1 &846696434
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 846696436}
-  - component: {fileID: 846696435}
-  - component: {fileID: 846696437}
-  m_Layer: 6
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &846696435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 846696434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8064b2b0132254c728ea18d4f1bc2aea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KeyBoardHandler
-  _controlsSettings: {fileID: 11400000, guid: f71ac6a8fcd4e4d1aa8eac0e1784b636, type: 2}
---- !u!4 &846696436
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 846696434}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.57, y: -0.16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &846696437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 846696434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c705ae00fa1a4f0a97faa94d56ab27d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  _character: {fileID: 1899856269}
-  _characterData: {fileID: 11400000, guid: a31de56aa0978444d932af6a5e4702c2, type: 2}
-  _KeyBoardHandler: {fileID: 846696435}
 --- !u!1 &1037153933
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,8 +504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d537d3acbb3d4cb8a70a01c279418bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.GameManagerView
-  projectilePrefab: {fileID: 1447171813455009458, guid: 181af78c862fe409ea7759b7b7c011f8, type: 3}
   projectSO: {fileID: 11400000, guid: 5905931cbe9b7432b9692780faa8df99, type: 2}
+  KeyBoard: {fileID: 4280476658468880056, guid: 2117113d46c6b4d85b71a31e75bfc141, type: 3}
 --- !u!4 &1037153935
 Transform:
   m_ObjectHideFlags: 0
@@ -635,17 +582,19 @@ Transform:
   - {fileID: 7719837303175977091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1899856269 stripped
+--- !u!114 &1899856278
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -3943840454203814637, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
-  m_PrefabInstance: {fileID: 630195265}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 177594715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b143b243c69a949ee908af5ef93e7162, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c705ae00fa1a4f0a97faa94d56ab27d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Characters.Warrior
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  _characterData: {fileID: 11400000, guid: a31de56aa0978444d932af6a5e4702c2, type: 2}
 --- !u!1001 &195909130233807656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -851,7 +800,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 337118120}
   - {fileID: 630195265}
-  - {fileID: 846696436}
   - {fileID: 1814519061}
   - {fileID: 50864189}
   - {fileID: 1037153935}
