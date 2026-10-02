@@ -117,7 +117,7 @@ namespace Characters
             await UniTask.Delay(100);
             _Character.Anim.SetBool(IsAttacking1Hash, false);
 
-            await UniTask.Delay(200);
+            // await UniTask.Delay(200);
             _attacking = false;
             _attackCooldown = _combatData.AttackSpeed;
         }

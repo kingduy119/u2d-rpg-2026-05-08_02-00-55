@@ -238,8 +238,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_Size: {x: 0.7277447, y: 0.96190095}
+  m_Offset: {x: 0.003755331, y: 0.30405855}
+  m_Size: {x: 0.26958704, y: 0.434824}
   m_Direction: 0
 --- !u!58 &4837512618309524616
 CircleCollider2D:
@@ -311,8 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb98837be1c34772a653154db168ae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Characters.Archer
-  _rigidbody: {fileID: 858584433833323672}
-  _animator: {fileID: 14242581468485720}
   Data: {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
   AttackPoint: {fileID: 7008702837299981824}
 --- !u!114 &6282478407789202689

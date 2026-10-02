@@ -427,13 +427,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 5769629493382312384, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7384290322352760091, guid: 63555c658eb534f48acbb1ba682fbec3, type: 3}
     - target: {fileID: 6762076565742795680, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.55
+      value: -1.83
       objectReference: {fileID: 0}
     - target: {fileID: 6762076565742795680, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.07
+      value: -4.12
       objectReference: {fileID: 0}
     - target: {fileID: 6762076565742795680, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
       propertyPath: m_LocalPosition.z
@@ -465,6 +469,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6762076565742795680, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828370373715339174, guid: 5ab1beca735e04cda8cc5c558312ba26, type: 3}
+      propertyPath: _color
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -573,7 +581,7 @@ Transform:
   m_GameObject: {fileID: 1814519060}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.76, y: -1.95, z: 0}
+  m_LocalPosition: {x: 1.22, y: -1.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
