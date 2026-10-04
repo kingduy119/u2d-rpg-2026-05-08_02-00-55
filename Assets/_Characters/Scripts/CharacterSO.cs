@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Characters
@@ -8,20 +9,23 @@ namespace Characters
     [CreateAssetMenu(fileName = "CharacterSO", menuName = "Character/CharacterSO")]
     public class CharacterSO : ScriptableObject
     {
+        public CterType Type;
         public MoveData Move;
         public CombatData Combat;
 
         public CterColorData CharacterColors;
+
+        public List<CharacterSetting> colors;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class MoveData
     {
         public float Speed = 1f;
         public float MaxSpeed = 5f;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class CombatData
     {
         public float AttackDamage = 1f;
@@ -29,7 +33,7 @@ namespace Characters
         public float AttackSpeed = 1f;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class CterColorData
     {
         public Sprite BlueSprite;

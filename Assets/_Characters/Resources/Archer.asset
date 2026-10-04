@@ -12,15 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570a66109ec1d48a28b0917be0feabe9, type: 3}
   m_Name: Archer
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterSO
+  Type: 1
   Move:
     Speed: 2
     MaxSpeed: 5
   Combat:
     AttackDamage: 1
-    AttackRange: 3
+    AttackRange: 2.5
     AttackSpeed: 1
   CharacterColors:
     BlueSprite: {fileID: 7257567913506708742, guid: 72c22f22ea5e4488390ba536cd5ab98d, type: 3}
     RedSprite: {fileID: 7257567913506708742, guid: 277a50fd24135436398811e3293b2aa2, type: 3}
     BlueAnimController: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
     RedAnimController: {fileID: 22100000, guid: ce0caffffd7c2498b939afe8ed82b8ae, type: 2}
+  colors:
+  - color: 0
+    Sprite: {fileID: 7257567913506708742, guid: 72c22f22ea5e4488390ba536cd5ab98d, type: 3}
+    AnimController: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
+  - color: 1
+    Sprite: {fileID: 7257567913506708742, guid: 277a50fd24135436398811e3293b2aa2, type: 3}
+    AnimController: {fileID: 22100000, guid: ce0caffffd7c2498b939afe8ed82b8ae, type: 2}

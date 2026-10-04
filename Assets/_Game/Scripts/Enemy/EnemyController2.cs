@@ -26,7 +26,8 @@ public class EnemyController2 : MonoBehaviour
         }
         if (TryGetComponent<CircleCollider2D>(out var colider))
         {
-            colider.radius = DetectRange;
+            // colider.radius = DetectRange;
+            colider.radius = Character.SO.Combat.AttackRange;
         }
     }
 

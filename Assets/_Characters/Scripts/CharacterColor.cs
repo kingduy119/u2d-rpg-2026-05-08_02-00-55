@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Characters
@@ -6,13 +7,18 @@ namespace Characters
 
     public class CharacterColor : MonoBehaviour
     {
+        [SerializeField] protected CterType _cterType = CterType.Warrior;
         [SerializeField] protected Colors _color = Colors.Blue;
+
         [SerializeField] private SpriteRenderer _spriteRender;
         [SerializeField] private CharacterSO _Data;
-        private Animator _animator;
+        [SerializeField] private Animator _animator;
+
+        [SerializeField] private List<CharacterSO> _character;
 
         private void OnValidate()
         {
+            SetCharater(_cterType);
             SetSprite(_color);
         }
 
@@ -25,14 +31,26 @@ namespace Characters
             }
         }
 
+        public void SetCharater(CterType type)
+        {
+            var entry = _character.Find(cter => cter.Type == type);
+
+            if (entry != null)
+                _Data = entry;
+        }
+
         public void SetColors(Colors color)
         {
-            _animator.runtimeAnimatorController = color switch
-            {
-                Colors.Blue => _Data.CharacterColors.BlueAnimController,
-                Colors.Red => _Data.CharacterColors.RedAnimController,
-                _ => _Data.CharacterColors.BlueAnimController
-            };
+            var cterColor = _Data.colors.Find(entry => entry.color == color);
+
+            if (cterColor != null)
+                _animator.runtimeAnimatorController = cterColor.AnimController;
+            // _animator.runtimeAnimatorController = color switch
+            // {
+            //     Colors.Blue => _Data.CharacterColors.BlueAnimController,
+            //     Colors.Red => _Data.CharacterColors.RedAnimController,
+            //     _ => _Data.CharacterColors.BlueAnimController
+            // };
         }
 
         private void SetSprite(Colors color)

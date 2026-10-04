@@ -70,10 +70,10 @@ public class EnemyChaseState : EnemyState
 
     private bool HasTargetInAttackRange()
     {
-        float detectRange = _character.GetData().Combat.AttackRange;
+        float detectRange = _character.SO.Combat.AttackRange;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(
             // _character.AttackPoint.position,
-            _character.GetAttackPoint().position,
+            _character.AttackPoint.position,
             detectRange,
             _EnemyCtl.TargetLayer);
 

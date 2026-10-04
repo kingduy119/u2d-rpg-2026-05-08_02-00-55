@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570a66109ec1d48a28b0917be0feabe9, type: 3}
   m_Name: Lancer
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterSO
+  Type: 2
   Move:
     Speed: 2
     MaxSpeed: 5
@@ -24,3 +25,10 @@ MonoBehaviour:
     RedSprite: {fileID: -594197781322936934, guid: fba04cf817a7246ec99f9c85cf9ef600, type: 3}
     BlueAnimController: {fileID: 22100000, guid: 127e60917d2ab4958b4597233bc8adca, type: 2}
     RedAnimController: {fileID: 22100000, guid: d103b799156cb42c8869d1c9a5d8d36a, type: 2}
+  colors:
+  - color: 0
+    Sprite: {fileID: -594197781322936934, guid: 2307ce0d618cb4ea2be2cb2a4148cbde, type: 3}
+    AnimController: {fileID: 22100000, guid: 127e60917d2ab4958b4597233bc8adca, type: 2}
+  - color: 0
+    Sprite: {fileID: -594197781322936934, guid: fba04cf817a7246ec99f9c85cf9ef600, type: 3}
+    AnimController: {fileID: 22100000, guid: d103b799156cb42c8869d1c9a5d8d36a, type: 2}

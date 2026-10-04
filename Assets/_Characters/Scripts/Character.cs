@@ -3,24 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public enum Colors
-{
-    Blue,
-    Red,
-}
 namespace Characters
 {
-
-    public interface ICterAction
-    {
-        void Idle();
-        void Move(Vector2 input);
-        void Attack(Transform target);
-    }
-
-    public interface ICter : ICterAbstract, ICterAction { }
-
-    [RequireComponent(typeof(CharacterColor))]
     public class Character : CharacterAbstract,
     ICter,
     IPoolable<Character>
@@ -36,8 +20,6 @@ namespace Characters
         public ICterState idleState;
         public ICterState moveState;
         public ICterState combatState;
-
-        public CharacterSO SO => Data;
 
         protected readonly List<ICterState> _states = new();
 

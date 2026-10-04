@@ -39,7 +39,7 @@ namespace Characters
         private static readonly int RunSpeedHash = Animator.StringToHash("RunSpeed");
         public MovementSate(Character character) : base(character)
         {
-            Data = _Character.GetData().Move;
+            Data = _Character.SO.Move;
         }
 
         public override void Execute()
@@ -82,7 +82,7 @@ namespace Characters
 
         public CombatState(Character character) : base(character)
         {
-            _combatData = character.GetData().Combat;
+            _combatData = character.SO.Combat;
         }
 
         public override void Enter()

@@ -6,27 +6,24 @@ namespace Characters
 {
     public interface ICterAbstract
     {
-        Transform GetAttackPoint();
-        CharacterSO GetData();
+        CharacterSO SO { get; set; }
+        Transform AttackPoint { get; }
 
         void SetTarget(Transform target);
-        // Vector2 Get
-
-        void SetData(CharacterSO data);
         void Flip();
     }
 
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(CharacterColor))]
     public abstract class CharacterAbstract : MonoBehaviour,
     ICterAbstract
     {
         [SerializeField] protected CharacterSO Data;
-        public CharacterSO GetData() => Data;
-        public void SetData(CharacterSO data) => Data = data;
 
-        public Transform AttackPoint;
-        public Transform GetAttackPoint() => AttackPoint;
+        public CharacterSO SO { get; set; }
+
+        public Transform AttackPoint { get; private set; }
 
         public Rigidbody2D Rb { get; private set; }
         public Animator Anim { get; private set; }
@@ -35,9 +32,13 @@ namespace Characters
         {
             Anim = GetComponent<Animator>();
             Rb = GetComponent<Rigidbody2D>();
+
+            AttackPoint = transform.Find("attack_point");
+            SO = Data;
         }
 
         public Transform Target { get; protected set; }
+
         public void SetTarget(Transform target) => Target = target;
 
         public void Flip()

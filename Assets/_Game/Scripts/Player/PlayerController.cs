@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
             _character = character;
             _character.gameObject.tag = "Player";
             _character.gameObject.layer = LayerMask.NameToLayer("Player");
-            if (_characterData) _character.SetData(_characterData);
+            if (_characterData) _character.SO = _characterData;
         }
         _KeyBoardHandler = GameManagerView.Instance.KeyBoard;
     }
