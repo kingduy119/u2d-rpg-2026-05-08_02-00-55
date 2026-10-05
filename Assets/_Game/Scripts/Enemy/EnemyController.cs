@@ -1,6 +1,6 @@
 using UnityEngine;
-[RequireComponent(typeof(EnemyMovement))]
 
+[RequireComponent(typeof(EnemyMovement))]
 [RequireComponent(typeof(EnemyCombat))]
 public class EnemyController : MonoBehaviour
 {

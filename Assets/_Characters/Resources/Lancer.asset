@@ -9,26 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 570a66109ec1d48a28b0917be0feabe9, type: 3}
+  m_Script: {fileID: 11500000, guid: 95b0702a0f554408cadd772e1d4ca736, type: 3}
   m_Name: Lancer
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterSO
-  Type: 2
+  Type: 0
   Move:
     Speed: 2
     MaxSpeed: 5
   Combat:
     AttackDamage: 1
-    AttackRange: 1.5
-    AttackSpeed: 1.5
-  CharacterColors:
-    BlueSprite: {fileID: -594197781322936934, guid: 2307ce0d618cb4ea2be2cb2a4148cbde, type: 3}
-    RedSprite: {fileID: -594197781322936934, guid: fba04cf817a7246ec99f9c85cf9ef600, type: 3}
-    BlueAnimController: {fileID: 22100000, guid: 127e60917d2ab4958b4597233bc8adca, type: 2}
-    RedAnimController: {fileID: 22100000, guid: d103b799156cb42c8869d1c9a5d8d36a, type: 2}
+    AttackRange: 1
+    AttackSpeed: 1
+  Health:
+    Health: 100
+    MaxHealth: 100
+    HealthRegen: 1
   colors:
   - color: 0
     Sprite: {fileID: -594197781322936934, guid: 2307ce0d618cb4ea2be2cb2a4148cbde, type: 3}
     AnimController: {fileID: 22100000, guid: 127e60917d2ab4958b4597233bc8adca, type: 2}
-  - color: 0
+  - color: 1
     Sprite: {fileID: -594197781322936934, guid: fba04cf817a7246ec99f9c85cf9ef600, type: 3}
     AnimController: {fileID: 22100000, guid: d103b799156cb42c8869d1c9a5d8d36a, type: 2}

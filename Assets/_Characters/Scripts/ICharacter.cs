@@ -17,12 +17,23 @@ namespace Characters
         Lancer
     }
 
+    public interface ICterAbstract
+    {
+        CharacterSO SO { get; set; }
+
+        void Flip();
+    }
+
     public interface ICterAction
     {
+        Transform AttackPoint { get; }
+        Transform Target { get; }
+
         void Idle();
         void Move(Vector2 input);
         void Attack(Transform target);
     }
 
     public interface ICter : ICterAbstract, ICterAction { }
+
 }

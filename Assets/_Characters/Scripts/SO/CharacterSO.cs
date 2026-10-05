@@ -12,10 +12,17 @@ namespace Characters
         public CterType Type;
         public MoveData Move;
         public CombatData Combat;
-
-        public CterColorData CharacterColors;
+        public HealthData Health;
 
         public List<CharacterSetting> colors;
+    }
+
+    [Serializable]
+    public class HealthData
+    {
+        public float Health = 100f;
+        public float MaxHealth = 100f;
+        public float HealthRegen = 1f;
     }
 
     [Serializable]
@@ -34,13 +41,11 @@ namespace Characters
     }
 
     [Serializable]
-    public class CterColorData
+    public class CharacterSetting //: ScriptableObject
     {
-        public Sprite BlueSprite;
-        public Sprite RedSprite;
-
-        public RuntimeAnimatorController BlueAnimController;
-        public RuntimeAnimatorController RedAnimController;
+        public Colors color;
+        public Sprite Sprite;
+        public RuntimeAnimatorController AnimController;
     }
 
 }

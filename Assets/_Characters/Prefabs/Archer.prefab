@@ -77,8 +77,8 @@ GameObject:
   - component: {fileID: 5668512051899557652}
   - component: {fileID: 4837512618309524616}
   - component: {fileID: 14242581468485720}
-  - component: {fileID: 102697656217055125}
   - component: {fileID: 6282478407789202689}
+  - component: {fileID: 102697656217055125}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -299,20 +299,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &102697656217055125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7952176792834153605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccb98837be1c34772a653154db168ae5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Characters.Archer
-  Data: {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
-  AttackPoint: {fileID: 7008702837299981824}
 --- !u!114 &6282478407789202689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,4 +313,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterColor
   _color: 0
   _spriteRender: {fileID: 7682893477901254411}
-  _Data: {fileID: 11400000, guid: 0fcbd4149145d41078048b18bf4538be, type: 2}
+  _animator: {fileID: 14242581468485720}
+  SO: {fileID: 11400000, guid: 0fcbd4149145d41078048b18bf4538be, type: 2}
+  _character: {fileID: 102697656217055125}
+--- !u!114 &102697656217055125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952176792834153605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb98837be1c34772a653154db168ae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Characters.Archer
+  DefaultSO: {fileID: 11400000, guid: 0fcbd4149145d41078048b18bf4538be, type: 2}

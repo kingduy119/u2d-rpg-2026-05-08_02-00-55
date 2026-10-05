@@ -14,6 +14,8 @@ namespace Characters
         public void SetTargetLayer(LayerMask layer) => TargetLayer = layer;
 
         public Vector2 Direction { get; private set; }
+        public Transform AttackPoint { get; private set; }
+        public Transform Target { get; set; }
 
         public StateMachine States = new();
         public ICterState nextState;
@@ -22,6 +24,12 @@ namespace Characters
         public ICterState combatState;
 
         protected readonly List<ICterState> _states = new();
+
+        protected override void Awake()
+        {
+            base.Awake();
+            AttackPoint = transform.Find("attack_point");
+        }
 
         protected virtual void Start()
         {

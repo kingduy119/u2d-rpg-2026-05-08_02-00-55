@@ -132,7 +132,7 @@ namespace Characters
 
             if (targets.Length > 0)
             {
-                Debug.Log("CheckAttackCollision2D");
+                DamageableHelper.TakeDamage(targets[0].gameObject, _combatData.AttackDamage);
             }
         }
     }

@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 148416498755832778}
   - component: {fileID: 1753178906760864102}
   - component: {fileID: 3821110412936506013}
-  - component: {fileID: 6241873386116146722}
   - component: {fileID: 1666244644192830544}
+  - component: {fileID: 6241873386116146722}
   m_Layer: 0
   m_Name: Lancer
   m_TagString: Untagged
@@ -225,7 +225,7 @@ Animator:
   m_GameObject: {fileID: 317358049924731491}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 535a2a71599644017a3cbab73804bf03, type: 2}
+  m_Controller: {fileID: 22100000, guid: 127e60917d2ab4958b4597233bc8adca, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -237,20 +237,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6241873386116146722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 317358049924731491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684f99892b28a4cad81100b4b6f2a78c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Characters.Lancer
-  Data: {fileID: 11400000, guid: 3f59213fc5f614fbb8549a37d943cbd3, type: 2}
-  AttackPoint: {fileID: 3388297517314296321}
 --- !u!114 &1666244644192830544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +251,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterColor
   _color: 0
   _spriteRender: {fileID: 2954603145235056392}
-  _Data: {fileID: 11400000, guid: 3f59213fc5f614fbb8549a37d943cbd3, type: 2}
+  _animator: {fileID: 3821110412936506013}
+  _character: {fileID: 6241873386116146722}
+--- !u!114 &6241873386116146722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317358049924731491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684f99892b28a4cad81100b4b6f2a78c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Characters.Lancer
+  DefaultSO: {fileID: 11400000, guid: 3f59213fc5f614fbb8549a37d943cbd3, type: 2}
 --- !u!1 &5176238593595240974
 GameObject:
   m_ObjectHideFlags: 0

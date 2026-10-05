@@ -21,12 +21,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - character_pack
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5ab1beca735e04cda8cc5c558312ba26
-    m_Address: Cter/Warrior
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - character_pack
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b30740fb2a99f4351bd2dc14e23c79d7
     m_Address: Cter/Lancer
     m_ReadOnly: 0
