@@ -38,6 +38,7 @@ namespace Characters
         public float AttackDamage = 1f;
         public float AttackRange = 1f;
         public float AttackSpeed = 1f;
+        public float DetectionRange = 1f;
     }
 
     [Serializable]

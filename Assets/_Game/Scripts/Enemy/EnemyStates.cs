@@ -15,7 +15,6 @@ public class EnemyState : State
 
 public class EnemyChaseState : EnemyState
 {
-    // readonly Character _character;
     readonly ICter _character;
     Vector3 _startPos;
     bool _GoingBack;
@@ -24,14 +23,6 @@ public class EnemyChaseState : EnemyState
     {
         _character = _EnemyCtl.Character;
         _startPos = _EnemyCtl.StartPosition.position;
-    }
-
-    public override void Enter()
-    {
-        if (_EnemyCtl.gameObject.name == "Archer Red")
-        {
-            Debug.Log("EnemeyChaseState.Enter");
-        }
     }
 
     public override void Execute()
@@ -63,36 +54,34 @@ public class EnemyChaseState : EnemyState
         _EnemyCtl.States.TransitionTo(_EnemyCtl.WanderState);
     }
 
-    public override void Exit()
-    {
-        _character.Idle();
-    }
-
     private bool HasTargetInAttackRange()
     {
-        float detectRange = _character.SO.Combat.AttackRange;
+        float attackRange = _character.SO.Combat.AttackRange;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(
-            // _character.AttackPoint.position,
             _character.AttackPoint.position,
-            detectRange,
+            attackRange,
             _EnemyCtl.TargetLayer);
 
         if (colliders.Length > 0)
         {
             Transform target = colliders[0].transform;
             float distance = Vector2.Distance(_EnemyCtl.transform.position, target.position);
-            return distance <= detectRange;
+            return distance <= attackRange;
         }
         return false;
     }
 
+    public override void Exit()
+    {
+        _character.Idle();
+    }
 }
 
 public class EnemyWanderState : EnemyState
 {
     private bool _Paused;
-    private float width = 6f;
-    private float height = 6f;
+    private float width = 3f;
+    private float height = 3f;
     private Vector3 target;
     private Vector3 _startPost;
 
@@ -103,13 +92,7 @@ public class EnemyWanderState : EnemyState
 
     public override void Enter()
     {
-        // _EnemyCtl.StartCoroutine(PauseAndPickNewDestination());
         PauseAndPickNewDestination().Forget();
-
-        if (_EnemyCtl.gameObject.name == "Archer Red")
-        {
-            Debug.Log("EnemyWanderState.Enter");
-        }
     }
 
     public override void Execute()
@@ -118,12 +101,9 @@ public class EnemyWanderState : EnemyState
 
         Vector3 position = _EnemyCtl.transform.position;
         Vector2 offset = target - position;
+
         if (offset.sqrMagnitude < .1f) // distance
-        {
-            // _EnemyCtl.StartCoroutine(PauseAndPickNewDestination());
             PauseAndPickNewDestination().Forget();
-            // return;
-        }
 
         offset = target - position;
         _EnemyCtl.Character.Move(offset);
@@ -131,13 +111,11 @@ public class EnemyWanderState : EnemyState
         if (_EnemyCtl.Target) _EnemyCtl.States.TransitionTo(_EnemyCtl.ChaseState);
     }
 
-    // private IEnumerator PauseAndPickNewDestination()
     private async UniTask PauseAndPickNewDestination()
     {
         _Paused = true;
         _EnemyCtl.Character.Idle();
         await UniTask.Delay(2000); // 2s
-        // yield return new WaitForSeconds(_PauseDuration);
 
         target = GetRandomTarget();
         _Paused = false;

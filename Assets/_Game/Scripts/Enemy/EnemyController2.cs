@@ -3,12 +3,12 @@ using Characters;
 
 
 [RequireComponent(typeof(Character))]
-[RequireComponent(typeof(CircleCollider2D))]
+// [RequireComponent(typeof(CircleCollider2D))]
 public class EnemyController2 : MonoBehaviour
 {
     public LayerMask TargetLayer;
     public Transform StartPosition;
-    public float DetectRange = 3f;
+    // public float DetectRange = 3f;
 
     public Transform Target { get; set; }
     public ICter Character { get; private set; }
@@ -24,11 +24,10 @@ public class EnemyController2 : MonoBehaviour
             character.SetTargetLayer(TargetLayer);
             Character = character;
         }
-        if (TryGetComponent<CircleCollider2D>(out var colider))
-        {
-            // colider.radius = DetectRange;
-            colider.radius = Character.SO.Combat.AttackRange;
-        }
+        // if (TryGetComponent<CircleCollider2D>(out var colider))
+        // {
+        //     colider.radius = Character.SO.Combat.DetectionRange;
+        // }
     }
 
     private void Start()
@@ -40,23 +39,35 @@ public class EnemyController2 : MonoBehaviour
 
     private void Update()
     {
+        CheckTargetInRange();
         States.Execute();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void CheckTargetInRange()
     {
-        if (collision.CompareTag("Player"))
-        {
-            Target = collision.transform;
-        }
+        var colider = Physics2D.OverlapCircle(
+            transform.position,
+            Character.SO.Combat.DetectionRange,
+            TargetLayer);
+
+        if (colider) Target = colider.transform;
+        else Target = null;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Target = null;
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.CompareTag("Player"))
+    //     {
+    //         Target = collision.transform;
+    //     }
+    // }
+
+    // private void OnTriggerExit2D(Collider2D collision)
+    // {
+    //     if (collision.CompareTag("Player"))
+    //     {
+    //         Target = null;
+    //     }
+    // }
 }
 

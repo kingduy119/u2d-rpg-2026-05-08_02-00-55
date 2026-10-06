@@ -29,8 +29,13 @@ namespace Game
         private void Character_Shoot(Character cter)
         {
             Vector2 direction = (cter.Target.position - cter.transform.position).normalized;
-            var go = Factory.GetPrefab(projectSO);
-            if (go) go.Launch(cter.transform, direction);
+            var projectile = Factory.GetPrefab(projectSO);
+
+            if (projectile)
+            {
+                projectile.Target = cter.Target.gameObject;
+                projectile.Launch(cter.AttackPoint.transform, direction);
+            }
         }
     }
 

@@ -132,7 +132,7 @@ namespace Characters
 
             if (targets.Length > 0)
             {
-                DamageableHelper.TakeDamage(targets[0].gameObject, _combatData.AttackDamage);
+                DamageableHelper.CheckCollisionInterfaces(targets[0].gameObject, _combatData.AttackDamage);
             }
         }
     }
@@ -146,6 +146,7 @@ namespace Characters
         {
             if (!AttackActive) return;
 
+            FlipToShoot();
             _attacking = true;
             _Character.Anim.SetBool(IsAttacking1Hash, true);
 
@@ -158,6 +159,18 @@ namespace Characters
             await UniTask.Delay(200);
             _attacking = false;
             _attackCooldown = _combatData.AttackSpeed;
+        }
+
+        private void FlipToShoot()
+        {
+            if (_Character.Target == null) return;
+
+            Vector2 direction = (_Character.Target.position - _Character.transform.position).normalized;
+            if (direction.x > 0 && _Character.transform.localScale.x < 0 ||
+                direction.x < 0 && _Character.transform.localScale.x > 0)
+            {
+                _Character.Flip();
+            }
         }
     }
 

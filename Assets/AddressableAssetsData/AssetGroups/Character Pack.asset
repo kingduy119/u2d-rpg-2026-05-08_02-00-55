@@ -14,19 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Character Pack
   m_GUID: 7b68e4f715ab4405197d238bc76abd5f
-  m_SerializeEntries:
-  - m_GUID: 3ccf9727d809c41c0aa0524c0a87689e
-    m_Address: Cter/Archer
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - character_pack
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b30740fb2a99f4351bd2dc14e23c79d7
-    m_Address: Cter/Lancer
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - character_pack
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
   m_SchemaSet:

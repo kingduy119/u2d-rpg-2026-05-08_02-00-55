@@ -7,15 +7,19 @@ namespace Characters
     public class CharacterDraw : MonoBehaviour
     {
         public bool ShowRadius;
+        public Character character;
         public Transform AttackPoint;
-        public float AttackRange;
+
 
         private void OnDrawGizmosSelected()
         {
             if (!ShowRadius) return;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
+            Gizmos.DrawWireSphere(AttackPoint.transform.position, character.SO.Combat.AttackRange);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, character.SO.Combat.DetectionRange);
 
         }
     }

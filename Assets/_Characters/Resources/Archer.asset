@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterSO
   Type: 0
   Move:
-    Speed: 2
-    MaxSpeed: 5
+    Speed: 1
+    MaxSpeed: 3
   Combat:
     AttackDamage: 1
-    AttackRange: 1
+    AttackRange: 2.3
     AttackSpeed: 1
+    DetectionRange: 3
   Health:
     Health: 100
     MaxHealth: 100

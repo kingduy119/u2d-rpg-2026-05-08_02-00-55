@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2501842449403141547, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4481257123063745996, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 2186264064421168102}
+    - target: {fileID: 4481257123063745996, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+      propertyPath: ShowRadius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5539325565991654599, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.82353
@@ -75,6 +87,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6109286871209994989, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2186264064421168102}
+    - targetCorrespondingSourceObject: {fileID: 6109286871209994989, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2479751996634614016}
   m_SourcePrefab: {fileID: 100100000, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
 --- !u!1 &6520057707645219398 stripped
 GameObject:
@@ -94,3 +109,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Characters.Archer
   DefaultSO: {fileID: 11400000, guid: 0fcbd4149145d41078048b18bf4538be, type: 2}
+--- !u!114 &-2479751996634614016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6520057707645219398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79fecee81b425477ba2d97e1c0b62c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterColor
+  _color: 0
+  _spriteRender: {fileID: 9080141315569386078, guid: 51b711c3541f947e8b9ce24241cf8086, type: 3}
+  _animator: {fileID: 7357077546305493981, guid: 51b711c3541f947e8b9ce24241cf8086, type: 3}
+  _character: {fileID: 2186264064421168102}

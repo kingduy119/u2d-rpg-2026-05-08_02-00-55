@@ -23,7 +23,7 @@ public interface IDamageable
 
 public static class DamageableHelper
 {
-    public static void TakeDamage(GameObject go, float amount)
+    public static void CheckCollisionInterfaces(GameObject go, float amount)
     {
         var monoBehaviours = go.GetComponents<MonoBehaviour>();
         foreach (var monoBehaviour in monoBehaviours)

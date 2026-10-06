@@ -1,4 +1,5 @@
 
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -11,8 +12,10 @@ namespace Weapons
         public ProjectSO SO;
         ProjectileData Data;
         Vector3 Direction;
-
         float _lifeTime;
+
+        public GameObject Target;
+
         void Awake()
         {
             Data = new(SO.Data);
@@ -41,6 +44,16 @@ namespace Weapons
         {
             float angle = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            string targetLayerName = LayerMask.LayerToName(Target.layer);
+
+            if (!collision.CompareTag(targetLayerName)) return;
+
+            DamageableHelper.CheckCollisionInterfaces(collision.gameObject, Data.Damage);
+            Deactivate();
         }
 
         public virtual void Deactivate()

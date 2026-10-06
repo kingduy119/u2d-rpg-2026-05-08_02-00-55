@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4481257123063745996, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1906113126319652816}
     - target: {fileID: 5539325565991654599, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.82353
@@ -71,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6109286871209994989, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1906113126319652816}
+    - targetCorrespondingSourceObject: {fileID: 6109286871209994989, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4169105672743394309}
   m_SourcePrefab: {fileID: 100100000, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
 --- !u!1 &5395266676470948554 stripped
 GameObject:
@@ -90,3 +97,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Characters.Lancer
   DefaultSO: {fileID: 11400000, guid: 3f59213fc5f614fbb8549a37d943cbd3, type: 2}
+--- !u!114 &4169105672743394309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5395266676470948554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79fecee81b425477ba2d97e1c0b62c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterColor
+  _color: 0
+  _spriteRender: {fileID: 9080141315569386078}
+  _animator: {fileID: 7357077546305493981}
+  _character: {fileID: 1906113126319652816}
+--- !u!95 &7357077546305493981 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8651077823977149434, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+  m_PrefabInstance: {fileID: 2168301245144516647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &9080141315569386078 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6923297153456327289, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+  m_PrefabInstance: {fileID: 2168301245144516647}
+  m_PrefabAsset: {fileID: 0}
