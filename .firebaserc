@@ -1,0 +1,43 @@
+{
+  "hosting": {
+    "public": "BuildData",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(hash|json|bin)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "**/*.bundle",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/octet-stream"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      }
+    ]
+  }
+}
