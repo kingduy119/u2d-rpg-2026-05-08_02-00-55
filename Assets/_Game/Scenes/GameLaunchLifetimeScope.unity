@@ -1837,7 +1837,7 @@ GameObject:
   - component: {fileID: 1605151542}
   - component: {fileID: 1605151541}
   m_Layer: 0
-  m_Name: Lifetimescropt
+  m_Name: GameLifetimeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

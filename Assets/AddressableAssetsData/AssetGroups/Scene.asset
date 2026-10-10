@@ -10,11 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Character Pack
+  m_Name: Scene
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Character Pack
+  m_GroupName: Scene
   m_GUID: 7b68e4f715ab4405197d238bc76abd5f
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 3ac8c8509151d427684facdbb97c9024
+    m_Address: GameLifetimeScope
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
   m_SchemaSet:

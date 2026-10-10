@@ -54,7 +54,7 @@ public class DialogueManager : MonoBehaviour
     private void ShowDialogure()
     {
         DialogueLine line = currentDialogue.lines[dialogueIndex];
-        GameManager.Instance.dialogueHistoryTracker.RecordNPC(line.speaker);
+        GameManagerRPG.Instance.dialogueHistoryTracker.RecordNPC(line.speaker);
 
         portrait.sprite = line.speaker.portrait;
         actorName.text = line.speaker.actorName;

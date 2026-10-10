@@ -35,6 +35,10 @@ namespace Characters
             }
 
             Debug.Log("HealthBarView: Character is dead");
+            if (TryGetComponent<Character>(out var character))
+            {
+                character.Dead();
+            }
         }
 
         private void UpdateUI()

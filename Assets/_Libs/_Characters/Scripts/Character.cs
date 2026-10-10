@@ -85,6 +85,14 @@ namespace Characters
                 nextState = combatState;
         }
 
+        public void Dead()
+        {
+            if (Pool != null)
+                Pool.Release(this);
+            else
+                Destroy(gameObject);
+        }
+
     }
 
 }

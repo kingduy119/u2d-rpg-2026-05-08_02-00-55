@@ -32,6 +32,7 @@ namespace Characters
         void Idle();
         void Move(Vector2 input);
         void Attack(Transform target);
+        void Dead();
     }
 
     public interface ICter : ICterAbstract, ICterAction { }

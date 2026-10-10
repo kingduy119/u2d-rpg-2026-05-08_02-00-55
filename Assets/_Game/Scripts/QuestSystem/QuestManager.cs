@@ -110,9 +110,9 @@ public class QuestManager : MonoBehaviour
 
         if (questObjective.targetItem != null)
             newAmount = InventoryManager.Instance.GetItemQuantity(questObjective.targetItem);
-        else if (questObjective.targetLocation != null && GameManager.Instance.locationHistoryTracker.HasVisited(questObjective.targetLocation))
+        else if (questObjective.targetLocation != null && GameManagerRPG.Instance.locationHistoryTracker.HasVisited(questObjective.targetLocation))
             newAmount = questObjective.requiredAmount;
-        else if (questObjective.targetNPC != null && GameManager.Instance.dialogueHistoryTracker.HasSpokenWith(questObjective.targetNPC))
+        else if (questObjective.targetNPC != null && GameManagerRPG.Instance.dialogueHistoryTracker.HasSpokenWith(questObjective.targetNPC))
             newAmount = questObjective.requiredAmount;
 
         progressDictionary[questObjective] = newAmount;

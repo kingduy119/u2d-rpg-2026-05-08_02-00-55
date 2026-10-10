@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 1ec7da210542c47a6904095454dfcd31
   m_currentHash:
     serializedVersion: 2
-    Hash: 382b7cf9bf986aa0dafa385733a28d52
+    Hash: 4bdec5e76bcc66463d6b7bd9d3ca67d3
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
       m_ProfileName: Default
       m_Values:
       - m_Id: 088a52d0380664d3197dee96c634f9db
-        m_Value: there
+        m_Value: 'https://unity-2d-d9ec9.firebaseapp.com/[BuildTarget]'
       - m_Id: 3e509612936364e609c69323a05d18c9
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 4dfe2f13bc23345b2b3f83214be595ce

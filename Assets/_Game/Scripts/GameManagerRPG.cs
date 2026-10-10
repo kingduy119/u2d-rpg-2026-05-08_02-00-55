@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManagerRPG : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManagerRPG Instance;
 
     public GameObject[] persistentObjects;
 

@@ -3,13 +3,33 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine;
 using Characters;
 using Weapons;
+using VContainer.Unity;
+using System;
+
+
+public class FactoryService : FactoryManager,
+    IStartable, IDisposable
+{
+    public FactoryService() : base() { }
+
+    public void Start()
+    {
+        // throw new NotImplementedException();
+        LoadAssets();
+        Debug.Log("FactoryService.Start");
+    }
+
+    public void Dispose()
+    {
+        // throw new NotImplementedException();
+        Debug.Log("FactoryService.Dispose");
+    }
+}
 
 public class FactoryManager
 {
-    readonly AddressableLoader loader = new AddressableLoader(new[] {
-            "inventory_pack",
-            "character_pack"
-        });
+    private readonly string[] keys = { "inventory_pack", "character_pack" };
+    protected readonly AddressableLoader loader = new();
     private readonly Factory<ProjectSO, Projectile> projectiles = new("ProjectFactory");
     private readonly Factory<CharacterSO, Character> characters = new("CharacterFactory");
 
@@ -18,11 +38,12 @@ public class FactoryManager
 
     public void LoadAssets()
     {
-        loader.LoadAssetsAsync().Completed += OnCompeleted;
+        loader.LoadAssetsAsync(keys).Completed += OnCompeleted;
     }
 
-    private void OnCompeleted(AsyncOperationHandle<IList<GameObject>> asyncHandle)
+    protected void OnCompeleted(AsyncOperationHandle<IList<GameObject>> asyncHandle)
     {
+        Debug.Log($"FactoryManager.OnCompeleted: {asyncHandle.Status}");
         if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
         {
             IList<GameObject> results = asyncHandle.Result;
@@ -43,7 +64,6 @@ public class FactoryManager
 
     public void Release()
     {
-        // projectiles.Clear();
         loader.Release();
     }
 }

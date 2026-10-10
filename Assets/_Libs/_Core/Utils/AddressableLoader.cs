@@ -9,19 +9,19 @@ using Weapons;
 
 public class AddressableLoader
 {
-    private List<string> _labels;
+
     private AsyncOperationHandle<IList<GameObject>> handle;
     private Addressables.MergeMode _mode = Addressables.MergeMode.Union;
 
     public AddressableLoader() { }
-    public AddressableLoader(IEnumerable<string> labels)
-    {
-        _labels = labels.ToList();
-    }
-    public AsyncOperationHandle<IList<GameObject>> LoadAssetsAsync()
+    // public AddressableLoader(string[] labels)
+    // {
+    //     _labels = labels.ToArray();
+    // }
+    public AsyncOperationHandle<IList<GameObject>> LoadAssetsAsync(string[] labels)
     {
         if (handle.IsValid()) return handle;
-        handle = Addressables.LoadAssetsAsync<GameObject>(_labels, null, _mode);
+        handle = Addressables.LoadAssetsAsync<GameObject>(labels, null, _mode);
         return handle;
     }
 
