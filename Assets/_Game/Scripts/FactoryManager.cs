@@ -5,30 +5,27 @@ using Characters;
 using Weapons;
 using VContainer.Unity;
 using System;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 
 public class FactoryService : FactoryManager,
-    IStartable, IDisposable
+    IStartable,
+    IDisposable
 {
-    public FactoryService() : base() { }
+    public void Dispose()
+    {
+        Debug.Log("FactoryService.Dispose");
+    }
 
     public void Start()
     {
-        // throw new NotImplementedException();
-        LoadAssets();
         Debug.Log("FactoryService.Start");
-    }
-
-    public void Dispose()
-    {
-        // throw new NotImplementedException();
-        Debug.Log("FactoryService.Dispose");
     }
 }
 
 public class FactoryManager
 {
-    private readonly string[] keys = { "inventory_pack", "character_pack" };
     protected readonly AddressableLoader loader = new();
     private readonly Factory<ProjectSO, Projectile> projectiles = new("ProjectFactory");
     private readonly Factory<CharacterSO, Character> characters = new("CharacterFactory");
@@ -36,9 +33,17 @@ public class FactoryManager
     public Projectile GetPrefab(ProjectSO type) => projectiles.GetObject(type);
     public Character GetPrefab(CharacterSO type) => characters.GetObject(type);
 
-    public void LoadAssets()
+    public async UniTask LoadAssets()
     {
-        loader.LoadAssetsAsync(keys).Completed += OnCompeleted;
+        string[] keys = {
+            AddressableLabels.Inventory,
+            AddressableLabels.Character
+        };
+        // loader.LoadAssetsAsync(keys).Completed += OnCompeleted;
+        var handle = loader.LoadAssetsAsync(keys);
+        await handle.ToUniTask();
+        OnCompeleted(handle);
+        await UniTask.Delay(500);
     }
 
     protected void OnCompeleted(AsyncOperationHandle<IList<GameObject>> asyncHandle)

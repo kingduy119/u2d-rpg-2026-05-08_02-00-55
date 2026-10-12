@@ -15,11 +15,21 @@ MonoBehaviour:
   m_GroupName: Scene
   m_GUID: 7b68e4f715ab4405197d238bc76abd5f
   m_SerializeEntries:
+  - m_GUID: 360c68d0ee0324a48b093afa1b7b9f26
+    m_Address: GamePlay
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3ac8c8509151d427684facdbb97c9024
     m_Address: GameLifetimeScope
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65f874c19ce0e450682f23c1a180c906
+    m_Address: GameMenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
