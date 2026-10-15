@@ -9,19 +9,20 @@ public class NavSceneButtonView : ButtonBase
 {
     [SerializeField] private string _sceneName;
 
-    private DownloadService _service;
+    // private DownloadService _DownloadService;
 
-    [Inject]
-    public void Construct(DownloadService service)
-    {
-        _service = service;
-        Debug.Log($"NavSceneButtonView.Construct: {_sceneName} - {_service != null}");
-    }
+    // [Inject]
+    // public void Construct(DownloadService service)
+    // {
+    //     _DownloadService = service;
+    //     Debug.Log($"NavSceneButtonView.Construct: {_sceneName} - {_DownloadService != null}");
+    // }
 
     protected override void HandleClick()
     {
-        Debug.Log($"NavSceneButtonView.HandleClick: {_sceneName}");
-        _service?.LoadSceneByName(_sceneName).Forget();
+        // Debug.Log($"NavSceneButtonView.Construct: {_sceneName} - {_DownloadService != null}");
+        // _DownloadService?.LoadScene(_sceneName).Forget();
+        SceneEvents.ChangeScene?.Invoke(_sceneName);
     }
 }
 

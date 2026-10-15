@@ -1,8 +1,10 @@
 
 
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 public static class AddressableLabels
 {
@@ -17,11 +19,17 @@ public class SceneLoadingView : MonoBehaviour
     [SerializeField] private TMP_Text _progressText;
     [SerializeField] private TMP_Text _dataText;
 
+    [Inject] DownloadService _downloadService;
+
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         _progressText.text = "";
         _dataText.text = "";
+    }
+
+    private void Start()
+    {
+        _downloadService.StartLoading(this).Forget();
     }
 
     public void UpdateProgress(float percent, long downloaded, long total)
@@ -29,6 +37,5 @@ public class SceneLoadingView : MonoBehaviour
         _progressSlider.value = percent;
         _progressText.text = $"{percent * 100:F2}%";
         _dataText.text = $"{SizeFormatter.Format(downloaded)} / {SizeFormatter.Format(total)}";
-
     }
 }

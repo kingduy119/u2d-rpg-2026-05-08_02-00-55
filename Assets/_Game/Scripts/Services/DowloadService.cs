@@ -1,4 +1,5 @@
 
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -6,7 +7,8 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using VContainer.Unity;
 
-public class DownloadService : IAsyncStartable
+public class DownloadService : IStartable,//IAsyncStartable
+IDisposable
 {
     long totalSize;
     long downloadedSize = 0;
@@ -16,22 +18,30 @@ public class DownloadService : IAsyncStartable
         AddressableLabels.Inventory
     };
 
-    readonly SceneLoadingView _SceneLoadingView;
+    SceneLoadingView _SceneLoadingView;
     readonly FactoryService _factoryService;
 
-    public DownloadService(SceneLoadingView sceneLoadingView, FactoryService factoryService)
+    public DownloadService(
+        FactoryService factoryService
+    )
     {
-        _SceneLoadingView = sceneLoadingView;
         _factoryService = factoryService;
     }
 
-    public async UniTask StartAsync(CancellationToken cancellation = default)
+    public void Start()
     {
-        await SyncAssets();
-        await _factoryService.LoadAssets();
-
-        await LoadSceneByName("GameMenu");
+        Debug.Log("DownloadService.Start");
+        SceneEvents.ChangeScene += SceneEvents_ChangeScene;
     }
+
+    public void Dispose()
+    {
+        SceneEvents.ChangeScene -= SceneEvents_ChangeScene;
+        Debug.Log("DownloadService.Dispose");
+    }
+
+    private void SceneEvents_ChangeScene(string sceneName) => LoadScene(sceneName).Forget();
+
     private async UniTask SyncAssets()
     {
         var sizeHandle = Addressables.GetDownloadSizeAsync(keys);
@@ -41,32 +51,84 @@ public class DownloadService : IAsyncStartable
             if (totalSize > 0)
             {
                 _SceneLoadingView.UpdateProgress(percentComplete, downloadedSize, totalSize);
-                await DownloadDependencies();
+                // await DownloadDependencies();
+
+                var downloadHandle = Addressables.DownloadDependenciesAsync(keys, Addressables.MergeMode.Union);
+                await HandleProgress(downloadHandle, "Download Failed");
+
+                Addressables.Release(downloadHandle);
             }
 
         }
         finally
         {
+            await _factoryService.LoadAssets();
             Addressables.Release(sizeHandle);
         }
     }
 
-    public async UniTask LoadSceneByName(string sceneName)
+    bool HasSyncAssets;
+    string loadingSceneName = "GameMenu";
+
+    public async UniTask StartLoading(SceneLoadingView view)
     {
-        var loadSceneHandle = Addressables.LoadSceneAsync(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
-        await HandleProgress(loadSceneHandle, "Load Scene Failed");
+        _SceneLoadingView = view;
+
+        if (!HasSyncAssets)
+        {
+            await SyncAssets();
+            HasSyncAssets = true;
+        }
+
+        await LoadSceneByName(loadingSceneName);
     }
 
-    private async UniTask DownloadDependencies()
+    public async UniTask LoadSceneByName(string sceneName)
     {
-        var downloadHandle = Addressables.DownloadDependenciesAsync(keys, Addressables.MergeMode.Union);
-        await HandleProgress(downloadHandle, "Download Failed");
+        var loadSceneHandle = Addressables.LoadSceneAsync(
+            sceneName,
+            UnityEngine.SceneManagement.LoadSceneMode.Single,
+            activateOnLoad: false
+        );
+        await HandleProgress(loadSceneHandle, "Load Scene Failed");
+
+        if (loadSceneHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            await UniTask.Delay(500);
+            await loadSceneHandle.Result.ActivateAsync();
+        }
+
+        Addressables.Release(loadSceneHandle);
     }
+
+
+    public async UniTask LoadScene(string sceneName)
+    {
+        loadingSceneName = sceneName;
+        await NavToLoadingScene();
+    }
+
+    private async UniTask NavToLoadingScene()
+    {
+        var scene = Addressables.LoadSceneAsync(
+            "GameLoading",
+            UnityEngine.SceneManagement.LoadSceneMode.Single,
+            activateOnLoad: true
+        );
+        await scene.ToUniTask();
+        Addressables.Release(scene);
+    }
+
+    // private async UniTask DownloadDependencies()
+    // {
+    //     var downloadHandle = Addressables.DownloadDependenciesAsync(keys, Addressables.MergeMode.Union);
+    //     await HandleProgress(downloadHandle, "Download Failed");
+
+    //     Addressables.Release(downloadHandle);
+    // }
 
     private async UniTask HandleProgress(AsyncOperationHandle handle, string message)
     {
-        _SceneLoadingView.gameObject.SetActive(true);
-
         while (!handle.IsDone)
         {
             var status = handle.GetDownloadStatus();
@@ -86,11 +148,10 @@ public class DownloadService : IAsyncStartable
             downloadedSize = finalStatus.DownloadedBytes;
             percentComplete = 1f;
             _SceneLoadingView.UpdateProgress(percentComplete, downloadedSize, totalSize);
-            _SceneLoadingView.gameObject.SetActive(false);
         }
 
-        Addressables.Release(handle);
         await UniTask.Delay(500);
     }
+
 
 }

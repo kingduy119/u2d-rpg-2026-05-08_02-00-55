@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: 7b68e4f715ab4405197d238bc76abd5f
   m_SerializeEntries:
   - m_GUID: 360c68d0ee0324a48b093afa1b7b9f26
-    m_Address: GamePlay
+    m_Address: GameMenu
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -26,8 +26,13 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57c3c8e2d564446088f367df9a7fea5a
+    m_Address: GameLoading
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65f874c19ce0e450682f23c1a180c906
-    m_Address: GameMenu
+    m_Address: GamePlay
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

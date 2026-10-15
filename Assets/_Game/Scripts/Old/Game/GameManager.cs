@@ -1,18 +1,23 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer.Unity;
 
 public class GameManager : IStartable, IDisposable
 {
 
-    public GameManager()
+    DownloadService _DownloadService;
+    public GameManager(
+        DownloadService downloadService
+    )
     {
-        Debug.Log("GameManager");
+        _DownloadService = downloadService;
     }
 
     public void Start()
     {
         Debug.Log("GameManager.Start");
+        _DownloadService.LoadScene("GameMenu").Forget();
     }
 
 
