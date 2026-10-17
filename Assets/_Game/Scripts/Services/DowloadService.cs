@@ -30,14 +30,12 @@ IDisposable
 
     public void Start()
     {
-        Debug.Log("DownloadService.Start");
         SceneEvents.ChangeScene += SceneEvents_ChangeScene;
     }
 
     public void Dispose()
     {
         SceneEvents.ChangeScene -= SceneEvents_ChangeScene;
-        Debug.Log("DownloadService.Dispose");
     }
 
     private void SceneEvents_ChangeScene(string sceneName) => LoadScene(sceneName).Forget();
