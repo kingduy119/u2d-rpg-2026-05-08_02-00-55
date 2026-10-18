@@ -15,7 +15,8 @@ IDisposable
     float percentComplete = 0f;
     private readonly string[] keys = {
         AddressableLabels.Default,
-        AddressableLabels.Inventory
+        AddressableLabels.Inventory,
+        AddressableLabels.Character
     };
 
     SceneLoadingView _SceneLoadingView;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b0702a0f554408cadd772e1d4ca736, type: 3}
   m_Name: Lancer
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterSO
-  Type: 0
+  Type: 2
   Move:
     Speed: 1
     MaxSpeed: 3
@@ -21,6 +21,7 @@ MonoBehaviour:
     AttackRange: 1
     AttackSpeed: 1
     DetectionRange: 3
+    PhysicsAmor: 2
   Health:
     Health: 100
     MaxHealth: 100

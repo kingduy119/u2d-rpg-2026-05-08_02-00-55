@@ -34,8 +34,7 @@ ICterItemSlot
 
     protected override void HandleClick()
     {
-        Debug.Log("CterItemSlotView Click");
-        // Selected();
-        // ButtonEvents.CterDetailSlotView?.Invoke(_SO);
+        Selected();
+        ButtonEvents.SelectByCharacterSO?.Invoke(this, _SO);
     }
 }

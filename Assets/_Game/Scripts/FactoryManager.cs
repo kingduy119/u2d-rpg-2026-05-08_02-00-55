@@ -13,15 +13,16 @@ public class FactoryService : FactoryManager,
     IStartable,
     IDisposable
 {
+    public void Start()
+    {
+        Debug.Log("FactoryService.Start");
+    }
+
     public void Dispose()
     {
         Debug.Log("FactoryService.Dispose");
     }
 
-    public void Start()
-    {
-        Debug.Log("FactoryService.Start");
-    }
 }
 
 public class FactoryManager
@@ -35,11 +36,12 @@ public class FactoryManager
 
     public async UniTask LoadAssets()
     {
+        Debug.Log("FactoryManager.LoadAssets");
         string[] keys = {
             AddressableLabels.Inventory,
             AddressableLabels.Character
         };
-        // loader.LoadAssetsAsync(keys).Completed += OnCompeleted;
+
         var handle = loader.LoadAssetsAsync(keys);
         await handle.ToUniTask();
         OnCompeleted(handle);
@@ -52,6 +54,7 @@ public class FactoryManager
         if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
         {
             IList<GameObject> results = asyncHandle.Result;
+            Debug.Log($"FactoryManager results.Count: {results.Count}");
             for (int i = 0; i < results.Count; i++)
             {
                 var go = results[i];

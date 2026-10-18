@@ -3472,7 +3472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a7b12afab90f94b99b54ac34b293b2be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8aa625c3165a945a9831edf2369b5bb8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3502,7 +3502,7 @@ GameObject:
   - component: {fileID: 742066744}
   - component: {fileID: 742066743}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Gold Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4023,7 +4023,7 @@ Transform:
   m_GameObject: {fileID: 930581344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.32, z: 0}
+  m_LocalPosition: {x: 0, y: -0.32, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4748,13 +4748,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37f18c9e28144ac1b91e7b86e3bd86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterListTab
+  _damageView: {fileID: 2058573026}
+  _amorView: {fileID: 1752146346}
+  _healthView: {fileID: 1561866097}
   _slotPrefab: {fileID: 1077630490371438215, guid: 1f6df30efdb4e499d9635a7fde689e0e, type: 3}
   _listParent: {fileID: 2099514858}
   _characters:
   - {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
-  - {fileID: 11400000, guid: 3f59213fc5f614fbb8549a37d943cbd3, type: 2}
   - {fileID: 11400000, guid: 0fcbd4149145d41078048b18bf4538be, type: 2}
+  - {fileID: 11400000, guid: 3f59213fc5f614fbb8549a37d943cbd3, type: 2}
   _currentSO: {fileID: 11400000, guid: a4ae08806d0a44873944a50479aa94a8, type: 2}
+  _cameraViewPoint: {fileID: 930581345}
 --- !u!1 &1107754194
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,16 +5220,40 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6472744946692200004, guid: 2e32c58b4fcf04e5d9d5813533c9a4fe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6472744946692200004, guid: 2e32c58b4fcf04e5d9d5813533c9a4fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1204420420}
   m_SourcePrefab: {fileID: 100100000, guid: 2e32c58b4fcf04e5d9d5813533c9a4fe, type: 3}
 --- !u!4 &1204420418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4739159508130654318, guid: 2e32c58b4fcf04e5d9d5813533c9a4fe, type: 3}
   m_PrefabInstance: {fileID: 1204420417}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1204420419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6472744946692200004, guid: 2e32c58b4fcf04e5d9d5813533c9a4fe, type: 3}
+  m_PrefabInstance: {fileID: 1204420417}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1204420420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204420419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad6c2aaca9a04026b5f0af40e64c6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HiddenOnStart
 --- !u!1 &1221338008
 GameObject:
   m_ObjectHideFlags: 0
@@ -5950,7 +5978,7 @@ GameObject:
   - component: {fileID: 1561866098}
   - component: {fileID: 1561866097}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Health Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5995,7 +6023,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5 Food
+  m_text: 5 Health
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cec24b9c3da21449e8f18bd89d6c41f1, type: 2}
   m_sharedMaterial: {fileID: 3563160299172159656, guid: cec24b9c3da21449e8f18bd89d6c41f1, type: 2}
@@ -6162,7 +6190,7 @@ GameObject:
   - component: {fileID: 1752146347}
   - component: {fileID: 1752146346}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Amor Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7432,7 +7460,7 @@ GameObject:
   - component: {fileID: 2058573027}
   - component: {fileID: 2058573026}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Damage Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

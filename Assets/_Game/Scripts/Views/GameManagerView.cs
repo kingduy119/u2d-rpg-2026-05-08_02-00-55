@@ -14,29 +14,29 @@ namespace Game
         protected override void Awake()
         {
             base.Awake();
-            Factory.LoadAssets();
+            // Factory.LoadAssets();
         }
 
         private void OnEnable()
         {
-            CterEvent.Shoot += Character_Shoot;
+            // CterEvent.Shoot += Character_Shoot;
         }
         private void OnDisable()
         {
-            CterEvent.Shoot -= Character_Shoot;
+            // CterEvent.Shoot -= Character_Shoot;
         }
 
-        private void Character_Shoot(Character cter)
-        {
-            Vector2 direction = (cter.Target.position - cter.transform.position).normalized;
-            var projectile = Factory.GetPrefab(projectSO);
+        // private void Character_Shoot(Character cter)
+        // {
+        //     Vector2 direction = (cter.Target.position - cter.transform.position).normalized;
+        //     var projectile = Factory.GetPrefab(projectSO);
 
-            if (projectile)
-            {
-                projectile.Target = cter.Target.gameObject;
-                projectile.Launch(cter.AttackPoint.transform, direction);
-            }
-        }
+        //     if (projectile)
+        //     {
+        //         projectile.Target = cter.Target.gameObject;
+        //         projectile.Launch(cter.AttackPoint.transform, direction);
+        //     }
+        // }
     }
 
 }

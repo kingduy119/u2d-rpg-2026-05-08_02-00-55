@@ -2,6 +2,7 @@
 
 using System;
 using Characters;
+using UnityEngine;
 
 public static class SceneEvents
 {
@@ -12,5 +13,10 @@ public static class ButtonEvents
 {
     public static Action<BottomBarView> BottomBarClick;
 
-    public static Action<CharacterSO> CterDetailSlotView;
+    public static Action<ButtonView, CharacterSO> SelectByCharacterSO;
+}
+
+public static class FactoryEvents
+{
+    public static Action<CharacterSO, Transform> SpawnCharacter;
 }

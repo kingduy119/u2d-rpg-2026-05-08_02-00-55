@@ -21,6 +21,7 @@ MonoBehaviour:
     AttackRange: 0.38
     AttackSpeed: 1
     DetectionRange: 3
+    PhysicsAmor: 4
   Health:
     Health: 100
     MaxHealth: 100

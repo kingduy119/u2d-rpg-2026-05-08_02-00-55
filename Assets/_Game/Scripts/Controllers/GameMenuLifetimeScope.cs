@@ -7,7 +7,7 @@ public class GameMenuLifetimeScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
-        // builder.RegisterComponentInHierarchy<NavSceneButtonView>();
+        builder.RegisterComponentInHierarchy<CharacterDetailTabView>();
         // Debug.Log("GameMenuLifetimeScope.Configure");
     }
 

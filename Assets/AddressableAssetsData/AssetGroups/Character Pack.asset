@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Character Pack
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Character Pack
+  m_GUID: d851861a3d3e145c7a74e9fd3d65fe11
+  m_SerializeEntries:
+  - m_GUID: 2e32c58b4fcf04e5d9d5813533c9a4fe
+    m_Address: Cter/Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - character_pack
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a9cee534a4884fc5826d8a151a2bbb7
+    m_Address: Cter/Archer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - character_pack
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 51b711c3541f947e8b9ce24241cf8086
+    m_Address: Cter/Lancer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - character_pack
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1479cef5160ed4841ac56e966fd230c3, type: 2}
+    - {fileID: 11400000, guid: 9cd05341f15a94deab0b9d1e9213118d, type: 2}

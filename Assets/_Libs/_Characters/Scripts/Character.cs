@@ -93,6 +93,7 @@ namespace Characters
                 Destroy(gameObject);
         }
 
+        public void Deactive() => Dead();
     }
 
 }
