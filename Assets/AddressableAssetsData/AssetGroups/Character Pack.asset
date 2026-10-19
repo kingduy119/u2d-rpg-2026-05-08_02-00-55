@@ -21,14 +21,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - character_pack
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4a9cee534a4884fc5826d8a151a2bbb7
-    m_Address: Cter/Archer
+  - m_GUID: 2f61815b8a47042acab7ad29c0e89ee1
+    m_Address: Cter/Lancer
     m_ReadOnly: 0
     m_SerializedLabels:
     - character_pack
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 51b711c3541f947e8b9ce24241cf8086
-    m_Address: Cter/Lancer
+  - m_GUID: 4a9cee534a4884fc5826d8a151a2bbb7
+    m_Address: Cter/Archer
     m_ReadOnly: 0
     m_SerializedLabels:
     - character_pack

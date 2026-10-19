@@ -1,15 +1,17 @@
 using UnityEngine;
 using Characters;
 using Game;
+using VContainer;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private CharacterSO _characterData;
 
     private Character _character;
-    private KeyBoardHandler _KeyBoardHandler;
-
     private GameObject Target;
+
+    [Inject] private IKeyBoardHandler _KeyBoardHandler;
+    [Inject] private IControlsSettings _controlsSettings;
 
     private void Awake()
     {
@@ -23,8 +25,15 @@ public class PlayerController : MonoBehaviour
         _KeyBoardHandler = GameManagerView.Instance.KeyBoard;
     }
 
+    private void Start()
+    {
+        Debug.Log($"_KeyBoardHandler: {_KeyBoardHandler != null}");
+        Debug.Log($"_controlsSettings: {_controlsSettings != null}");
+    }
+
     private void Update()
     {
+        if (_KeyBoardHandler == null) return;
 
         if (_KeyBoardHandler.AttackKeyPressed) _character.Attack(Target?.transform);
 

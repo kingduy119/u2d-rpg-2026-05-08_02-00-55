@@ -22,11 +22,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5539325565991654599, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.82353
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5539325565991654599, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.57158
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5539325565991654599, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_LocalPosition.z
@@ -122,6 +122,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterColor
   _color: 0
-  _spriteRender: {fileID: 9080141315569386078, guid: 51b711c3541f947e8b9ce24241cf8086, type: 3}
-  _animator: {fileID: 7357077546305493981, guid: 51b711c3541f947e8b9ce24241cf8086, type: 3}
+  _spriteRender: {fileID: 7973367979279422162}
+  _animator: {fileID: 8556175774455597905}
   _character: {fileID: 2186264064421168102}
+--- !u!212 &7973367979279422162 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6923297153456327289, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+  m_PrefabInstance: {fileID: 1059306863152093355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8556175774455597905 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8651077823977149434, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+  m_PrefabInstance: {fileID: 1059306863152093355}
+  m_PrefabAsset: {fileID: 0}

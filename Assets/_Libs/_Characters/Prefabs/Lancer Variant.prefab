@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2168301245144516647
+--- !u!1001 &5501635370187731826
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,17 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4481257123063745996, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
-      propertyPath: character
-      value: 
-      objectReference: {fileID: 1906113126319652816}
     - target: {fileID: 5539325565991654599, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.82353
+      value: 360.9497
       objectReference: {fileID: 0}
     - target: {fileID: 5539325565991654599, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.57158
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 5539325565991654599, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_LocalPosition.z
@@ -56,10 +52,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lancer Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 6416643271524713175, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
-      propertyPath: _character
-      value: 
-      objectReference: {fileID: 1906113126319652816}
     - target: {fileID: 6923297153456327289, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -74,52 +66,52 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6109286871209994989, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1906113126319652816}
+      addedObject: {fileID: 3462882051908167846}
     - targetCorrespondingSourceObject: {fileID: 6109286871209994989, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4169105672743394309}
+      addedObject: {fileID: 6480564766919257693}
   m_SourcePrefab: {fileID: 100100000, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
---- !u!1 &5395266676470948554 stripped
+--- !u!1 &1770249120354556319 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6109286871209994989, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
-  m_PrefabInstance: {fileID: 2168301245144516647}
+  m_PrefabInstance: {fileID: 5501635370187731826}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1906113126319652816
+--- !u!114 &3462882051908167846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5395266676470948554}
+  m_GameObject: {fileID: 1770249120354556319}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 684f99892b28a4cad81100b4b6f2a78c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Characters.Lancer
   DefaultSO: {fileID: 11400000, guid: 3f59213fc5f614fbb8549a37d943cbd3, type: 2}
---- !u!114 &4169105672743394309
+--- !u!114 &6480564766919257693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5395266676470948554}
+  m_GameObject: {fileID: 1770249120354556319}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79fecee81b425477ba2d97e1c0b62c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Characters.CharacterColor
   _color: 0
-  _spriteRender: {fileID: 9080141315569386078}
-  _animator: {fileID: 7357077546305493981}
-  _character: {fileID: 1906113126319652816}
---- !u!95 &7357077546305493981 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8651077823977149434, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
-  m_PrefabInstance: {fileID: 2168301245144516647}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &9080141315569386078 stripped
+  _spriteRender: {fileID: 3192421205411854603}
+  _animator: {fileID: 3771607777427415176}
+  _character: {fileID: 3462882051908167846}
+--- !u!212 &3192421205411854603 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 6923297153456327289, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
-  m_PrefabInstance: {fileID: 2168301245144516647}
+  m_PrefabInstance: {fileID: 5501635370187731826}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3771607777427415176 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8651077823977149434, guid: d2fec74f57cd748c0a5d68093b37ce28, type: 3}
+  m_PrefabInstance: {fileID: 5501635370187731826}
   m_PrefabAsset: {fileID: 0}

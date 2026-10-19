@@ -1,14 +1,26 @@
 
 
+using System;
 using UnityEngine;
+using VContainer;
 
-public class KeyBoardHandler : MonoBehaviour
+
+public interface IKeyBoardHandler
 {
-    [SerializeField] private ControlsSettings _controlsSettings;
+    bool AttackKeyPressed { get; }
+    Vector2 AimDirection { get; }
+}
+
+public class KeyBoardHandler : IKeyBoardHandler, IDisposable
+{
+    [Inject] private IControlsSettings _controlsSettings;
 
     public bool AttackKeyPressed => Input.GetKeyDown(_controlsSettings.AttackKey);
 
     public Vector2 AimDirection => GetAimDirection();
+
+
+
     private Vector2 GetAimDirection()
     {
         Vector2 direction = Vector2.zero;
@@ -23,5 +35,10 @@ public class KeyBoardHandler : MonoBehaviour
             direction.y = -1f;
 
         return direction;
+    }
+
+    public void Dispose()
+    {
+        Debug.Log("KeyBoardHandler.Dispose");
     }
 }

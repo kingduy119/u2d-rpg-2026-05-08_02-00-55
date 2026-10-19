@@ -6,6 +6,8 @@ public interface IControlsSettings
 {
     KeyCode AimLeftKey { get; }
     KeyCode AimRightKey { get; }
+    KeyCode AimUpKey { get; }
+    KeyCode AimDownKey { get; }
     KeyCode AttackKey { get; }
 }
 

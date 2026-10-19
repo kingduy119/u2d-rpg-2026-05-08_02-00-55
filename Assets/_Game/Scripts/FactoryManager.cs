@@ -36,7 +36,6 @@ public class FactoryManager
 
     public async UniTask LoadAssets()
     {
-        Debug.Log("FactoryManager.LoadAssets");
         string[] keys = {
             AddressableLabels.Inventory,
             AddressableLabels.Character
@@ -50,11 +49,9 @@ public class FactoryManager
 
     protected void OnCompeleted(AsyncOperationHandle<IList<GameObject>> asyncHandle)
     {
-        Debug.Log($"FactoryManager.OnCompeleted: {asyncHandle.Status}");
         if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
         {
             IList<GameObject> results = asyncHandle.Result;
-            Debug.Log($"FactoryManager results.Count: {results.Count}");
             for (int i = 0; i < results.Count; i++)
             {
                 var go = results[i];

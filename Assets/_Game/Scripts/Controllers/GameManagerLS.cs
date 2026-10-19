@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 
 
-public class GameLifetimeScope : LifetimeScope
+public class GameManagerLS : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {

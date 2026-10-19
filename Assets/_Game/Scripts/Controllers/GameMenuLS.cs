@@ -2,18 +2,18 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class GameMenuLifetimeScope : LifetimeScope
+public class GameMenuLS : LifetimeScope
 {
 
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponentInHierarchy<CharacterDetailTabView>();
-        // Debug.Log("GameMenuLifetimeScope.Configure");
+        // Debug.Log("GameMenuLS.Configure");
     }
 
     protected override void OnDestroy()
     {
         // base.OnDestroy();
-        // Debug.Log("GameMenuLifetimeScope.OnDestroy");
+        // Debug.Log("GameMenuLS.OnDestroy");
     }
 }
