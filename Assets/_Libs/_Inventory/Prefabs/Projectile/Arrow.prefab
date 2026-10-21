@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6967558677430196962}
   - component: {fileID: 4142535599433450938}
-  - component: {fileID: 1447171813455009458}
   - component: {fileID: 3369309806207168689}
+  - component: {fileID: 1447171813455009458}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -79,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1980060719
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4346244404228752641, guid: 1d9bbb34f67b64edfba4765a21020afd, type: 3}
@@ -93,20 +93,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1447171813455009458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2702833119088729357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb731f8d568874ce2b039ef16d331271, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Projectile
-  SO: {fileID: 11400000, guid: 5905931cbe9b7432b9692780faa8df99, type: 2}
-  Target: {fileID: 0}
 --- !u!61 &3369309806207168689
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,3 +139,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.41222987, y: 0.042715568}
   m_EdgeRadius: 0
+--- !u!114 &1447171813455009458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702833119088729357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb731f8d568874ce2b039ef16d331271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Projectile
+  SO: {fileID: 11400000, guid: 5905931cbe9b7432b9692780faa8df99, type: 2}
+  Target: {fileID: 0}

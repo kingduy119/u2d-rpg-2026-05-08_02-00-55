@@ -1,6 +1,7 @@
 
 
 using UnityEngine;
+using Weapons;
 
 namespace Characters
 {
@@ -10,6 +11,7 @@ namespace Characters
     ICterAbstract
     {
         public CharacterSO DefaultSO;
+        // public ProjectSO ProjectileSO { get; }
 
 
         public Animator Anim { get; protected set; }

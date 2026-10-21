@@ -1,12 +1,13 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
+using Weapons;
 
 namespace Characters
 {
     public static class CterEvent
     {
-        public static Action<Character> Shoot;
+        public static Action<Character, ProjectSO> Shoot;
     }
 
     public interface ICterState : IState
@@ -143,8 +144,13 @@ namespace Characters
 
     public class ArcherCombatState : CombatState
     {
-        public ArcherCombatState(Character character) : base(character)
-        { }
+        private ProjectSO _projectSO;
+
+        public ArcherCombatState(Character character, ProjectSO projectSO = null) : base(character)
+        {
+            Debug.Log($"ArcherCombatState: {_projectSO != null}");
+            _projectSO = projectSO;
+        }
 
         protected override async UniTask Attack()
         {
@@ -155,7 +161,8 @@ namespace Characters
             _Character.Anim.SetBool(IsAttacking1Hash, true);
 
             await UniTask.Delay(200);
-            CterEvent.Shoot?.Invoke(_Character);
+            Debug.Log($"ArcherCombatState.Shot: {_projectSO != null}");
+            CterEvent.Shoot?.Invoke(_Character, _projectSO);
 
             await UniTask.Delay(100);
             _Character.Anim.SetBool(IsAttacking1Hash, false);

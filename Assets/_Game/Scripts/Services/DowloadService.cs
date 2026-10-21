@@ -1,11 +1,18 @@
 
 using System;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using VContainer.Unity;
+
+public static class AddressableLabels
+{
+    public const string Default = "default";
+    public const string Inventory = "inventory_pack";
+    public const string Character = "character_pack";
+    public const string Projectile = "projectile_pack";
+}
 
 public class DownloadService : IStartable,//IAsyncStartable
 IDisposable
@@ -16,7 +23,8 @@ IDisposable
     private readonly string[] keys = {
         AddressableLabels.Default,
         AddressableLabels.Inventory,
-        AddressableLabels.Character
+        AddressableLabels.Character,
+        // AddressableLabels.Projectile
     };
 
     SceneLoadingView _SceneLoadingView;

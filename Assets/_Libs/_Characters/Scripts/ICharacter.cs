@@ -1,6 +1,7 @@
 
 
 using UnityEngine;
+using Weapons;
 
 namespace Characters
 {
@@ -20,6 +21,7 @@ namespace Characters
     public interface ICterAbstract
     {
         CharacterSO SO { get; set; }
+        // ProjectSO ProjectileSO { get; }
 
         void Flip();
     }
@@ -33,6 +35,8 @@ namespace Characters
         void Move(Vector2 input);
         void Attack(Transform target);
         void Dead();
+
+        void SetTargetLayer(LayerMask layer);
     }
 
     public interface ICter : ICterAbstract, ICterAction { }

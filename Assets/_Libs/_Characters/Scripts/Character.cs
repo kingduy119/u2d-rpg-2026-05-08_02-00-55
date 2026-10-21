@@ -85,15 +85,14 @@ namespace Characters
                 nextState = combatState;
         }
 
-        public void Dead()
+        public void Dead() => Deactive();
+        public void Deactive()
         {
             if (Pool != null)
                 Pool.Release(this);
             else
                 Destroy(gameObject);
         }
-
-        public void Deactive() => Dead();
     }
 
 }

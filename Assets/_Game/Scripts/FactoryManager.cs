@@ -38,7 +38,8 @@ public class FactoryManager
     {
         string[] keys = {
             AddressableLabels.Inventory,
-            AddressableLabels.Character
+            AddressableLabels.Character,
+            AddressableLabels.Projectile
         };
 
         var handle = loader.LoadAssetsAsync(keys);

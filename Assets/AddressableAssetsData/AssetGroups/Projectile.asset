@@ -14,21 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Projectile
   m_GUID: 998b147c50c77403e82ec7391d4c3ebd
-  m_SerializeEntries:
-  - m_GUID: 2560d9671c22747d7a2e04975c0e95a2
-    m_Address: Projectile/Arrow
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Pack_1
-    - Projectile
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 84a4fd2c8a7844d02bcf076f950840db
-    m_Address: Projectile/Default
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Pack_1
-    - Projectile
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: aa43775742224423fb4b21bd8dd1c3ea, type: 2}
   m_SchemaSet:

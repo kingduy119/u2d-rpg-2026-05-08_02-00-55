@@ -6,13 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-public static class AddressableLabels
-{
-    public const string Default = "default";
-    public const string Inventory = "inventory_pack";
-    public const string Character = "character_pack";
-}
-
 public class SceneLoadingView : MonoBehaviour
 {
     [SerializeField] private Slider _progressSlider;

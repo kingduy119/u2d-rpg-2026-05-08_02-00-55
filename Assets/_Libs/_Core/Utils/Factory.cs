@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections.Generic;
+using Weapons;
 
 public interface IPoolable<T> where T : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class Factory<Type, T> where T : MonoBehaviour,
 
     public T GetObject(Type type)
     {
+        if (type == null) return null;
+
         if (!prefabs.TryGetValue(type, out var prefab))
             return null;
 

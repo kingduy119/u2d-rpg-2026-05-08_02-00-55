@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Characters.Archer
   DefaultSO: {fileID: 11400000, guid: 0fcbd4149145d41078048b18bf4538be, type: 2}
+  _projectSO: {fileID: 11400000, guid: 5905931cbe9b7432b9692780faa8df99, type: 2}
 --- !u!114 &-2479751996634614016
 MonoBehaviour:
   m_ObjectHideFlags: 0

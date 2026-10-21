@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 1ec7da210542c47a6904095454dfcd31
   m_currentHash:
     serializedVersion: 2
-    Hash: e3dd1062d8336f28b68dff8785b8a1ca
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
     - Pack_1
     - Tower
     - Enemy
-    - Projectile
+    - projectile_pack
     - inventory_pack
     - character_pack
   m_SchemaTemplates: []
