@@ -6,20 +6,27 @@ using Cysharp.Threading.Tasks;
 public class EnemyState : State
 {
     protected EnemyController2 _EnemyCtl;
+    // protected EnemyController _control;
     public EnemyState(EnemyController2 control)
     {
         _EnemyCtl = control;
     }
+    // public EnemyState(EnemyController control)
+    // {
+    //     _control = control;
+    // }
 }
 
 
-public class EnemyChaseState : EnemyState
+
+
+public class EnemyChaseState1 : EnemyState
 {
     readonly ICter _character;
     Vector3 _startPos;
     bool _GoingBack;
 
-    public EnemyChaseState(EnemyController2 control) : base(control)
+    public EnemyChaseState1(EnemyController2 control) : base(control)
     {
         _character = _EnemyCtl.Character;
         _startPos = _EnemyCtl.StartPosition.position;

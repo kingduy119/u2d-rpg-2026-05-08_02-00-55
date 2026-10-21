@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
             _character.gameObject.layer = LayerMask.NameToLayer("Player");
             if (_characterData) _character.SO = _characterData;
         }
-        _KeyBoardHandler = GameManagerView.Instance.KeyBoard;
     }
 
     private void Start()

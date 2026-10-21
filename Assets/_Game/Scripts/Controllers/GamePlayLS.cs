@@ -10,6 +10,7 @@ public class GamePlayLS : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterInstance<IControlsSettings>(_controlsSettings);
+
         builder.Register<IKeyBoardHandler, KeyBoardHandler>(Lifetime.Singleton);
 
         builder.RegisterComponentInHierarchy<PlayerController>();

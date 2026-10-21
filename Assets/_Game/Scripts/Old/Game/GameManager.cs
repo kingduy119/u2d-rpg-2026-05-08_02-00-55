@@ -6,10 +6,9 @@ using VContainer.Unity;
 public class GameManager : IStartable, IDisposable
 {
 
-    DownloadService _DownloadService;
-    public GameManager(
-        DownloadService downloadService
-    )
+    readonly DownloadService _DownloadService;
+
+    public GameManager(DownloadService downloadService)
     {
         _DownloadService = downloadService;
     }

@@ -4,6 +4,11 @@ using System;
 
 namespace Characters
 {
+    public static class CterEvent
+    {
+        public static Action<Character> Shoot;
+    }
+
     public interface ICterState : IState
     {
         void Tick(float deltaTime);
@@ -52,7 +57,6 @@ namespace Characters
 
         public override void Exit()
         {
-            // Stop
             _Character.Rb.linearVelocity = Vector2.zero;
             _Character.Anim.SetFloat(RunSpeedHash, _Character.Rb.linearVelocity.magnitude);
         }
@@ -174,9 +178,5 @@ namespace Characters
         }
     }
 
-    public static class CterEvent
-    {
-        // public static Action Shoot;
-        public static Action<Character> Shoot;
-    }
+
 }

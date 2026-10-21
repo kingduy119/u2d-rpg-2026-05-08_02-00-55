@@ -21,12 +21,12 @@ public class EnemyCombat : MonoBehaviour
 
     public bool CanAttack => m_attackCooldown <= 0f && !IsAttacking && IsPlayerInAttackRange;
 
-    private EnemyController m_Enemy;
+    // private EnemyController m_Enemy;
 
-    public void Initialize(EnemyController controller)
-    {
-        m_Enemy = controller;
-    }
+    // public void Initialize(EnemyController controller)
+    // {
+    //     m_Enemy = controller;
+    // }
 
     private void Update()
     {
@@ -41,7 +41,7 @@ public class EnemyCombat : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        m_Enemy.StateMachine.TransitionTo(m_Enemy.StateMachine.m_idleState);
+        // m_Enemy.StateMachine.TransitionTo(m_Enemy.StateMachine.m_idleState);
     }
 
     public void CheckPlayerInAttackRange()
@@ -62,7 +62,7 @@ public class EnemyCombat : MonoBehaviour
     public void LaunchAttack()
     {
         IsAttacking = true;
-        m_Enemy.Animator.SetTrigger("isAttack1");
+        // m_Enemy.Animator.SetTrigger("isAttack1");
     }
 
     public void Attack()

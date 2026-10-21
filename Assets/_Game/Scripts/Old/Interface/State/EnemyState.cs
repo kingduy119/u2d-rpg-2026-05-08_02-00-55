@@ -1,86 +1,86 @@
 
-public class IdleState : State
-{
-    private EnemyController m_enemy;
+// public class IdleState : State
+// {
+//     private EnemyController m_enemy;
 
-    public IdleState(EnemyController enemy)
-    {
-        m_enemy = enemy;
-    }
+//     public IdleState(EnemyController enemy)
+//     {
+//         m_enemy = enemy;
+//     }
 
-    public override void Execute()
-    {
-        if (m_enemy.Combat.CanAttack)
-        {
-            m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_combatState);
-            return;
-        }
+//     public override void Execute()
+//     {
+//         if (m_enemy.Combat.CanAttack)
+//         {
+//             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_combatState);
+//             return;
+//         }
 
-        if (m_enemy.Target && !m_enemy.Combat.IsPlayerInAttackRange)
-        {
-            m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_chaseState);
-        }
-    }
-}
+//         if (m_enemy.Target && !m_enemy.Combat.IsPlayerInAttackRange)
+//         {
+//             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_chaseState);
+//         }
+//     }
+// }
 
-public class ChaseState : State
-{
-    private EnemyController m_enemy;
-    public ChaseState(EnemyController enemy)
-    {
-        m_enemy = enemy;
-    }
+// public class ChaseState : State
+// {
+//     private EnemyController m_enemy;
+//     public ChaseState(EnemyController enemy)
+//     {
+//         m_enemy = enemy;
+//     }
 
-    public override void Execute()
-    {
-        if (m_enemy.Target == null || m_enemy.Target && m_enemy.Combat.IsPlayerInAttackRange)
-        {
-            m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_idleState);
-            return;
-        }
+//     public override void Execute()
+//     {
+//         if (m_enemy.Target == null || m_enemy.Target && m_enemy.Combat.IsPlayerInAttackRange)
+//         {
+//             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_idleState);
+//             return;
+//         }
 
-        if (m_enemy.Combat.CanAttack)
-        {
-            m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_combatState);
-            return;
-        }
+//         if (m_enemy.Combat.CanAttack)
+//         {
+//             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_combatState);
+//             return;
+//         }
 
-        m_enemy.Movement.Chase();
-    }
+//         m_enemy.Movement.Chase();
+//     }
 
-    public override void Exit()
-    {
-        m_enemy.Movement.Stop();
-    }
-}
+//     public override void Exit()
+//     {
+//         m_enemy.Movement.Stop();
+//     }
+// }
 
-public class CombatState : State
-{
-    private EnemyController m_enemy;
-    public CombatState(EnemyController enemy)
-    {
-        m_enemy = enemy;
-    }
+// public class CombatState : State
+// {
+//     private EnemyController m_enemy;
+//     public CombatState(EnemyController enemy)
+//     {
+//         m_enemy = enemy;
+//     }
 
 
-    public override void Execute()
-    {
-        if (m_enemy.Combat.CanAttack)
-        {
-            m_enemy.Combat.LaunchAttack();
-            return;
-        }
+//     public override void Execute()
+//     {
+//         if (m_enemy.Combat.CanAttack)
+//         {
+//             m_enemy.Combat.LaunchAttack();
+//             return;
+//         }
 
-        if (m_enemy.Combat.IsAttacking)
-            return;
+//         if (m_enemy.Combat.IsAttacking)
+//             return;
 
-        if (!m_enemy.Combat.IsPlayerInAttackRange)
-        {
-            m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_chaseState);
-        }
-        else
-        {
-            m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_idleState);
-        }
-    }
-}
+//         if (!m_enemy.Combat.IsPlayerInAttackRange)
+//         {
+//             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_chaseState);
+//         }
+//         else
+//         {
+//             m_enemy.StateMachine.TransitionTo(m_enemy.StateMachine.m_idleState);
+//         }
+//     }
+// }

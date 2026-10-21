@@ -3,18 +3,18 @@ using System;
 public class EnemyStateMachine
 {
     public IState CurrentState { get; private set; }
-    public IdleState m_idleState;
-    public ChaseState m_chaseState;
-    public CombatState m_combatState;
+    // public IdleState m_idleState;
+    // public ChaseState m_chaseState;
+    // public CombatState m_combatState;
 
     public event Action<IState> stateChanged;
 
-    public EnemyStateMachine(EnemyController enemy)
-    {
-        m_idleState = new(enemy);
-        m_chaseState = new(enemy);
-        m_combatState = new(enemy);
-    }
+    // public EnemyStateMachine(EnemyController enemy)
+    // {
+    //     // m_idleState = new(enemy);
+    //     // m_chaseState = new(enemy);
+    //     // m_combatState = new(enemy);
+    // }
 
     public void Initialize(IState state)
     {

@@ -1,8 +1,4 @@
-
-
-using System;
 using UnityEngine;
-using VContainer;
 
 
 public interface IKeyBoardHandler
@@ -11,14 +7,18 @@ public interface IKeyBoardHandler
     Vector2 AimDirection { get; }
 }
 
-public class KeyBoardHandler : IKeyBoardHandler, IDisposable
+public class KeyBoardHandler : IKeyBoardHandler
 {
-    [Inject] private IControlsSettings _controlsSettings;
+    private readonly IControlsSettings _controlsSettings;
+
+    public KeyBoardHandler(IControlsSettings controller)
+    {
+        Debug.Log("KeyBoardHandler.KeyBoardHandler");
+        _controlsSettings = controller;
+    }
 
     public bool AttackKeyPressed => Input.GetKeyDown(_controlsSettings.AttackKey);
-
     public Vector2 AimDirection => GetAimDirection();
-
 
 
     private Vector2 GetAimDirection()
@@ -35,10 +35,5 @@ public class KeyBoardHandler : IKeyBoardHandler, IDisposable
             direction.y = -1f;
 
         return direction;
-    }
-
-    public void Dispose()
-    {
-        Debug.Log("KeyBoardHandler.Dispose");
     }
 }
