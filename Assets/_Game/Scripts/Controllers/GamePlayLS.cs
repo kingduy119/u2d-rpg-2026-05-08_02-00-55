@@ -76,10 +76,16 @@ public class TestMouseEvent : ITickable
         else if (Input.GetMouseButtonUp(0))
         {
             PointerDown = false;
-            _target = null;
+            // _target?.MoveByPointer(MouseWorldPosition);
+            if (_target != null)
+            {
+                GameDefenseEvents.ChangeTilemapPosition(_target);
+                _target = null;
+            }
         }
 
         _target?.MoveByPointer(MouseWorldPosition);
+
     }
 
     private void HandleMoveCharacter()

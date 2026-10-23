@@ -4,8 +4,13 @@ using UnityEngine;
 public interface ITargetController
 {
     void Init(string layer, LayerMask targetLayer, Transform defaultTarget = null);
+    void Init(Vector3 position, string layer, string targetLayer);
     void MoveByPointer(Vector3 position);
+    void BackToPosition();
 
+    void SetPosition(Vector3 position);
+    Vector3 GetPosition();
+    Vector3 GetPrevPosition();
 }
 
 public class TargetController : MonoBehaviour, ITargetController
@@ -15,6 +20,7 @@ public class TargetController : MonoBehaviour, ITargetController
     public Transform DefaultTarget;
     private float _targetDetect;
     private float _attackRange;
+    private Vector3 _prevPosition;
 
     private Rigidbody2D _rb;
 
@@ -47,6 +53,15 @@ public class TargetController : MonoBehaviour, ITargetController
 
         CheckTargetInRange();
         HandleCharacter();
+    }
+
+    public void BackToPosition() => transform.position = _prevPosition;
+    public Vector3 GetPrevPosition() => _prevPosition;
+    public Vector3 GetPosition() => transform.position;
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+        _prevPosition = position;
     }
 
     private void HandleCharacter()
@@ -96,6 +111,14 @@ public class TargetController : MonoBehaviour, ITargetController
         TargetLayer = targetLayer;
         DefaultTarget = defaultTarget;
         Character.SetTargetLayer(targetLayer);
+    }
+
+    public void Init(Vector3 position, string layer, string targetLayer)
+    {
+        if (position != null) SetPosition(position);
+
+        gameObject.layer = LayerMask.NameToLayer(layer);
+        TargetLayer = LayerMask.NameToLayer(targetLayer);
     }
 }
 

@@ -24,7 +24,7 @@ public static class FactoryEvents
     public static Action<CharacterSO, Transform> SpawnCharacter;
 }
 
-// public static class GameEvents
-// {
-//     public static Action GamePlayStart;
-// }
+public static class GameDefenseEvents
+{
+    public static Action<ITargetController> ChangeTilemapPosition;
+}
