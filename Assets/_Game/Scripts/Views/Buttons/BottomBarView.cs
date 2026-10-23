@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+// Main menu bottom
 public class BottomBarView : ButtonView
 {
     [SerializeField] private GameObject _tab;
