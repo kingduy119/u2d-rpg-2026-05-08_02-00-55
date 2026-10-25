@@ -87,6 +87,8 @@ public class TargetController : MonoBehaviour, ITargetController
     {
         var colider = Physics2D.OverlapCircle(transform.position, _targetDetect, TargetLayer);
         Target = colider ? colider.transform : null;
+
+        Debug.Log($"TargetLayer: {LayerMask.LayerToName(TargetLayer)} - {Target != null}");
     }
 
     private bool CanAttack()
@@ -110,7 +112,7 @@ public class TargetController : MonoBehaviour, ITargetController
         gameObject.layer = LayerMask.NameToLayer(layer);
         TargetLayer = targetLayer;
         DefaultTarget = defaultTarget;
-        Character.SetTargetLayer(targetLayer);
+        Character.SetTargetLayer(TargetLayer);
     }
 
     public void Init(Vector3 position, string layer, string targetLayer)
@@ -119,6 +121,7 @@ public class TargetController : MonoBehaviour, ITargetController
 
         gameObject.layer = LayerMask.NameToLayer(layer);
         TargetLayer = LayerMask.NameToLayer(targetLayer);
+        Character.SetTargetLayer(TargetLayer);
     }
 }
 

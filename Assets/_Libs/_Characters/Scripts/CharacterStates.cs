@@ -148,7 +148,7 @@ namespace Characters
 
         public ArcherCombatState(Character character, ProjectSO projectSO = null) : base(character)
         {
-            Debug.Log($"ArcherCombatState: {_projectSO != null}");
+            // Debug.Log($"ArcherCombatState: {_projectSO != null}");
             _projectSO = projectSO;
         }
 

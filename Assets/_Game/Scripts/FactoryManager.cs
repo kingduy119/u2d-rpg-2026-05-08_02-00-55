@@ -6,7 +6,6 @@ using Weapons;
 using VContainer.Unity;
 using System;
 using Cysharp.Threading.Tasks;
-using System.Threading;
 
 
 public class FactoryService : FactoryManager,
@@ -66,6 +65,12 @@ public class FactoryManager
                 }
             }
         }
+    }
+
+    public void ClearPool()
+    {
+        projectiles.ClearPool();
+        characters.ClearPool();
     }
 
     public void Release()

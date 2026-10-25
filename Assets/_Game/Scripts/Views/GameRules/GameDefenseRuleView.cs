@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameDefenseRuleView : MonoBehaviour
 {
@@ -19,12 +20,12 @@ public class GameDefenseRuleView : MonoBehaviour
 
     public void OnEnable()
     {
-        ButtonEvents.GamePlayEvents += GamePlayEvents;
+        // ButtonEvents.GamePlayEvents += GamePlayEvents;
     }
 
     public void OnDisable()
     {
-        ButtonEvents.GamePlayEvents -= GamePlayEvents;
+        // ButtonEvents.GamePlayEvents -= GamePlayEvents;
     }
 
     void Start()
@@ -41,7 +42,6 @@ public class GameDefenseRuleView : MonoBehaviour
             foreach (var target in players)
                 target.Init(PlayerLayer, PlayerTargetLayer, _playerDefaultTarget);
         }
-        // Time.timeScale = 0;
     }
 
     void Update()
@@ -51,15 +51,16 @@ public class GameDefenseRuleView : MonoBehaviour
 
         if (enemies.Count <= 0)
         {
-            Debug.Log("Player Win");
-            Started = true;
+            // Debug.Log("Player Win");
+            Started = false;
         }
         else if (players.Count <= 0)
         {
             Debug.Log("Player Lose");
             _hearts--;
+            Started = false;
+
             if (_hearts <= 0) Debug.Log("Game Over");
-            Started = true;
         }
 
     }
@@ -74,7 +75,6 @@ public class GameDefenseRuleView : MonoBehaviour
         {
             case "StartGame":
                 Started = true;
-                // Time.timeScale = 1;
                 break;
             case "ToggleSetting":
                 Paused = !Paused;
@@ -85,5 +85,12 @@ public class GameDefenseRuleView : MonoBehaviour
                 break;
         }
     }
+
+}
+
+
+
+public class GamePlayProfile
+{
 
 }

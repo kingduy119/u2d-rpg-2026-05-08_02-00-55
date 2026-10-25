@@ -26,12 +26,8 @@ public abstract class ButtonView : MonoBehaviour
 
     protected abstract void HandleClick();
 
-    public virtual void Selected()
-    {
-        _Button.interactable = false;
-    }
-    public virtual void UnSelected()
-    {
-        _Button.interactable = true;
-    }
+    public virtual void Selected() => _Button.interactable = false;
+    public virtual void UnSelected() => _Button.interactable = true;
+    public virtual void Hidden() => gameObject.SetActive(false);
+    public virtual void Visible() => gameObject.SetActive(true);
 }

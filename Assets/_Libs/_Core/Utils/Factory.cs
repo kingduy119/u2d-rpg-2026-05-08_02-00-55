@@ -50,6 +50,19 @@ public class Factory<Type, T> where T : MonoBehaviour,
         }
         return pool.Get();
     }
+
+    public void ClearPool()
+    {
+        foreach (var pool in _PoolDictionary.Values)
+            pool.Clear();
+
+        _PoolDictionary.Clear();
+
+        if (_poolParent != null)
+            Object.Destroy(_poolParent.gameObject);
+
+        _poolParent = null;
+    }
 }
 
 public class GenericPool<T> where T : MonoBehaviour,
@@ -83,16 +96,17 @@ public class GenericPool<T> where T : MonoBehaviour,
 
     private void OnGet(T item)
     {
-        item.gameObject.SetActive(true);
+        if (item) item.gameObject.SetActive(true);
     }
     private void OnRelease(T item)
     {
-        item.gameObject.SetActive(false);
+        if (item) item.gameObject.SetActive(false);
     }
     private void OnDestroy(T item)
     {
         if (item != null) Object.Destroy(item.gameObject);
     }
     public T Get() => _pool.Get();
+    public void Clear() => _pool.Clear();
 }
 

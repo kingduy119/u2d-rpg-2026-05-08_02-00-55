@@ -50,7 +50,7 @@ namespace Weapons
         {
             string targetLayerName = LayerMask.LayerToName(Target.layer);
 
-            if (!collision.CompareTag(targetLayerName)) return;
+            // if (!collision.CompareTag(targetLayerName)) return;
 
             DamageableHelper.CheckCollisionInterfaces(collision.gameObject, Data.Damage);
             Deactivate();

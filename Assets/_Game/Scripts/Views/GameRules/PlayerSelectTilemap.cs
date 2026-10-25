@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using Characters;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using VContainer;
 
+[RequireComponent(typeof(Grid))]
 public class PlayerSelectTilemapView : MonoBehaviour
 {
     [SerializeField] private TileBase _blockTile;
     [SerializeField] private TileBase _activeTile;
 
-    [SerializeField] private Tilemap _activeTilemaps;
-    [SerializeField] private Tilemap _previewTilemaps;
+    [SerializeField] private Tilemap _activeTilemap;
+    [SerializeField] private Tilemap _previewTilemap;
+    [SerializeField] private Tilemap _enemyTilemap;
 
     [SerializeField] private Grid _Grid;
 
-    // private readonly HashSet<Vector3Int> _blockedCells = new();
+    private readonly HashSet<Vector3Int> _enemyCells = new();
     private readonly HashSet<Vector3Int> _activeCells = new();
-
     private readonly Dictionary<Vector3, ITargetController> _map = new();
 
     Character _character;
     CharacterSO _selectedCterSO;
     ButtonView _prevButton;
 
-    [Inject] readonly TestMouseEvent _mouseEvent;
     [Inject] readonly FactoryService _factory;
 
 
@@ -34,39 +33,22 @@ public class PlayerSelectTilemapView : MonoBehaviour
     {
         _Grid = GetComponent<Grid>();
 
-        foreach (var cell in _activeTilemaps.cellBounds.allPositionsWithin)
+        foreach (var cell in _activeTilemap.cellBounds.allPositionsWithin)
         {
-            if (_activeTilemaps.HasTile(cell))
+            if (_activeTilemap.HasTile(cell))
                 _activeCells.Add(cell);
         }
 
-        _activeTilemaps.gameObject.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (EventSystem.current.IsPointerOverGameObject() || !Camera.main)
-            return;
-
-        if (_selectedCterSO != null)
+        foreach (var cell in _enemyTilemap.cellBounds.allPositionsWithin)
         {
-            // Debug.Log($"_mouseEvent: {_mouseEvent.MouseWorldPosition}");
+            if (_enemyTilemap.HasTile(cell))
+                _enemyCells.Add(cell);
         }
+
+        HideTilemaps();
     }
 
-    void OnEnable()
-    {
-        ButtonEvents.GamePlayCardSelect += GamePlayCardSelect;
-
-        GameDefenseEvents.ChangeTilemapPosition += ChangeTilemapPosition;
-    }
-    void OnDisable()
-    {
-        ButtonEvents.GamePlayCardSelect -= GamePlayCardSelect;
-        GameDefenseEvents.ChangeTilemapPosition -= ChangeTilemapPosition;
-    }
-
-    private void ChangeTilemapPosition(ITargetController target)
+    public void ChangeTilemapPosition(ITargetController target)
     {
         var cell = _Grid.WorldToCell(target.GetPosition());
         if (_activeCells.Contains(cell))
@@ -93,23 +75,33 @@ public class PlayerSelectTilemapView : MonoBehaviour
         {
             target.BackToPosition();
         }
+
+        HideTilemaps();
     }
 
-    private void GamePlayCardSelect(ButtonView button, CharacterSO so)
+    public void ShowPreviewTile(Vector3 position)
+    {
+        var cell = _Grid.WorldToCell(position);
+        if (!_previewTilemap.HasTile(cell))
+        {
+            _previewTilemap.ClearAllTiles();
+            _previewTilemap.SetTile(cell, _blockTile);
+        }
+
+        ShowTilemaps();
+    }
+
+    public void GamePlayCardSelect(ButtonView button, CharacterSO so)
     {
         if (_prevButton != null) _prevButton.UnSelected();
 
         _selectedCterSO = so;
         _prevButton = button;
 
-        CheckActiveCellAndInitCharacter();
-    }
-
-    private void CheckActiveCellAndInitCharacter()
-    {
         foreach (var cell in _activeCells)
         {
-            if (!_map.TryGetValue(cell, out ITargetController other))
+            // if (!_map.TryGetValue(cell, out ITargetController other))
+            if (!_map.ContainsKey(cell))
             {
                 InitCharacter(cell);
                 return;
@@ -120,6 +112,8 @@ public class PlayerSelectTilemapView : MonoBehaviour
     private void InitCharacter(Vector3Int cell)
     {
         _character = _factory.GetPrefab(_selectedCterSO);
+        if (_character == null) return;
+
         _character.AddComponent<TargetController>();
         if (_character.TryGetComponent<TargetController>(out var target))
         {
@@ -141,27 +135,16 @@ public class PlayerSelectTilemapView : MonoBehaviour
         return position;
     }
 
+    private void ShowTilemaps()
+    {
+        _activeTilemap.gameObject.SetActive(true);
+        _previewTilemap.gameObject.SetActive(true);
+    }
+    private void HideTilemaps()
+    {
+        _enemyTilemap.gameObject.SetActive(false);
+        _activeTilemap.gameObject.SetActive(false);
+        _previewTilemap.gameObject.SetActive(false);
+    }
 
-
-    // private void HandlePlace(Vector3 mousePosition)
-    // {
-    //     Vector3Int cellPosition = _Grid.WorldToCell(mousePosition);
-    //     bool actived = _activeCells.Contains(cellPosition);
-    //     bool blocked = _blockedCells.Contains(cellPosition);
-
-    //     var tile = blocked ? _blockTile : _activeTile;
-    // }
-
-    // public Vector3 Show(Vector3 position, Vector2Int? goSize = null)
-    // {
-    //     Vector3Int origin = _Grid.WorldToCell(position);
-    //     Vector2Int size = goSize ?? new Vector2Int(1, 1);
-    //     Vector3 fixPosition = _Grid.CellToWorld(origin);
-
-    //     fixPosition += new Vector3(
-    //             size.x * _Grid.cellSize.x * 0.5f,
-    //             size.y * _Grid.cellSize.y * 0.5f,
-    //             0);
-    //     return fixPosition;
-    // }
 }

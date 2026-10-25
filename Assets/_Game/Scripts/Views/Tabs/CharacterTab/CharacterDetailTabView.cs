@@ -34,7 +34,7 @@ public class CharacterDetailTabView : MonoBehaviour
     [SerializeField] private Transform _cameraViewPoint;
     private Character _cterSelected;
 
-    [Inject] FactoryService _factoryService;
+    [Inject] FactoryService _factory;
 
     private void Start()
     {
@@ -73,9 +73,9 @@ public class CharacterDetailTabView : MonoBehaviour
 
     private void UpdateView()
     {
-        if (_factoryService == null || _currentSO == null) return;
+        if (_factory == null || _currentSO == null) return;
 
-        var character = _factoryService.GetPrefab(_currentSO);
+        var character = _factory.GetPrefab(_currentSO);
         if (character)
         {
             if (_cterSelected) _cterSelected.Deactive();
