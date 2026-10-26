@@ -1,3 +1,4 @@
+using Characters;
 using UnityEngine;
 
 public abstract class GameplayState : State
@@ -20,6 +21,9 @@ public class GameIdleState : GameplayState
     {
         ButtonEvents.GamePlayEvents += GamePlayEvents;
         ButtonEvents.GamePlayCardSelect += Controller.Tilemap.GamePlayCardSelect;
+
+        Controller.UIView.Show();
+        Controller.Tilemap.InitEnemies();
     }
 
     public override void Execute()
@@ -35,6 +39,8 @@ public class GameIdleState : GameplayState
     {
         ButtonEvents.GamePlayEvents -= GamePlayEvents;
         ButtonEvents.GamePlayCardSelect -= Controller.Tilemap.GamePlayCardSelect;
+
+        Controller.UIView.Hide();
     }
 
     private void OnPointerDown()
@@ -83,14 +89,32 @@ public class GameIdleState : GameplayState
 
 public class GameStartState : GameplayState
 {
+    int _enemies;
+    int _players;
     public GameStartState(GamePlayController controller) : base(controller) { }
 
     public override void Enter()
     {
+        Debug.Log("GameStartState.Enter");
+        CterEvent.Dead += CterDead;
 
+        foreach (var target in Controller.Targets) target.Start();
+    }
+
+    public override void Execute()
+    {
+        Debug.Log($"Controller.Targets: {Controller.Targets.Count}");
     }
 
     public override void Exit()
     {
+        foreach (var target in Controller.Targets) target.Reset();
+
+        CterEvent.Dead -= CterDead;
+    }
+
+    private void CterDead()
+    {
+        Debug.Log("CterDead");
     }
 }

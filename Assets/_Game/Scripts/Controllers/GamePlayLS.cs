@@ -4,6 +4,7 @@ using UnityEngine;
 using Characters;
 using System;
 using Weapons;
+using System.Collections.Generic;
 
 
 public class GamePlayLS : LifetimeScope
@@ -32,6 +33,8 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     [Inject] readonly public PlayerSelectTilemapView Tilemap;
     [Inject] readonly public GamePlayUIView UIView;
 
+    public List<ITargetController> Targets = new();
+
     public readonly StateMachine States = new();
     public IState IdleState;
     public IState StartState;
@@ -43,14 +46,25 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         States.Initialize(IdleState);
 
         CterEvent.Shoot += Character_Shoot;
+        GamePlayEvents.AddTarget += AddTarget;
+    }
+
+    public void Tick()
+    {
+        States.Execute();
     }
 
     public void Dispose()
     {
         CterEvent.Shoot -= Character_Shoot;
+        GamePlayEvents.AddTarget -= AddTarget;
 
         _factory.ClearPool();
     }
+
+
+
+    private void AddTarget(ITargetController target) => Targets.Add(target);
 
     private void Character_Shoot(Character cter, ProjectSO projectSO)
     {
@@ -64,9 +78,6 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         }
     }
 
-    public void Tick()
-    {
-        States.Execute();
-    }
+
 }
 

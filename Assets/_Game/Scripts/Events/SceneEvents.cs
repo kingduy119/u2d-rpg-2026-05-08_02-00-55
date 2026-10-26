@@ -29,3 +29,8 @@ public static class GameDefenseEvents
     public static Action<ITargetController> ChangeTilemapPosition;
 }
 
+
+public static class GamePlayEvents
+{
+    public static Action<ITargetController> AddTarget;
+}

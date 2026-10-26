@@ -8,6 +8,7 @@ namespace Characters
     public static class CterEvent
     {
         public static Action<Character, ProjectSO> Shoot;
+        public static Action Dead;
     }
 
     public interface ICterState : IState
@@ -148,7 +149,6 @@ namespace Characters
 
         public ArcherCombatState(Character character, ProjectSO projectSO = null) : base(character)
         {
-            // Debug.Log($"ArcherCombatState: {_projectSO != null}");
             _projectSO = projectSO;
         }
 
@@ -161,7 +161,6 @@ namespace Characters
             _Character.Anim.SetBool(IsAttacking1Hash, true);
 
             await UniTask.Delay(200);
-            Debug.Log($"ArcherCombatState.Shot: {_projectSO != null}");
             CterEvent.Shoot?.Invoke(_Character, _projectSO);
 
             await UniTask.Delay(100);

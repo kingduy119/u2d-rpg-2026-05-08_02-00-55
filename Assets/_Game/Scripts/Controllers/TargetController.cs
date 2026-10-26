@@ -8,6 +8,9 @@ public interface ITargetController
     void MoveByPointer(Vector3 position);
     void BackToPosition();
 
+    void Start();
+    void Reset();
+
     void SetPosition(Vector3 position);
     Vector3 GetPosition();
     Vector3 GetPrevPosition();
@@ -18,6 +21,8 @@ public class TargetController : MonoBehaviour, ITargetController
     public LayerMask TargetLayer;
     public Transform Target;
     public Transform DefaultTarget;
+
+    private bool _start = false;
     private float _targetDetect;
     private float _attackRange;
     private Vector3 _prevPosition;
@@ -49,7 +54,7 @@ public class TargetController : MonoBehaviour, ITargetController
 
     private void Update()
     {
-        if (!GameDefenseRuleView.Started) return;
+        if (!_start) return;
 
         CheckTargetInRange();
         HandleCharacter();
@@ -73,6 +78,8 @@ public class TargetController : MonoBehaviour, ITargetController
         }
 
         Transform target = Target ? Target : DefaultTarget;
+        if (target == null) return;
+
         float distance = Vector2.Distance(transform.position, target.position);
         if (distance > 0.1f)
         {
@@ -87,8 +94,6 @@ public class TargetController : MonoBehaviour, ITargetController
     {
         var colider = Physics2D.OverlapCircle(transform.position, _targetDetect, TargetLayer);
         Target = colider ? colider.transform : null;
-
-        Debug.Log($"TargetLayer: {LayerMask.LayerToName(TargetLayer)} - {Target != null}");
     }
 
     private bool CanAttack()
@@ -105,6 +110,18 @@ public class TargetController : MonoBehaviour, ITargetController
             return distance <= _attackRange;
         }
         return false;
+    }
+
+
+    public void Start()
+    {
+        _start = true;
+    }
+
+    public void Reset()
+    {
+        _start = false;
+        transform.position = _prevPosition;
     }
 
     public void Init(string layer, LayerMask targetLayer, Transform defaultTarget = null)

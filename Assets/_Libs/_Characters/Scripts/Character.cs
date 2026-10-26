@@ -85,7 +85,11 @@ namespace Characters
                 nextState = combatState;
         }
 
-        public void Dead() => Deactive();
+        public void Dead()
+        {
+            // Send event
+            Deactive();
+        }
         public void Deactive()
         {
             if (Pool != null)

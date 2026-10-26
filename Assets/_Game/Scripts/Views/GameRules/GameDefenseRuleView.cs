@@ -47,44 +47,25 @@ public class GameDefenseRuleView : MonoBehaviour
     void Update()
     {
 
-        if (!Started) return;
+        // if (!Started) return;
 
-        if (enemies.Count <= 0)
-        {
-            // Debug.Log("Player Win");
-            Started = false;
-        }
-        else if (players.Count <= 0)
-        {
-            Debug.Log("Player Lose");
-            _hearts--;
-            Started = false;
+        // if (enemies.Count <= 0)
+        // {
+        //     // Debug.Log("Player Win");
+        //     Started = false;
+        // }
+        // else if (players.Count <= 0)
+        // {
+        //     Debug.Log("Player Lose");
+        //     _hearts--;
+        //     Started = false;
 
-            if (_hearts <= 0) Debug.Log("Game Over");
-        }
-
+        //     if (_hearts <= 0) Debug.Log("Game Over");
     }
 
-    int _hearts = 3;
-    public static bool Started = false;
-    private bool Paused = false;
 
-    private void GamePlayEvents(string eventName)
-    {
-        switch (eventName)
-        {
-            case "StartGame":
-                Started = true;
-                break;
-            case "ToggleSetting":
-                Paused = !Paused;
-                Time.timeScale = Paused ? 0 : 1;
-                break;
-            default:
-                Debug.LogWarning($"Unknown event: {name}");
-                break;
-        }
-    }
+
+
 
 }
 

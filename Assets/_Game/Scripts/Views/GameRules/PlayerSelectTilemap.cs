@@ -1,12 +1,13 @@
 
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;
 
-[RequireComponent(typeof(Grid))]
+// [RequireComponent(typeof(Grid))]
 public class PlayerSelectTilemapView : MonoBehaviour
 {
     [SerializeField] private TileBase _blockTile;
@@ -17,6 +18,8 @@ public class PlayerSelectTilemapView : MonoBehaviour
     [SerializeField] private Tilemap _enemyTilemap;
 
     [SerializeField] private Grid _Grid;
+
+    public List<CharacterSO> _enemySOList;
 
     private readonly HashSet<Vector3Int> _enemyCells = new();
     private readonly HashSet<Vector3Int> _activeCells = new();
@@ -31,8 +34,6 @@ public class PlayerSelectTilemapView : MonoBehaviour
 
     void Awake()
     {
-        _Grid = GetComponent<Grid>();
-
         foreach (var cell in _activeTilemap.cellBounds.allPositionsWithin)
         {
             if (_activeTilemap.HasTile(cell))
@@ -100,7 +101,6 @@ public class PlayerSelectTilemapView : MonoBehaviour
 
         foreach (var cell in _activeCells)
         {
-            // if (!_map.TryGetValue(cell, out ITargetController other))
             if (!_map.ContainsKey(cell))
             {
                 InitCharacter(cell);
@@ -120,8 +120,37 @@ public class PlayerSelectTilemapView : MonoBehaviour
             var position = CellToWorld(cell);
             target.Init(position, "Player", "Enemy");
             _map[cell] = target;
+
+            GamePlayEvents.AddTarget?.Invoke(target);
         }
     }
+
+    public void InitEnemies()
+    {
+        List<ITargetController> enemies = new();
+        foreach (var so in _enemySOList)
+        {
+            _character = _factory.GetPrefab(so);
+            if (_character == null) return;
+
+            _character.AddComponent<TargetController>();
+            if (_character.TryGetComponent<TargetController>(out var target))
+            {
+                enemies.Add(target);
+            }
+        }
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            var cell = _enemyCells.ElementAt(i);
+            var position = CellToWorld(cell);
+            var target = enemies[i];
+
+            target.Init(position, "Enemy", "Player");
+            _map[cell] = target;
+            GamePlayEvents.AddTarget?.Invoke(target);
+        }
+    }
+
 
 
     private Vector3 CellToWorld(Vector3Int cell) => CellToWorld(cell, new(1, 1));

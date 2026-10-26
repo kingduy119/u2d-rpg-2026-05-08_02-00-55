@@ -9,6 +9,8 @@ public class GamePlayCardSelect : ButtonView
     [SerializeField] CharacterSO _SO;
     [SerializeField] Image _icon;
 
+
+
     private void OnValidate()
     {
         UpdateView();
