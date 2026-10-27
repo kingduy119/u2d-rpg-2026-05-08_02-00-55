@@ -7,19 +7,20 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;
 
-// [RequireComponent(typeof(Grid))]
+[RequireComponent(typeof(Grid))]
 public class PlayerSelectTilemapView : MonoBehaviour
 {
     [SerializeField] private TileBase _blockTile;
     [SerializeField] private TileBase _activeTile;
 
+    private Grid _TileGrid;
     [SerializeField] private Tilemap _activeTilemap;
     [SerializeField] private Tilemap _previewTilemap;
     [SerializeField] private Tilemap _enemyTilemap;
 
-    [SerializeField] private Grid _Grid;
 
-    public List<CharacterSO> _enemySOList;
+
+    public List<GameObject> _enemies;
 
     private readonly HashSet<Vector3Int> _enemyCells = new();
     private readonly HashSet<Vector3Int> _activeCells = new();
@@ -34,6 +35,8 @@ public class PlayerSelectTilemapView : MonoBehaviour
 
     void Awake()
     {
+        _TileGrid = GetComponent<Grid>();
+
         foreach (var cell in _activeTilemap.cellBounds.allPositionsWithin)
         {
             if (_activeTilemap.HasTile(cell))
@@ -49,9 +52,14 @@ public class PlayerSelectTilemapView : MonoBehaviour
         HideTilemaps();
     }
 
+    void Start()
+    {
+        InitEnemies();
+    }
+
     public void ChangeTilemapPosition(ITargetController target)
     {
-        var cell = _Grid.WorldToCell(target.GetPosition());
+        var cell = _TileGrid.WorldToCell(target.GetPosition());
         if (_activeCells.Contains(cell))
         {
             if (_map.TryGetValue(cell, out ITargetController other))
@@ -65,10 +73,12 @@ public class PlayerSelectTilemapView : MonoBehaviour
             }
             else
             {
-                var prevCell = _Grid.WorldToCell(target.GetPrevPosition());
+                var prevCell = _TileGrid.WorldToCell(target.GetPrevPosition());
 
                 _map[cell] = target;
-                target.SetPosition(CellToWorld(cell));
+
+                var position = CellToWorld(cell);
+                target.SetPosition(position);
                 _map.Remove(prevCell);
             }
         }
@@ -82,7 +92,7 @@ public class PlayerSelectTilemapView : MonoBehaviour
 
     public void ShowPreviewTile(Vector3 position)
     {
-        var cell = _Grid.WorldToCell(position);
+        var cell = _TileGrid.WorldToCell(position);
         if (!_previewTilemap.HasTile(cell))
         {
             _previewTilemap.ClearAllTiles();
@@ -94,10 +104,8 @@ public class PlayerSelectTilemapView : MonoBehaviour
 
     public void GamePlayCardSelect(ButtonView button, CharacterSO so)
     {
-        if (_prevButton != null) _prevButton.UnSelected();
-
         _selectedCterSO = so;
-        _prevButton = button;
+        if (_TileGrid == null) return;
 
         foreach (var cell in _activeCells)
         {
@@ -107,6 +115,9 @@ public class PlayerSelectTilemapView : MonoBehaviour
                 return;
             }
         }
+
+        if (_prevButton != null) _prevButton.UnSelected();
+        _prevButton = button;
     }
 
     private void InitCharacter(Vector3Int cell)
@@ -114,52 +125,37 @@ public class PlayerSelectTilemapView : MonoBehaviour
         _character = _factory.GetPrefab(_selectedCterSO);
         if (_character == null) return;
 
-        _character.AddComponent<TargetController>();
-        if (_character.TryGetComponent<TargetController>(out var target))
-        {
-            var position = CellToWorld(cell);
-            target.Init(position, "Player", "Enemy");
-            _map[cell] = target;
+        var position = CellToWorld(cell);
 
-            GamePlayEvents.AddTarget?.Invoke(target);
-        }
+        var target = _character.AddComponent<TargetController>();
+        target.Init(position, "Player", "Enemy");
+
+        _map[cell] = target;
+        GamePlayEvents.AddTarget?.Invoke("Player", target);
     }
 
     public void InitEnemies()
     {
-        List<ITargetController> enemies = new();
-        foreach (var so in _enemySOList)
-        {
-            _character = _factory.GetPrefab(so);
-            if (_character == null) return;
-
-            _character.AddComponent<TargetController>();
-            if (_character.TryGetComponent<TargetController>(out var target))
-            {
-                enemies.Add(target);
-            }
-        }
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < _enemies.Count; i++)
         {
             var cell = _enemyCells.ElementAt(i);
             var position = CellToWorld(cell);
-            var target = enemies[i];
 
+            var target = _enemies[i].AddComponent<TargetController>();
             target.Init(position, "Enemy", "Player");
+
             _map[cell] = target;
-            GamePlayEvents.AddTarget?.Invoke(target);
+            GamePlayEvents.AddTarget?.Invoke("Enemy", target);
         }
     }
-
-
 
     private Vector3 CellToWorld(Vector3Int cell) => CellToWorld(cell, new(1, 1));
     private Vector3 CellToWorld(Vector3Int cell, Vector2Int size)
     {
-        Vector3 position = _Grid.CellToWorld(cell);
+        Vector3 position = _TileGrid.CellToWorld(cell);
         position += new Vector3(
-            size.x * _Grid.cellSize.x * 0.5f,
-            size.y * _Grid.cellSize.y * 0.5f,
+            size.x * _TileGrid.cellSize.x * 0.5f,
+            size.y * _TileGrid.cellSize.y * 0.5f,
             0);
         return position;
     }

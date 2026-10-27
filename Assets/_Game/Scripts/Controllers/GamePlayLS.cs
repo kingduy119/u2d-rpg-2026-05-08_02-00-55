@@ -33,7 +33,8 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     [Inject] readonly public PlayerSelectTilemapView Tilemap;
     [Inject] readonly public GamePlayUIView UIView;
 
-    public List<ITargetController> Targets = new();
+    public List<TargetController> Targets = new();
+    public List<TargetController> Enemies = new();
 
     public readonly StateMachine States = new();
     public IState IdleState;
@@ -64,7 +65,13 @@ public class GamePlayController : IStartable, IDisposable, ITickable
 
 
 
-    private void AddTarget(ITargetController target) => Targets.Add(target);
+    private void AddTarget(string team, TargetController target)
+    {
+        if (team == "Enemy")
+            Enemies.Add(target);
+        else
+            Targets.Add(target);
+    }
 
     private void Character_Shoot(Character cter, ProjectSO projectSO)
     {

@@ -32,5 +32,5 @@ public static class GameDefenseEvents
 
 public static class GamePlayEvents
 {
-    public static Action<ITargetController> AddTarget;
+    public static Action<string, TargetController> AddTarget;
 }

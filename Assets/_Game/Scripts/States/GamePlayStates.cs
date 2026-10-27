@@ -1,5 +1,6 @@
 using Characters;
 using UnityEngine;
+using System.Linq;
 
 public abstract class GameplayState : State
 {
@@ -23,7 +24,6 @@ public class GameIdleState : GameplayState
         ButtonEvents.GamePlayCardSelect += Controller.Tilemap.GamePlayCardSelect;
 
         Controller.UIView.Show();
-        Controller.Tilemap.InitEnemies();
     }
 
     public override void Execute()
@@ -98,17 +98,35 @@ public class GameStartState : GameplayState
         Debug.Log("GameStartState.Enter");
         CterEvent.Dead += CterDead;
 
-        foreach (var target in Controller.Targets) target.Start();
+        foreach (var target in Controller.Targets)
+        {
+            target.SetTargets(Controller.Enemies);
+            target.StartCombat();
+        }
+        foreach (var target in Controller.Enemies)
+        {
+            target.SetTargets(Controller.Targets);
+            target.StartCombat();
+        }
+        // foreach (var target in Controller.Targets.Concat(Controller.Enemies))
+        // {
+        //     target.Start();
+        // }
     }
 
     public override void Execute()
     {
-        Debug.Log($"Controller.Targets: {Controller.Targets.Count}");
+        // Debug.Log($"Controller.Targets: {Controller.Targets.Count}");
     }
 
     public override void Exit()
     {
-        foreach (var target in Controller.Targets) target.Reset();
+        // foreach (var target in Controller.Targets) target.Reset();
+        // foreach (var target in Controller.Enemies) target.Reset();
+        foreach (var target in Controller.Targets.Concat(Controller.Enemies))
+        {
+            target.Reset();
+        }
 
         CterEvent.Dead -= CterDead;
     }

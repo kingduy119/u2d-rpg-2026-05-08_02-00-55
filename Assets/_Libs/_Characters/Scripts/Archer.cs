@@ -9,11 +9,13 @@ namespace Characters
 
         protected override void InitStates()
         {
+            var archerCombat = new ArcherCombatState(this, _projectSO);
+
             idleState = new IdleState(this);
             moveState = new MovementSate(this);
-            combatState = new ArcherCombatState(this, _projectSO);
+            combatState = archerCombat;
 
-            _states.Add(combatState); // For state can call Tick() in Update 
+            _states.Add(archerCombat); // For state can call Tick() in Update 
         }
     }
 }

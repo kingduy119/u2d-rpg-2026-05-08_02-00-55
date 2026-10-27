@@ -18,10 +18,10 @@ namespace Characters
         public Transform Target { get; set; }
 
         public StateMachine States = new();
-        public ICterState nextState;
-        public ICterState idleState;
-        public ICterState moveState;
-        public ICterState combatState;
+        public IState nextState;
+        public IState idleState;
+        public IState moveState;
+        public IState combatState;
 
         protected readonly List<ICterState> _states = new();
 
@@ -41,11 +41,14 @@ namespace Characters
 
         protected virtual void InitStates()
         {
+            // _combat.Init(this);
+
             idleState = new IdleState(this);
             moveState = new MovementSate(this);
             combatState = new CombatState(this);
+            // combatState = _combat;
 
-            _states.Add(combatState); // For state can call Tick() in Update 
+            // _states.Add(combatState); // For state can call Tick() in Update 
         }
 
         protected virtual void Update()

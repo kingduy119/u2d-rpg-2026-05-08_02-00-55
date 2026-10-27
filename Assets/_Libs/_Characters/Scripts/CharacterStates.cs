@@ -11,12 +11,12 @@ namespace Characters
         public static Action Dead;
     }
 
-    public interface ICterState : IState
+    public interface ICterState
     {
         void Tick(float deltaTime);
     }
 
-    public abstract class CharacterState : ICterState
+    public abstract class CharacterState : IState
     {
         protected readonly Character _Character;
         public CharacterState(Character character)
@@ -27,7 +27,7 @@ namespace Characters
         public virtual void Execute() { }
         public virtual void Enter() { }
         public virtual void Exit() { }
-        public virtual void Tick(float deltaTime) { }
+        // public virtual void Tick(float deltaTime) { }
     }
 
     public class IdleState : CharacterState
@@ -77,7 +77,7 @@ namespace Characters
         }
     }
 
-    public class CombatState : CharacterState
+    public class CombatState : CharacterState, ICterState
     {
         protected static readonly int IsAttacking1Hash = Animator.StringToHash("isAttacking1");
         protected CombatData _combatData;
@@ -105,7 +105,7 @@ namespace Characters
             }
         }
 
-        public override void Tick(float deltaTime)
+        public virtual void Tick(float deltaTime)
         {
             if (_attackCooldown > 0) _attackCooldown -= deltaTime;
         }
