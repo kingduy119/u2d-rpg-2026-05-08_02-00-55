@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Characters;
 using UnityEngine;
+using System.Linq;
+
 
 public interface ITargetController
 {
@@ -22,7 +24,7 @@ public class TargetController : MonoBehaviour, ITargetController
 {
     public LayerMask TargetLayer;
     public Transform Target;
-    public List<TargetController> Targets = new();
+    public List<Transform> Targets = new();
     public Transform DefaultTarget;
 
     private bool _start = false;
@@ -46,6 +48,17 @@ public class TargetController : MonoBehaviour, ITargetController
         gameObject.transform.position = position;
     }
 
+    public void SetTargets(List<Transform> targets) => Targets = targets;
+    public void SetTargets(List<TargetController> targets) => Targets = targets.Select(t => t.transform).ToList();
+    public void BackToPosition() => transform.position = _prevPosition;
+    public Vector3 GetPrevPosition() => _prevPosition;
+    public Vector3 GetPosition() => transform.position;
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+        _prevPosition = position;
+    }
+
     private void Awake()
     {
         if (TryGetComponent<Character>(out var cter))
@@ -61,31 +74,18 @@ public class TargetController : MonoBehaviour, ITargetController
         if (_start) HandleCharacter();
     }
 
-    public void SetTargets(List<TargetController> targets) => Targets = targets;
-
-    public void BackToPosition() => transform.position = _prevPosition;
-    public Vector3 GetPrevPosition() => _prevPosition;
-    public Vector3 GetPosition() => transform.position;
-    public void SetPosition(Vector3 position)
-    {
-        transform.position = position;
-        _prevPosition = position;
-    }
-
     private void HandleCharacter()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(
             Character.AttackPoint.position,
             _attackRange,
             TargetLayer);
-
         if (isDebug) Debug.Log($"colliders: {colliders.Length}");
 
         if (colliders.Length > 0)
         {
             var (target, distance) = GetNearestTarget(colliders);
-
-            if (isDebug) Debug.Log($"distance <= _attackRange: {distance} - {_attackRange}");
+            // if (isDebug) Debug.Log($"distance <= _attackRange: {distance} - {_attackRange} - {colliders.Length}");
 
             if (distance <= _attackRange)
             {
@@ -95,39 +95,20 @@ public class TargetController : MonoBehaviour, ITargetController
         else if (Targets.Count > 0)
         {
             var (nearestTarget, distance) = GetNearestTarget(Targets);
-            if (isDebug) Debug.Log($"GetNearestTarget: {distance} - {_attackRange}");
+            // if (isDebug) Debug.Log($"GetNearestTarget: {distance} - {_attackRange}");
+
             if (distance > _attackRange)
             {
-                Vector2 direction = nearestTarget.GetPosition() - transform.position;
+                Vector2 direction = nearestTarget.position - transform.position;
                 Character.Move(direction.normalized);
             }
         }
         else Character.Idle();
     }
 
-    // private bool IsAttacking()
-    // {
-    //     Collider2D[] colliders = Physics2D.OverlapCircleAll(
-    //         Character.AttackPoint.position,
-    //         _attackRange,
-    //         TargetLayer);
-
-    //     if (colliders.Length > 0)
-    //     {
-    //         var (target, distance) = GetNearestTarget(colliders);
-    //         if (distance <= _attackRange)
-    //         {
-    //             Character.Attack(target);
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
-
-    private (TargetController nearest, float distance) GetNearestTarget(List<TargetController> targets)
+    private (Transform nearest, float distance) GetNearestTarget(List<Transform> targets)
     {
-        // Transform nearest = null;
-        TargetController nearest = null;
+        Transform nearest = null;
         float minDistance = float.MaxValue;
 
         foreach (var target in targets)
@@ -136,7 +117,7 @@ public class TargetController : MonoBehaviour, ITargetController
 
             float distance = Vector2.Distance(
                 transform.position,
-                target.GetPosition()
+                target.position
             );
 
             if (distance < minDistance)
@@ -184,6 +165,7 @@ public class TargetController : MonoBehaviour, ITargetController
     {
         _start = false;
         transform.position = _prevPosition;
+        gameObject.SetActive(true);
     }
 
     public void Init(string layer, LayerMask targetLayer, Transform defaultTarget = null)

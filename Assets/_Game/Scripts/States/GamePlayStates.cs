@@ -1,6 +1,7 @@
 using Characters;
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 public abstract class GameplayState : State
 {
@@ -20,10 +21,10 @@ public class GameIdleState : GameplayState
 
     public override void Enter()
     {
-        ButtonEvents.GamePlayEvents += GamePlayEvents;
+        // ButtonEvents.GamePlayEvents += GamePlayEvents;
         ButtonEvents.GamePlayCardSelect += Controller.Tilemap.GamePlayCardSelect;
 
-        Controller.UIView.Show();
+        Controller.UIView.IdleEnter();
     }
 
     public override void Execute()
@@ -37,10 +38,10 @@ public class GameIdleState : GameplayState
 
     public override void Exit()
     {
-        ButtonEvents.GamePlayEvents -= GamePlayEvents;
+        // ButtonEvents.GamePlayEvents -= GamePlayEvents;
         ButtonEvents.GamePlayCardSelect -= Controller.Tilemap.GamePlayCardSelect;
 
-        Controller.UIView.Hide();
+        Controller.UIView.IdleExit();
     }
 
     private void OnPointerDown()
@@ -73,18 +74,18 @@ public class GameIdleState : GameplayState
         Controller.Tilemap.ShowPreviewTile(_target.GetPosition());
     }
 
-    private void GamePlayEvents(string eventName)
-    {
-        switch (eventName)
-        {
-            case "StartGame":
-                Controller.States.TransitionTo(Controller.StartState);
-                break;
-            default:
-                Debug.LogWarning($"Unknown event: {eventName}");
-                break;
-        }
-    }
+    // private void GamePlayEvents(string eventName)
+    // {
+    //     switch (eventName)
+    //     {
+    //         case "StartGame":
+    //             Controller.States.TransitionTo(Controller.StartState);
+    //             break;
+    //         default:
+    //             Debug.LogWarning($"Unknown event: {eventName}");
+    //             break;
+    //     }
+    // }
 }
 
 public class GameStartState : GameplayState
@@ -95,8 +96,10 @@ public class GameStartState : GameplayState
 
     public override void Enter()
     {
-        Debug.Log("GameStartState.Enter");
         CterEvent.Dead += CterDead;
+
+        _enemies = Controller.Enemies.Count;
+        _players = Controller.Targets.Count;
 
         foreach (var target in Controller.Targets)
         {
@@ -108,21 +111,14 @@ public class GameStartState : GameplayState
             target.SetTargets(Controller.Targets);
             target.StartCombat();
         }
-        // foreach (var target in Controller.Targets.Concat(Controller.Enemies))
-        // {
-        //     target.Start();
-        // }
     }
 
     public override void Execute()
     {
-        // Debug.Log($"Controller.Targets: {Controller.Targets.Count}");
     }
 
     public override void Exit()
     {
-        // foreach (var target in Controller.Targets) target.Reset();
-        // foreach (var target in Controller.Enemies) target.Reset();
         foreach (var target in Controller.Targets.Concat(Controller.Enemies))
         {
             target.Reset();
@@ -131,8 +127,50 @@ public class GameStartState : GameplayState
         CterEvent.Dead -= CterDead;
     }
 
-    private void CterDead()
+    private void CterDead(string name)
     {
-        Debug.Log("CterDead");
+        if (name == "Enemy")
+        {
+            var transforms = GetTargetsByLayer("Enemy");
+            Debug.Log($"Enemy Dead, Remaining: {transforms.Count}");
+            foreach (var target in Controller.Targets)
+            {
+                target.SetTargets(transforms);
+            }
+
+            if (transforms.Count <= 0)
+            {
+                Controller.UIView.ToggleConfirm("Players Win!");
+            }
+        }
+        else if (name == "Player")
+        {
+            var transforms = GetTargetsByLayer("Player");
+            Debug.Log($"Player Dead, Remaining: {transforms.Count}");
+            foreach (var target in Controller.Targets)
+            {
+                target.SetTargets(transforms);
+            }
+
+            if (transforms.Count <= 0)
+            {
+                Controller.UIView.ToggleConfirm("Enemies Win!");
+            }
+        }
+    }
+
+    private List<Transform> GetTargetsByLayer(string layer)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(
+            Vector2.zero,
+            10f,
+            LayerMask.GetMask(layer));
+
+        List<Transform> transforms = colliders
+        .Where(c => c != null)
+        .Select(c => c.transform)
+        .ToList();
+
+        return transforms;
     }
 }

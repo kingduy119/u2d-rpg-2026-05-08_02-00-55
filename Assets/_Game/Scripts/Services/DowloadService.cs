@@ -126,14 +126,6 @@ IDisposable
         Addressables.Release(scene);
     }
 
-    // private async UniTask DownloadDependencies()
-    // {
-    //     var downloadHandle = Addressables.DownloadDependenciesAsync(keys, Addressables.MergeMode.Union);
-    //     await HandleProgress(downloadHandle, "Download Failed");
-
-    //     Addressables.Release(downloadHandle);
-    // }
-
     private async UniTask HandleProgress(AsyncOperationHandle handle, string message)
     {
         while (!handle.IsDone)

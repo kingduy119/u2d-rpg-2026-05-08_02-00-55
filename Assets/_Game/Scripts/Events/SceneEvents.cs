@@ -15,7 +15,7 @@ public static class ButtonEvents
 
     public static Action<ButtonView, CharacterSO> SelectByCharacterSO;
 
-    public static Action<string> GamePlayEvents;
+    public static Action<string> Gameplay;
     public static Action<ButtonView, CharacterSO> GamePlayCardSelect;
 }
 

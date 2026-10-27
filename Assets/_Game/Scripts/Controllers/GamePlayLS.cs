@@ -48,6 +48,7 @@ public class GamePlayController : IStartable, IDisposable, ITickable
 
         CterEvent.Shoot += Character_Shoot;
         GamePlayEvents.AddTarget += AddTarget;
+        ButtonEvents.Gameplay += Gameplay;
     }
 
     public void Tick()
@@ -59,11 +60,26 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     {
         CterEvent.Shoot -= Character_Shoot;
         GamePlayEvents.AddTarget -= AddTarget;
+        ButtonEvents.Gameplay -= Gameplay;
 
         _factory.ClearPool();
     }
 
-
+    private void Gameplay(string eventName)
+    {
+        switch (eventName)
+        {
+            case "StartGame":
+                States.TransitionTo(StartState);
+                break;
+            case "BackToIdle":
+                States.TransitionTo(IdleState);
+                break;
+            default:
+                Debug.LogWarning($"Unknown event: {eventName}");
+                break;
+        }
+    }
 
     private void AddTarget(string team, TargetController target)
     {

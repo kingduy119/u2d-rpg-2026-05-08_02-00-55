@@ -90,8 +90,8 @@ namespace Characters
 
         public void Dead()
         {
-            // Send event
             Deactive();
+            CterEvent.Dead?.Invoke(LayerMask.LayerToName(gameObject.layer));
         }
         public void Deactive()
         {

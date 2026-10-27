@@ -8,7 +8,7 @@ namespace Characters
     public static class CterEvent
     {
         public static Action<Character, ProjectSO> Shoot;
-        public static Action Dead;
+        public static Action<string> Dead;
     }
 
     public interface ICterState
@@ -114,16 +114,22 @@ namespace Characters
         {
             if (!AttackActive) return;
 
+            if (_Character == null || _Character.Anim == null)
+                return;
+
+
             _attacking = true;
             _Character.Anim.SetBool(IsAttacking1Hash, true);
 
             await UniTask.Delay(200);
             CheckAttackCollision2D();
+            // await UniTask.Delay(100);
 
-            await UniTask.Delay(100);
+            if (_Character == null || _Character.Anim == null)
+                return;
+
             _Character.Anim.SetBool(IsAttacking1Hash, false);
 
-            // await UniTask.Delay(200);
             _attacking = false;
             _attackCooldown = _combatData.AttackSpeed;
         }
@@ -156,14 +162,20 @@ namespace Characters
         {
             if (!AttackActive) return;
 
+            if (_Character == null || _Character.Anim == null)
+                return;
+
             FlipToShoot();
             _attacking = true;
             _Character.Anim.SetBool(IsAttacking1Hash, true);
 
             await UniTask.Delay(200);
             CterEvent.Shoot?.Invoke(_Character, _projectSO);
+            // await UniTask.Delay(100);
 
-            await UniTask.Delay(100);
+            if (_Character == null || _Character.Anim == null)
+                return;
+
             _Character.Anim.SetBool(IsAttacking1Hash, false);
 
             await UniTask.Delay(200);

@@ -6,19 +6,26 @@ using UnityEngine;
 
 public class GamePlayUIView : MonoBehaviour
 {
-    [SerializeField] ButtonView _startButton;
+    [SerializeField] GameObject _startButton;
+    [SerializeField] GameObject _confirmButton;
     [SerializeField] GameObject _listCard;
 
     // public 
-    public void Hide()
+    public void IdleExit()
     {
-        _startButton.gameObject.SetActive(false);
-        _listCard.gameObject.SetActive(false);
+        _startButton.SetActive(false);
+        _listCard.SetActive(false);
     }
 
-    public void Show()
+    public void IdleEnter()
     {
-        _startButton.gameObject.SetActive(true);
-        _listCard.gameObject.SetActive(true);
+        _startButton.SetActive(true);
+        _listCard.SetActive(true);
+    }
+
+    public void ToggleConfirm(string message = "")
+    {
+        Debug.Log(message);
+        _confirmButton.SetActive(!_confirmButton.activeSelf);
     }
 }
