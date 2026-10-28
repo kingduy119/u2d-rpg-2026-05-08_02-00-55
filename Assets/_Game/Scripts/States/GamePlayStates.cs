@@ -2,6 +2,7 @@ using Characters;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public abstract class GameplayState : State
 {
@@ -15,6 +16,7 @@ public abstract class GameplayState : State
 public class GameIdleState : GameplayState
 {
     ITargetController _target;
+    GameObject _character;
     InputService Input => Controller.Input;
 
     public GameIdleState(GamePlayController controller) : base(controller) { }
@@ -22,7 +24,8 @@ public class GameIdleState : GameplayState
     public override void Enter()
     {
         // ButtonEvents.GamePlayEvents += GamePlayEvents;
-        ButtonEvents.GamePlayCardSelect += Controller.Tilemap.GamePlayCardSelect;
+        // ButtonEvents.GamePlayCardSelect += Controller.Tilemap.GamePlayCardSelect;
+        ButtonEvents.GamePlayCardSelect += GamePlayCardSelect;
 
         Controller.UIView.IdleEnter();
     }
@@ -39,7 +42,8 @@ public class GameIdleState : GameplayState
     public override void Exit()
     {
         // ButtonEvents.GamePlayEvents -= GamePlayEvents;
-        ButtonEvents.GamePlayCardSelect -= Controller.Tilemap.GamePlayCardSelect;
+        // ButtonEvents.GamePlayCardSelect -= Controller.Tilemap.GamePlayCardSelect;
+        ButtonEvents.GamePlayCardSelect -= GamePlayCardSelect;
 
         Controller.UIView.IdleExit();
     }
@@ -53,17 +57,24 @@ public class GameIdleState : GameplayState
             {
                 var targets = collider.GetComponents<ITargetController>();
                 if (targets.Length > 0) _target = targets[0];
+
+                _character = collider.gameObject;
             }
         }
     }
 
     private void OnPointerUp()
     {
-        if (_target != null)
-        {
-            Controller.Tilemap.ChangeTilemapPosition(_target);
-            _target = null;
-        }
+        // if (_target != null)
+        // {
+        //     Controller.Tilemap.ChangeTilemapPosition(_target);
+        //     _target = null;
+        // }
+        // if (_character != null)
+        // {
+        //     Controller.Tilemap.SwapTarget(_character.transform);
+        //     _character = null;
+        // }
     }
 
     private void HandleTarget()
@@ -74,18 +85,31 @@ public class GameIdleState : GameplayState
         Controller.Tilemap.ShowPreviewTile(_target.GetPosition());
     }
 
-    // private void GamePlayEvents(string eventName)
-    // {
-    //     switch (eventName)
-    //     {
-    //         case "StartGame":
-    //             Controller.States.TransitionTo(Controller.StartState);
-    //             break;
-    //         default:
-    //             Debug.LogWarning($"Unknown event: {eventName}");
-    //             break;
-    //     }
-    // }
+
+    private ButtonView _prevButton;
+    private void GamePlayCardSelect(ButtonView button, CharacterSO so)
+    {
+        // if (Controller.Tilemap.GetActiveCell(so, out var character))
+        // {
+        //     // Init Character with cellPosition
+        //     var target = character.AddComponent<TargetController>();
+        //     target.Init("Player", "Enemy");
+        //     Controller.Targets.Add(target);
+        // }
+        foreach (var cell in Controller.Tilemap.ActiveCells)
+        {
+            if (Controller.MapObjects[cell] != null)
+            {
+                var character = Controller.Factory.GetPrefab(so);
+                var control = character.AddComponent<TargetController>();
+
+            }
+        }
+
+
+        if (_prevButton != null) _prevButton.UnSelected();
+        _prevButton = button;
+    }
 }
 
 public class GameStartState : GameplayState
@@ -121,7 +145,11 @@ public class GameStartState : GameplayState
     {
         foreach (var target in Controller.Targets.Concat(Controller.Enemies))
         {
-            target.Reset();
+            if (target != null)
+            {
+                target.Reset();
+                // target.SetTargets([]);
+            }
         }
 
         CterEvent.Dead -= CterDead;

@@ -28,13 +28,15 @@ public class GamePlayLS : LifetimeScope
 
 public class GamePlayController : IStartable, IDisposable, ITickable
 {
-    [Inject] readonly FactoryService _factory;
+    [Inject] readonly public FactoryService Factory;
     [Inject] readonly public InputService Input;
     [Inject] readonly public PlayerSelectTilemapView Tilemap;
     [Inject] readonly public GamePlayUIView UIView;
 
     public List<TargetController> Targets = new();
     public List<TargetController> Enemies = new();
+    public Dictionary<Vector3Int, TargetController> MapObjects = new();
+    public Dictionary<Vector3Int, CharacterSO> MapData = new();
 
     public readonly StateMachine States = new();
     public IState IdleState;
@@ -62,7 +64,7 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         GamePlayEvents.AddTarget -= AddTarget;
         ButtonEvents.Gameplay -= Gameplay;
 
-        _factory.ClearPool();
+        Factory.ClearPool();
     }
 
     private void Gameplay(string eventName)
@@ -92,7 +94,7 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     private void Character_Shoot(Character cter, ProjectSO projectSO)
     {
         Vector2 direction = (cter.Target.position - cter.transform.position).normalized;
-        var projectile = _factory.GetPrefab(projectSO);
+        var projectile = Factory.GetPrefab(projectSO);
 
         if (projectile != null)
         {

@@ -45,10 +45,11 @@ namespace Characters
 
             idleState = new IdleState(this);
             moveState = new MovementSate(this);
-            combatState = new CombatState(this);
-            // combatState = _combat;
 
-            // _states.Add(combatState); // For state can call Tick() in Update 
+            var combat = new CombatState(this);
+            combatState = combat;
+
+            _states.Add(combat); // For state can call Tick() in Update 
         }
 
         protected virtual void Update()

@@ -85,7 +85,7 @@ public class TargetController : MonoBehaviour, ITargetController
         if (colliders.Length > 0)
         {
             var (target, distance) = GetNearestTarget(colliders);
-            // if (isDebug) Debug.Log($"distance <= _attackRange: {distance} - {_attackRange} - {colliders.Length}");
+            if (isDebug) Debug.Log($"distance <= _attackRange: {distance} - {_attackRange} - {colliders.Length}");
 
             if (distance <= _attackRange)
             {
@@ -170,6 +170,7 @@ public class TargetController : MonoBehaviour, ITargetController
 
     public void Init(string layer, LayerMask targetLayer, Transform defaultTarget = null)
     {
+        gameObject.tag = layer;
         gameObject.layer = LayerMask.NameToLayer(layer);
         TargetLayer = targetLayer;
         DefaultTarget = defaultTarget;
@@ -181,6 +182,16 @@ public class TargetController : MonoBehaviour, ITargetController
     {
         if (position != null) SetPosition(position);
 
+        gameObject.tag = layer;
+        gameObject.layer = LayerMask.NameToLayer(layer);
+        TargetLayer = LayerMask.GetMask(targetLayer);
+
+        Character.SetTargetLayer(TargetLayer);
+    }
+
+    public void Init(string layer, string targetLayer)
+    {
+        gameObject.tag = layer;
         gameObject.layer = LayerMask.NameToLayer(layer);
         TargetLayer = LayerMask.GetMask(targetLayer);
 

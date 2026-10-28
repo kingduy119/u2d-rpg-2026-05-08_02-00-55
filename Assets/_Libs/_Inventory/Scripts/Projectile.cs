@@ -48,9 +48,9 @@ namespace Weapons
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            string targetLayerName = LayerMask.LayerToName(Target.layer);
+            // string targetLayerName = LayerMask.LayerToName(Target.layer);
 
-            // if (!collision.CompareTag(targetLayerName)) return;
+            if (!collision.CompareTag(Target.tag)) return;
 
             DamageableHelper.CheckCollisionInterfaces(collision.gameObject, Data.Damage);
             Deactivate();
