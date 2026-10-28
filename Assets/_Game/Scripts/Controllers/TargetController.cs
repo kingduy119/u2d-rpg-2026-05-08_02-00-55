@@ -31,6 +31,7 @@ public class TargetController : MonoBehaviour, ITargetController
     private float _targetDetect;
     private float _attackRange;
     private Vector3 _prevPosition;
+    public Vector3Int Cell;
 
     private Rigidbody2D _rb;
 
@@ -46,6 +47,11 @@ public class TargetController : MonoBehaviour, ITargetController
             return;
         }
         gameObject.transform.position = position;
+    }
+
+    public void Swap(TargetController other)
+    {
+        (Cell, other.Cell) = (other.Cell, Cell);
     }
 
     public void SetTargets(List<Transform> targets) => Targets = targets;
@@ -80,12 +86,10 @@ public class TargetController : MonoBehaviour, ITargetController
             Character.AttackPoint.position,
             _attackRange,
             TargetLayer);
-        if (isDebug) Debug.Log($"colliders: {colliders.Length}");
 
         if (colliders.Length > 0)
         {
             var (target, distance) = GetNearestTarget(colliders);
-            if (isDebug) Debug.Log($"distance <= _attackRange: {distance} - {_attackRange} - {colliders.Length}");
 
             if (distance <= _attackRange)
             {
@@ -95,9 +99,8 @@ public class TargetController : MonoBehaviour, ITargetController
         else if (Targets.Count > 0)
         {
             var (nearestTarget, distance) = GetNearestTarget(Targets);
-            // if (isDebug) Debug.Log($"GetNearestTarget: {distance} - {_attackRange}");
 
-            if (distance > _attackRange)
+            if (nearestTarget != null && distance > _attackRange)
             {
                 Vector2 direction = nearestTarget.position - transform.position;
                 Character.Move(direction.normalized);

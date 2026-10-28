@@ -15,7 +15,7 @@ public abstract class GameplayState : State
 
 public class GameIdleState : GameplayState
 {
-    ITargetController _target;
+    TargetController _target;
     GameObject _character;
     InputService Input => Controller.Input;
 
@@ -23,8 +23,6 @@ public class GameIdleState : GameplayState
 
     public override void Enter()
     {
-        // ButtonEvents.GamePlayEvents += GamePlayEvents;
-        // ButtonEvents.GamePlayCardSelect += Controller.Tilemap.GamePlayCardSelect;
         ButtonEvents.GamePlayCardSelect += GamePlayCardSelect;
 
         Controller.UIView.IdleEnter();
@@ -41,8 +39,6 @@ public class GameIdleState : GameplayState
 
     public override void Exit()
     {
-        // ButtonEvents.GamePlayEvents -= GamePlayEvents;
-        // ButtonEvents.GamePlayCardSelect -= Controller.Tilemap.GamePlayCardSelect;
         ButtonEvents.GamePlayCardSelect -= GamePlayCardSelect;
 
         Controller.UIView.IdleExit();
@@ -55,26 +51,42 @@ public class GameIdleState : GameplayState
             Collider2D collider = Input.PointerCollider2D("Player");
             if (collider != null)
             {
-                var targets = collider.GetComponents<ITargetController>();
-                if (targets.Length > 0) _target = targets[0];
-
-                _character = collider.gameObject;
+                _target = collider.GetComponent<TargetController>();
             }
         }
     }
 
     private void OnPointerUp()
     {
-        // if (_target != null)
-        // {
-        //     Controller.Tilemap.ChangeTilemapPosition(_target);
-        //     _target = null;
-        // }
-        // if (_character != null)
-        // {
-        //     Controller.Tilemap.SwapTarget(_character.transform);
-        //     _character = null;
-        // }
+        if (_target == null) return;
+
+        var currentCell = Controller.Tilemap.WorldToCell(_target.GetPosition());
+        var prevCell = _target.Cell;
+
+        if (Controller.Tilemap.ActiveCells.Contains(currentCell) && currentCell != prevCell)
+        {
+            Controller.PlayerObjects.TryGetValue(currentCell, out var other);
+
+            if (other != null)
+            {
+                other.SetPosition(Controller.Tilemap.CellToWorld(prevCell));
+                other.Cell = prevCell;
+            }
+            _target.SetPosition(Controller.Tilemap.CellToWorld(currentCell));
+            _target.Cell = currentCell;
+
+            Controller.PlayerObjects[currentCell] = _target;
+            Controller.PlayerObjects[prevCell] = other;
+
+            Controller.PlayerMapSO.TryGetValue(currentCell, out var soCurrent);
+            Controller.PlayerMapSO.TryGetValue(prevCell, out var soPrev);
+            Controller.PlayerMapSO[currentCell] = soPrev;
+            Controller.PlayerMapSO[prevCell] = soCurrent;
+        }
+        else _target.SetPosition(Controller.Tilemap.CellToWorld(prevCell));
+
+        Controller.Tilemap.HideTilemaps();
+        _target = null;
     }
 
     private void HandleTarget()
@@ -89,20 +101,26 @@ public class GameIdleState : GameplayState
     private ButtonView _prevButton;
     private void GamePlayCardSelect(ButtonView button, CharacterSO so)
     {
-        // if (Controller.Tilemap.GetActiveCell(so, out var character))
-        // {
-        //     // Init Character with cellPosition
-        //     var target = character.AddComponent<TargetController>();
-        //     target.Init("Player", "Enemy");
-        //     Controller.Targets.Add(target);
-        // }
         foreach (var cell in Controller.Tilemap.ActiveCells)
         {
-            if (Controller.MapObjects[cell] != null)
+            if (!Controller.PlayerObjects.TryGetValue(cell, out var _))
             {
-                var character = Controller.Factory.GetPrefab(so);
-                var control = character.AddComponent<TargetController>();
 
+                if (Controller.Tilemap.TileGrid == null) return;
+
+                var character = Controller.Factory.GetPrefab(so);
+                if (character == null) return;
+
+                var target = character.AddComponent<TargetController>();
+
+                target.Init("Player", "Enemy");
+                target.Cell = cell;
+                target.SetPosition(Controller.Tilemap.CellToWorld(cell));
+
+
+                Controller.PlayerObjects[cell] = target;
+                Controller.PlayerMapSO[cell] = so;
+                return;
             }
         }
 
@@ -116,23 +134,36 @@ public class GameStartState : GameplayState
 {
     int _enemies;
     int _players;
+    // List<TargetController> enemies;
+    // List<TargetController> players;
+
+    List<TargetController> enemies => Controller.Enemies;
+    List<TargetController> players => Controller.PlayerObjects.Values
+            .Where(v => v != null)
+            .ToList();
+
     public GameStartState(GamePlayController controller) : base(controller) { }
 
     public override void Enter()
     {
+        _enemies = 0;
+        _players = 0;
+
         CterEvent.Dead += CterDead;
 
-        _enemies = Controller.Enemies.Count;
-        _players = Controller.Targets.Count;
+        // players = Controller.PlayerObjects.Values
+        //     .Where(v => v != null)
+        //     .ToList();
+        // enemies = Controller.Enemies;
 
-        foreach (var target in Controller.Targets)
+        foreach (var target in enemies)
         {
-            target.SetTargets(Controller.Enemies);
+            target.SetTargets(players);
             target.StartCombat();
         }
-        foreach (var target in Controller.Enemies)
+        foreach (var target in players)
         {
-            target.SetTargets(Controller.Targets);
+            target.SetTargets(enemies);
             target.StartCombat();
         }
     }
@@ -143,46 +174,56 @@ public class GameStartState : GameplayState
 
     public override void Exit()
     {
-        foreach (var target in Controller.Targets.Concat(Controller.Enemies))
-        {
-            if (target != null)
-            {
-                target.Reset();
-                // target.SetTargets([]);
-            }
-        }
+        // foreach (var target in Controller.Targets.Concat(Controller.Enemies))
+        // {
+        //     if (target != null)
+        //     {
+        //         target.Reset();
+        //         // target.SetTargets([]);
+        //     }
+        // }
 
         CterEvent.Dead -= CterDead;
     }
 
-    private void CterDead(string name)
+    private void CterDead(GameObject obj)
     {
+
+        string name = LayerMask.LayerToName(obj.layer);
+        var control = obj.GetComponent<TargetController>();
+
         if (name == "Enemy")
         {
-            var transforms = GetTargetsByLayer("Enemy");
-            Debug.Log($"Enemy Dead, Remaining: {transforms.Count}");
-            foreach (var target in Controller.Targets)
-            {
-                target.SetTargets(transforms);
-            }
 
-            if (transforms.Count <= 0)
+            _enemies++;
+            if (_enemies >= enemies.Count)
             {
                 Controller.UIView.ToggleConfirm("Players Win!");
+                return;
+            }
+
+            foreach (var target in players)
+            {
+                target.SetTargets(enemies);
+                target.StartCombat();
             }
         }
         else if (name == "Player")
         {
-            var transforms = GetTargetsByLayer("Player");
-            Debug.Log($"Player Dead, Remaining: {transforms.Count}");
-            foreach (var target in Controller.Targets)
-            {
-                target.SetTargets(transforms);
-            }
+            _players++;
+            Controller.PlayerObjects.Remove(control.Cell);
 
-            if (transforms.Count <= 0)
+            if (_players >= players.Count)
             {
                 Controller.UIView.ToggleConfirm("Enemies Win!");
+                return;
+            }
+
+            Debug.Log($"Player Dead, Remaining: {players.Count}");
+            foreach (var target in enemies)
+            {
+                target.SetTargets(players);
+                target.StartCombat();
             }
         }
     }

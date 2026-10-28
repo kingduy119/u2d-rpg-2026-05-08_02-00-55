@@ -8,7 +8,7 @@ namespace Characters
     public static class CterEvent
     {
         public static Action<Character, ProjectSO> Shoot;
-        public static Action<string> Dead;
+        public static Action<GameObject> Dead;
     }
 
     public interface ICterState

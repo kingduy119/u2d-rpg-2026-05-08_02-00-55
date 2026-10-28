@@ -35,8 +35,9 @@ public class GamePlayController : IStartable, IDisposable, ITickable
 
     public List<TargetController> Targets = new();
     public List<TargetController> Enemies = new();
-    public Dictionary<Vector3Int, TargetController> MapObjects = new();
-    public Dictionary<Vector3Int, CharacterSO> MapData = new();
+    public List<TargetController> Players = new();
+    public Dictionary<Vector3Int, TargetController> PlayerObjects = new();
+    public Dictionary<Vector3Int, CharacterSO> PlayerMapSO = new();
 
     public readonly StateMachine States = new();
     public IState IdleState;
