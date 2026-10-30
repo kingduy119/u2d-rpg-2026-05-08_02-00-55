@@ -2,11 +2,12 @@ using Characters;
 using UnityEngine;
 using Unity.VisualScripting;
 
-public class GameIdleState : GameplayState
+public class GamePlayIdleState : GameplayState
 {
     TargetController _target;
+    ButtonView _prevButton;
 
-    public GameIdleState(GamePlayController controller) : base(controller) { }
+    public GamePlayIdleState(GamePlayController controller) : base(controller) { }
 
     public override void Enter()
     {
@@ -87,7 +88,7 @@ public class GameIdleState : GameplayState
     }
 
 
-    private ButtonView _prevButton;
+
     private void GamePlayCardSelect(ButtonView button, CharacterSO so)
     {
         foreach (var cell in Controller.Tilemap.ActiveCells)
@@ -103,6 +104,8 @@ public class GameIdleState : GameplayState
                     target.Init("Player", "Enemy");
                     Controller.PlayerObjects[cell] = target;
                     Controller.PlayerMapSO[cell] = so;
+
+                    Controller.Targets[cell] = target.gameObject;
                 }
                 return;
             }

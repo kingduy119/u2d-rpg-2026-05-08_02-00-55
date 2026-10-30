@@ -12,8 +12,8 @@ public interface ITargetController
     void MoveByPointer(Vector3 position);
     void BackToPosition();
 
-    void StartCombat();
-    void Reset();
+    // void StartCombat();
+    // void Reset();
 
     void SetPosition(Vector3 position);
     Vector3 GetPosition();
@@ -77,7 +77,8 @@ public class TargetController : MonoBehaviour, ITargetController
 
     private void Update()
     {
-        if (_start) HandleCharacter();
+        // if (_start) 
+        HandleCharacter();
     }
 
     private void HandleCharacter()
@@ -135,7 +136,6 @@ public class TargetController : MonoBehaviour, ITargetController
 
     private (Transform nearest, float distance) GetNearestTarget(Collider2D[] colliders)
     {
-        // Transform nearest = null;
         Transform nearest = null;
         float minDistance = float.MaxValue;
 
@@ -159,23 +159,15 @@ public class TargetController : MonoBehaviour, ITargetController
     }
 
 
-    public void StartCombat()
-    {
-        _start = true;
-    }
-
-    public void Reset()
-    {
-        _start = false;
-        transform.position = _prevPosition;
-        this.enabled = false;
-        gameObject.SetActive(true);
-    }
-
+    // public void StartCombat()
+    // {
+    //     _start = true;
+    // }
     public void Deactive()
     {
-        _start = false;
+        // _start = false;
         gameObject.tag = "Untagged";
+        this.enabled = false;
         Character.Deactive();
     }
 

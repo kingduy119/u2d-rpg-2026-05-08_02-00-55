@@ -37,9 +37,7 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     [Inject] readonly public GamePlayUIView UIView;
     [Inject] readonly public GameLevelView LevelView;
 
-    // public List<TargetController> Targets = new();
-    // public List<TargetController> Enemies = new();
-    // public List<TargetController> Players = new();
+    public Dictionary<Vector3Int, GameObject> Targets = new();
     public Dictionary<Vector3Int, TargetController> EnemyObjects = new();
     public Dictionary<Vector3Int, TargetController> PlayerObjects = new();
     public Dictionary<Vector3Int, CharacterSO> EnemyMapSO = new();
@@ -51,8 +49,8 @@ public class GamePlayController : IStartable, IDisposable, ITickable
 
     public void Start()
     {
-        IdleState = new GameIdleState(this);
-        StartState = new GameStartState(this);
+        IdleState = new GamePlayIdleState(this);
+        StartState = new GamePlayStartState(this);
         States.Initialize(IdleState);
 
         CterEvent.Shoot += Character_Shoot;
@@ -77,11 +75,11 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         switch (eventName)
         {
             case "StartGame":
-                if (States.CurrentState is not GameStartState)
+                if (States.CurrentState is not GamePlayStartState)
                     States.TransitionTo(StartState);
                 break;
             case "BackToIdle":
-                if (States.CurrentState is not GameIdleState)
+                if (States.CurrentState is not GamePlayIdleState)
                     States.TransitionTo(IdleState);
                 break;
             default:
@@ -104,6 +102,8 @@ public class GamePlayController : IStartable, IDisposable, ITickable
                 {
                     target.Init("Enemy", "Player");
                     EnemyObjects[cell] = target;
+
+                    Targets[cell] = target.gameObject;
                 }
             }
         }
@@ -121,6 +121,8 @@ public class GamePlayController : IStartable, IDisposable, ITickable
             {
                 target.Init("Player", "Enemy");
                 PlayerObjects[cell] = target;
+
+                Targets[cell] = target.gameObject;
             }
         }
     }
@@ -135,15 +137,15 @@ public class GamePlayController : IStartable, IDisposable, ITickable
             target = character.AddComponent<TargetController>();
         }
 
-        target.enabled = true;
         target.SetPosition(Tilemap.CellToWorld(cell));
         target.Cell = cell;
+        target.enabled = false;
         return target;
     }
 
     public void ClearMap()
     {
-        foreach (var entity in EnemyObjects.Values.ToList())
+        foreach (var entity in EnemyObjects.Values.ToList().Concat(PlayerObjects.Values.ToList()))
         {
             if (entity != null && entity.TryGetComponent<TargetController>(out var target))
             {
@@ -151,13 +153,13 @@ public class GamePlayController : IStartable, IDisposable, ITickable
             }
         }
 
-        foreach (var entity in PlayerObjects.Values.ToList())
-        {
-            if (entity != null && entity.TryGetComponent<TargetController>(out var target))
-            {
-                target.Deactive();
-            }
-        }
+        // foreach (var entity in PlayerObjects.Values.ToList())
+        // {
+        //     if (entity != null && entity.TryGetComponent<TargetController>(out var target))
+        //     {
+        //         target.Deactive();
+        //     }
+        // }
         EnemyObjects.Clear();
         PlayerObjects.Clear();
     }
@@ -177,3 +179,15 @@ public class GamePlayController : IStartable, IDisposable, ITickable
 
 }
 
+public abstract class GameplayState : State
+{
+    protected readonly GamePlayController Controller;
+    protected InputService Input => Controller.Input;
+    protected GamePlayTilemapView TilemapView => Controller.Tilemap;
+    protected GamePlayUIView UIView => Controller.UIView;
+
+    public GameplayState(GamePlayController controller)
+    {
+        Controller = controller;
+    }
+}

@@ -4,20 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-public abstract class GameplayState : State
-{
-    protected readonly GamePlayController Controller;
-    protected InputService Input => Controller.Input;
-    protected GamePlayTilemapView TilemapView => Controller.Tilemap;
-    protected GamePlayUIView UIView => Controller.UIView;
-
-    public GameplayState(GamePlayController controller)
-    {
-        Controller = controller;
-    }
-}
-
-public class GameStartState : GameplayState
+public class GamePlayStartState : GameplayState
 {
     int _enemies;
     int _players;
@@ -29,7 +16,7 @@ public class GameStartState : GameplayState
         .Where(v => v != null)
         .ToList();
 
-    public GameStartState(GamePlayController controller) : base(controller) { }
+    public GamePlayStartState(GamePlayController controller) : base(controller) { }
 
     public override void Enter()
     {
@@ -38,21 +25,28 @@ public class GameStartState : GameplayState
         _enemies = 0;
         _players = 0;
 
-        foreach (var target in enemies)
+        // foreach (var target in enemies)
+        // {
+        //     target.SetTargets(players);
+        //     target.enabled = true;
+        // }
+        // foreach (var target in players)
+        // {
+        //     target.SetTargets(enemies);
+        //     target.enabled = true;
+        // }
+        foreach (var target in enemies.Concat(players))
         {
-            target.SetTargets(players);
-            target.StartCombat();
-        }
-        foreach (var target in players)
-        {
-            target.SetTargets(enemies);
-            target.StartCombat();
+            if (target.gameObject.tag == "Enemy")
+                target.SetTargets(players);
+            else if (target.gameObject.tag == "Player")
+                target.SetTargets(enemies);
+
+            target.enabled = true;
         }
     }
 
-    public override void Execute()
-    {
-    }
+    public override void Execute() { }
 
     public override void Exit()
     {
@@ -63,50 +57,43 @@ public class GameStartState : GameplayState
     private void CterDead(GameObject obj)
     {
 
-        // string name = LayerMask.LayerToName(obj.layer);
         var control = obj.GetComponent<TargetController>();
-
         if (obj.CompareTag("Enemy"))
         {
 
             _enemies++;
-            foreach (var target in players)
+            if (control != null)
             {
-                target.SetTargets(enemies);
-            }
+                Controller.EnemyObjects.Remove(control.Cell);
 
-            // if (_enemies >= enemies.Count)
-            // {
-            //     if (Controller.LevelView.NextWave()) UIView.ToggleConfirm("Player Win!");
-            //     else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
-            // }
+                foreach (var target in players)
+                    target.SetTargets(enemies);
+
+                if (enemies.Count <= 0)
+                {
+                    if (Controller.LevelView.NextWave()) UIView.ToggleConfirm("Player Win!");
+                    else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
+                }
+            }
         }
         else if (obj.CompareTag("Player"))
         {
             _players++;
-            Controller.PlayerObjects.Remove(control.Cell);
-            foreach (var target in enemies)
+            if (control != null)
             {
-                target.SetTargets(players);
+                Controller.PlayerObjects.Remove(control.Cell);
+
+                foreach (var target in enemies)
+                {
+                    target.SetTargets(players);
+                }
+
+                if (_players >= players.Count)
+                {
+                    UIView.ToggleConfirm("Enemies Win!");
+                }
             }
 
-            // if (_players >= players.Count)
-            // {
-            //     UIView.ToggleConfirm("Enemies Win!");
-            // }
         }
-
-        Debug.Log($"players.Count: {players.Count} - {_players}");
-        Debug.Log($"enemies.Count: {enemies.Count} - {_enemies}");
-        // if (_players >= players.Count)
-        // {
-        //     UIView.ToggleConfirm("Enemies Win!");
-        // }
-        // else if (_enemies >= enemies.Count)
-        // {
-        //     if (Controller.LevelView.NextWave()) UIView.ToggleConfirm("Player Win!");
-        //     else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
-        // }
-
     }
 }
