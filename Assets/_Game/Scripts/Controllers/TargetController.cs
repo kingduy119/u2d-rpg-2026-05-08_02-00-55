@@ -35,7 +35,7 @@ public class TargetController : MonoBehaviour, ITargetController
 
     private Rigidbody2D _rb;
 
-    public ICter Character { get; private set; }
+    public Character Character { get; private set; }
 
     public bool isDebug;
 
@@ -168,7 +168,15 @@ public class TargetController : MonoBehaviour, ITargetController
     {
         _start = false;
         transform.position = _prevPosition;
+        this.enabled = false;
         gameObject.SetActive(true);
+    }
+
+    public void Deactive()
+    {
+        _start = false;
+        gameObject.tag = "Untagged";
+        Character.Deactive();
     }
 
     public void Init(string layer, LayerMask targetLayer, Transform defaultTarget = null)
@@ -204,34 +212,3 @@ public class TargetController : MonoBehaviour, ITargetController
 
 }
 
-
-
-// private ITargetController GetNearestTarget()
-// {
-//     ITargetController nearest = null;
-//     float minDistance = float.MaxValue;
-
-//     foreach (var target in Targets)
-//     {
-//         if (target == null) continue;
-
-//         float distance = Vector2.Distance(
-//             transform.position,
-//             target.GetPosition()
-//         );
-
-//         if (distance < minDistance)
-//         {
-//             minDistance = distance;
-//             nearest = target;
-//         }
-//     }
-
-//     return nearest;
-// }
-
-// private void CheckTargetInRange()
-// {
-//     var colider = Physics2D.OverlapCircle(transform.position, _targetDetect, TargetLayer);
-//     Target = colider ? colider.transform : null;
-// }

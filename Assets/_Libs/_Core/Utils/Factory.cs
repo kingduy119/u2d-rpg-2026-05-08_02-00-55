@@ -42,7 +42,6 @@ public class Factory<Type, T> where T : MonoBehaviour,
         if (!prefabs.TryGetValue(type, out var prefab))
             return null;
 
-        // Create new pool with type if not exists
         if (!_PoolDictionary.TryGetValue(type, out var pool))
         {
             pool = new GenericPool<T>(prefab, PoolParent.transform);
@@ -104,7 +103,7 @@ public class GenericPool<T> where T : MonoBehaviour,
     }
     private void OnDestroy(T item)
     {
-        if (item != null) Object.Destroy(item.gameObject);
+        if (item != null && item.gameObject != null) Object.Destroy(item.gameObject);
     }
     public T Get() => _pool.Get();
     public void Clear() => _pool.Clear();

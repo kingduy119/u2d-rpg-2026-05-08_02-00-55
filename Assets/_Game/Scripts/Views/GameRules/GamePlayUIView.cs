@@ -13,14 +13,15 @@ public class GamePlayUIView : MonoBehaviour
     // public 
     public void IdleExit()
     {
-        _startButton.SetActive(false);
         _listCard.SetActive(false);
+        _startButton.SetActive(false);
     }
 
     public void IdleEnter()
     {
-        _startButton.SetActive(true);
         _listCard.SetActive(true);
+        _startButton.SetActive(true);
+        _confirmButton.SetActive(false);
     }
 
     public void ToggleConfirm(string message = "")

@@ -18,8 +18,6 @@ namespace Characters
 
         public CharacterSO SO { get; set; }
 
-        // [SerializeField] protected CharacterCombat _combat;
-
 
         protected void OnValidate()
         {

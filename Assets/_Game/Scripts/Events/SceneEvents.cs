@@ -6,6 +6,7 @@ using UnityEngine;
 
 public static class SceneEvents
 {
+    public static string GameMenu = "GameMenu";
     public static Action<string> ChangeScene;
 }
 
@@ -27,10 +28,4 @@ public static class FactoryEvents
 public static class GameDefenseEvents
 {
     public static Action<ITargetController> ChangeTilemapPosition;
-}
-
-
-public static class GamePlayEvents
-{
-    public static Action<string, TargetController> AddTarget;
 }

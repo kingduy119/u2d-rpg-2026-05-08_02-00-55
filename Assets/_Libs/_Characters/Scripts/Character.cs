@@ -97,7 +97,10 @@ namespace Characters
         public void Deactive()
         {
             if (Pool != null)
-                Pool.Release(this);
+            {
+                if (gameObject.activeInHierarchy)
+                    Pool.Release(this);
+            }
             else
                 Destroy(gameObject);
         }
