@@ -14,7 +14,7 @@ public class GamePlayIdleState : GameplayState
         ButtonEvents.GamePlayCardSelect += GamePlayCardSelect;
 
         Controller.UIView.IdleEnter();
-        Controller.InitEnemies();
+        Controller.SpawnEnemies();
         Controller.SpawnPlayers();
     }
 

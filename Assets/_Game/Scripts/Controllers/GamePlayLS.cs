@@ -88,9 +88,9 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         }
     }
 
-    public void InitEnemies()
+    public void SpawnEnemies()
     {
-        foreach (var item in LevelView.GetWaveTargets())
+        foreach (var item in LevelView.Wave)
         {
             if (item.position < Tilemap.EnemyCells.Count)
             {
@@ -153,13 +153,6 @@ public class GamePlayController : IStartable, IDisposable, ITickable
             }
         }
 
-        // foreach (var entity in PlayerObjects.Values.ToList())
-        // {
-        //     if (entity != null && entity.TryGetComponent<TargetController>(out var target))
-        //     {
-        //         target.Deactive();
-        //     }
-        // }
         EnemyObjects.Clear();
         PlayerObjects.Clear();
     }
