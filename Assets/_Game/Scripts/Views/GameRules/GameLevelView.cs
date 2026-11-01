@@ -7,6 +7,8 @@ public class GameLevelView : MonoBehaviour
     int _wave = 0;
     int _level = 0;
     public GamePlayLevelSO Level;
+
+    // Alias
     public bool EndOfWave => _level < Level.Waves.Count;
 
     public List<PositionCharacter> Wave => Level.Waves[_wave].Targets;

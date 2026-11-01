@@ -12,9 +12,6 @@ public interface ITargetController
     void MoveByPointer(Vector3 position);
     void BackToPosition();
 
-    // void StartCombat();
-    // void Reset();
-
     void SetPosition(Vector3 position);
     Vector3 GetPosition();
     Vector3 GetPrevPosition();
@@ -158,11 +155,6 @@ public class TargetController : MonoBehaviour, ITargetController
         return (nearest, minDistance);
     }
 
-
-    // public void StartCombat()
-    // {
-    //     _start = true;
-    // }
     public void Deactive()
     {
         // _start = false;

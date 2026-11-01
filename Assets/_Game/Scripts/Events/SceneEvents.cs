@@ -20,6 +20,11 @@ public static class ButtonEvents
     public static Action<ButtonView, CharacterSO> GamePlayCardSelect;
 }
 
+public static class GamePlayEvents
+{
+    public static Action<ButtonView, CharacterSO, Resources> CterCardSelect;
+}
+
 public static class FactoryEvents
 {
     public static Action<CharacterSO, Transform> SpawnCharacter;

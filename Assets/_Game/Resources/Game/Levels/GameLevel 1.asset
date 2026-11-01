@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b950eecded164526aac19308220d6d6, type: 3}
   m_Name: GameLevel 1
   m_EditorClassIdentifier: Assembly-CSharp::GamePlayLevelSO
+  Resources:
+    Food: 100
+    Gold: 50
+    Wood: 50
   Waves:
   - Targets:
     - position: 0

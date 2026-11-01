@@ -26,6 +26,7 @@ public class GamePlayLS : LifetimeScope
         builder.RegisterComponentInHierarchy<GamePlayTilemapView>();
         builder.RegisterComponentInHierarchy<GamePlayUIView>();
         builder.RegisterComponentInHierarchy<GameLevelView>();
+        builder.RegisterComponentInHierarchy<GamePlayResourceView>();
     }
 }
 
@@ -36,8 +37,8 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     [Inject] readonly public GamePlayTilemapView Tilemap;
     [Inject] readonly public GamePlayUIView UIView;
     [Inject] readonly public GameLevelView LevelView;
+    [Inject] readonly public GamePlayResourceView ResourceView;
 
-    public Dictionary<Vector3Int, GameObject> Targets = new();
     public Dictionary<Vector3Int, TargetController> EnemyObjects = new();
     public Dictionary<Vector3Int, TargetController> PlayerObjects = new();
     public Dictionary<Vector3Int, CharacterSO> EnemyMapSO = new();
@@ -55,6 +56,9 @@ public class GamePlayController : IStartable, IDisposable, ITickable
 
         CterEvent.Shoot += Character_Shoot;
         ButtonEvents.Gameplay += HandleGamePlayEvents;
+
+        if (ResourceView != null && LevelView != null)
+            ResourceView.Init(LevelView.Level.Resources);
     }
 
     public void Tick()
@@ -102,8 +106,6 @@ public class GamePlayController : IStartable, IDisposable, ITickable
                 {
                     target.Init("Enemy", "Player");
                     EnemyObjects[cell] = target;
-
-                    Targets[cell] = target.gameObject;
                 }
             }
         }
@@ -121,8 +123,6 @@ public class GamePlayController : IStartable, IDisposable, ITickable
             {
                 target.Init("Player", "Enemy");
                 PlayerObjects[cell] = target;
-
-                Targets[cell] = target.gameObject;
             }
         }
     }

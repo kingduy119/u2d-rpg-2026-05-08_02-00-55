@@ -1,6 +1,5 @@
 using Characters;
 using UnityEngine;
-using Unity.VisualScripting;
 
 public class GamePlayIdleState : GameplayState
 {
@@ -12,6 +11,7 @@ public class GamePlayIdleState : GameplayState
     public override void Enter()
     {
         ButtonEvents.GamePlayCardSelect += GamePlayCardSelect;
+        GamePlayEvents.CterCardSelect -= CterCardSelect;
 
         Controller.UIView.IdleEnter();
         Controller.SpawnEnemies();
@@ -30,6 +30,7 @@ public class GamePlayIdleState : GameplayState
     public override void Exit()
     {
         ButtonEvents.GamePlayCardSelect -= GamePlayCardSelect;
+        GamePlayEvents.CterCardSelect -= CterCardSelect;
 
         Controller.UIView.IdleExit();
     }
@@ -104,8 +105,6 @@ public class GamePlayIdleState : GameplayState
                     target.Init("Player", "Enemy");
                     Controller.PlayerObjects[cell] = target;
                     Controller.PlayerMapSO[cell] = so;
-
-                    Controller.Targets[cell] = target.gameObject;
                 }
                 return;
             }
@@ -114,5 +113,10 @@ public class GamePlayIdleState : GameplayState
 
         if (_prevButton != null) _prevButton.UnSelected();
         _prevButton = button;
+    }
+
+    private void CterCardSelect(ButtonView button, CharacterSO cterSO, Resources resources)
+    {
+
     }
 }

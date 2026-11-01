@@ -23,5 +23,6 @@ public class LevelWave
 [CreateAssetMenu(fileName = "GamePlayLevelSO", menuName = "Game/GamePlayLevelSO")]
 public class GamePlayLevelSO : ScriptableObject
 {
+    public Resources Resources;
     public List<LevelWave> Waves = new();
 }
