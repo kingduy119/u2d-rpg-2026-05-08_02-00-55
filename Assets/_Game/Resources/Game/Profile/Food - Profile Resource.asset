@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee200249a513c4bd9812ea630e0ddaab, type: 3}
-  m_Name: Food - Resource
+  m_Name: Food - Profile Resource
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItemSO
   Icon: {fileID: 21300000, guid: 7ae60e0e3b7fd419aa2a0b999da0fb07, type: 3}
   Value: 0

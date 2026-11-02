@@ -25,21 +25,12 @@ public class GamePlayStartState : GameplayState
         _enemies = 0;
         _players = 0;
 
-        // foreach (var target in enemies)
-        // {
-        //     target.SetTargets(players);
-        //     target.enabled = true;
-        // }
-        // foreach (var target in players)
-        // {
-        //     target.SetTargets(enemies);
-        //     target.enabled = true;
-        // }
+
         foreach (var target in enemies.Concat(players))
         {
-            if (target.gameObject.tag == "Enemy")
+            if (target.gameObject.CompareTag("Enemy"))
                 target.SetTargets(players);
-            else if (target.gameObject.tag == "Player")
+            else if (target.gameObject.CompareTag("Player"))
                 target.SetTargets(enemies);
 
             target.enabled = true;

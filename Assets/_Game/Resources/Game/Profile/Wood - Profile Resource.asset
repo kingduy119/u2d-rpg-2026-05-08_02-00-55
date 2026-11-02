@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee200249a513c4bd9812ea630e0ddaab, type: 3}
-  m_Name: Gold - Resource
+  m_Name: Wood - Profile Resource
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItemSO
-  Icon: {fileID: 21300000, guid: b9b23c4ec748b4bc7bb3afb24a2ed197, type: 3}
+  Icon: {fileID: 21300000, guid: a1c1e555a725e4b15b512516e3dec87c, type: 3}
   Value: 0

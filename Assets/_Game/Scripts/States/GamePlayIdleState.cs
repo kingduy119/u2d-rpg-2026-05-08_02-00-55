@@ -10,8 +10,8 @@ public class GamePlayIdleState : GameplayState
 
     public override void Enter()
     {
-        ButtonEvents.GamePlayCardSelect += GamePlayCardSelect;
-        GamePlayEvents.CterCardSelect -= CterCardSelect;
+        // ButtonEvents.GamePlayCardSelect += GamePlayCardSelect;
+        GamePlayEvents.CterCardSelect += Controller.CterCardSelect;
 
         Controller.UIView.IdleEnter();
         Controller.SpawnEnemies();
@@ -29,8 +29,8 @@ public class GamePlayIdleState : GameplayState
 
     public override void Exit()
     {
-        ButtonEvents.GamePlayCardSelect -= GamePlayCardSelect;
-        GamePlayEvents.CterCardSelect -= CterCardSelect;
+        // ButtonEvents.GamePlayCardSelect -= GamePlayCardSelect;
+        GamePlayEvents.CterCardSelect -= Controller.CterCardSelect;
 
         Controller.UIView.IdleExit();
     }
@@ -115,8 +115,10 @@ public class GamePlayIdleState : GameplayState
         _prevButton = button;
     }
 
-    private void CterCardSelect(ButtonView button, CharacterSO cterSO, Resources resources)
-    {
-
-    }
+    // private void CterCardSelect(ButtonView button, CharacterSO cterSO, Resources resources)
+    // {
+    //     var gResources = Controller.gResources;
+    //     Debug.Log($"gpReousrce >= resource: {gResources >= resources}");
+    // }
 }
+

@@ -9,6 +9,17 @@ public class ItemView : MonoBehaviour
     [SerializeField] TMP_Text _text;
     [SerializeField] ResourceItemSO _so;
 
+    private int _value;
+    public int Value
+    {
+        get => _value;
+        set
+        {
+            _value = value;
+            _text.text = $"{value}";
+        }
+    }
+
     void OnValidate()
     {
         if (_so == null) return;
@@ -16,13 +27,14 @@ public class ItemView : MonoBehaviour
         _text.text = $"{_so.Value}";
     }
 
-    public int Value
+    void Start()
     {
-        get => _so.Value;
-        set
-        {
-            _so.Value = value;
-            _text.text = $"{_so.Value}";
-        }
+        _value = _so.Value;
+    }
+
+    public void VisibleIfZero(int value)
+    {
+        Value = value;
+        gameObject.SetActive(value > 0);
     }
 }

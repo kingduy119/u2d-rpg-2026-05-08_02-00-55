@@ -48,6 +48,8 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     public IState IdleState;
     public IState StartState;
 
+    public Resources gResources;
+
     public void Start()
     {
         IdleState = new GamePlayIdleState(this);
@@ -58,7 +60,10 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         ButtonEvents.Gameplay += HandleGamePlayEvents;
 
         if (ResourceView != null && LevelView != null)
-            ResourceView.Init(LevelView.Level.Resources);
+        {
+            gResources = LevelView.Level.Resources;
+            ResourceView.Init(gResources);
+        }
     }
 
     public void Tick()
@@ -169,6 +174,31 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         }
     }
 
+    public void CterCardSelect(ButtonView button, CharacterSO cterSO, Resources resources)
+    {
+        Debug.Log($"gpReousrce >= resource: {gResources >= resources}");
+        if (gResources < resources) return;
+
+        foreach (var cell in Tilemap.ActiveCells)
+        {
+            if (!PlayerObjects.TryGetValue(cell, out var _))
+            {
+
+                if (Tilemap.TileGrid == null) return;
+                var target = SpawnCharacter(cterSO, cell);
+
+                if (target != null)
+                {
+                    target.Init("Player", "Enemy");
+                    PlayerObjects[cell] = target;
+                    PlayerMapSO[cell] = cterSO;
+                    gResources.Minus(resources);
+                }
+                return;
+            }
+        }
+        button.gameObject.SetActive(false);
+    }
 
 }
 

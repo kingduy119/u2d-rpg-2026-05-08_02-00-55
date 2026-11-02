@@ -11,9 +11,35 @@ public class ResourceItemSO : ScriptableObject
 [Serializable]
 public class Resources
 {
-    public int Food;
-    public int Gold;
-    public int Wood;
+    public int Food = 0;
+    public int Gold = 0;
+    public int Wood = 0;
+
+    public Resources() { }
+    public Resources(Resources other)
+    {
+        if (other == null) return;
+        Food = other.Food;
+        Gold = other.Gold;
+        Wood = other.Wood;
+    }
+
+    public void Add(Resources other)
+    {
+        if (other == null) return;
+        Food += other.Food;
+        Gold += other.Gold;
+        Wood += other.Wood;
+    }
+
+    public void Minus(Resources other)
+    {
+        if (other == null) return;
+        Food -= other.Food;
+        Gold -= other.Gold;
+        Wood -= other.Wood;
+    }
+
 
     public static bool operator >=(Resources a, Resources b)
     {
@@ -27,5 +53,19 @@ public class Resources
         return a.Food <= b.Food
             && a.Gold <= b.Gold
             && a.Wood <= b.Wood;
+    }
+
+    public static bool operator <(Resources a, Resources b)
+    {
+        return a.Food < b.Food
+            && a.Gold < b.Gold
+            && a.Wood < b.Wood;
+    }
+
+    public static bool operator >(Resources a, Resources b)
+    {
+        return a.Food > b.Food
+            && a.Gold > b.Gold
+            && a.Wood > b.Wood;
     }
 }
