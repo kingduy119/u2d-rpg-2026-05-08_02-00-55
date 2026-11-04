@@ -17,6 +17,7 @@ public class PositionCharacter
 [Serializable]
 public class LevelWave
 {
+    public Resources Reward;
     public List<PositionCharacter> Targets = new();
 }
 

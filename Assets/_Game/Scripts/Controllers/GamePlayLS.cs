@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 
-
 public class GamePlayLS : LifetimeScope
 {
     [SerializeField] ControlsSettings _controlsSettings;
@@ -17,7 +16,6 @@ public class GamePlayLS : LifetimeScope
     {
         builder.RegisterEntryPoint<GamePlayController>(Lifetime.Singleton);
         builder.RegisterEntryPoint<InputService>(Lifetime.Singleton).AsSelf();
-
 
         builder.RegisterInstance<IControlsSettings>(_controlsSettings);
 
@@ -33,6 +31,7 @@ public class GamePlayLS : LifetimeScope
 public class GamePlayController : IStartable, IDisposable, ITickable
 {
     [Inject] readonly public FactoryService Factory;
+    [Inject] readonly public ProfileSerice Profile;
     [Inject] readonly public InputService Input;
     [Inject] readonly public GamePlayTilemapView Tilemap;
     [Inject] readonly public GamePlayUIView UIView;
@@ -48,53 +47,63 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     public IState IdleState;
     public IState StartState;
 
-    public Resources gResources;
+    public List<GameObject> PlayerHealths;
+    public List<GameObject> EnemyHealths;
 
     public void Start()
     {
+
         IdleState = new GamePlayIdleState(this);
         StartState = new GamePlayStartState(this);
         States.Initialize(IdleState);
 
         CterEvent.Shoot += Character_Shoot;
-        ButtonEvents.Gameplay += HandleGamePlayEvents;
+        ButtonEvents.OnClick += ButtonEvents_OnClick;
 
-        if (ResourceView != null && LevelView != null)
+        if (LevelView != null)
         {
-            gResources = LevelView.Level.Resources;
-            ResourceView.Init(gResources);
+            Profile.gResources.Reset(LevelView.Level.Resources);
         }
+
+        PlayerHealths = UIView.PlayerHealth.GetItems();
+        EnemyHealths = UIView.EnemyHealth.GetItems();
     }
 
-    public void Tick()
-    {
-        States.Execute();
-    }
+    public void Tick() => States.Execute();
 
     public void Dispose()
     {
         CterEvent.Shoot -= Character_Shoot;
-        ButtonEvents.Gameplay -= HandleGamePlayEvents;
+        ButtonEvents.OnClick -= ButtonEvents_OnClick;
 
         Factory.ClearPool();
     }
 
-    private void HandleGamePlayEvents(string eventName)
+    private void ButtonEvents_OnClick(string eventName)
     {
         switch (eventName)
         {
-            case "StartGame":
+            case "Idle_Start":
                 if (States.CurrentState is not GamePlayStartState)
                     States.TransitionTo(StartState);
                 break;
-            case "BackToIdle":
-                if (States.CurrentState is not GamePlayIdleState)
-                    States.TransitionTo(IdleState);
+            case "Play_Confirm":
+                HandleConfirmClick();
                 break;
             default:
                 Debug.LogWarning($"Unknown event: {eventName}");
                 break;
         }
+    }
+
+    private void HandleConfirmClick()
+    {
+        if (LevelView.NextWave())
+        {
+            if (States.CurrentState is not GamePlayIdleState)
+                States.TransitionTo(IdleState);
+        }
+        else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
     }
 
     public void SpawnEnemies()
@@ -176,8 +185,7 @@ public class GamePlayController : IStartable, IDisposable, ITickable
 
     public void CterCardSelect(ButtonView button, CharacterSO cterSO, Resources resources)
     {
-        Debug.Log($"gpReousrce >= resource: {gResources >= resources}");
-        if (gResources < resources) return;
+        if (!Profile.gResources.Enough(resources)) return;
 
         foreach (var cell in Tilemap.ActiveCells)
         {
@@ -192,12 +200,13 @@ public class GamePlayController : IStartable, IDisposable, ITickable
                     target.Init("Player", "Enemy");
                     PlayerObjects[cell] = target;
                     PlayerMapSO[cell] = cterSO;
-                    gResources.Minus(resources);
+
+                    Profile.gResources.Subtract(resources);
+                    button.Hidden();
                 }
                 return;
             }
         }
-        button.gameObject.SetActive(false);
     }
 
 }

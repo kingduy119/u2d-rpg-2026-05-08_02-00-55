@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: GameLevel 1
   m_EditorClassIdentifier: Assembly-CSharp::GamePlayLevelSO
   Resources:
-    Food: 100
-    Gold: 50
-    Wood: 50
+    Food: 10
+    Gold: 0
+    Wood: 0
   Waves:
   - Targets:
     - position: 0

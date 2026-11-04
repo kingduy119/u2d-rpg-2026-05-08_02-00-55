@@ -16,12 +16,13 @@ public static class ButtonEvents
 
     public static Action<ButtonView, CharacterSO> SelectByCharacterSO;
 
-    public static Action<string> Gameplay;
+    public static Action<string> OnClick;
     public static Action<ButtonView, CharacterSO> GamePlayCardSelect;
 }
 
 public static class GamePlayEvents
 {
+    // public static Action<Resources> ResourcesBroadcast;
     public static Action<ButtonView, CharacterSO, Resources> CterCardSelect;
 }
 

@@ -1,7 +1,6 @@
 
 
 using Characters;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +8,7 @@ public class GamePlayCardSelect : ButtonView
 {
     [SerializeField] CharacterSO _SO;
     [SerializeField] Image _icon;
+
     [SerializeField] ItemView _food;
     [SerializeField] ItemView _gold;
     [SerializeField] ItemView _wood;
@@ -20,14 +20,8 @@ public class GamePlayCardSelect : ButtonView
         UpdateView();
     }
 
-    protected override void Start()
-    {
-        UpdateResource();
-    }
-
     protected override void HandleClick()
     {
-        ButtonEvents.GamePlayCardSelect?.Invoke(this, _SO);
         GamePlayEvents.CterCardSelect?.Invoke(this, _SO, _resources);
     }
 
@@ -36,9 +30,8 @@ public class GamePlayCardSelect : ButtonView
         _SO = SO;
         _resources = resources;
 
-        // Debug.Log($"_resources: {JsonConvert.SerializeObject(resources)}");
         UpdateView();
-        UpdateResource();
+        UpdateResourceView();
     }
 
     private void UpdateView()
@@ -49,7 +42,7 @@ public class GamePlayCardSelect : ButtonView
         }
     }
 
-    private void UpdateResource()
+    private void UpdateResourceView()
     {
         if (_resources == null) return;
         if (_food != null) _food.VisibleIfZero(_resources.Food);

@@ -2,19 +2,17 @@ using Characters;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class GamePlayStartState : GameplayState
 {
-    int _enemies;
-    int _players;
+    List<TargetController> Enemies => Controller.EnemyObjects.Values
+        .Where(v => v != null)
+        .ToList();
+    List<TargetController> Players => Controller.PlayerObjects.Values
+        .Where(v => v != null)
+        .ToList();
 
-    List<TargetController> enemies => Controller.EnemyObjects.Values
-        .Where(v => v != null)
-        .ToList();
-    List<TargetController> players => Controller.PlayerObjects.Values
-        .Where(v => v != null)
-        .ToList();
+    bool _stoped;
 
     public GamePlayStartState(GamePlayController controller) : base(controller) { }
 
@@ -22,22 +20,20 @@ public class GamePlayStartState : GameplayState
     {
         CterEvent.Dead += CterDead;
 
-        _enemies = 0;
-        _players = 0;
-
-
-        foreach (var target in enemies.Concat(players))
+        foreach (var target in Enemies.Concat(Players))
         {
             if (target.gameObject.CompareTag("Enemy"))
-                target.SetTargets(players);
+                target.SetTargets(Players);
             else if (target.gameObject.CompareTag("Player"))
-                target.SetTargets(enemies);
+                target.SetTargets(Enemies);
 
             target.enabled = true;
         }
+
+        _stoped = false;
     }
 
-    public override void Execute() { }
+    // public override void Execute() { }
 
     public override void Exit()
     {
@@ -47,44 +43,56 @@ public class GamePlayStartState : GameplayState
 
     private void CterDead(GameObject obj)
     {
+        if (_stoped) return;
 
         var control = obj.GetComponent<TargetController>();
         if (obj.CompareTag("Enemy"))
         {
-
-            _enemies++;
             if (control != null)
             {
                 Controller.EnemyObjects.Remove(control.Cell);
+                foreach (var target in Players)
+                    target.SetTargets(Enemies);
 
-                foreach (var target in players)
-                    target.SetTargets(enemies);
-
-                if (enemies.Count <= 0)
+                if (Enemies.Count <= 0)
                 {
-                    if (Controller.LevelView.NextWave()) UIView.ToggleConfirm("Player Win!");
-                    else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
+                    UIView.ShowConfirm("Player Win!");
+                    if (Controller.EnemyHealths.Count > 0)
+                    {
+                        var item = Controller.EnemyHealths[0];
+                        Controller.EnemyHealths.RemoveAt(0);
+                        item.SetActive(false);
+                    }
+                    _stoped = true;
                 }
+                // {
+                // if (Controller.LevelView.NextWave()) 
+                // else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
+                // }
             }
         }
         else if (obj.CompareTag("Player"))
         {
-            _players++;
             if (control != null)
             {
                 Controller.PlayerObjects.Remove(control.Cell);
-
-                foreach (var target in enemies)
+                foreach (var target in Enemies)
                 {
-                    target.SetTargets(players);
+                    target.SetTargets(Players);
                 }
 
-                if (_players >= players.Count)
+                if (Players.Count <= 0)
                 {
-                    UIView.ToggleConfirm("Enemies Win!");
+                    UIView.ShowConfirm("Enemies Win!");
+                    if (Controller.PlayerHealths.Count > 0)
+                    {
+                        var item = Controller.PlayerHealths[0];
+                        Controller.PlayerHealths.RemoveAt(0);
+                        item.SetActive(false);
+                    }
+                    _stoped = true;
                 }
             }
-
         }
     }
 }

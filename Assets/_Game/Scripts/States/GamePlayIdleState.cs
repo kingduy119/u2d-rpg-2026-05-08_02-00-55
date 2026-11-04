@@ -10,7 +10,6 @@ public class GamePlayIdleState : GameplayState
 
     public override void Enter()
     {
-        // ButtonEvents.GamePlayCardSelect += GamePlayCardSelect;
         GamePlayEvents.CterCardSelect += Controller.CterCardSelect;
 
         Controller.UIView.IdleEnter();
@@ -29,7 +28,6 @@ public class GamePlayIdleState : GameplayState
 
     public override void Exit()
     {
-        // ButtonEvents.GamePlayCardSelect -= GamePlayCardSelect;
         GamePlayEvents.CterCardSelect -= Controller.CterCardSelect;
 
         Controller.UIView.IdleExit();
@@ -86,33 +84,6 @@ public class GamePlayIdleState : GameplayState
 
         _target.MoveByPointer(Input.MouseWorldPosition);
         Controller.Tilemap.ShowPreviewTile(_target.GetPosition());
-    }
-
-
-
-    private void GamePlayCardSelect(ButtonView button, CharacterSO so)
-    {
-        foreach (var cell in Controller.Tilemap.ActiveCells)
-        {
-            if (!Controller.PlayerObjects.TryGetValue(cell, out var _))
-            {
-
-                if (Controller.Tilemap.TileGrid == null) return;
-                var target = Controller.SpawnCharacter(so, cell);
-
-                if (target != null)
-                {
-                    target.Init("Player", "Enemy");
-                    Controller.PlayerObjects[cell] = target;
-                    Controller.PlayerMapSO[cell] = so;
-                }
-                return;
-            }
-        }
-
-
-        if (_prevButton != null) _prevButton.UnSelected();
-        _prevButton = button;
     }
 
     // private void CterCardSelect(ButtonView button, CharacterSO cterSO, Resources resources)

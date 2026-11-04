@@ -12,6 +12,9 @@ public class GamePlayUIView : MonoBehaviour
     [SerializeField] GameObject _listCard;
     public List<CharacterCardSO> SelectCards;
 
+    public ListView PlayerHealth;
+    public ListView EnemyHealth;
+
     void Start()
     {
         RefreshListCard();
@@ -21,14 +24,19 @@ public class GamePlayUIView : MonoBehaviour
     {
         if (_listCard != null && _cardPrefab != null)
         {
-            foreach (Transform item in _listCard.transform) Destroy(item.gameObject);
-            foreach (var cardSO in SelectCards)
+            foreach (Transform child in _listCard.transform)
             {
-                var item = Instantiate(_cardPrefab, _listCard.transform);
-                if (item.TryGetComponent<GamePlayCardSelect>(out var card))
-                {
-                    card.Init(cardSO.CharacterSO, cardSO.Resources);
-                }
+                var item = child.Find("GamePlayCardSelect");
+
+                if (item == null) continue;
+
+                if (!item.TryGetComponent<GamePlayCardSelect>(out var card))
+                    continue;
+
+                var so = SelectCards[Random.Range(0, SelectCards.Count)];
+
+                card.Init(so.CharacterSO, so.Resources);
+                card.Visible();
             }
         }
     }
@@ -46,9 +54,10 @@ public class GamePlayUIView : MonoBehaviour
         _confirmButton.SetActive(false);
     }
 
-    public void ToggleConfirm(string message = "")
+    public void ShowConfirm(string message = "")
     {
         Debug.Log(message);
-        _confirmButton.SetActive(!_confirmButton.activeSelf);
+        _confirmButton.SetActive(true);
     }
+    public void HideConfirm() => _confirmButton.SetActive(false);
 }
