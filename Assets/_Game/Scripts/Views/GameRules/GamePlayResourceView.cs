@@ -9,20 +9,20 @@ public class GamePlayResourceView : MonoBehaviour
     [SerializeField] ItemView _gold;
     [SerializeField] ItemView _wood;
 
-    [Inject] readonly public ProfileSerice Profile;
+    [Inject] readonly public ProfileSerice _ProfileService;
 
     void Awake()
     {
-        Debug.Log($"Profile: {Profile != null}");
+        Debug.Log($"_ProfileService: {_ProfileService != null}");
     }
 
     void OnEnable()
     {
-        if (Profile != null) Profile.gResources.OnChange += UpdateView;
+        if (_ProfileService != null) _ProfileService.gResources.OnChange += UpdateView;
     }
     void OnDisable()
     {
-        if (Profile != null) Profile.gResources.OnChange -= UpdateView;
+        if (_ProfileService != null) _ProfileService.gResources.OnChange -= UpdateView;
     }
 
     public void UpdateView(Resources resources)

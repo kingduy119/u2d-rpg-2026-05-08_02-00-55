@@ -13,3 +13,8 @@ public class ProfileSerice : IStartable
     }
 
 }
+
+public class Profile
+{
+
+}
