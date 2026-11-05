@@ -4,7 +4,6 @@ using UnityEngine;
 public class GamePlayIdleState : GameplayState
 {
     TargetController _target;
-    ButtonView _prevButton;
 
     public GamePlayIdleState(GamePlayController controller) : base(controller) { }
 
@@ -13,8 +12,12 @@ public class GamePlayIdleState : GameplayState
         GamePlayEvents.CterCardSelect += Controller.CterCardSelect;
 
         Controller.UIView.IdleEnter();
+        Controller.UIView.RefreshListCard();
+
         Controller.SpawnEnemies();
         Controller.SpawnPlayers();
+
+        Controller.Profile.gResources.Add(Controller.LevelView.Level.Reward);
     }
 
     public override void Execute()

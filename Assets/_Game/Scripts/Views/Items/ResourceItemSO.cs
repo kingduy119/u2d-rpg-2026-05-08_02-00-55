@@ -26,8 +26,10 @@ public class Resources
         Wood = other.Wood;
     }
 
-    public void Reset(Resources other)
+    public void Reset(Resources other = null)
     {
+        other ??= new();
+
         Food = other.Food;
         Gold = other.Gold;
         Wood = other.Wood;

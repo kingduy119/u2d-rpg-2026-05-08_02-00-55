@@ -11,10 +11,5 @@ public class ProfileSerice : IStartable
     {
         Debug.Log("ProfileSerice.Start");
     }
-
 }
 
-public class Profile
-{
-
-}

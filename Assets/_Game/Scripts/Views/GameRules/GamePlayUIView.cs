@@ -1,28 +1,26 @@
 
 
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GamePlayUIView : MonoBehaviour
 {
     [SerializeField] GameObject _startButton;
-    [SerializeField] GameObject _confirmButton;
+    [SerializeField] GameObject _confirmPopup;
+    [SerializeField] TMP_Text _confirmMessage;
+    [SerializeField] TMP_Text _goldResetText;
 
-    [SerializeField] GameObject _cardPrefab;
+    // [SerializeField] GameObject _cardPrefab;
     [SerializeField] GameObject _listCard;
     public List<CharacterCardSO> SelectCards;
 
     public ListView PlayerHealth;
-    public ListView EnemyHealth;
 
-    void Start()
-    {
-        RefreshListCard();
-    }
 
-    private void RefreshListCard()
+    public void RefreshListCard()
     {
-        if (_listCard != null && _cardPrefab != null)
+        if (_listCard != null) // && _cardPrefab != null
         {
             foreach (Transform child in _listCard.transform)
             {
@@ -51,13 +49,14 @@ public class GamePlayUIView : MonoBehaviour
     {
         _listCard.SetActive(true);
         _startButton.SetActive(true);
-        _confirmButton.SetActive(false);
+        _confirmPopup.SetActive(false);
     }
 
     public void ShowConfirm(string message = "")
     {
         Debug.Log(message);
-        _confirmButton.SetActive(true);
+        _confirmMessage.text = message;
+        _confirmPopup.SetActive(true);
     }
-    public void HideConfirm() => _confirmButton.SetActive(false);
+    public void HideConfirm() => _confirmPopup.SetActive(false);
 }

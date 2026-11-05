@@ -56,19 +56,9 @@ public class GamePlayStartState : GameplayState
 
                 if (Enemies.Count <= 0)
                 {
-                    UIView.ShowConfirm("Player Win!");
-                    if (Controller.EnemyHealths.Count > 0)
-                    {
-                        var item = Controller.EnemyHealths[0];
-                        Controller.EnemyHealths.RemoveAt(0);
-                        item.SetActive(false);
-                    }
+                    UIView.ShowConfirm("Winner");
                     _stoped = true;
                 }
-                // {
-                // if (Controller.LevelView.NextWave()) 
-                // else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
-                // }
             }
         }
         else if (obj.CompareTag("Player"))
@@ -83,7 +73,7 @@ public class GamePlayStartState : GameplayState
 
                 if (Players.Count <= 0)
                 {
-                    UIView.ShowConfirm("Enemies Win!");
+                    UIView.ShowConfirm("Lose");
                     if (Controller.PlayerHealths.Count > 0)
                     {
                         var item = Controller.PlayerHealths[0];

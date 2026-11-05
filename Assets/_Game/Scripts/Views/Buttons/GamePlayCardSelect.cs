@@ -31,7 +31,7 @@ public class GamePlayCardSelect : ButtonView
         _resources = resources;
 
         UpdateView();
-        UpdateResourceView();
+        // UpdateResourceView();
     }
 
     private void UpdateView()

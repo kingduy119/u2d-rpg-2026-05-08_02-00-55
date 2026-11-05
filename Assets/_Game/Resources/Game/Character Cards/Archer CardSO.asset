@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardSO
   CharacterSO: {fileID: 11400000, guid: 0fcbd4149145d41078048b18bf4538be, type: 2}
   Resources:
-    Food: 10
-    Gold: 0
-    Wood: 10
+    Food: 0
+    Gold: 10
+    Wood: 0

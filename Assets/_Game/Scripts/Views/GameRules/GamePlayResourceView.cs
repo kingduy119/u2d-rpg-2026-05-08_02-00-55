@@ -28,8 +28,8 @@ public class GamePlayResourceView : MonoBehaviour
     public void UpdateView(Resources resources)
     {
         if (resources == null) return;
-        _food.Value = resources.Food;
-        _gold.Value = resources.Gold;
-        _wood.Value = resources.Wood;
+        if (_gold != null) _gold.Value = resources.Gold;
+        if (_food != null) _food.Value = resources.Food;
+        if (_wood != null) _wood.Value = resources.Wood;
     }
 }

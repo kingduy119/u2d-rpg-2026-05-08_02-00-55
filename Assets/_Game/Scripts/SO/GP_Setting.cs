@@ -1,5 +1,7 @@
 
 
+using UnityEngine;
+
 [CreateAssetMenu(fileName = "GP_Setting", menuName = "Game/GP_Setting")]
 public class GP_Setting : ScriptableObject
 {

@@ -48,7 +48,7 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     public IState StartState;
 
     public List<GameObject> PlayerHealths;
-    public List<GameObject> EnemyHealths;
+    // public List<GameObject> EnemyHealths;
 
     public void Start()
     {
@@ -60,19 +60,16 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         CterEvent.Shoot += Character_Shoot;
         ButtonEvents.OnClick += ButtonEvents_OnClick;
 
-        if (LevelView != null)
-        {
-            Profile.gResources.Reset(LevelView.Level.Resources);
-        }
-
         PlayerHealths = UIView.PlayerHealth.GetItems();
-        EnemyHealths = UIView.EnemyHealth.GetItems();
+        // EnemyHealths = UIView.EnemyHealth.GetItems();
     }
 
     public void Tick() => States.Execute();
 
     public void Dispose()
     {
+        Profile.gResources.Reset();
+
         CterEvent.Shoot -= Character_Shoot;
         ButtonEvents.OnClick -= ButtonEvents_OnClick;
 
@@ -90,6 +87,9 @@ public class GamePlayController : IStartable, IDisposable, ITickable
             case "Play_Confirm":
                 HandleConfirmClick();
                 break;
+            case "GL_ResetCards":
+                HandleResetCards();
+                break;
             default:
                 Debug.LogWarning($"Unknown event: {eventName}");
                 break;
@@ -106,9 +106,19 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
     }
 
+    private void HandleResetCards()
+    {
+        Resources require = new() { Gold = 2 };
+        if (Profile.gResources.Enough(require))
+        {
+            UIView.RefreshListCard();
+            Profile.gResources.Subtract(require);
+        }
+    }
+
     public void SpawnEnemies()
     {
-        foreach (var item in LevelView.Wave)
+        foreach (var item in LevelView.Level.Targets)
         {
             if (item.position < Tilemap.EnemyCells.Count)
             {

@@ -1,22 +1,20 @@
-using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 public class GameLevelView : MonoBehaviour
 {
 
     int _wave = 0;
     int _level = 0;
-    public GamePlayLevelSO Level;
+    public GamePlayLevelSO LevelSO;
+    public bool EndOfWave => _level < LevelSO.Waves.Count;
 
-    // Alias
-    public bool EndOfWave => _level < Level.Waves.Count;
-
-    public List<PositionCharacter> Wave => Level.Waves[_wave].Targets;
+    public LevelWave Level => LevelSO.Waves[_wave];
 
     public bool NextWave()
     {
         _wave++;
-        return _wave < Level.Waves.Count;
+        return _wave < LevelSO.Waves.Count;
     }
 }
 
