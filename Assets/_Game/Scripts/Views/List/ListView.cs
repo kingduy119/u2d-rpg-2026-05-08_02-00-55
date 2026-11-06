@@ -1,12 +1,11 @@
 
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ListView : MonoBehaviour
 {
-    // public List<Object> items = new();
-
     public List<GameObject> GetItems()
     {
         List<GameObject> result = new();
@@ -27,6 +26,21 @@ public class ListView : MonoBehaviour
             { result.Add(component); }
         }
 
+        return result;
+    }
+
+    public List<T> LoopItemInChild<T>(string name = "Item", Action<T> callback = null) where T : Component
+    {
+        List<T> result = new();
+
+        foreach (Transform child in transform)
+        {
+            var obj = child.Find(name);
+            if (obj == null || !obj.TryGetComponent<T>(out var item)) continue;
+
+            callback?.Invoke(item);
+            result.Add(item);
+        }
         return result;
     }
 

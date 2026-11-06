@@ -61,7 +61,6 @@ public class GamePlayController : IStartable, IDisposable, ITickable
         ButtonEvents.OnClick += ButtonEvents_OnClick;
 
         PlayerHealths = UIView.PlayerHealth.GetItems();
-        // EnemyHealths = UIView.EnemyHealth.GetItems();
     }
 
     public void Tick() => States.Execute();

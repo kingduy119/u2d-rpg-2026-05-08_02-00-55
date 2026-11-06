@@ -29,17 +29,14 @@ public class GamePlayCardSelect : ButtonView
     {
         _SO = SO;
         _resources = resources;
-
         UpdateView();
-        // UpdateResourceView();
+        UpdateResourceView();
     }
 
     private void UpdateView()
     {
         if (_SO && _SO.colors.Count > 0)
-        {
             _icon.sprite = _SO.colors[0].Sprite;
-        }
     }
 
     private void UpdateResourceView()

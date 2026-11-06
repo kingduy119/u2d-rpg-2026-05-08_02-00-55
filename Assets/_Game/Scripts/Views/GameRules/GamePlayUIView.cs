@@ -11,8 +11,7 @@ public class GamePlayUIView : MonoBehaviour
     [SerializeField] TMP_Text _confirmMessage;
     [SerializeField] TMP_Text _goldResetText;
 
-    // [SerializeField] GameObject _cardPrefab;
-    [SerializeField] GameObject _listCard;
+    [SerializeField] ListView _listCardView;
     public List<CharacterCardSO> SelectCards;
 
     public ListView PlayerHealth;
@@ -20,41 +19,32 @@ public class GamePlayUIView : MonoBehaviour
 
     public void RefreshListCard()
     {
-        if (_listCard != null) // && _cardPrefab != null
+        if (_listCardView != null)
         {
-            foreach (Transform child in _listCard.transform)
+            _listCardView.LoopItemInChild<GamePlayCardSelect>("GamePlayCardSelect", item =>
             {
-                var item = child.Find("GamePlayCardSelect");
-
-                if (item == null) continue;
-
-                if (!item.TryGetComponent<GamePlayCardSelect>(out var card))
-                    continue;
-
                 var so = SelectCards[Random.Range(0, SelectCards.Count)];
-
-                card.Init(so.CharacterSO, so.Resources);
-                card.Visible();
-            }
+                item.Init(so.CharacterSO, so.Resources);
+                item.Visible();
+            });
         }
     }
 
     public void IdleExit()
     {
-        _listCard.SetActive(false);
+        _listCardView.gameObject.SetActive(false);
         _startButton.SetActive(false);
     }
 
     public void IdleEnter()
     {
-        _listCard.SetActive(true);
+        _listCardView.gameObject.SetActive(true);
         _startButton.SetActive(true);
         _confirmPopup.SetActive(false);
     }
 
     public void ShowConfirm(string message = "")
     {
-        Debug.Log(message);
         _confirmMessage.text = message;
         _confirmPopup.SetActive(true);
     }
