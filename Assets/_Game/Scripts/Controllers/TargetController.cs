@@ -24,7 +24,6 @@ public class TargetController : MonoBehaviour, ITargetController
     public List<Transform> Targets = new();
     public Transform DefaultTarget;
 
-    private bool _start = false;
     private float _targetDetect;
     private float _attackRange;
     private Vector3 _prevPosition;
@@ -74,7 +73,6 @@ public class TargetController : MonoBehaviour, ITargetController
 
     private void Update()
     {
-        // if (_start) 
         HandleCharacter();
     }
 
@@ -157,7 +155,6 @@ public class TargetController : MonoBehaviour, ITargetController
 
     public void Deactive()
     {
-        // _start = false;
         gameObject.tag = "Untagged";
         this.enabled = false;
         Character.Deactive();

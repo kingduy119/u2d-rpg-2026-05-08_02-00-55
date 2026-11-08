@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "981373118052",
+    "firebase_url": "https://unity-2d-d9ec9-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "unity-2d-d9ec9",
+    "storage_bucket": "unity-2d-d9ec9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981373118052:android:126c107ba2c2a1c7106171",
+        "android_client_info": {
+          "package_name": "com.kdi.u2d"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeLchZ-3IsHh407of89sY5Km9wTljkcc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
