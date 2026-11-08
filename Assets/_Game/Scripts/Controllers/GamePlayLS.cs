@@ -102,7 +102,7 @@ public class GamePlayController : IStartable, IDisposable, ITickable
             if (States.CurrentState is not GamePlayIdleState)
                 States.TransitionTo(IdleState);
         }
-        else SceneEvents.ChangeScene?.Invoke(SceneEvents.GameMenu);
+        else SceneEvents.ChangeScene?.Invoke(SceneEvents.GAME_MENU);
     }
 
     private void HandleResetCards()

@@ -12,6 +12,7 @@ public class GameManagerLS : LifetimeScope
         builder.RegisterEntryPoint<DownloadService>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<ProfileSerice>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<FirebaseService>(Lifetime.Singleton).AsSelf();
+        builder.RegisterEntryPoint<AuthService>(Lifetime.Singleton).AsSelf();
 
         builder.Register<FactoryService>(Lifetime.Singleton);
     }

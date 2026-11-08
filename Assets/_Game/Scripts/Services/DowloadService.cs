@@ -75,7 +75,7 @@ IDisposable
     }
 
     bool HasSyncAssets;
-    string loadingSceneName = "GameMenu";
+    string loadingSceneName = SceneEvents.GAME_AUTH;
 
     public async UniTask StartLoading(SceneLoadingView view)
     {
@@ -118,7 +118,7 @@ IDisposable
     private async UniTask NavToLoadingScene()
     {
         var scene = Addressables.LoadSceneAsync(
-            "GameLoading",
+            SceneEvents.GAME_LOADING, //"GameLoading",
             UnityEngine.SceneManagement.LoadSceneMode.Single,
             activateOnLoad: true
         );

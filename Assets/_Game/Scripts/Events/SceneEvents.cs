@@ -6,7 +6,10 @@ using UnityEngine;
 
 public static class SceneEvents
 {
-    public static string GameMenu = "GameMenu";
+    public static string GAME_MENU = "GameMenu";
+    public static string GAME_AUTH = "GameAuth";
+    public static string GAME_LOADING = "GameLoading";
+
     public static Action<string> ChangeScene;
 }
 
@@ -18,6 +21,8 @@ public static class ButtonEvents
 
     public static Action<string> OnClick;
     public static Action<ButtonView, CharacterSO> GamePlayCardSelect;
+
+    public static Action<LoginMethods> Login;
 }
 
 public static class GamePlayEvents
