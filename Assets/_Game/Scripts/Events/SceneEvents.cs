@@ -4,6 +4,15 @@ using System;
 using Characters;
 using UnityEngine;
 
+public enum AuthMethods
+{
+    Anonymously,
+    Facebook,
+    FacebookUnlink,
+    Google,
+    Logout
+}
+
 public static class SceneEvents
 {
     public static string GAME_MENU = "GameMenu";
@@ -22,7 +31,7 @@ public static class ButtonEvents
     public static Action<string> OnClick;
     public static Action<ButtonView, CharacterSO> GamePlayCardSelect;
 
-    public static Action<LoginMethods> Login;
+    public static Action<AuthMethods> OnAuth;
 }
 
 public static class GamePlayEvents

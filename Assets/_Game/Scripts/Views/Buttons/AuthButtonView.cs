@@ -3,17 +3,13 @@
 
 using UnityEngine;
 
-public enum LoginMethods
-{
-    Anonymously,
-    Unity
-}
+
 
 public class AuthButtonView : ButtonView
 {
-    [SerializeField] private LoginMethods LoginMethod;
+    [SerializeField] private AuthMethods authEvent;
     protected override void HandleClick()
     {
-        ButtonEvents.Login?.Invoke(LoginMethod);
+        ButtonEvents.OnAuth?.Invoke(authEvent);
     }
 }

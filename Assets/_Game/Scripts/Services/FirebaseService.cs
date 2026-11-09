@@ -6,11 +6,6 @@ using Firebase.Extensions;
 using UnityEngine;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using System.Threading;
-using Unity.Services.Core;
-using Unity.Services.Authentication;
-using Unity.Services.Authentication.PlayerAccounts;
-using System;
 
 
 public class FirebaseService : IStartable
@@ -74,8 +69,8 @@ public class FirebaseService : IStartable
 
     public async UniTask<string> FetchUserById(string id)
     {
-        Debug.Log($"FirebaseService.FetchUserById: {id}");
-        await UniTask.Delay(1000); // Simulate an asynchronous operation
+        // await UniTask.Delay(1000); // Simulate an asynchronous operation
+        ReadDatabase("Users", id);
         return id;
     }
 
