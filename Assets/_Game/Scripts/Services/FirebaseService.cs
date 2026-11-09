@@ -16,7 +16,6 @@ using System;
 public class FirebaseService : IStartable
 {
     public DatabaseReference db;
-    // FirebaseApp app;
 
     public void Start()
     {
@@ -25,17 +24,12 @@ public class FirebaseService : IStartable
             var dependencyStatus = task.Result;
             if (dependencyStatus == DependencyStatus.Available)
             {
-                // Create and hold a reference to your FirebaseApp,
-                // where app is a Firebase.FirebaseApp property of your application class.
-                // app = FirebaseApp.DefaultInstance;
                 db = FirebaseDatabase.DefaultInstance.RootReference;
-                // Set a flag here to indicate whether Firebase is ready to use by your app.
             }
             else
             {
                 Debug.LogError(System.String.Format(
                   "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
-                // Firebase Unity SDK is not safe to use here.
             }
         });
     }
@@ -78,9 +72,11 @@ public class FirebaseService : IStartable
         });
     }
 
-    public void FetchUserById(string id)
+    public async UniTask<string> FetchUserById(string id)
     {
         Debug.Log($"FirebaseService.FetchUserById: {id}");
+        await UniTask.Delay(1000); // Simulate an asynchronous operation
+        return id;
     }
 
     public async void TestSaveData()
@@ -134,134 +130,6 @@ public class CharacterData
 
 
 
-public class AuthService : IAsyncStartable, IDisposable
-{
-    private CancellationToken _token;
-    public event Action<string> OnLoginSuccess;
 
-    public async UniTask StartAsync(CancellationToken cancellation = default)
-    {
-        _token = cancellation;
-
-        await UnityServices.InitializeAsync().AsUniTask().AttachExternalCancellation(cancellation);
-
-        PlayerAccountService.Instance.SignedIn += OnPlayerAccountSignedIn;
-    }
-
-    public void Dispose()
-    {
-        PlayerAccountService.Instance.SignedIn -= OnPlayerAccountSignedIn;
-    }
-
-    private void OnPlayerAccountSignedIn()
-    {
-        SignInWithUnityAuthAsync(_token).Forget();
-    }
-
-    private async UniTask SignInWithUnityAuthAsync(
-        // Action<string> OnSuccess = null,
-        CancellationToken cancellation = default)
-    {
-        try
-        {
-            await AuthenticationService.Instance
-                .SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken)
-                .AsUniTask()
-                .AttachExternalCancellation(cancellation);
-
-            Debug.Log("SignIn is successful.");
-            OnLoginSuccess?.Invoke(AuthenticationService.Instance.PlayerId);
-        }
-        catch (OperationCanceledException)
-        {
-            throw;
-        }
-        catch (AuthenticationException ex)
-        {
-            // So sánh ex.ErrorCode với AuthenticationErrorCodes
-            Debug.LogException(ex);
-        }
-        catch (RequestFailedException ex)
-        {
-            // So sánh ex.ErrorCode với CommonErrorCodes
-            Debug.LogException(ex);
-        }
-    }
-
-    // Login with account unity
-    public async UniTask StartPlayerAccountsSignInAsync(CancellationToken cancellation = default)
-    {
-        if (PlayerAccountService.Instance.IsSignedIn)
-        {
-            // Đã đăng nhập Player Accounts, chuyển thẳng sang Unity Authentication
-            await SignInWithUnityAuthAsync(cancellation);
-            return;
-        }
-
-        try
-        {
-            // Mở trình duyệt hệ thống để đăng nhập Unity Player Accounts
-            await PlayerAccountService.Instance.StartSignInAsync()
-                .AsUniTask()
-                .AttachExternalCancellation(cancellation);
-        }
-        catch (OperationCanceledException)
-        {
-            throw;
-        }
-        catch (PlayerAccountsException ex)
-        {
-            // So sánh ex.ErrorCode với PlayerAccountsErrorCodes
-            Debug.LogException(ex);
-        }
-        catch (RequestFailedException ex)
-        {
-            // So sánh ex.ErrorCode với CommonErrorCodes
-            Debug.LogException(ex);
-        }
-    }
-
-    public async UniTask SignInAnonymouslyAsync(
-        // Action<string> OnSuccess = null,
-        CancellationToken cancellation = default)
-    {
-        // Đã đăng nhập (session còn từ lần trước) thì không cần làm lại
-        if (AuthenticationService.Instance.IsSignedIn)
-            return;
-
-        try
-        {
-            await AuthenticationService.Instance.SignInAnonymouslyAsync()
-                .AsUniTask()
-                .AttachExternalCancellation(cancellation);
-
-            Debug.Log($"Anonymous sign-in OK. PlayerId: {AuthenticationService.Instance.PlayerId}");
-            OnLoginSuccess?.Invoke(AuthenticationService.Instance.PlayerId);
-        }
-        catch (OperationCanceledException)
-        {
-            throw;
-        }
-        catch (AuthenticationException ex)
-        {
-            // So sánh ex.ErrorCode với AuthenticationErrorCodes
-            Debug.LogException(ex);
-        }
-        catch (RequestFailedException ex)
-        {
-            // So sánh ex.ErrorCode với CommonErrorCodes
-            Debug.LogException(ex);
-        }
-    }
-
-    public void SignOut()
-    {
-        // Với anonymous, tham số true sẽ xóa session đã lưu
-        // => lần sau sẽ thành tài khoản mới. Dùng false để chỉ đăng xuất tạm.
-        AuthenticationService.Instance.SignOut(false);
-    }
-
-
-}
 
 
