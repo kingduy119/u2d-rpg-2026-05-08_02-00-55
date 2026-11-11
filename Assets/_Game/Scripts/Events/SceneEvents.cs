@@ -32,7 +32,7 @@ public static class ButtonEvents
     public static Action<ButtonView, CharacterSO> GamePlayCardSelect;
 
     public static Action<AuthMethods> OnAuth;
-    public static Action<string> ChangeNickname;
+    public static Action<string> ConfirmChangeNickname;
 }
 
 public static class GamePlayEvents

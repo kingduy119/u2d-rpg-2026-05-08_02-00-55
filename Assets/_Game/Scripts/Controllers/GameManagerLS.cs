@@ -8,7 +8,8 @@ public class GameManagerLS : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.RegisterEntryPoint<GameManager>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<GameManager>(Lifetime.Singleton).AsSelf();
+
         builder.RegisterEntryPoint<DownloadService>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<ProfileSerice>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<FirebaseService>(Lifetime.Singleton).AsSelf();

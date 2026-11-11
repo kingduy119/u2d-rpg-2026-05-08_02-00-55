@@ -20,7 +20,7 @@ public class GameManager : IAsyncStartable, IDisposable
     public async UniTask StartAsync(CancellationToken cancellation = default)
     {
         ButtonEvents.OnAuth += OnAuth;
-        ButtonEvents.ChangeNickname += ChangeNickname;
+        ButtonEvents.ConfirmChangeNickname += ConfirmChangeNickname;
 
         _AuthService.OnLoginSuccess += OnLoginSuccess;
 
@@ -31,14 +31,13 @@ public class GameManager : IAsyncStartable, IDisposable
     {
         _AuthService.OnLoginSuccess -= OnLoginSuccess;
         ButtonEvents.OnAuth -= OnAuth;
-        ButtonEvents.ChangeNickname -= ChangeNickname;
+        ButtonEvents.ConfirmChangeNickname -= ConfirmChangeNickname;
     }
 
     private void OnLoginSuccess(string PlayerId) => LoadUserProfileAsync(PlayerId).Forget();
     private async UniTaskVoid LoadUserProfileAsync(string PlayerId)
     {
         var user = await _FirebaseService.GetUserAsync(PlayerId);
-        Debug.Log($"OnLoginSuccess: {user != null}");
 
         if (user == null)
         {
@@ -47,14 +46,12 @@ public class GameManager : IAsyncStartable, IDisposable
                 UserId = PlayerId,
                 Name = "New Player",
             };
-            _FirebaseService.SaveUserAsync(user);
+            await _FirebaseService.SaveUserAsync(user);
         }
 
         User = user;
-        Debug.Log($"_FirebaseService.SetUserAsync: {user != null}");
-
-        // await _DownloadService.LoadScene(SceneEvents.GAME_MENU);
-        await _DownloadService.LoadScene(SceneEvents.GAME_AUTH);
+        var scene = User.FirstLogin ? SceneEvents.GAME_AUTH : SceneEvents.GAME_MENU;
+        await _DownloadService.LoadScene(scene);
     }
 
     public void OnAuth(AuthMethods method)
@@ -78,13 +75,16 @@ public class GameManager : IAsyncStartable, IDisposable
         }
     }
 
-    private void ChangeNickname(string nickname)
+    private void ConfirmChangeNickname(string nickname)
     {
         if (User != null)
         {
             User.Nickname = nickname;
-            Debug.Log($"SetNickname: {nickname}");
-            _FirebaseService.SaveUserAsync(User);
+            User.FirstLogin = false;
+            _FirebaseService.SaveUserAsync(User, onSuccess: () =>
+            {
+                _DownloadService.LoadScene(SceneEvents.GAME_MENU).Forget();
+            });
         }
         else
         {
@@ -99,6 +99,7 @@ public class UserData
     public string Name;
     public string Nickname;
     public int Level;
+    public bool FirstLogin = true;
 }
 
 public class ResourceData

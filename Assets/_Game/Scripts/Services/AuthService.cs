@@ -31,26 +31,26 @@ public class AuthService : IAsyncStartable, IDisposable //IAsyncStartable, IStar
         AuthenticationService.Instance.SignedIn += () =>
         {
             // Shows how to get a playerID
-            Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
+            // Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
 
             // Shows how to get an access token
-            Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
+            // Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
 
         };
 
         AuthenticationService.Instance.SignInFailed += (err) =>
         {
-            Debug.LogError(err);
+            // Debug.LogError(err);
         };
 
         AuthenticationService.Instance.SignedOut += () =>
         {
-            Debug.Log("Player signed out.");
+            // Debug.Log("Player signed out.");
         };
 
         AuthenticationService.Instance.Expired += () =>
           {
-              Debug.Log("Player session could not be refreshed and expired.");
+              //   Debug.Log("Player session could not be refreshed and expired.");
           };
     }
 
@@ -185,7 +185,6 @@ public class FacebookService : IStartable
 
     public void Login()
     {
-        Debug.Log($"Facebook.Login");
         // Define the permissions
         var perms = new List<string>() { "public_profile", "email" };
 

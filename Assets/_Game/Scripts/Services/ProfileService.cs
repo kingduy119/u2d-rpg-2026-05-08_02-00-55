@@ -3,7 +3,7 @@ using UnityEngine;
 using VContainer.Unity;
 using VContainer;
 
-public abstract class Service : IStartable, IDisposable
+public abstract class Service : IStartable, IDisposable, IPostStartable
 {
     public virtual void Start()
     {
@@ -12,6 +12,11 @@ public abstract class Service : IStartable, IDisposable
     public virtual void Dispose()
     {
         Debug.Log($"{GetType().Name}.Dispose");
+    }
+
+    public virtual void PostStart()
+    {
+        Debug.Log($"{GetType().Name}.PostStart");
     }
 }
 

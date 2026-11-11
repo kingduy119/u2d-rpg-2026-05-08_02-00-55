@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class CreateNameView : MonoBehaviour
+public class FormCreateNameView : MonoBehaviour
 {
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private Button submitButton;
@@ -21,7 +21,7 @@ public class CreateNameView : MonoBehaviour
         if (!string.IsNullOrEmpty(nickname))
         {
             // OnSubmit?.Invoke(name);
-            ButtonEvents.ChangeNickname?.Invoke(nickname);
+            ButtonEvents.ConfirmChangeNickname?.Invoke(nickname);
         }
         else
         {

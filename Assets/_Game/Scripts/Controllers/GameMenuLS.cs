@@ -10,21 +10,30 @@ public class GameMenuLS : LifetimeScope
     {
         builder.RegisterEntryPoint<GameMenuController>(Lifetime.Singleton);
 
+        builder.RegisterComponentInHierarchy<UserProfileView>();
         builder.RegisterComponentInHierarchy<CharacterDetailTabView>();
     }
 }
 
 
-public class GameMenuController : IDisposable
+public class GameMenuController : Service
 {
-    readonly FactoryService _factory;
+    [Inject] readonly FactoryService _factory;
+    [Inject] readonly GameManager _GameManager;
 
-    public GameMenuController(FactoryService factory)
+    [Inject] readonly UserProfileView _UserProfileView;
+
+
+    // public GameMenuController(FactoryService factory)
+    // {
+    //     _factory = factory;
+    // }
+    public override void PostStart()
     {
-        _factory = factory;
+        _UserProfileView.UpdateView(_GameManager.User);
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         _factory.ClearPool();
     }
