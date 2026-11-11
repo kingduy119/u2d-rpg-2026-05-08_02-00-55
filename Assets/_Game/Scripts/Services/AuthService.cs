@@ -88,7 +88,6 @@ public class AuthService : IAsyncStartable, IDisposable //IAsyncStartable, IStar
                     .AsUniTask()
                     .AttachExternalCancellation(cancellation);
             }
-
             OnLoginSuccess?.Invoke(AuthenticationService.Instance.PlayerId);
         }
         catch (OperationCanceledException)

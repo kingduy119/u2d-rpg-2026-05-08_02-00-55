@@ -74,6 +74,21 @@ public class FirebaseService : IStartable
         return id;
     }
 
+    public async UniTask<UserData> GetUserAsync(string playerId)
+    {
+        DataSnapshot snap = await db.Child("users").Child(playerId).GetValueAsync();
+        if (!snap.Exists) return null;
+        return JsonUtility.FromJson<UserData>(snap.GetRawJsonValue());
+    }
+
+    public async void SaveUserAsync(UserData data)
+    {
+        string json = JsonUtility.ToJson(data);
+        await db.Child("users")
+                .Child(data.UserId)
+                .SetRawJsonValueAsync(json);
+    }
+
     public async void TestSaveData()
     {
         var player = new PlayerData
