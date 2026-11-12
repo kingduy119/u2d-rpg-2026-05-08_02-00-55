@@ -1,10 +1,9 @@
-
-
-
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class AdsConfigView : MonoBehaviour
+
+[CreateAssetMenu(fileName = "AdsSetting", menuName = "Ads/AdsSettingSO")]
+public class AdsSettingSO : ScriptableObject
 {
     public bool TestMode = true;
 

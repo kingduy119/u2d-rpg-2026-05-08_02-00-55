@@ -142,53 +142,69 @@ public class FirebaseService : IStartable
             : null;
     }, "LoadUser");
 
-    public async void TestSaveData()
-    {
-        var player = new PlayerData
+    public UniTask<bool> SaveUserResourceAsync(UserData user, ResourceData resource, Action onSuccess = null) =>
+        Run(() => db.Child("user-resources").Child(user.UserId)
+                .SetRawJsonValueAsync(JsonUtility.ToJson(resource))
+                .AsUniTask(),
+            "SaveUserResource",
+            onSuccess);
+
+    public UniTask<ResourceData> LoadUserResourceAsync(UserData user) =>
+        Run(async () =>
         {
-            Name = "Player01",
-            Level = 10,
-            Gold = 500,
-            Characters = new List<CharacterData>
-            {
-                new() {
-                    Id = "Archer",
-                    Level = 5,
-                    Star = 2
-                },
-                new() {
-                    Id = "Knight",
-                    Level = 3,
-                    Star = 1
-                }
-            }
-        };
+            var snap = await db.Child("user-resources").Child(user.UserId).GetValueAsync().AsUniTask();
+            return snap.Exists
+                ? JsonUtility.FromJson<ResourceData>(snap.GetRawJsonValue())
+                : null;
+        }, "LoadUserResource");
 
-        string json = JsonUtility.ToJson(player);
-        await db.Child("Players")
-                .Child("Player01")
-                .SetRawJsonValueAsync(json);
+    // public async void TestSaveData()
+    // {
+    //     var player = new PlayerData
+    //     {
+    //         Name = "Player01",
+    //         Level = 10,
+    //         Gold = 500,
+    //         Characters = new List<CharacterData>
+    //         {
+    //             new() {
+    //                 Id = "Archer",
+    //                 Level = 5,
+    //                 Star = 2
+    //             },
+    //             new() {
+    //                 Id = "Knight",
+    //                 Level = 3,
+    //                 Star = 1
+    //             }
+    //         }
+    //     };
 
-        Debug.Log("Save success!");
-    }
+    //     string json = JsonUtility.ToJson(player);
+    //     await db.Child("Players")
+    //             .Child("Player01")
+    //             .SetRawJsonValueAsync(json);
+
+    //     Debug.Log("Save success!");
+    // }
 }
 
-[System.Serializable]
-public class PlayerData
-{
-    public string Name;
-    public int Level;
-    public int Gold;
-    public List<CharacterData> Characters;
-}
+// [Serializable]
+// public class PlayerData
+// {
+//     public string Name;
+//     public int Level;
+//     public int Gold;
+//     public List<CharacterData> Characters;
+// }
 
-[System.Serializable]
-public class CharacterData
-{
-    public string Id;
-    public int Level;
-    public int Star;
-}
+// [Serializable]
+// public class CharacterData
+// {
+//     public string Id;
+//     public int Level;
+//     public int Star;
+// }
 
 
 

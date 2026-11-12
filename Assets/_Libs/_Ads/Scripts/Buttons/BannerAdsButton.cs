@@ -4,6 +4,17 @@ using UnityEngine.UI;
 
 namespace Ads
 {
+    public class BannerAdsButton : AbstractButton
+    {
+        protected override void HandleClick()
+        {
+            AdsEvent.ShowBanner?.Invoke();
+            _Button.interactable = false;
+        }
+    }
+
+
+
     [RequireComponent(typeof(Button))]
     public abstract class AbstractButton : MonoBehaviour
     {
@@ -28,13 +39,6 @@ namespace Ads
         protected abstract void HandleClick();
     }
 
-    public class BannerAdsButton : AbstractButton
-    {
-        protected override void HandleClick()
-        {
-            AdsEvent.ShowBanner?.Invoke();
-            _Button.interactable = false;
-        }
-    }
+
 
 }

@@ -142,6 +142,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  AdsSetting: {fileID: 11400000, guid: e0974daff316d46b6a82b3fedb093212, type: 2}
 --- !u!114 &1673674475396401264
 MonoBehaviour:
   m_ObjectHideFlags: 0

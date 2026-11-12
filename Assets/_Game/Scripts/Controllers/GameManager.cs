@@ -15,6 +15,7 @@ public class GameManager : IAsyncStartable, IDisposable
     [Inject] readonly ProfileSerice _ProfileService;
 
     public UserData User;
+    public ResourceData UserResource;
 
     // public void Start()
     public async UniTask StartAsync(CancellationToken cancellation = default)
@@ -37,19 +38,24 @@ public class GameManager : IAsyncStartable, IDisposable
     private void OnLoginSuccess(string PlayerId) => LoadUserProfileAsync(PlayerId).Forget();
     private async UniTaskVoid LoadUserProfileAsync(string PlayerId)
     {
-        var user = await _FirebaseService.GetUserAsync(PlayerId);
+        var User = await _FirebaseService.GetUserAsync(PlayerId);
 
-        if (user == null)
+        if (User == null)
         {
-            user = new UserData()
+            User = new()
             {
                 UserId = PlayerId,
                 Name = "New Player",
             };
-            await _FirebaseService.SaveUserAsync(user);
+            UserResource = new();
+            await _FirebaseService.SaveUserAsync(User);
+            await _FirebaseService.SaveUserResourceAsync(User, UserResource);
+        }
+        else
+        {
+            UserResource = await _FirebaseService.LoadUserResourceAsync(User);
         }
 
-        User = user;
         var scene = User.FirstLogin ? SceneEvents.GAME_AUTH : SceneEvents.GAME_MENU;
         await _DownloadService.LoadScene(scene);
     }

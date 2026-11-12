@@ -6,7 +6,7 @@ namespace Ads
     {
         protected override void HandleClick()
         {
-            AdsEvent.ShowRewardAds?.Invoke();
+            AdsEvent.ShowRewardAds?.Invoke("");
             // _Button.interactable = false;
         }
     }

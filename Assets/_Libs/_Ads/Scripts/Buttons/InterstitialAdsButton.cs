@@ -8,7 +8,7 @@ namespace Ads
     {
         protected override void HandleClick()
         {
-            AdsEvent.ShowInterstitial?.Invoke();
+            AdsEvent.ShowInterstitial?.Invoke("");
         }
     }
 }

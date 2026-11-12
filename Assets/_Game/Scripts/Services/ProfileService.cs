@@ -5,18 +5,19 @@ using VContainer;
 
 public abstract class Service : IStartable, IDisposable, IPostStartable
 {
+    protected bool debug;
     public virtual void Start()
     {
-        Debug.Log($"{GetType().Name}.Start");
+        if (debug) Debug.Log($"{GetType().Name}.Start");
     }
     public virtual void Dispose()
     {
-        Debug.Log($"{GetType().Name}.Dispose");
+        if (debug) Debug.Log($"{GetType().Name}.Dispose");
     }
 
     public virtual void PostStart()
     {
-        Debug.Log($"{GetType().Name}.PostStart");
+        if (debug) Debug.Log($"{GetType().Name}.PostStart");
     }
 }
 

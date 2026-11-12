@@ -5,7 +5,7 @@ using UnityEngine.Advertisements;
 public interface IAdvertise
 {
     // void LoadAd(string adUnitId);
-    void Show();
+    void Show(string reward = "empty");
 }
 
 // Interstitial & Rewarded
@@ -13,8 +13,9 @@ public class Advertise : IAdvertise
 , IUnityAdsLoadListener
 , IUnityAdsShowListener
 {
-    bool IsDebug = false;
     private readonly string AdUnitId;
+    bool IsDebug = false;
+    string _reward;
 
     public Advertise(string adUnitId, bool isDebug = false)
     {
@@ -23,7 +24,11 @@ public class Advertise : IAdvertise
         Advertisement.Load(AdUnitId, this);
     }
 
-    public void Show() => Advertisement.Show(AdUnitId, this);
+    public void Show(string reward = "empty")
+    {
+        _reward = reward;
+        Advertisement.Show(AdUnitId, this);
+    }
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
@@ -46,7 +51,7 @@ public class Advertise : IAdvertise
         {
             if (IsDebug) Debug.Log($" {placementId} Payouts to players here");
 
-            AdsEvent.GiveAdsReward?.Invoke(placementId);
+            AdsEvent.GiveAdsReward?.Invoke(_reward);
         }
     }
 
