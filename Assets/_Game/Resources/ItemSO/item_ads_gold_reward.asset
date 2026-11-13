@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 232f29b445c894ffa8dbab42470d5348, type: 3}
+  m_Name: item_ads_gold_reward
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: Diamonds
+  itemDescription: 
+  itemIcon: {fileID: 2478640648008475328, guid: c842c92050d8245fbbc5b4b3433f63b2, type: 3}
+  type: 
+  Type: 1
+  value: 100
+  maxValue: 0
+  stackSize: 0
+  price: 0
+  health: 0
+  maxHealth: 0
+  speed: 0
+  damage: 0
+  duration: 0

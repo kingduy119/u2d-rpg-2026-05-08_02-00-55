@@ -9,7 +9,7 @@ public class ItemView : MonoBehaviour
     [SerializeField] TMP_Text _text;
     [SerializeField] ResourceItemSO _so;
 
-    private int _value;
+    private int _value = 0;
     public int Value
     {
         get => _value;
@@ -29,7 +29,7 @@ public class ItemView : MonoBehaviour
 
     void Start()
     {
-        _value = _so.Value;
+        if (_so) _value = _so.Value;
     }
 
     public void VisibleIfZero(int value)

@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using Characters;
 using UnityEngine;
 
@@ -33,6 +34,9 @@ public static class ButtonEvents
 
     public static Action<AuthMethods> OnAuth;
     public static Action<string> ConfirmChangeNickname;
+
+    public static Action<List<ItemSO>> SaveAdsRewards;
+    public static Action<List<ItemSO>> ClaimRewards;
 }
 
 public static class GamePlayEvents

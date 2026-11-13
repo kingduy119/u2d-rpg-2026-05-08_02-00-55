@@ -8,6 +8,7 @@ public class MainMenuView : MonoBehaviour
 
     void Start()
     {
+        foreach (var button in buttons) button.UnSelected();
         if (buttons.Count > 0)
         {
             active = buttons[0];

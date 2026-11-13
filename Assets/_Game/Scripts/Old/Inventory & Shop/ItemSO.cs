@@ -8,6 +8,7 @@ public class ItemSO : ScriptableObject
     public Sprite itemIcon;
 
     public string type;
+    public ItemType Type;
     public int value;
     public int maxValue;
     public int stackSize;
@@ -24,3 +25,4 @@ public class ItemSO : ScriptableObject
     [Header("For Temporary Items")]
     public float duration;
 }
+
