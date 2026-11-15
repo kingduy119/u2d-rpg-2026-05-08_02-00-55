@@ -11,19 +11,33 @@ public class UserProfileView : MonoBehaviour
     [SerializeField] ItemView _Diamond;
     [SerializeField] ItemView _Gold;
 
-    [Inject] ProfileSerice _ProfileSerice;
+    [Inject] readonly ProfileSerice _ProfileSerice;
+
+    void Start()
+    {
+        if (_ProfileSerice != null)
+        {
+            UpdateView(_ProfileSerice);
+        }
+    }
 
     void OnEnable()
     {
         if (_ProfileSerice == null) return;
-        _ProfileSerice.OnResourceChange += UpdateView;
+        _ProfileSerice.OnChange += UpdateView;
 
         UpdateView(_ProfileSerice.UserResource);
     }
     void OnDisable()
     {
         if (_ProfileSerice == null) return;
-        _ProfileSerice.OnResourceChange -= UpdateView;
+        _ProfileSerice.OnChange -= UpdateView;
+    }
+
+    private void UpdateView(ProfileSerice profile)
+    {
+        UpdateView(profile.User);
+        UpdateView(profile.UserResource);
     }
 
     public void UpdateView(UserData user)

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ac4630d2724447a9a0d34a87555fa7, type: 3}
+  m_Name: ads_1_diamond_100
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemSO
+  Type: 0
+  PurchasType: 0
+  ItemIcon: {fileID: 2478640648008475328, guid: c842c92050d8245fbbc5b4b3433f63b2, type: 3}
+  ItemName: 
+  ItemDesc: 
+  PurchasePrice: 0
+  Currency: 
+  RewardValue: 100
+  Rewards:
+  - Item: {fileID: 11400000, guid: 5392edaceff0c4fe9bc5d595fffda3af, type: 2}
+    Value: 100

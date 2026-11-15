@@ -11,7 +11,7 @@ public class ProfileSerice : Service
     [Inject] readonly DownloadService _DownloadService;
     [Inject] readonly FirebaseService _FirebaseService;
 
-    public Action<ResourceData> OnResourceChange;
+    public Action<ProfileSerice> OnChange;
 
     // Global Data
     public UserData User { get; private set; }
@@ -23,24 +23,22 @@ public class ProfileSerice : Service
     public override void Start()
     {
         ButtonEvents.ConfirmChangeNickname += ConfirmChangeNickname;
-        ButtonEvents.ClaimRewards += ClaimRewards;
     }
     public override void Dispose()
     {
         ButtonEvents.ConfirmChangeNickname -= ConfirmChangeNickname;
-        ButtonEvents.ClaimRewards -= ClaimRewards;
     }
 
-    public async UniTaskVoid LoadUserProfileAsync(string PlayerId)
+    public async UniTaskVoid LoadUserAsync(string PlayerId)
     {
-        var User = await _FirebaseService.GetUserAsync(PlayerId);
+        User = await _FirebaseService.LoadUserAsync(PlayerId);
 
         if (User == null)
         {
             User = new()
             {
                 UserId = PlayerId,
-                Name = "New Player",
+                Nickname = "New Player",
             };
             UserResource = new();
             await _FirebaseService.SaveUserAsync(User);
@@ -50,29 +48,30 @@ public class ProfileSerice : Service
         {
             UserResource = await _FirebaseService.LoadUserResourceAsync(User);
         }
+        OnChange?.Invoke(this);
 
         var scene = User.FirstLogin ? SceneEvents.GAME_AUTH : SceneEvents.GAME_MENU;
         await _DownloadService.LoadScene(scene);
     }
 
-    private void ClaimRewards(List<ItemSO> rewards)
+    public void ClaimRewards(List<Reward> rewards)
     {
         foreach (var reward in rewards)
         {
-            switch (reward.Type)
+            switch (reward.Item.Type)
             {
                 case ItemType.Diamond:
-                    UserResource.Diamond += reward.value;
+                    UserResource.Diamond += reward.Value;
                     break;
                 case ItemType.Gold:
-                    UserResource.Gold += reward.value;
+                    UserResource.Gold += reward.Value;
                     break;
                 default: break;
             }
         }
 
-        // _UserProfileView.UpdateView(_GameManager.UserResource);
-        OnResourceChange?.Invoke(UserResource);
+        OnChange?.Invoke(this);
+        _FirebaseService.SaveUserResourceAsync(User, UserResource).Forget();
     }
 
     private void ConfirmChangeNickname(string nickname)

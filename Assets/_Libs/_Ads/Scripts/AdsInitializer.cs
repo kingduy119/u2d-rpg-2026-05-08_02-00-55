@@ -3,8 +3,8 @@ using UnityEngine.Advertisements;
 
 public class AdsInitializer : IUnityAdsInitializationListener
 {
+    public bool InitCompleted { get; private set; }
     private AdsSettingSO _settings;
-    public bool InitCompleted;
     private IBanner _banner;
     private IAdvertise _rewardedAds;
     private IAdvertise _interstitialAds;
@@ -20,7 +20,7 @@ public class AdsInitializer : IUnityAdsInitializationListener
 
     public void OnInitializationComplete()
     {
-        Debug.Log("Unity Ads initialization complete.");
+        // Debug.Log("Unity Ads initialization complete.");
         _interstitialAds = new Advertise(_settings.InterstitialAdUnitId, true);
         _rewardedAds = new Advertise(_settings.RewardedAdUnitId, true);
         _banner = new Banner(_settings.BannerPosition, _settings.BannerAdUnitId);

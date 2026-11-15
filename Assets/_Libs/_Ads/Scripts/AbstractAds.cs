@@ -13,7 +13,7 @@ public class Advertise : IAdvertise
 , IUnityAdsShowListener
 {
     private readonly string AdUnitId;
-    bool IsDebug = false;
+    readonly bool IsDebug = false;
     string _reward;
 
     public Advertise(string adUnitId, bool isDebug = false)

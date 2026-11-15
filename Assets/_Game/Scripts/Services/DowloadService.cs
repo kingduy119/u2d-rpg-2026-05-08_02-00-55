@@ -58,7 +58,6 @@ IDisposable
             if (totalSize > 0)
             {
                 _SceneLoadingView.UpdateProgress(percentComplete, downloadedSize, totalSize);
-                // await DownloadDependencies();
 
                 var downloadHandle = Addressables.DownloadDependenciesAsync(keys, Addressables.MergeMode.Union);
                 await HandleProgress(downloadHandle, "Download Failed");

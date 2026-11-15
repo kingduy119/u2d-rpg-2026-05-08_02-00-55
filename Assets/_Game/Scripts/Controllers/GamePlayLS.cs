@@ -38,6 +38,8 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     [Inject] readonly public GameLevelView LevelView;
     [Inject] readonly public GamePlayResourceView ResourceView;
 
+    [Inject] readonly AdsManager _AdsManager;
+
     public Dictionary<Vector3Int, TargetController> EnemyObjects = new();
     public Dictionary<Vector3Int, TargetController> PlayerObjects = new();
     public Dictionary<Vector3Int, CharacterSO> EnemyMapSO = new();
@@ -48,7 +50,6 @@ public class GamePlayController : IStartable, IDisposable, ITickable
     public IState StartState;
 
     public List<GameObject> PlayerHealths;
-    // public List<GameObject> EnemyHealths;
 
     public void Start()
     {
@@ -102,7 +103,11 @@ public class GamePlayController : IStartable, IDisposable, ITickable
             if (States.CurrentState is not GamePlayIdleState)
                 States.TransitionTo(IdleState);
         }
-        else SceneEvents.ChangeScene?.Invoke(SceneEvents.GAME_MENU);
+        else
+        {
+            _AdsManager.ShowAds = true;
+            SceneEvents.ChangeScene?.Invoke(SceneEvents.GAME_MENU);
+        }
     }
 
     private void HandleResetCards()

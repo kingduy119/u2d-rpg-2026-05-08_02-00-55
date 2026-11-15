@@ -32,7 +32,7 @@ public class Banner : IBanner
     void OnBannerLoaded()
     {
         IsLoaded = true;
-        Debug.Log($"Banner Ad Loaded: {_BannerAdUnitId}");
+        // Debug.Log($"Banner Ad Loaded: {_BannerAdUnitId}");
     }
     void OnBannerError(string message)
     {

@@ -2,32 +2,33 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 public class AdsManager : AdsInitializer, IStartable, IDisposable
 {
-    [Inject] readonly public AdsSettingSO AdsSettings;
+    [Inject] readonly AdsSettingSO _AdsSettings;
+    [Inject] readonly ProfileSerice _ProfileSerice;
 
-    List<ItemSO> AdsRewards;
     bool _sendedRewards;
+    List<Reward> AdsRewards;
+    public bool ShowAds;
 
     public void Start()
     {
-        // Debug.Log($"AdsManager.Start: {AdsSettings != null}");
         ButtonEvents.SaveAdsRewards += SaveAdsRewards;
         AdsEvent.GiveAdsReward += GiveAdsReward;
 
-        if (AdsSettings != null) Init(AdsSettings);
+        if (_AdsSettings != null) Init(_AdsSettings);
     }
 
     public void Dispose()
     {
+        ButtonEvents.SaveAdsRewards -= SaveAdsRewards;
         AdsEvent.GiveAdsReward -= GiveAdsReward;
         Release();
     }
-    private void SaveAdsRewards(List<ItemSO> rewards)
+    private void SaveAdsRewards(List<Reward> rewards)
     {
         AdsRewards = rewards;
         _sendedRewards = false;
@@ -35,11 +36,20 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
 
     private void GiveAdsReward(string reward)
     {
-        if (!_sendedRewards)
-        {
-            ButtonEvents.ClaimRewards?.Invoke(AdsRewards);
-            _sendedRewards = true;
-        }
+        if (_sendedRewards || AdsRewards == null || AdsRewards.Count <= 0) return;
 
+        _ProfileSerice.ClaimRewards(AdsRewards);
+        _sendedRewards = true;
+    }
+
+    public void RandomInterstitalAds()
+    {
+        if (!ShowAds) return;
+        AdsEvent.ShowInterstitial?.Invoke("");
+        // if (UnityEngine.Random.Range(0, 100) < 20)
+        // {
+        //     AdsEvent.ShowInterstitial?.Invoke("");
+        // }
+        ShowAds = false;
     }
 }

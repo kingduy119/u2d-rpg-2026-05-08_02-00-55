@@ -80,7 +80,7 @@ public class FirebaseService : IStartable
         }
         catch (Exception e)
         {
-            Debug.LogError($"{name} thất bại: {e.Message}");
+            Debug.LogError($"{name} Error: {e.Message}");
             return false;
         }
         onSuccess?.Invoke();
@@ -96,6 +96,7 @@ public class FirebaseService : IStartable
         }
         catch (OperationCanceledException)
         {
+            Debug.LogError($"{name} OperationCanceledException");
             return fallback;
         }
         catch (Exception e)
@@ -117,14 +118,6 @@ public class FirebaseService : IStartable
         if (!snap.Exists) return null;
         return JsonUtility.FromJson<UserData>(snap.GetRawJsonValue());
     }
-
-    // public async void SaveUserAsync(UserData data)
-    // {
-    //     string json = JsonUtility.ToJson(data);
-    //     await db.Child("users")
-    //             .Child(data.UserId)
-    //             .SetRawJsonValueAsync(json);
-    // }
 
     public UniTask<bool> SaveUserAsync(UserData data, Action onSuccess = null) =>
         Run(() => db.Child("users").Child(data.UserId)

@@ -35,8 +35,13 @@ public static class ButtonEvents
     public static Action<AuthMethods> OnAuth;
     public static Action<string> ConfirmChangeNickname;
 
-    public static Action<List<ItemSO>> SaveAdsRewards;
-    public static Action<List<ItemSO>> ClaimRewards;
+    public static Action<List<Reward>> SaveAdsRewards;
+    public static Action<List<Reward>> ClaimRewards;
+}
+
+public static class ShopEvents
+{
+    public static Action<ShopItemSO> OnPurchase;
 }
 
 public static class GamePlayEvents
