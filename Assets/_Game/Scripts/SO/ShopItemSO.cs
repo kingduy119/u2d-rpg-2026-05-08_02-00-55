@@ -4,22 +4,25 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType
-{
-    Gold,
-    Diamond,
-    Currency
-}
-public enum ItemSlotType
-{
-    Ads,
-    Iap,
-    Default
-}
+
 
 public interface IShopItem
 {
     void Init(ShopItemSO so);
+}
+
+[Serializable]
+public class RewardData
+{
+    public ItemDTO Item;
+    public int Value;
+}
+
+[Serializable]
+public class ResourcesData
+{
+    public ItemDTO Item;
+    public float Value;
 }
 
 public abstract class BaseItemSO : ScriptableObject
@@ -32,13 +35,16 @@ public abstract class BaseItemSO : ScriptableObject
     public string ItemDesc;
 
     [Header("Store Setting")]
+    public ItemDTO PurchaseDTO;
     public float PurchasePrice;
     public string Currency;
 
+
+    public List<ResourcesData> RequiredResources;
+
     [Header("Reward")]
     public int RewardValue;
-    // public List<ItemSO> Rewards;
-    public List<Reward> Rewards;
+    public List<RewardData> Rewards;
 }
 
 
@@ -48,9 +54,3 @@ public class ShopItemSO : BaseItemSO
     public string GetPriceString() => $"{PurchasePrice}{Currency}";
 }
 
-[Serializable]
-public class Reward
-{
-    public ItemSO Item;
-    public int Value;
-}

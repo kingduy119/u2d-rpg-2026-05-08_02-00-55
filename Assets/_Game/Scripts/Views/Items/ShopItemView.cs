@@ -9,16 +9,19 @@ IShopItem
     [SerializeField] Image _PurchaseIcon;
     [SerializeField] TMP_Text _RewardValueText;
     [SerializeField] TMP_Text _PriceText;
-    [SerializeField] GameObject _AdsIcon;
-    [SerializeField] GameObject _IapIcon;
 
+    [Header("Purchase Type: Ads or IAP")]
+    [SerializeField] GameObject _AdsIcon;
+    // [SerializeField] GameObject _IapIcon;
+    [SerializeField] ItemView _IapItemView;
+
+    [Header("Shop DTO")]
     [SerializeField] ShopItemSO _ShopItemSO;
 
     protected void OnValidate() => ShowUI();
 
     protected override void Start()
     {
-        base.Start();
         ShowUI();
     }
 
@@ -44,8 +47,6 @@ IShopItem
     {
         if (_ShopItemSO == null) return;
 
-        if (_AdsIcon) _AdsIcon.SetActive(false);
-        if (_IapIcon) _IapIcon.SetActive(false);
         if (_PurchaseIcon) _PurchaseIcon.gameObject.SetActive(
             _ShopItemSO.Type == ItemSlotType.Iap &&
             _ShopItemSO.PurchasType != ItemType.Currency
@@ -56,8 +57,15 @@ IShopItem
         if (_RewardValueText) _RewardValueText.text = $"{_ShopItemSO.RewardValue}";
         if (_PriceText) _PriceText.text = _ShopItemSO.GetPriceString();
 
-        if (_ShopItemSO.Type == ItemSlotType.Ads && _AdsIcon) _AdsIcon.SetActive(true);
-        else if (_ShopItemSO.Type == ItemSlotType.Iap && _IapIcon) _IapIcon.SetActive(true);
+        if (_AdsIcon) _AdsIcon.SetActive(_ShopItemSO.Type == ItemSlotType.Ads);
+        if (_IapItemView && _ShopItemSO.Type == ItemSlotType.Iap)
+        {
+            _IapItemView.DTO = _ShopItemSO.PurchaseDTO;
+            _IapItemView.Value = _ShopItemSO.PurchasePrice;
+            _IapItemView.SetActive(true);
+        }
+
+        // _IapIcon.SetActive(_ShopItemSO.Type == ItemSlotType.Iap);
     }
 
 

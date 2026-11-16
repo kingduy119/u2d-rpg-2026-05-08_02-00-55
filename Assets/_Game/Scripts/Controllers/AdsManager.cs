@@ -11,7 +11,7 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
     [Inject] readonly ProfileSerice _ProfileSerice;
 
     bool _sendedRewards;
-    List<Reward> AdsRewards;
+    List<RewardData> AdsRewards;
     public bool ShowAds;
 
     public void Start()
@@ -28,7 +28,7 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
         AdsEvent.GiveAdsReward -= GiveAdsReward;
         Release();
     }
-    private void SaveAdsRewards(List<Reward> rewards)
+    private void SaveAdsRewards(List<RewardData> rewards)
     {
         AdsRewards = rewards;
         _sendedRewards = false;

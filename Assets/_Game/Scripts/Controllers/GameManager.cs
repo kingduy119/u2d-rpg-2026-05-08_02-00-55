@@ -59,17 +59,3 @@ public class GameManager : IAsyncStartable, IDisposable
 
 }
 
-public class UserData
-{
-    public string UserId;
-    public string Name;
-    public string Nickname;
-    public int Level;
-    public bool FirstLogin = true;
-}
-
-public class ResourceData
-{
-    public int Diamond;
-    public int Gold;
-}

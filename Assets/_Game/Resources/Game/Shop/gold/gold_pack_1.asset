@@ -17,9 +17,13 @@ MonoBehaviour:
   ItemIcon: {fileID: 21300000, guid: 099a3e9fd39fd40efa61fb2fa8acf5f6, type: 3}
   ItemName: Gold Pack
   ItemDesc: Buy Something By Gold
-  PurchasePrice: 100
+  PurchaseDTO: {fileID: 11400000, guid: a5f1f367e5d3140ee82080a06affe4c3, type: 2}
+  PurchasePrice: 50
   Currency: 
-  RewardValue: 100
+  RequiredResources:
+  - Item: {fileID: 11400000, guid: a5f1f367e5d3140ee82080a06affe4c3, type: 2}
+    Value: 50
+  RewardValue: 500
   Rewards:
-  - Item: {fileID: 11400000, guid: 5392edaceff0c4fe9bc5d595fffda3af, type: 2}
-    Value: 100
+  - Item: {fileID: 11400000, guid: 4e4f00eb0b23196429de24fa6f3c022d, type: 2}
+    Value: 500

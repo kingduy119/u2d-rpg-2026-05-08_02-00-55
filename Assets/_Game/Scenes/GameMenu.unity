@@ -1595,11 +1595,15 @@ PrefabInstance:
     - target: {fileID: 7274753499149612219, guid: 1857ea396b5094d8f8f414ba91fbcc9e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6586461156150141773, guid: 5a6510a9ca5c948a7ae6eaadfdf5775a, type: 3}
+      objectReference: {fileID: 2478640648008475328, guid: c842c92050d8245fbbc5b4b3433f63b2, type: 3}
     - target: {fileID: 7923444088350802035, guid: 1857ea396b5094d8f8f414ba91fbcc9e, type: 3}
       propertyPath: _so
       value: 
       objectReference: {fileID: 11400000, guid: d90420dc4f6c6483db08af2065696f45, type: 2}
+    - target: {fileID: 7923444088350802035, guid: 1857ea396b5094d8f8f414ba91fbcc9e, type: 3}
+      propertyPath: _dto
+      value: 
+      objectReference: {fileID: 11400000, guid: a5f1f367e5d3140ee82080a06affe4c3, type: 2}
     - target: {fileID: 8262042993752239577, guid: 1857ea396b5094d8f8f414ba91fbcc9e, type: 3}
       propertyPath: m_Name
       value: ItemView  - Diamond
@@ -3359,8 +3363,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemView
   _icon: {fileID: 1164843805}
   _text: {fileID: 2101637582}
-  _so: {fileID: 0}
-  _dto: {fileID: 0}
+  _dto: {fileID: 11400000, guid: a5f1f367e5d3140ee82080a06affe4c3, type: 2}
+  _value: 50
 --- !u!1 &660446407
 GameObject:
   m_ObjectHideFlags: 0
@@ -5323,6 +5327,10 @@ PrefabInstance:
       propertyPath: _so
       value: 
       objectReference: {fileID: 11400000, guid: c75d2249fd4f54620b6e3bd63e25620c, type: 2}
+    - target: {fileID: 7923444088350802035, guid: 1857ea396b5094d8f8f414ba91fbcc9e, type: 3}
+      propertyPath: _dto
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e4f00eb0b23196429de24fa6f3c022d, type: 2}
     - target: {fileID: 8262042993752239577, guid: 1857ea396b5094d8f8f414ba91fbcc9e, type: 3}
       propertyPath: m_Name
       value: ItemView - Gold
@@ -5777,6 +5785,10 @@ PrefabInstance:
       propertyPath: _ShopItemSO
       value: 
       objectReference: {fileID: 11400000, guid: ee5b81d1e664e462cbf00e7a1c40e267, type: 2}
+    - target: {fileID: 347791879588058659, guid: 1383e31196a024f4d97e3224d2a7dfaa, type: 3}
+      propertyPath: _IapItemView
+      value: 
+      objectReference: {fileID: 636347231}
     - target: {fileID: 1667829737558124220, guid: 1383e31196a024f4d97e3224d2a7dfaa, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5864,7 +5876,7 @@ PrefabInstance:
     - target: {fileID: 2574964520891605515, guid: 1383e31196a024f4d97e3224d2a7dfaa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2531632644950593733, guid: c842c92050d8245fbbc5b4b3433f63b2, type: 3}
+      objectReference: {fileID: 21300000, guid: 099a3e9fd39fd40efa61fb2fa8acf5f6, type: 3}
     - target: {fileID: 2689781192812242007, guid: 1383e31196a024f4d97e3224d2a7dfaa, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -5879,7 +5891,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3538061472291047205, guid: 1383e31196a024f4d97e3224d2a7dfaa, type: 3}
       propertyPath: m_text
-      value: 100
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7081735503715433019, guid: 1383e31196a024f4d97e3224d2a7dfaa, type: 3}
+      propertyPath: m_Name
+      value: ItemView _Iap
       objectReference: {fileID: 0}
     - target: {fileID: 7081735503715433019, guid: 1383e31196a024f4d97e3224d2a7dfaa, type: 3}
       propertyPath: m_IsActive
@@ -5887,7 +5903,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8485515274696240660, guid: 1383e31196a024f4d97e3224d2a7dfaa, type: 3}
       propertyPath: m_text
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

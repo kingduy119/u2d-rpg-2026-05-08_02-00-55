@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7ac4630d2724447a9a0d34a87555fa7, type: 3}
-  m_Name: shop_iap_pack_1_diamond
+  m_Name: currency_diamond_pack_500
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemSO
   Type: 1
   PurchasType: 2
   ItemIcon: {fileID: 2531632644950593733, guid: c842c92050d8245fbbc5b4b3433f63b2, type: 3}
   ItemName: IAP Pack 1
   ItemDesc: Purchase by currency
+  PurchaseDTO: {fileID: 11400000, guid: 34dee87f3c0489f41ab1b5a4efd4b054, type: 2}
   PurchasePrice: 1.9
   Currency: $
+  RequiredResources:
+  - Item: {fileID: 11400000, guid: 34dee87f3c0489f41ab1b5a4efd4b054, type: 2}
+    Value: 1.9
   RewardValue: 500
   Rewards:
-  - Item: {fileID: 11400000, guid: 5392edaceff0c4fe9bc5d595fffda3af, type: 2}
+  - Item: {fileID: 11400000, guid: a5f1f367e5d3140ee82080a06affe4c3, type: 2}
     Value: 500

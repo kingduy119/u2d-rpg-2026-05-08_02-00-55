@@ -7,11 +7,21 @@ public class ItemView : MonoBehaviour
 {
     [SerializeField] Image _icon;
     [SerializeField] TMP_Text _text;
-    [SerializeField] ResourceItemSO _so;
-    [SerializeField] ItemDTO _dto;
 
-    private int _value = 0;
-    public int Value
+    [SerializeField] ItemDTO _dto;
+    public ItemDTO DTO
+    {
+        get => _dto;
+        set
+        {
+            _dto = value;
+            UpdateView(_dto);
+        }
+    }
+
+
+    [SerializeField] float _value = 0;
+    public float Value
     {
         get => _value;
         set
@@ -24,16 +34,10 @@ public class ItemView : MonoBehaviour
     void OnValidate()
     {
         if (_dto) UpdateView(_dto);
-
-        if (_so == null) return;
-        _icon.sprite = _so.Icon;
-        _text.text = $"{_so.Value}";
-
     }
 
     void Start()
     {
-        // if (_so) _value = _so.Value;
         if (_dto) UpdateView(_dto);
     }
 
@@ -49,6 +53,7 @@ public class ItemView : MonoBehaviour
         SetText($"{Value}");
     }
 
-    private void SetIcon(Sprite sprite) { if (_icon) _icon.sprite = sprite; }
-    private void SetText(string text) { if (_text) _text.text = text; }
+    public void SetActive(bool active) => gameObject.SetActive(active);
+    public void SetText(string text) { if (_text) _text.text = text; }
+    public void SetIcon(Sprite sprite) { if (_icon) _icon.sprite = sprite; }
 }
