@@ -20,9 +20,9 @@ MonoBehaviour:
   PurchaseDTO: {fileID: 11400000, guid: a5f1f367e5d3140ee82080a06affe4c3, type: 2}
   PurchasePrice: 50
   Currency: 
-  RequiredResources:
-  - Item: {fileID: 11400000, guid: a5f1f367e5d3140ee82080a06affe4c3, type: 2}
-    Value: 50
+  PurchaseResource:
+    Diamond: 50
+    Gold: 0
   RewardValue: 500
   Rewards:
   - Item: {fileID: 11400000, guid: 4e4f00eb0b23196429de24fa6f3c022d, type: 2}

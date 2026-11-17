@@ -16,7 +16,7 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
 
     public void Start()
     {
-        ButtonEvents.SaveAdsRewards += SaveAdsRewards;
+        // ButtonEvents.SaveAdsRewards += SaveAdsRewards;
         AdsEvent.GiveAdsReward += GiveAdsReward;
 
         if (_AdsSettings != null) Init(_AdsSettings);
@@ -24,11 +24,11 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
 
     public void Dispose()
     {
-        ButtonEvents.SaveAdsRewards -= SaveAdsRewards;
+        // ButtonEvents.SaveAdsRewards -= SaveAdsRewards;
         AdsEvent.GiveAdsReward -= GiveAdsReward;
         Release();
     }
-    private void SaveAdsRewards(List<RewardData> rewards)
+    public void SaveAdsRewards(List<RewardData> rewards)
     {
         AdsRewards = rewards;
         _sendedRewards = false;

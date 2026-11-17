@@ -2,8 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopItemView : ButtonView,
-IShopItem
+public class ShopItemView : ButtonView
 {
     [SerializeField] Image _Icon;
     [SerializeField] Image _PurchaseIcon;
@@ -12,11 +11,10 @@ IShopItem
 
     [Header("Purchase Type: Ads or IAP")]
     [SerializeField] GameObject _AdsIcon;
-    // [SerializeField] GameObject _IapIcon;
     [SerializeField] ItemView _IapItemView;
 
-    [Header("Shop DTO")]
-    [SerializeField] ShopItemSO _ShopItemSO;
+    [Header("Shop Data")]
+    [SerializeField] ShopItemDto _dto;
 
     protected void OnValidate() => ShowUI();
 
@@ -27,51 +25,34 @@ IShopItem
 
     protected override void HandleClick()
     {
-        if (_ShopItemSO != null)
-        {
-            switch (_ShopItemSO.Type)
-            {
-                case ItemSlotType.Ads:
-                    AdsEvent.ShowRewardAds("RewardAds");
-                    ButtonEvents.SaveAdsRewards?.Invoke(_ShopItemSO.Rewards);
-                    break;
-                case ItemSlotType.Iap:
-                    ShopEvents.OnPurchase?.Invoke(_ShopItemSO);
-                    break;
-                default: break;
-            }
-        }
+        ShopEvents.ShopItemSelect?.Invoke(_dto);
     }
 
     protected void ShowUI()
     {
-        if (_ShopItemSO == null) return;
+        if (_dto == null) return;
 
-        if (_PurchaseIcon) _PurchaseIcon.gameObject.SetActive(
-            _ShopItemSO.Type == ItemSlotType.Iap &&
-            _ShopItemSO.PurchasType != ItemType.Currency
-        );
+        // bool AdsType = _dto.Type == ItemSlotType.Ads;
+        bool AdsType = _dto is ShopAdsItemDto;
 
-        if (_Icon) _Icon.sprite = _ShopItemSO.ItemIcon;
 
-        if (_RewardValueText) _RewardValueText.text = $"{_ShopItemSO.RewardValue}";
-        if (_PriceText) _PriceText.text = _ShopItemSO.GetPriceString();
+        if (_Icon) _Icon.sprite = _dto.ItemIcon.Icon;
+        if (_RewardValueText) _RewardValueText.text = $"{_dto.ItemDesc}";
+        // if (_PriceText) _PriceText.text = _dto.GetPriceString();
 
-        if (_AdsIcon) _AdsIcon.SetActive(_ShopItemSO.Type == ItemSlotType.Ads);
-        if (_IapItemView && _ShopItemSO.Type == ItemSlotType.Iap)
+
+        if (_PurchaseIcon) _PurchaseIcon.gameObject.SetActive(!AdsType);
+        if (_AdsIcon) _AdsIcon.SetActive(AdsType);
+
+        if (_IapItemView)
         {
-            _IapItemView.DTO = _ShopItemSO.PurchaseDTO;
-            _IapItemView.Value = _ShopItemSO.PurchasePrice;
-            _IapItemView.SetActive(true);
+            _IapItemView.SetActive(!AdsType);
+            if (_dto is PurchaseResourceDto purchaseDto)
+            {
+                _IapItemView.DTO = purchaseDto.PurchaseDTO;
+                _IapItemView.Value = purchaseDto.PurchasePrice;
+
+            }
         }
-
-        // _IapIcon.SetActive(_ShopItemSO.Type == ItemSlotType.Iap);
-    }
-
-
-    public void Init(ShopItemSO so)
-    {
-        _ShopItemSO = so;
-        ShowUI();
     }
 }

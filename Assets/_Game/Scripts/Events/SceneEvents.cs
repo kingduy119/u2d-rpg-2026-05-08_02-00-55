@@ -41,7 +41,8 @@ public static class ButtonEvents
 
 public static class ShopEvents
 {
-    public static Action<ShopItemSO> OnPurchase;
+    public static Action<ShopItemDto> OnPurchase;
+    public static Action<ShopItemDto> ShopItemSelect;
 }
 
 public static class GamePlayEvents

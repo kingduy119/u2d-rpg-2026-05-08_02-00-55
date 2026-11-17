@@ -60,60 +60,24 @@ public class ProfileSerice : Service
     {
         foreach (var reward in rewards)
         {
-            switch (reward.Item.Type)
-            {
-                case ItemType.Diamond:
-                    UserResource.Diamond += reward.Value;
-                    break;
-                case ItemType.Gold:
-                    UserResource.Gold += reward.Value;
-                    break;
-                default: break;
-            }
+            UserResource.Add(reward);
         }
 
         OnChange?.Invoke(this);
         _FirebaseService.SaveUserResourceAsync(User, UserResource).Forget();
     }
 
-    public void PurchaseItem(ShopItemSO item)
+    public void PurchaseItem(ShopItemDto item)
     {
-        if (item == null) return;
-        ResourceData tempResource = new ResourceData
-        {
-            Diamond = UserResource.Diamond,
-            Gold = UserResource.Gold
-        };
-        foreach (var requiredResource in item.RequiredResources)
-        {
-            switch (requiredResource.Item.Type)
-            {
-                case ItemType.Diamond:
-                    if (UserResource.Diamond < requiredResource.Value)
-                    {
-                        Debug.LogWarning("Not enough diamonds to purchase the item.");
-                        return;
-                    }
-                    tempResource.Diamond -= (int)requiredResource.Value;
-                    break;
-                case ItemType.Gold:
-                    if (UserResource.Gold < requiredResource.Value)
-                    {
-                        Debug.LogWarning("Not enough gold to purchase the item.");
-                        return;
-                    }
-                    tempResource.Gold -= (int)requiredResource.Value;
-                    break;
-                default:
-                    Debug.LogWarning("Unsupported purchase type.");
-                    return;
-            }
-        }
+        if (item == null || item.PurchaseResource == null) return;
 
-        UserResource = tempResource;
+        if (UserResource < item.PurchaseResource)
+        {
+            Debug.LogWarning("Not enough resources to purchase the item.");
+            return;
+        }
+        UserResource -= item.PurchaseResource;
         ClaimRewards(item.Rewards);
-        OnChange?.Invoke(this);
-        _FirebaseService.SaveUserResourceAsync(User, UserResource).Forget();
     }
 
     private void ConfirmChangeNickname(string nickname)
