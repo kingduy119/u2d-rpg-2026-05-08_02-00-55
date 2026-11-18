@@ -5,10 +5,14 @@ using Unity.Services.Core.Environments;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
+// public static class IAPEvents
+// {
+//     public static Action<string> OnBuyProductSuccess;
+// }
 
 namespace IAPPack
 {
-    public class IAPManager : IAPPurchaseHandling
+    public class IAPManager : IAPPurchaseHandle
     {
         public event Action<StoreController> OnFetchProduct;
         public StoreController Controller => _StoreController;
@@ -34,6 +38,7 @@ namespace IAPPack
 
         public void BuyProduct(string productId)
         {
+            Debug.Log($"BuyProduct: {productId}");
             if (!string.IsNullOrEmpty(productId))
             {
                 _StoreController.PurchaseProduct(productId);

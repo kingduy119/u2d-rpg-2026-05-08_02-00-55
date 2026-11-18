@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
-public interface IIAPEvents
+public interface IIAPEventsHandle
 {
     void RegisteEvents();
     void RemoveEvents();
@@ -13,17 +14,17 @@ public class IAPAtrribute
 {
     protected StoreController _StoreController;
     public bool IsConnected { get; protected set; } = false;
-    protected Dictionary<string, Product> Products { get; }
+    protected Dictionary<string, Product> Products { get; } = new();
 
 }
 
-public class IAPEvents : IAPAtrribute, IIAPEvents
+public class IAPEventsHandle : IAPAtrribute, IIAPEventsHandle
 {
     public virtual void RegisteEvents() { }
     public virtual void RemoveEvents() { }
 }
 
-public class IAPConnect : IAPEvents
+public class IAPConnect : IAPEventsHandle
 {
     public override void RegisteEvents()
     {
@@ -47,7 +48,7 @@ public class IAPConnect : IAPEvents
     }
 }
 
-public class IAPProductHandling : IAPConnect
+public class IAPProductFetchHandle : IAPConnect
 {
     public override void RegisteEvents()
     {
@@ -65,13 +66,13 @@ public class IAPProductHandling : IAPConnect
 
     private void OnProductsFetched(List<Product> products)
     {
-        foreach (var p in products)
+        foreach (var product in products)
         {
-            string productId = p.definition.id;
-            string title = p.metadata.localizedTitle;
+            string productId = product.definition.id;
+            string title = product.metadata.localizedTitle;
 
-            Products.Add(productId, p);
-            Debug.Log($"OnProductsFetched: {productId} - {title}");
+            Debug.Log($"[IAPProductFetchHandle] OnProductsFetched: {productId} - {title}");
+            Products.Add(productId, product);
         }
 
         _StoreController.FetchPurchases();
@@ -79,14 +80,15 @@ public class IAPProductHandling : IAPConnect
 
     private void OnProductsFetchFailed(ProductFetchFailed failure)
     {
-        Debug.Log($"OnProductsFetchFailed: {failure}");
+        Debug.Log($"[IAPProductFetchHandle] OnProductsFetchFailed: {failure}");
     }
 }
 
 
-public class IAPPurchaseHandling : IAPProductHandling
+public class IAPPurchaseHandle : IAPProductFetchHandle
 {
-    private string _name = "IAPPurchaseHandling";
+    public Action<string> PurchaseConfirmed;
+    private string _name = "IAPPurchaseHandle";
     public override void RegisteEvents()
     {
         if (_StoreController == null) return;
@@ -115,11 +117,13 @@ public class IAPPurchaseHandling : IAPProductHandling
 
     private void OnPurchasesFetched(Orders orders)
     {
-        Debug.Log($"OnPurchasesFetched: {orders}");
+        Debug.Log($"[{_name}] OnPurchasesFetched: {orders}");
+        Debug.Log($"[{_name}] orders.ConfirmedOrders: {orders.ConfirmedOrders.Count}");
+        Debug.Log($"[{_name}] orders.PendingOrders: {orders.PendingOrders.Count}");
     }
-
     private void OnPurchasesFetchFailed(PurchasesFetchFailureDescription failure)
     {
+        Debug.Log($"[{_name}] OnPurchasesFetchFailed: {failure}");
     }
 
     private void OnPurchasePending(PendingOrder order)
@@ -127,7 +131,6 @@ public class IAPPurchaseHandling : IAPProductHandling
         var product = order.CartOrdered.Items().First()?.Product;
         Debug.Log($"[{_name}] Pending purchase: {product.definition.id}");
 
-        Debug.Log($"[{_name}] OnPurchasePending: {order}");
         _StoreController.ConfirmPurchase(order);
     }
 
@@ -136,7 +139,8 @@ public class IAPPurchaseHandling : IAPProductHandling
         var product = order.CartOrdered.Items().First()?.Product;
         Debug.Log($"[{_name}] Confirmed purchase: {product.definition.id}");
 
-        GrantReward(product.definition.id);
+        // IAPEvents.OnBuyProductSuccess?.Invoke(product.definition.id);
+        PurchaseConfirmed?.Invoke(product.definition.id);
     }
 
     private void GrantReward(string productId)

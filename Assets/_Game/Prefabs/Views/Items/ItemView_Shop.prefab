@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 1677433071476620746}
   - component: {fileID: 8573676747082301632}
   - component: {fileID: 7652222184518771214}
-  - component: {fileID: 7832238150991537437}
+  - component: {fileID: 3201657280954297279}
   m_Layer: 5
   m_Name: ItemView_Shop
   m_TagString: Untagged
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7832238150991537437
+--- !u!114 &3201657280954297279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2845381857434340480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b84695d69202764eb3fd98e184b6107, type: 3}
+  m_Script: {fileID: 11500000, guid: c9b9ae352b6f047869038035db971ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemView
   _Icon: {fileID: 2574964520891605515}
@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 7924207833387600922}
   - component: {fileID: 4146695382543090215}
   m_Layer: 5
-  m_Name: IapIcon
+  m_Name: ItemView - Iap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

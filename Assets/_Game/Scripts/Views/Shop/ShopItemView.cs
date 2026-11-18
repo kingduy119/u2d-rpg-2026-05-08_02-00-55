@@ -32,14 +32,10 @@ public class ShopItemView : ButtonView
     {
         if (_dto == null) return;
 
-        // bool AdsType = _dto.Type == ItemSlotType.Ads;
         bool AdsType = _dto is ShopAdsItemDto;
-
 
         if (_Icon) _Icon.sprite = _dto.ItemIcon.Icon;
         if (_RewardValueText) _RewardValueText.text = $"{_dto.ItemDesc}";
-        // if (_PriceText) _PriceText.text = _dto.GetPriceString();
-
 
         if (_PurchaseIcon) _PurchaseIcon.gameObject.SetActive(!AdsType);
         if (_AdsIcon) _AdsIcon.SetActive(AdsType);
@@ -50,8 +46,12 @@ public class ShopItemView : ButtonView
             if (_dto is PurchaseResourceDto purchaseDto)
             {
                 _IapItemView.DTO = purchaseDto.PurchaseDTO;
-                _IapItemView.Value = purchaseDto.PurchasePrice;
-
+                _IapItemView.SetText(purchaseDto.PurchaseText);
+            }
+            else if (_dto is ShopIapDto iapDto)
+            {
+                _IapItemView.DTO = iapDto.PurchaseDTO;
+                _IapItemView.SetText(iapDto.PurchaseText);
             }
         }
     }

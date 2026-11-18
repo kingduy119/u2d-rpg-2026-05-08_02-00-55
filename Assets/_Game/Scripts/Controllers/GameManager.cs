@@ -8,6 +8,10 @@ using IAPPack;
 using UnityEngine.Purchasing;
 using System.Collections.Generic;
 
+public enum IAPProductKeys
+{
+    iap_diamon_500
+}
 public class GameManager : IAsyncStartable, IDisposable
 {
 
@@ -18,7 +22,7 @@ public class GameManager : IAsyncStartable, IDisposable
     [Inject] readonly ProfileSerice _ProfileService;
     [Inject] readonly FactoryService _FactoryService;
 
-    IAPManager _IAPManager = new();
+    readonly public IAPManager _IAPManager = new();
 
     public async UniTask StartAsync(CancellationToken cancellation = default)
     {
@@ -35,7 +39,7 @@ public class GameManager : IAsyncStartable, IDisposable
     {
         var intialProductToFetch = new List<ProductDefinition>
             {
-                new("gold100", ProductType.Consumable),
+                new(IAPProductKeys.iap_diamon_500.ToString(), ProductType.Consumable),
                 // new("wood100", ProductType.Consumable),
                 // new("remove_ads", ProductType.NonConsumable)
             };
