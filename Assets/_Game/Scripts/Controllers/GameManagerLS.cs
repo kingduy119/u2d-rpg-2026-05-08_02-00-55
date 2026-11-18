@@ -1,3 +1,5 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -26,4 +28,13 @@ public class GameManagerLS : LifetimeScope
     }
 }
 
+
+// public class IAPService : IAsyncStartable
+// {
+
+//     public UniTask StartAsync(CancellationToken cancellation = default)
+//     {
+//         throw new System.NotImplementedException();
+//     }
+// }
 

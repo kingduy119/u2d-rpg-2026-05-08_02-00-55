@@ -48,6 +48,7 @@ public class UserProfileView : MonoBehaviour
 
     public void UpdateView(ResourceData resource)
     {
+        if (resource == null) return;
         if (_Diamond) _Diamond.Value = resource.Diamond;
         if (_Gold) _Gold.Value = resource.Gold;
     }

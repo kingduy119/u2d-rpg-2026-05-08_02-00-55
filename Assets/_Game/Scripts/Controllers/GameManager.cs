@@ -4,6 +4,9 @@ using VContainer;
 using VContainer.Unity;
 using System.Threading;
 using UnityEngine;
+using IAPPack;
+using UnityEngine.Purchasing;
+using System.Collections.Generic;
 
 public class GameManager : IAsyncStartable, IDisposable
 {
@@ -15,12 +18,28 @@ public class GameManager : IAsyncStartable, IDisposable
     [Inject] readonly ProfileSerice _ProfileService;
     [Inject] readonly FactoryService _FactoryService;
 
+    IAPManager _IAPManager = new();
+
     public async UniTask StartAsync(CancellationToken cancellation = default)
     {
         ButtonEvents.OnAuth += OnAuth;
 
         _AuthService.OnLoginSuccess += OnLoginSuccess;
         _AuthService.SignInAnonymouslyAsync(cancellation).Forget();
+
+        _IAPManager.OnFetchProduct += OnFetchProduct;
+        await _IAPManager.ConnectAsync().AsUniTask().AttachExternalCancellation(cancellation);
+    }
+
+    private void OnFetchProduct(StoreController store)
+    {
+        var intialProductToFetch = new List<ProductDefinition>
+            {
+                new("gold100", ProductType.Consumable),
+                // new("wood100", ProductType.Consumable),
+                // new("remove_ads", ProductType.NonConsumable)
+            };
+        store.FetchProducts(intialProductToFetch);
     }
 
     public void Dispose()
