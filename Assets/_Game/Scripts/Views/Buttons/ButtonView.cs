@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,11 +6,12 @@ using UnityEngine.UI;
 public abstract class ButtonView : MonoBehaviour
 {
     protected Button _Button;
+    public Image Icon;
+    public TMP_Text Text;
 
     protected virtual void Awake()
     {
         _Button = GetComponent<Button>();
-
     }
 
     protected virtual void Start() { }
@@ -31,3 +33,4 @@ public abstract class ButtonView : MonoBehaviour
     public virtual void Hidden() => gameObject.SetActive(false);
     public virtual void Visible() => gameObject.SetActive(true);
 }
+

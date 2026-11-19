@@ -9,6 +9,7 @@ using VContainer.Unity;
 public class GameManagerLS : LifetimeScope
 {
     [SerializeField] AdsSettingSO AdsSetting;
+
     protected override void Configure(IContainerBuilder builder)
     {
         // builder.RegisterComponentInHierarchy<AdsConfigView>();
@@ -27,14 +28,3 @@ public class GameManagerLS : LifetimeScope
         builder.Register<FactoryService>(Lifetime.Singleton);
     }
 }
-
-
-// public class IAPService : IAsyncStartable
-// {
-
-//     public UniTask StartAsync(CancellationToken cancellation = default)
-//     {
-//         throw new System.NotImplementedException();
-//     }
-// }
-

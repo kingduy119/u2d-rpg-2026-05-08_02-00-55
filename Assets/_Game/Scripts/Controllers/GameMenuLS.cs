@@ -18,8 +18,6 @@ public class GameMenuLS : LifetimeScope
 
 public class GameMenuController : Service
 {
-    // [Inject] readonly FactoryService _FactoryService;
-    // [Inject] readonly GameManager _GameManager;
     [Inject] readonly AdsManager _AdsManager;
     [Inject] readonly GameManager _GameManager;
     [Inject] readonly ProfileSerice _ProfileSerice;
@@ -65,7 +63,6 @@ public class GameMenuController : Service
 
     private void PurchaseConfirmed(string productId)
     {
-        Debug.Log($"_ProfileSerice.ClaimRewards: {productId}");
         if (_IAPReward.TryGetValue(productId, out var reward))
         {
             _ProfileSerice.ClaimRewards(reward);

@@ -12,10 +12,9 @@ public interface IIAPEventsHandle
 
 public class IAPAtrribute
 {
-    protected StoreController _StoreController;
     public bool IsConnected { get; protected set; } = false;
+    protected StoreController _StoreController;
     protected Dictionary<string, Product> Products { get; } = new();
-
 }
 
 public class IAPEventsHandle : IAPAtrribute, IIAPEventsHandle
@@ -139,13 +138,7 @@ public class IAPPurchaseHandle : IAPProductFetchHandle
         var product = order.CartOrdered.Items().First()?.Product;
         Debug.Log($"[{_name}] Confirmed purchase: {product.definition.id}");
 
-        // IAPEvents.OnBuyProductSuccess?.Invoke(product.definition.id);
         PurchaseConfirmed?.Invoke(product.definition.id);
-    }
-
-    private void GrantReward(string productId)
-    {
-        Debug.Log($"[{_name}] GrantReward: {productId}");
     }
 
     void OnPurchaseFailed(FailedOrder order)

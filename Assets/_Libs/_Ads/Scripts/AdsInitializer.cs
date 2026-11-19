@@ -20,7 +20,6 @@ public class AdsInitializer : IUnityAdsInitializationListener
 
     public void OnInitializationComplete()
     {
-        // Debug.Log("Unity Ads initialization complete.");
         _interstitialAds = new Advertise(_settings.InterstitialAdUnitId, true);
         _rewardedAds = new Advertise(_settings.RewardedAdUnitId, true);
         _banner = new Banner(_settings.BannerPosition, _settings.BannerAdUnitId);
@@ -44,7 +43,7 @@ public class AdsInitializer : IUnityAdsInitializationListener
         AdsEvent.HideBanner += _banner.Hide;
     }
 
-    public void Release()
+    public void RemoveEvents()
     {
         if (!InitCompleted) return;
         AdsEvent.ShowInterstitial -= _interstitialAds.Show;

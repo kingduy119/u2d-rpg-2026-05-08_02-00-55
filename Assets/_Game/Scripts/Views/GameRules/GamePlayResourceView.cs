@@ -20,6 +20,7 @@ public class GamePlayResourceView : MonoBehaviour
     {
         if (_ProfileService != null) _ProfileService.gResources.OnChange += UpdateView;
     }
+
     void OnDisable()
     {
         if (_ProfileService != null) _ProfileService.gResources.OnChange -= UpdateView;
@@ -33,3 +34,5 @@ public class GamePlayResourceView : MonoBehaviour
         if (_wood != null) _wood.Value = resources.Wood;
     }
 }
+
+

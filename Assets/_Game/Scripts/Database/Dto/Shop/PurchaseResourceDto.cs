@@ -21,6 +21,4 @@ public class PurchaseResourceDto : ShopItemDto
     [Header("Store Setting")]
     public ItemDTO PurchaseDTO;
     public string PurchaseText;
-
-
 }

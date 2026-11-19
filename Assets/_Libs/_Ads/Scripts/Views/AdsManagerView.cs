@@ -44,7 +44,7 @@ public class AdsManagerView : MonoBehaviour
 
     void OnDisable()
     {
-        _AdsInitializer.Release();
+        _AdsInitializer.RemoveEvents();
         // AdsEvent.ShowInterstitial -= _interstitialAds.Show;
         // AdsEvent.ShowRewardAds -= _rewardedAds.Show;
         // AdsEvent.ShowBanner -= _banner.Show;

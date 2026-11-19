@@ -5,10 +5,6 @@ using Unity.Services.Core.Environments;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
-// public static class IAPEvents
-// {
-//     public static Action<string> OnBuyProductSuccess;
-// }
 
 namespace IAPPack
 {

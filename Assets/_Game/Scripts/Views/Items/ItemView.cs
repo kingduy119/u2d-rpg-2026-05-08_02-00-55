@@ -7,6 +7,7 @@ public class ItemView : MonoBehaviour
 {
     [SerializeField] Image _icon;
     [SerializeField] TMP_Text _text;
+    [SerializeField] bool _enableValidate = true;
 
     [SerializeField] ItemDTO _dto;
     public ItemDTO DTO
@@ -18,7 +19,6 @@ public class ItemView : MonoBehaviour
             UpdateView(_dto);
         }
     }
-
 
     [SerializeField] float _value = 0;
     public float Value
@@ -33,7 +33,7 @@ public class ItemView : MonoBehaviour
 
     void OnValidate()
     {
-        if (_dto) UpdateView(_dto);
+        if (_enableValidate && _dto) UpdateView(_dto);
     }
 
     void Start()
@@ -50,7 +50,7 @@ public class ItemView : MonoBehaviour
     public void UpdateView(ItemDTO dto)
     {
         SetIcon(dto.Icon);
-        SetText($"{Value}");
+        // SetText($"{Value}");
     }
 
     public void SetActive(bool active) => gameObject.SetActive(active);

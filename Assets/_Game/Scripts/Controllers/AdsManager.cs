@@ -11,12 +11,11 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
     [Inject] readonly ProfileSerice _ProfileSerice;
 
     bool _sendedRewards;
-    List<RewardData> AdsRewards;
     public bool ShowAds;
+    List<RewardData> AdsRewards;
 
     public void Start()
     {
-        // ButtonEvents.SaveAdsRewards += SaveAdsRewards;
         AdsEvent.GiveAdsReward += GiveAdsReward;
 
         if (_AdsSettings != null) Init(_AdsSettings);
@@ -24,10 +23,10 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
 
     public void Dispose()
     {
-        // ButtonEvents.SaveAdsRewards -= SaveAdsRewards;
         AdsEvent.GiveAdsReward -= GiveAdsReward;
-        Release();
+        RemoveEvents();
     }
+
     public void SaveAdsRewards(List<RewardData> rewards)
     {
         AdsRewards = rewards;
@@ -42,14 +41,13 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
         _sendedRewards = true;
     }
 
-    public void RandomInterstitalAds()
+    public void RandomInterstitalAds(int percent = 10)
     {
         if (!ShowAds) return;
-        AdsEvent.ShowInterstitial?.Invoke("");
-        // if (UnityEngine.Random.Range(0, 100) < 20)
-        // {
-        //     AdsEvent.ShowInterstitial?.Invoke("");
-        // }
+        if (UnityEngine.Random.Range(0, 100) < percent)
+        {
+            AdsEvent.ShowInterstitial?.Invoke("");
+        }
         ShowAds = false;
     }
 }
