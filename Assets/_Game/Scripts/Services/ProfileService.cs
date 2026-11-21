@@ -8,8 +8,8 @@ using System.Collections.Generic;
 
 public class ProfileSerice : Service
 {
-    [Inject] readonly DownloadService _DownloadService;
-    [Inject] readonly FirebaseService _FirebaseService;
+    [Inject] readonly DownloadService m_DownloadService;
+    [Inject] readonly DBService m_DBService;
 
     public Action<ProfileSerice> OnChange;
 
@@ -33,7 +33,7 @@ public class ProfileSerice : Service
 
     public async UniTaskVoid LoadUserAsync(string PlayerId)
     {
-        User = await _FirebaseService.LoadUserAsync(PlayerId);
+        User = await m_DBService.LoadUserAsync(PlayerId);
 
         if (User == null)
         {
@@ -43,17 +43,17 @@ public class ProfileSerice : Service
                 Nickname = "New Player",
             };
             UserResource = new();
-            await _FirebaseService.SaveUserAsync(User);
-            await _FirebaseService.SaveUserResourceAsync(User, UserResource);
+            await m_DBService.SaveUserAsync(User);
+            await m_DBService.SaveUserResourceAsync(User, UserResource);
         }
         else
         {
-            UserResource = await _FirebaseService.LoadUserResourceAsync(User);
+            UserResource = await m_DBService.LoadUserResourceAsync(User);
         }
         OnChange?.Invoke(this);
 
         var scene = User.FirstLogin ? SceneEvents.GAME_AUTH : SceneEvents.GAME_MENU;
-        await _DownloadService.LoadScene(scene);
+        await m_DownloadService.LoadScene(scene);
     }
 
     public void ClaimRewards(List<RewardData> rewards)
@@ -64,7 +64,7 @@ public class ProfileSerice : Service
         }
 
         OnChange?.Invoke(this);
-        _FirebaseService.SaveUserResourceAsync(User, UserResource).Forget();
+        m_DBService.SaveUserResourceAsync(User, UserResource).Forget();
     }
 
     public void PurchaseItem(ShopItemDto item)
@@ -86,9 +86,9 @@ public class ProfileSerice : Service
         {
             User.Nickname = nickname;
             User.FirstLogin = false;
-            _FirebaseService.SaveUserAsync(User, onSuccess: () =>
+            m_DBService.SaveUserAsync(User, onSuccess: () =>
             {
-                _DownloadService.LoadScene(SceneEvents.GAME_MENU).Forget();
+                m_DownloadService.LoadScene(SceneEvents.GAME_MENU).Forget();
             });
         }
         else

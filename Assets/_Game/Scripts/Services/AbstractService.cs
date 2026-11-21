@@ -9,13 +9,14 @@ public abstract class Service : IStartable, IDisposable, IPostStartable
     {
         if (debug) Debug.Log($"{GetType().Name}.Start");
     }
-    public virtual void Dispose()
-    {
-        if (debug) Debug.Log($"{GetType().Name}.Dispose");
-    }
 
     public virtual void PostStart()
     {
         if (debug) Debug.Log($"{GetType().Name}.PostStart");
+    }
+
+    public virtual void Dispose()
+    {
+        if (debug) Debug.Log($"{GetType().Name}.Dispose");
     }
 }

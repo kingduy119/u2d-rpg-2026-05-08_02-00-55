@@ -17,7 +17,6 @@ public class GameManager : IAsyncStartable, IDisposable
 
     // [Inject] readonly DownloadService _DownloadService;
     [Inject] readonly AuthService _AuthService;
-    // [Inject] readonly FirebaseService _FirebaseService;
     [Inject] readonly FacebookService _FacebookService;
     [Inject] readonly ProfileSerice _ProfileService;
     [Inject] readonly FactoryService _FactoryService;

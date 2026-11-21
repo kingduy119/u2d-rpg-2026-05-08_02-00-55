@@ -19,10 +19,12 @@ public class GameManagerLS : LifetimeScope
         builder.RegisterEntryPoint<AdsManager>(Lifetime.Singleton).AsSelf();
 
         builder.RegisterEntryPoint<DownloadService>(Lifetime.Singleton).AsSelf();
-        builder.RegisterEntryPoint<ProfileSerice>(Lifetime.Singleton).AsSelf();
-        builder.RegisterEntryPoint<FirebaseService>(Lifetime.Singleton).AsSelf();
+        builder.RegisterEntryPoint<DBService>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<AuthService>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<FacebookService>(Lifetime.Singleton).AsSelf();
+
+        builder.RegisterEntryPoint<ProfileSerice>(Lifetime.Singleton).AsSelf();
+        builder.RegisterEntryPoint<InventoryService>(Lifetime.Singleton).AsSelf();
 
 
         builder.Register<FactoryService>(Lifetime.Singleton);

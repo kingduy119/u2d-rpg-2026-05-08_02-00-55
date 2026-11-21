@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c15970db48f4529a14f42a4354fc91, type: 3}
   m_Name: Diamond
   m_EditorClassIdentifier: Assembly-CSharp::Inventory.ItemDto
+  Id: Diamond_01
   Type: 1
   Icon: {fileID: 2478640648008475328, guid: c842c92050d8245fbbc5b4b3433f63b2, type: 3}
   MaxStack: 0

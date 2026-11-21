@@ -9,7 +9,7 @@ using Cysharp.Threading.Tasks;
 using System;
 
 
-public class FirebaseService : IStartable
+public class DBService : IStartable
 {
     public DatabaseReference db;
 
@@ -30,45 +30,7 @@ public class FirebaseService : IStartable
         });
     }
 
-    public void WriteDatabase(string name, string key, string value)
-    {
-        db.Child(name).Child(key).SetValueAsync(value).ContinueWith(task =>
-        {
-            if (task.IsCompleted)
-            {
-                Debug.Log("Data written successfully.");
-            }
-            else
-            {
-                Debug.LogError("Failed to write data: " + task.Exception);
-            }
-        });
-    }
-
-    public void ReadDatabase(string name, string key)
-    {
-        db.Child(name).Child(key).GetValueAsync().ContinueWith(task =>
-        {
-            if (task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-                if (snapshot.Exists)
-                {
-                    Debug.Log("Data read successfully: " + snapshot.Value.ToString());
-                }
-                else
-                {
-                    Debug.LogWarning("No data found at the specified path.");
-                }
-            }
-            else
-            {
-                Debug.LogError("Failed to read data: " + task.Exception);
-            }
-        });
-    }
-
-    private async UniTask<bool> Run(Func<UniTask> action, string name, Action onSuccess = default)
+    public async UniTask<bool> Run(Func<UniTask> action, string name, Action onSuccess = default)
     {
         try
         {
@@ -88,7 +50,7 @@ public class FirebaseService : IStartable
 
     }
 
-    private async UniTask<T> Run<T>(Func<UniTask<T>> action, string name, T fallback = default)
+    public async UniTask<T> Run<T>(Func<UniTask<T>> action, string name, T fallback = default)
     {
         try
         {
@@ -106,12 +68,6 @@ public class FirebaseService : IStartable
         }
     }
 
-    public async UniTask<string> FetchUserById(string id)
-    {
-        ReadDatabase("Users", id);
-        return id;
-    }
-
     public async UniTask<UserData> GetUserAsync(string playerId)
     {
         DataSnapshot snap = await db.Child("users").Child(playerId).GetValueAsync();
@@ -127,13 +83,13 @@ public class FirebaseService : IStartable
         onSuccess);
 
     public UniTask<UserData> LoadUserAsync(string userId) =>
-    Run(async () =>
-    {
-        var snap = await db.Child("users").Child(userId).GetValueAsync().AsUniTask();
-        return snap.Exists
-            ? JsonUtility.FromJson<UserData>(snap.GetRawJsonValue())
-            : null;
-    }, "LoadUser");
+        Run(async () =>
+        {
+            var snap = await db.Child("users").Child(userId).GetValueAsync().AsUniTask();
+            return snap.Exists
+                ? JsonUtility.FromJson<UserData>(snap.GetRawJsonValue())
+                : null;
+        }, "LoadUser");
 
     public UniTask<bool> SaveUserResourceAsync(UserData user, ResourceData resource, Action onSuccess = null) =>
         Run(() => db.Child("user-resources").Child(user.UserId)
@@ -152,3 +108,48 @@ public class FirebaseService : IStartable
         }, "LoadUserResource");
 }
 
+
+
+// public void WriteDatabase(string name, string key, string value)
+// {
+//     db.Child(name).Child(key).SetValueAsync(value).ContinueWith(task =>
+//     {
+//         if (task.IsCompleted)
+//         {
+//             Debug.Log("Data written successfully.");
+//         }
+//         else
+//         {
+//             Debug.LogError("Failed to write data: " + task.Exception);
+//         }
+//     });
+// }
+
+// public void ReadDatabase(string name, string key)
+// {
+//     db.Child(name).Child(key).GetValueAsync().ContinueWith(task =>
+//     {
+//         if (task.IsCompleted)
+//         {
+//             DataSnapshot snapshot = task.Result;
+//             if (snapshot.Exists)
+//             {
+//                 Debug.Log("Data read successfully: " + snapshot.Value.ToString());
+//             }
+//             else
+//             {
+//                 Debug.LogWarning("No data found at the specified path.");
+//             }
+//         }
+//         else
+//         {
+//             Debug.LogError("Failed to read data: " + task.Exception);
+//         }
+//     });
+// }
+
+// public async UniTask<string> FetchUserById(string id)
+// {
+//     ReadDatabase("Users", id);
+//     return id;
+// }
