@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using IAPLib;
 using UnityEngine;
 
 public enum AuthMethods
@@ -34,9 +35,6 @@ public static class ButtonEvents
 
     public static Action<AuthMethods> OnAuth;
     public static Action<string> ConfirmChangeNickname;
-
-    public static Action<List<RewardData>> SaveAdsRewards;
-    public static Action<List<RewardData>> ClaimRewards;
 }
 
 public static class ShopEvents

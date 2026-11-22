@@ -1,10 +1,11 @@
 
 
+using Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Inventory
+namespace InventoryLib
 {
     public class InventorySlotView : MonoBehaviour
     {

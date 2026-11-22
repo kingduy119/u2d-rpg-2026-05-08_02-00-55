@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 
 
-namespace IAPPack
+namespace IAPLib
 {
     public class IAPManager : IAPPurchaseHandle
     {

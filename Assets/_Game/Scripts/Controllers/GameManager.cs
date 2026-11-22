@@ -4,7 +4,7 @@ using VContainer;
 using VContainer.Unity;
 using System.Threading;
 using UnityEngine;
-using IAPPack;
+using IAPLib;
 using UnityEngine.Purchasing;
 using System.Collections.Generic;
 

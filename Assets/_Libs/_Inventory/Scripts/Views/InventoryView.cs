@@ -1,16 +1,17 @@
 
 
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
-namespace Inventory
+namespace InventoryLib
 {
     public class InventoryView : MonoBehaviour
     {
         [SerializeField] InventorySlotView[] _slots;
         public ItemDto[] Dtos;
-        public InventoryData[] Datas;
-        public List<InventoryData> DatasList => new(Datas);
+        // public InventoryData[] Datas;
+        // public List<InventoryData> DatasList => new(Datas);
 
         readonly Dictionary<string, ItemDto> MapDtos = new();
 
@@ -18,7 +19,7 @@ namespace Inventory
         {
             foreach (var dto in Dtos)
             {
-                MapDtos.Add(dto.Id, dto);
+                if (dto != null) MapDtos.Add(dto.Id, dto);
             }
 
             // for (int i = 0; i < Datas.Length; i++)
@@ -50,6 +51,5 @@ namespace Inventory
             return null;
         }
     }
-
 
 }

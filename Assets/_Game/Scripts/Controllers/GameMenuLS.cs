@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
+using Core;
 using Cysharp.Threading.Tasks;
-using IAPPack;
-using Inventory;
+using IAPLib;
+using InventoryLib;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -30,7 +30,7 @@ public class GameMenuController : Service
     [Inject] readonly InventoryView _InventoryView;
     [Inject] readonly InventoryService _InventoryService;
 
-    Dictionary<string, List<RewardData>> _IAPReward = new();
+    Dictionary<string, List<RewardItem>> _IAPReward = new();
 
     public override void Start()
     {
@@ -74,21 +74,21 @@ public class GameMenuController : Service
         }
     }
 
-    private void TestInventorySave()
-    {
-        var playerId = _ProfileSerice.User.UserId;
-        if (_InventoryView.Datas != null)
-        {
-            _InventoryService.SaveInventory(
-                playerId,
-                new ListInventoryData { Datas = _InventoryView.Datas },
-                onSuccess: () =>
-                {
-                    Debug.Log("Save Inventory Success");
-                })
-                .Forget();
-        }
-    }
+    // private void TestInventorySave()
+    // {
+    //     var playerId = _ProfileSerice.User.UserId;
+    //     if (_InventoryView.Datas != null)
+    //     {
+    //         _InventoryService.SaveInventory(
+    //             playerId,
+    //             new ListInventoryData { Datas = _InventoryView.Datas },
+    //             onSuccess: () =>
+    //             {
+    //                 Debug.Log("Save Inventory Success");
+    //             })
+    //             .Forget();
+    //     }
+    // }
 
     public override void Dispose()
     {
@@ -106,8 +106,8 @@ public class GameMenuController : Service
                 _AdsManager.SaveAdsRewards(adsDto.Rewards);
                 AdsEvent.ShowRewardAds("RewardAds");
                 break;
-            case PurchaseResourceDto purchaseDto:
-                ShopEvents.OnPurchase?.Invoke(purchaseDto);
+            case ShopIapResourceDto resourceDto:
+                ShopEvents.OnPurchase?.Invoke(resourceDto);
                 break;
             case ShopIapDto iapDto:
                 var productId = iapDto.ProductId.ToString();

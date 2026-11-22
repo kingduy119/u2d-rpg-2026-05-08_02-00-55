@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f47e27a1897482798f67cb51f508b3, type: 3}
+  m_Name: Currency_1
+  m_EditorClassIdentifier: Assembly-CSharp::Core.ItemDto
+  Id: Currency_1
+  Type: 2
+  Icon: {fileID: 251218613090571758, guid: 4f4169d23e074459b84957dbd4b1c6f1, type: 3}
+  MaxStack: 0

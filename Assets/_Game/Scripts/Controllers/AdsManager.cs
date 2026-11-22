@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core;
 using VContainer;
 using VContainer.Unity;
 
@@ -12,7 +13,7 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
 
     bool _sendedRewards;
     public bool ShowAds;
-    List<RewardData> AdsRewards;
+    List<RewardItem> AdsRewards;
 
     public void Start()
     {
@@ -27,7 +28,7 @@ public class AdsManager : AdsInitializer, IStartable, IDisposable
         RemoveEvents();
     }
 
-    public void SaveAdsRewards(List<RewardData> rewards)
+    public void SaveAdsRewards(List<RewardItem> rewards)
     {
         AdsRewards = rewards;
         _sendedRewards = false;

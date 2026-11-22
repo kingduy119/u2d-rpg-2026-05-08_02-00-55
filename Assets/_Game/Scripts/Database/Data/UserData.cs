@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using Core;
 
 public class UserData
 {
@@ -11,19 +11,12 @@ public class UserData
 }
 
 [Serializable]
-public class RewardData
-{
-    public ItemDTO Item;
-    public int Value;
-}
-
-[Serializable]
 public class ResourceData
 {
     public int Diamond = 0;
     public int Gold = 0;
 
-    public void Add(RewardData reward)
+    public void Add(RewardItem reward)
     {
         switch (reward.Item.Type)
         {

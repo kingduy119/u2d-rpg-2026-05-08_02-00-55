@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public abstract class ButtonView : MonoBehaviour
 {
     protected Button _Button;
-    public Image Icon;
-    public TMP_Text Text;
 
     protected virtual void Awake()
     {

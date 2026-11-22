@@ -1,4 +1,5 @@
 
+using Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +10,8 @@ public class ItemView : MonoBehaviour
     [SerializeField] TMP_Text _text;
     [SerializeField] bool _enableValidate = true;
 
-    [SerializeField] ItemDTO _dto;
-    public ItemDTO DTO
+    [SerializeField] ItemDto _dto;
+    public ItemDto DTO
     {
         get => _dto;
         set
@@ -47,7 +48,7 @@ public class ItemView : MonoBehaviour
         gameObject.SetActive(value > 0);
     }
 
-    public void UpdateView(ItemDTO dto)
+    public void UpdateView(ItemDto dto)
     {
         SetIcon(dto.Icon);
         // SetText($"{Value}");

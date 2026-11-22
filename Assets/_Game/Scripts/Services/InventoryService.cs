@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Inventory;
+using InventoryLib;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

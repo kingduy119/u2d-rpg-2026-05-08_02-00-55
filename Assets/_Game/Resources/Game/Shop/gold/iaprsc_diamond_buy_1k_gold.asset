@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713ac6ea6db9e4f94998f62ee5fa2429, type: 3}
+  m_Name: iaprsc_diamond_buy_1k_gold
+  m_EditorClassIdentifier: Assembly-CSharp::PurchaseResourceDto
+  ItemIcon: {fileID: 11400000, guid: c5ebdb19967c442d3873ada71e78382b, type: 2}
+  ItemName: iap_resource_gold_500
+  ItemDesc: 1000
+  PurchaseResource:
+    Diamond: 50
+    Gold: 0
+  Rewards:
+  - Item: {fileID: 11400000, guid: c5ebdb19967c442d3873ada71e78382b, type: 2}
+    Value: 1000
+  PurchaseDTO: {fileID: 11400000, guid: 42db6ff78ce0b46ad932f9104e1f1084, type: 2}
+  PurchaseText: 50

@@ -1,8 +1,14 @@
+using IAPLib;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopItemView : ButtonView
+public interface IShopItem
+{
+    void Init(ShopItemDto dto);
+}
+
+public class ShopItemView : ButtonView, IShopItem
 {
     [SerializeField] Image _Icon;
     [SerializeField] Image _PurchaseIcon;
@@ -28,6 +34,12 @@ public class ShopItemView : ButtonView
         ShopEvents.ShopItemSelect?.Invoke(_dto);
     }
 
+    public void Init(ShopItemDto dto)
+    {
+        _dto = dto;
+        ShowUI();
+    }
+
     protected void ShowUI()
     {
         if (_dto == null) return;
@@ -43,7 +55,7 @@ public class ShopItemView : ButtonView
         if (_IapItemView)
         {
             _IapItemView.SetActive(!AdsType);
-            if (_dto is PurchaseResourceDto purchaseDto)
+            if (_dto is ShopIapResourceDto purchaseDto)
             {
                 _IapItemView.DTO = purchaseDto.PurchaseDTO;
                 _IapItemView.SetText(purchaseDto.PurchaseText);

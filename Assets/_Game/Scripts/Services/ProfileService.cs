@@ -4,6 +4,8 @@ using VContainer.Unity;
 using VContainer;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using IAPLib;
+using Core;
 
 
 public class ProfileSerice : Service
@@ -56,7 +58,7 @@ public class ProfileSerice : Service
         await m_DownloadService.LoadScene(scene);
     }
 
-    public void ClaimRewards(List<RewardData> rewards)
+    public void ClaimRewards(List<RewardItem> rewards)
     {
         foreach (var reward in rewards)
         {
