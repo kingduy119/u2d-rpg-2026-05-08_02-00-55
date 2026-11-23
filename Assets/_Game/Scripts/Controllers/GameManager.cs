@@ -3,10 +3,10 @@ using Cysharp.Threading.Tasks;
 using VContainer;
 using VContainer.Unity;
 using System.Threading;
-using UnityEngine;
 using IAPLib;
 using UnityEngine.Purchasing;
 using System.Collections.Generic;
+using AdsLib;
 
 public enum IAPProductKeys
 {
@@ -21,7 +21,9 @@ public class GameManager : IAsyncStartable, IDisposable
     [Inject] readonly ProfileSerice _ProfileService;
     [Inject] readonly FactoryService _FactoryService;
 
-    readonly public IAPManager _IAPManager = new();
+    [Inject] readonly IAPManager _IAPManager;
+    [Inject] readonly AdsManager _AdsManager;
+    [Inject] readonly AdsSettingSO _AdsSettingSO;
 
     public async UniTask StartAsync(CancellationToken cancellation = default)
     {
@@ -32,6 +34,9 @@ public class GameManager : IAsyncStartable, IDisposable
 
         _IAPManager.OnFetchProduct += OnFetchProduct;
         await _IAPManager.ConnectAsync().AsUniTask().AttachExternalCancellation(cancellation);
+
+        if (_AdsManager != null && _AdsSettingSO != null)
+            _AdsManager.Init(_AdsSettingSO);
     }
 
     private void OnFetchProduct(StoreController store)

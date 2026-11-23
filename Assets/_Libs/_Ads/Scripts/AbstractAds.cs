@@ -1,69 +1,73 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public interface IAdvertise
+
+namespace AdsLib
 {
-    // void LoadAd(string adUnitId);
-    void Show(string reward = "empty");
-}
-
-// Interstitial & Rewarded
-public class Advertise : IAdvertise
-, IUnityAdsLoadListener
-, IUnityAdsShowListener
-{
-    private readonly string AdUnitId;
-    readonly bool IsDebug = false;
-    string _reward;
-
-    public Advertise(string adUnitId, bool isDebug = false)
+    public interface IAdvertise
     {
-        AdUnitId = adUnitId;
-        IsDebug = isDebug;
-        Advertisement.Load(AdUnitId, this);
+        // void LoadAd(string adUnitId);
+        void Show(string reward = "empty");
     }
 
-    public void Show(string reward = "empty")
+    // Interstitial & Rewarded
+    public class Advertise : IAdvertise
+    , IUnityAdsLoadListener
+    , IUnityAdsShowListener
     {
-        _reward = reward;
-        Advertisement.Show(AdUnitId, this);
-    }
+        private readonly string AdUnitId;
+        readonly bool IsDebug = false;
+        string _reward;
 
-    public void OnUnityAdsAdLoaded(string placementId)
-    {
-        if (IsDebug) Debug.Log($"OnUnityAdsAdLoaded: {placementId}");
-    }
-    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
-    {
-        if (IsDebug) Debug.Log($"OnUnityAdsFailedToLoad: {placementId} - {message}");
-    }
-
-    public void OnUnityAdsShowClick(string placementId)
-    {
-        if (IsDebug) Debug.Log($"OnUnityAdsShowClick: {placementId}");
-        AdsEvent.ShowAdsClick?.Invoke(placementId);
-    }
-
-    public virtual void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
-    {
-        if (placementId.Equals(AdUnitId) && showCompletionState == UnityAdsShowCompletionState.COMPLETED)
+        public Advertise(string adUnitId, bool isDebug = false)
         {
-            if (IsDebug) Debug.Log($" {placementId} Payouts to players here");
+            AdUnitId = adUnitId;
+            IsDebug = isDebug;
+            Advertisement.Load(AdUnitId, this);
+        }
 
-            AdsEvent.GiveAdsReward?.Invoke(_reward);
+        public void Show(string reward = "empty")
+        {
+            _reward = reward;
+            Advertisement.Show(AdUnitId, this);
+        }
+
+        public void OnUnityAdsAdLoaded(string placementId)
+        {
+            if (IsDebug) Debug.Log($"OnUnityAdsAdLoaded: {placementId}");
+        }
+        public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+        {
+            if (IsDebug) Debug.Log($"OnUnityAdsFailedToLoad: {placementId} - {message}");
+        }
+
+        public void OnUnityAdsShowClick(string placementId)
+        {
+            if (IsDebug) Debug.Log($"OnUnityAdsShowClick: {placementId}");
+            AdsEvent.ShowAdsClick?.Invoke(placementId);
+        }
+
+        public virtual void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+        {
+            if (placementId.Equals(AdUnitId) && showCompletionState == UnityAdsShowCompletionState.COMPLETED)
+            {
+                if (IsDebug) Debug.Log($" {placementId} Payouts to players here");
+
+                AdsEvent.GiveAdsReward?.Invoke(_reward);
+            }
+        }
+
+        public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+        {
+            if (IsDebug) Debug.Log($"OnUnityAdsShowFailure: {placementId}");
+            AdsEvent.ShowAdsFailure?.Invoke(placementId);
+        }
+
+        public void OnUnityAdsShowStart(string placementId)
+        {
+            if (IsDebug) Debug.Log($"OnUnityAdsShowStart: {placementId}");
+            AdsEvent.ShowAdsStart?.Invoke(placementId);
         }
     }
 
-    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
-    {
-        if (IsDebug) Debug.Log($"OnUnityAdsShowFailure: {placementId}");
-        AdsEvent.ShowAdsFailure?.Invoke(placementId);
-    }
-
-    public void OnUnityAdsShowStart(string placementId)
-    {
-        if (IsDebug) Debug.Log($"OnUnityAdsShowStart: {placementId}");
-        AdsEvent.ShowAdsStart?.Invoke(placementId);
-    }
 }
-

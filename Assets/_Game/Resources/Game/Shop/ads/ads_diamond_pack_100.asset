@@ -20,4 +20,4 @@ MonoBehaviour:
     Gold: 0
   Rewards:
   - Item: {fileID: 11400000, guid: 42db6ff78ce0b46ad932f9104e1f1084, type: 2}
-    Value: 0
+    Value: 200

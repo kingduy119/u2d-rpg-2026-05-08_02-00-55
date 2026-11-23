@@ -1,62 +1,66 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public interface IBanner
+
+namespace AdsLib
 {
-    void Hide();
-    void Show();
-}
-public class Banner : IBanner
-{
-    bool IsLoaded;
-    private string _BannerAdUnitId;
-    private BannerPosition _bannerPosition;
-    public Banner(BannerPosition position, string bannerAdUnitId)
+    public interface IBanner
     {
-        _bannerPosition = position;
-        _BannerAdUnitId = bannerAdUnitId;
-        Advertisement.Banner.SetPosition(_bannerPosition);
-
-        // Set up options to notify the SDK of load events:
-        BannerLoadOptions options = new()
+        void Hide();
+        void Show();
+    }
+    public class Banner : IBanner
+    {
+        bool IsLoaded;
+        private string _BannerAdUnitId;
+        private BannerPosition _bannerPosition;
+        public Banner(BannerPosition position, string bannerAdUnitId)
         {
-            loadCallback = OnBannerLoaded,
-            errorCallback = OnBannerError
-        };
-        Advertisement.Banner.Load(_BannerAdUnitId, options);
-    }
+            _bannerPosition = position;
+            _BannerAdUnitId = bannerAdUnitId;
+            Advertisement.Banner.SetPosition(_bannerPosition);
 
-    public void Hide() => Advertisement.Banner.Hide();
-    public void Show() { if (IsLoaded) ShowBannerAd(); }
+            // Set up options to notify the SDK of load events:
+            BannerLoadOptions options = new()
+            {
+                loadCallback = OnBannerLoaded,
+                errorCallback = OnBannerError
+            };
+            Advertisement.Banner.Load(_BannerAdUnitId, options);
+        }
 
-    void OnBannerLoaded()
-    {
-        IsLoaded = true;
-        // Debug.Log($"Banner Ad Loaded: {_BannerAdUnitId}");
-    }
-    void OnBannerError(string message)
-    {
-        IsLoaded = false;
-        Debug.LogError($"Banner Ad Failed to Load: {_BannerAdUnitId} - {message}");
-    }
+        public void Hide() => Advertisement.Banner.Hide();
+        public void Show() { if (IsLoaded) ShowBannerAd(); }
 
-    void ShowBannerAd()
-    {
-        // Set up options to notify the SDK of show events:
-        BannerOptions options = new()
+        void OnBannerLoaded()
         {
-            clickCallback = OnBannerClicked,
-            hideCallback = OnBannerHidden,
-            showCallback = OnBannerShown
-        };
+            IsLoaded = true;
+            // Debug.Log($"Banner Ad Loaded: {_BannerAdUnitId}");
+        }
+        void OnBannerError(string message)
+        {
+            IsLoaded = false;
+            Debug.LogError($"Banner Ad Failed to Load: {_BannerAdUnitId} - {message}");
+        }
 
-        // Show the loaded Banner Ad Unit:
-        Advertisement.Banner.Show(_BannerAdUnitId, options);
+        void ShowBannerAd()
+        {
+            // Set up options to notify the SDK of show events:
+            BannerOptions options = new()
+            {
+                clickCallback = OnBannerClicked,
+                hideCallback = OnBannerHidden,
+                showCallback = OnBannerShown
+            };
+
+            // Show the loaded Banner Ad Unit:
+            Advertisement.Banner.Show(_BannerAdUnitId, options);
+        }
+
+        // Implement a method to call when the Hide Banner button is clicked:
+        void OnBannerClicked() { Debug.Log("OnBannerClicked"); }
+        void OnBannerShown() { Debug.Log("OnBannerShown"); }
+        void OnBannerHidden() { Debug.Log("OnBannerHidden"); }
     }
 
-    // Implement a method to call when the Hide Banner button is clicked:
-    void OnBannerClicked() { Debug.Log("OnBannerClicked"); }
-    void OnBannerShown() { Debug.Log("OnBannerShown"); }
-    void OnBannerHidden() { Debug.Log("OnBannerHidden"); }
 }
-

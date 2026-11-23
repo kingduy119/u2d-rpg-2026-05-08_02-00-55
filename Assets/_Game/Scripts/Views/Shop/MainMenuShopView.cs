@@ -14,7 +14,6 @@ public class MainMenuShopView : MonoBehaviour
 
     void Start()
     {
-        // ShopEvents.ShopItemSelect += OnShopItemSelect;
         ClearShopItems();
         FillShopItems();
     }

@@ -35,11 +35,22 @@ namespace InventoryLib
         {
             for (int i = 0; i < datas.Length; i++)
             {
+                // AddSlot(datas[i]);
                 var slot = GetEmptySlot();
                 var dto = MapDtos.ContainsKey(datas[i].Id) ? MapDtos[datas[i].Id] : null;
 
                 if (slot) slot.SetData(datas[i], dto);
             }
+        }
+
+        public void AddSlot(InventoryData data)
+        {
+            if (data == null) return;
+
+            var slot = GetEmptySlot();
+            var dto = MapDtos.ContainsKey(data.Id) ? MapDtos[data.Id] : null;
+
+            if (slot) slot.SetData(data, dto);
         }
 
         private InventorySlotView GetEmptySlot()

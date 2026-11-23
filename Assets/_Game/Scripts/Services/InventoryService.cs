@@ -3,23 +3,36 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Core;
 using Cysharp.Threading.Tasks;
 using InventoryLib;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public interface IInventoryService
-{
-    // UniTask<InventoryData> LoadInventory(string playerId);
-}
+// public interface IInventoryService
+// {
+//     // UniTask<InventoryData> LoadInventory(string playerId);
+// }
 
 public class InventoryService : InventoryDB, IAsyncStartable
 {
+    [Inject] readonly InventoryView _InventoryView;
+
     public async UniTask StartAsync(CancellationToken cancellation = default)
     {
         // var playerId = m_ProfileService.User.UserId;
         // Data = await LoadInventory(playerId).AttachExternalCancellation(cancellation);
+    }
+
+    public void AddItem(RewardItem reward)
+    {
+        Debug.Log($"AddItem: {reward.Item.Id}, Amount: {reward.Value}");
+        _InventoryView.AddSlot(new InventoryData
+        {
+            Id = reward.Item.Id,
+            Stack = reward.Value
+        });
     }
 }
 

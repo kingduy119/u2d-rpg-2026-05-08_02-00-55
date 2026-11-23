@@ -25,12 +25,10 @@ public class ProfileSerice : Service
     public override void Start()
     {
         ButtonEvents.ConfirmChangeNickname += ConfirmChangeNickname;
-        ShopEvents.OnPurchase += PurchaseItem;
     }
     public override void Dispose()
     {
         ButtonEvents.ConfirmChangeNickname -= ConfirmChangeNickname;
-        ShopEvents.OnPurchase -= PurchaseItem;
     }
 
     public async UniTaskVoid LoadUserAsync(string PlayerId)
@@ -69,7 +67,7 @@ public class ProfileSerice : Service
         m_DBService.SaveUserResourceAsync(User, UserResource).Forget();
     }
 
-    public void PurchaseItem(ShopItemDto item)
+    public void PurchaseItem(ShopItemDto item, Action<List<RewardItem>> onSuccess = null, Action onFailure = null)
     {
         if (item == null || item.PurchaseResource == null) return;
 
@@ -79,7 +77,8 @@ public class ProfileSerice : Service
             return;
         }
         UserResource -= item.PurchaseResource;
-        ClaimRewards(item.Rewards);
+        // ClaimRewards(item.Rewards);
+        onSuccess?.Invoke(item.Rewards);
     }
 
     private void ConfirmChangeNickname(string nickname)
