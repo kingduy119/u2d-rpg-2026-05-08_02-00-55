@@ -51,9 +51,7 @@ public class MainMenuController : Service
     private async UniTask TestInventoryLoad()
     {
 
-        await UniTask.WaitUntil(
-            () => _ProfileSerice.User != null
-            );
+        await UniTask.WaitUntil(() => _ProfileSerice.User != null);
 
         var playerId = _ProfileSerice.User.UserId;
 

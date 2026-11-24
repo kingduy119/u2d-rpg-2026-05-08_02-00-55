@@ -20,6 +20,6 @@ MonoBehaviour:
     Gold: 0
   Rewards:
   - Item: {fileID: 11400000, guid: f7d59410a4b0a48c196018c96fc46e04, type: 2}
-    Value: 1000
+    Value: 1
   PurchaseDTO: {fileID: 11400000, guid: 42db6ff78ce0b46ad932f9104e1f1084, type: 2}
   PurchaseText: 50

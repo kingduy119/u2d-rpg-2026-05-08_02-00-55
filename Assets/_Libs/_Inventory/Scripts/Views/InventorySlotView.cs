@@ -15,7 +15,7 @@ namespace InventoryLib
 
         [Header("Item Settings")]
         public ItemDto m_ItemDto;
-        public InventoryData m_InventoryData;
+        public InventoryData m_SlotData;
 
         void OnValidate()
         {
@@ -31,7 +31,7 @@ namespace InventoryLib
 
         public void SetData(InventoryData data, ItemDto dto)
         {
-            m_InventoryData = data;
+            m_SlotData = data;
             UpdateView(dto);
         }
 
@@ -44,13 +44,13 @@ namespace InventoryLib
 
             m_ItemDto = dto;
             if (_icon) _icon.sprite = dto.Icon;
-            if (_stackText) _stackText.text = $"{m_InventoryData.Stack}";
+            if (_stackText) _stackText.text = $"{m_SlotData.Stack}";
         }
 
         public void Clear()
         {
             m_ItemDto = null;
-            m_InventoryData = null;
+            m_SlotData = null;
             UpdateView(null);
         }
     }

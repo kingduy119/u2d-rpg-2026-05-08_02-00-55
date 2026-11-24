@@ -67,7 +67,10 @@ public class ProfileSerice : Service
         m_DBService.SaveUserResourceAsync(User, UserResource).Forget();
     }
 
-    public void PurchaseItem(ShopItemDto item, Action<List<RewardItem>> onSuccess = null, Action onFailure = null)
+    public void PurchaseItem(
+        ShopItemDto item,
+        Action<List<RewardItem>> onSuccess = null,
+        Action onFailure = null)
     {
         if (item == null || item.PurchaseResource == null) return;
 
@@ -77,6 +80,7 @@ public class ProfileSerice : Service
             return;
         }
         UserResource -= item.PurchaseResource;
+        OnChange?.Invoke(this);
         // ClaimRewards(item.Rewards);
         onSuccess?.Invoke(item.Rewards);
     }

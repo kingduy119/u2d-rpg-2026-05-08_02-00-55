@@ -15,28 +15,27 @@ using VContainer.Unity;
 //     // UniTask<InventoryData> LoadInventory(string playerId);
 // }
 
-public class InventoryService : InventoryDB, IAsyncStartable
+public class InventoryService : InventoryDB
 {
     [Inject] readonly InventoryView _InventoryView;
 
-    public async UniTask StartAsync(CancellationToken cancellation = default)
+    public void AddItem(UserData user, RewardItem reward)
     {
-        // var playerId = m_ProfileService.User.UserId;
-        // Data = await LoadInventory(playerId).AttachExternalCancellation(cancellation);
-    }
+        if (_InventoryView == null) return;
 
-    public void AddItem(RewardItem reward)
-    {
         Debug.Log($"AddItem: {reward.Item.Id}, Amount: {reward.Value}");
-        _InventoryView.AddSlot(new InventoryData
+        var data = new InventoryData
         {
             Id = reward.Item.Id,
             Stack = reward.Value
-        });
+        };
+        Data.Add(data);
+        SaveInventory(
+            user.UserId, new ListInventoryData { Datas = Data.ToArray() },
+            onSuccess: () => _InventoryView.AddSlot(data)
+        ).Forget();
     }
 }
-
-
 
 public class InventoryDB : Service
 {
@@ -56,8 +55,12 @@ public class InventoryDB : Service
 
     }, name: "LoadInventory");
 
-    public UniTask<bool> SaveInventory(string playerId, ListInventoryData inventory, Action onSuccess = null) =>
-        m_DBService.Run(action: () => m_DBService.db.Child("user-inventories").Child(playerId)
+    public UniTask<bool> SaveInventory(
+        string playerId,
+        ListInventoryData inventory,
+        Action onSuccess = null) =>
+        m_DBService
+            .Run(action: () => m_DBService.db.Child("user-inventories").Child(playerId)
             .SetRawJsonValueAsync(JsonUtility.ToJson(inventory))
             .AsUniTask(),
             name: "SaveInventory",

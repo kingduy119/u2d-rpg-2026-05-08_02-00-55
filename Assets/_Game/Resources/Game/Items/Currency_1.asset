@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Currency_1
   m_EditorClassIdentifier: Assembly-CSharp::Core.ItemDto
   Id: Currency_1
-  Type: 2
+  Type: 3
   Icon: {fileID: 251218613090571758, guid: 4f4169d23e074459b84957dbd4b1c6f1, type: 3}
   MaxStack: 0

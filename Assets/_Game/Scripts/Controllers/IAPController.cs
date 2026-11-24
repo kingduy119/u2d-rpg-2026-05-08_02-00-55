@@ -74,8 +74,7 @@ public class IAPController : Service
         switch (reward.Item.Type)
         {
             case ItemType.Weapon:
-                // _ProfileSerice.UserResource.Add(reward);
-                _InventoryService.AddItem(reward);
+                _InventoryService.AddItem(_ProfileSerice.User, reward);
                 break;
             case ItemType.Gold:
                 _ProfileSerice.UserResource.Add(reward);
@@ -100,3 +99,4 @@ public class IAPController : Service
         }
     }
 }
+

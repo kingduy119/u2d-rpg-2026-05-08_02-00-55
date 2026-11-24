@@ -34,7 +34,6 @@ namespace IAPLib
 
         public void BuyProduct(string productId)
         {
-            Debug.Log($"BuyProduct: {productId}");
             if (!string.IsNullOrEmpty(productId))
             {
                 _StoreController.PurchaseProduct(productId);

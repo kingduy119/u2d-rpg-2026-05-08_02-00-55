@@ -16,7 +16,7 @@ MonoBehaviour:
   ItemName: iap_diamon_pack_1k
   ItemDesc: 500
   PurchaseResource:
-    Diamond: 0
+    Diamond: 50
     Gold: 0
   Rewards:
   - Item: {fileID: 11400000, guid: 7829513df9f3c4141aa976ace737d766, type: 2}
