@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 namespace InventoryLib
 {
-    public class InventorySlotView : MonoBehaviour
+    public class InventorySlotView : ButtonView
     {
         [SerializeField] Image _icon;
+        [SerializeField] Image _selectedIcon;
         [SerializeField] GameObject _stackTextContainer;
         [SerializeField] TMP_Text _stackText;
 
@@ -20,11 +21,6 @@ namespace InventoryLib
         void OnValidate()
         {
             UpdateView(m_ItemDto);
-        }
-
-        void Awake()
-        {
-            Clear();
         }
 
         public bool Empty => m_ItemDto == null;
@@ -39,6 +35,8 @@ namespace InventoryLib
         {
             bool hasDto = dto != null;
             if (_icon) _icon.gameObject.SetActive(hasDto);
+            if (_selectedIcon) _selectedIcon.gameObject.SetActive(false);
+
             if (_stackTextContainer) _stackTextContainer.gameObject.SetActive(hasDto);
             if (!hasDto) return;
 
@@ -52,6 +50,20 @@ namespace InventoryLib
             m_ItemDto = null;
             m_SlotData = null;
             UpdateView(null);
+        }
+
+        protected override void HandleClick()
+        {
+            ButtonEvents.InventorySlotClick?.Invoke(this);
+        }
+
+        public override void Selected()
+        {
+            if (_selectedIcon) _selectedIcon.gameObject.SetActive(true);
+        }
+        public override void UnSelected()
+        {
+            if (_selectedIcon) _selectedIcon.gameObject.SetActive(false);
         }
     }
 

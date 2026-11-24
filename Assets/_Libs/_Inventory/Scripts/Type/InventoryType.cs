@@ -1,8 +1,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace InventoryLib
 {
@@ -19,16 +17,4 @@ namespace InventoryLib
     {
         public InventoryData[] Datas;
     }
-
-    // [CreateAssetMenu(fileName = "ItemDto", menuName = "Inventory/ItemDto")]
-    // public class ItemDto : ScriptableObject
-    // {
-    //     public string Id;
-    //     public ItemType Type;
-    //     public Sprite Icon;
-
-    //     [Header("Stack")]
-    //     public int MaxStack;
-    // }
-
 }

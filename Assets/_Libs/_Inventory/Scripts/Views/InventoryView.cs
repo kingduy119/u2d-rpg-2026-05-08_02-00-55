@@ -2,44 +2,72 @@
 
 using System.Collections.Generic;
 using Core;
+using TMPro;
 using UnityEngine;
 
 namespace InventoryLib
 {
     public class InventoryView : MonoBehaviour
     {
+        [SerializeField] TMP_Text _StackText;
         [SerializeField] InventorySlotView[] _slots;
         public ItemDto[] Dtos;
-        // public InventoryData[] Datas;
-        // public List<InventoryData> DatasList => new(Datas);
 
         readonly Dictionary<string, ItemDto> MapDtos = new();
+        private InventoryData[] _datas;
 
-        void Start()
+        public void SetData(InventoryData[] datas)
+        {
+            _datas = datas;
+        }
+
+        void Awake()
         {
             foreach (var dto in Dtos)
             {
                 if (dto != null) MapDtos.Add(dto.Id, dto);
             }
+            ClearSlots();
+        }
 
-            // for (int i = 0; i < Datas.Length; i++)
-            // {
-            //     var slot = _slots[i];
-            //     var dto = MapDtos.ContainsKey(Datas[i].Id) ? MapDtos[Datas[i].Id] : null;
+        void OnEnable()
+        {
+            if (_datas != null) FillSlots(_datas);
+            if (_StackText) _StackText.text = $"{_datas?.Length ?? 0}/{_slots.Length}";
 
-            //     if (slot) slot.SetData(Datas[i], dto);
-            // }
+
+            ButtonEvents.InventorySlotClick += OnInventorySlotClick;
+        }
+        void OnDisable()
+        {
+            ClearSlots();
+
+            ButtonEvents.InventorySlotClick += OnInventorySlotClick;
+        }
+
+
+        ButtonView prevItem;
+        private void OnInventorySlotClick(ButtonView buttonView)
+        {
+            if (prevItem != null) prevItem.UnSelected();
+
+            buttonView.Selected();
+            prevItem = buttonView;
+        }
+
+        private void ClearSlots()
+        {
+            foreach (var slot in _slots)
+            {
+                slot.Clear();
+            }
         }
 
         public void FillSlots(InventoryData[] datas)
         {
             for (int i = 0; i < datas.Length; i++)
             {
-                // AddSlot(datas[i]);
-                var slot = GetEmptySlot();
-                var dto = MapDtos.ContainsKey(datas[i].Id) ? MapDtos[datas[i].Id] : null;
-
-                if (slot) slot.SetData(datas[i], dto);
+                AddSlot(datas[i]);
             }
         }
 

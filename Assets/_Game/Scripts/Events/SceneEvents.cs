@@ -27,6 +27,7 @@ public static class SceneEvents
 public static class ButtonEvents
 {
     public static Action<BottomBarView> BottomBarClick;
+    public static Action<ButtonView> InventorySlotClick;
 
     public static Action<ButtonView, CharacterSO> SelectByCharacterSO;
 

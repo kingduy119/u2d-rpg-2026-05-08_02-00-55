@@ -10,11 +10,6 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-// public interface IInventoryService
-// {
-//     // UniTask<InventoryData> LoadInventory(string playerId);
-// }
-
 public class InventoryService : InventoryDB
 {
     [Inject] readonly InventoryView _InventoryView;
@@ -23,7 +18,6 @@ public class InventoryService : InventoryDB
     {
         if (_InventoryView == null) return;
 
-        Debug.Log($"AddItem: {reward.Item.Id}, Amount: {reward.Value}");
         var data = new InventoryData
         {
             Id = reward.Item.Id,
@@ -32,8 +26,18 @@ public class InventoryService : InventoryDB
         Data.Add(data);
         SaveInventory(
             user.UserId, new ListInventoryData { Datas = Data.ToArray() },
-            onSuccess: () => _InventoryView.AddSlot(data)
+            onSuccess: () => _InventoryView.SetData(Data.ToArray())
         ).Forget();
+    }
+
+    public async UniTask Load(string userId)
+    {
+        var data = await LoadInventory(userId);
+
+        if (data != null) Data = new(data.Datas);
+        else Data = new();
+
+        _InventoryView.SetData(Data.ToArray());
     }
 }
 
@@ -42,7 +46,7 @@ public class InventoryDB : Service
     [Inject] readonly protected DBService m_DBService;
     [Inject] readonly protected ProfileSerice m_ProfileService;
 
-    public List<InventoryData> Data { get; private set; } = new();
+    public List<InventoryData> Data { get; protected set; }
 
     public UniTask<ListInventoryData> LoadInventory(string playerId) =>
     m_DBService.Run(action: async () =>
